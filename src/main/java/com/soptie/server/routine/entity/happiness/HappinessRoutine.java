@@ -21,6 +21,7 @@ public class HappinessRoutine {
 	@Enumerated(value = EnumType.STRING)
 	private HappinessTheme theme;
 
+	@Column(nullable = false)
 	private String title;
 
 	private String imageUrl;

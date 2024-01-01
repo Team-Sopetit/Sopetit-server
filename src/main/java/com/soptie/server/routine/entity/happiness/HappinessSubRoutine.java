@@ -20,8 +20,10 @@ public class HappinessSubRoutine {
 	@Column(name = "sub_routine_id")
 	private Long id;
 
+	@Column(nullable = false)
 	private String content;
 
+	@Column(columnDefinition = "TEXT")
 	private String detailContent;
 
 	@ManyToOne

@@ -8,7 +8,6 @@ import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.MemberHappinessRoutine;
-import com.soptie.server.routine.entity.daily.DailyTheme;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -21,10 +20,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Member extends BaseTime {
 
 	@Id
@@ -42,7 +43,7 @@ public class Member extends BaseTime {
 
 	@Column(columnDefinition = "TEXT", nullable = false)
 	@Convert(converter = StringListConverter.class)
-	private List<DailyTheme> themes;
+	private List<String> themes;
 
 	@OneToOne
 	@JoinColumn(name = "doll_id")
@@ -54,4 +55,12 @@ public class Member extends BaseTime {
 	@OneToOne
 	@JoinColumn(name = "happiness_routine_id")
 	private MemberHappinessRoutine happinessRoutine;
+
+	public void initHappinessRoutine() {
+		this.happinessRoutine = null;
+	}
+
+	public void addHappinessRoutine(MemberHappinessRoutine happinessRoutine) {
+		this.happinessRoutine = happinessRoutine;
+	}
 }

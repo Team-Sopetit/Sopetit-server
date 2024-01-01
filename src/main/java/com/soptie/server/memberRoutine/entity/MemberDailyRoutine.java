@@ -1,5 +1,7 @@
 package com.soptie.server.memberRoutine.entity;
 
+import java.util.Objects;
+
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 
@@ -33,4 +35,19 @@ public class MemberDailyRoutine {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "routine_id")
 	private DailyRoutine routine;
+
+	public MemberDailyRoutine(Member member, DailyRoutine routine) {
+		this.achieveCount = 0;
+		this.isAchieve = false;
+		setMember(member);
+		this.routine = routine;
+	}
+
+	private void setMember(Member member) {
+		if (Objects.nonNull(this.member)) {
+			this.member.getDailyRoutines().remove(this);
+		}
+		this.member = member;
+		member.getDailyRoutines().add(this);
+	}
 }
