@@ -43,7 +43,7 @@
 
 ### **💻 Github mangement**
 
-**해라** 들의 WorkFlow : **Gitflow Workflow**
+**소프티** 들의 WorkFlow : **Gitflow Workflow**
 
 - Develop, Feature, Hotfix 브랜치
 
