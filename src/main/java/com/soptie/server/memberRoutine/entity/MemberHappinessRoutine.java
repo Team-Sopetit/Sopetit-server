@@ -1,5 +1,7 @@
 package com.soptie.server.memberRoutine.entity;
 
+import java.util.Objects;
+
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 
@@ -29,4 +31,17 @@ public class MemberHappinessRoutine {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "routine_id")
 	private HappinessSubRoutine routine;
+
+	public MemberHappinessRoutine(Member member, HappinessSubRoutine routine) {
+		setMember(member);
+		this.routine = routine;
+	}
+
+	private void setMember(Member member) {
+		if (Objects.nonNull(this.member)) {
+			this.member.initHappinessRoutine();
+		}
+		this.member = member;
+		member.addHappinessRoutine(this);
+	}
 }
