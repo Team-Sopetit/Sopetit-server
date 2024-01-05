@@ -3,14 +3,13 @@ package com.soptie.server.member.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.soptie.server.common.converter.StringListConverter;
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.MemberHappinessRoutine;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -39,11 +38,8 @@ public class Member extends BaseTime {
 
 	private String refreshToken;
 
-	private int feedCount;
-
-	@Column(columnDefinition = "TEXT", nullable = false)
-	@Convert(converter = StringListConverter.class)
-	private List<String> themes;
+	@Embedded
+	private Cotton cottonInfo;
 
 	@OneToOne
 	@JoinColumn(name = "doll_id")
