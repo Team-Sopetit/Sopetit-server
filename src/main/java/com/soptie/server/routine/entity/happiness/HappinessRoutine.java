@@ -24,5 +24,7 @@ public class HappinessRoutine {
 	@Column(nullable = false)
 	private String title;
 
-	private String imageUrl;
+	private String iconImageUrl;
+
+	private String contentImageUrl;
 }
