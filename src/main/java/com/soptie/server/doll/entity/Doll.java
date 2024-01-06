@@ -1,6 +1,7 @@
 package com.soptie.server.doll.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,8 +19,9 @@ public class Doll {
 	@Column(name = "doll_id")
 	private Long id;
 
-	private String imageUrl;
-
 	@Enumerated(value = EnumType.STRING)
 	private DollType type;
+
+	@Embedded
+	private DollImage imageInfo;
 }

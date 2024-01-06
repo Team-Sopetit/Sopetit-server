@@ -1,6 +1,7 @@
 package com.soptie.server.routine.entity.daily;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,6 +24,9 @@ public class DailyRoutine {
 
 	@Column(nullable = false)
 	private String content;
+
+	@Embedded
+	private RoutineImage imageInfo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theme_id")

@@ -26,7 +26,7 @@ public class MemberDoll extends BaseTime {
 
 	private String name;
 
-	private int feedCount;
+	private int happinessCottonCount;
 
 	@OneToOne(mappedBy = "memberDoll")
 	private Member member;

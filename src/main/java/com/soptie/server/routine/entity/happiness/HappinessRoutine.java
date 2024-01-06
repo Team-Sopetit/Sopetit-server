@@ -1,6 +1,7 @@
 package com.soptie.server.routine.entity.happiness;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -24,7 +25,6 @@ public class HappinessRoutine {
 	@Column(nullable = false)
 	private String title;
 
-	private String iconImageUrl;
-
-	private String contentImageUrl;
+	@Embedded
+	private RoutineImage imageInfo;
 }

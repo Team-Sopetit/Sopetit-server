@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.entity;
+package com.soptie.server.memberRoutine.entity.happiness;
 
 import java.util.Objects;
 

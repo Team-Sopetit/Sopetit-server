@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.memberDoll.entity.MemberDoll;
-import com.soptie.server.memberRoutine.entity.MemberDailyRoutine;
-import com.soptie.server.memberRoutine.entity.MemberHappinessRoutine;
+import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
