@@ -8,4 +8,6 @@ public class DollImage {
 	private String faceImageUrl;
 
 	private String attentionImageUrl;
+
+	private String frameImageUrl;
 }

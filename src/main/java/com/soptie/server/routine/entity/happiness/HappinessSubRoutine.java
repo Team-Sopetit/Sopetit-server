@@ -26,6 +26,10 @@ public class HappinessSubRoutine {
 	@Column(columnDefinition = "TEXT")
 	private String detailContent;
 
+	private String timeTaken;
+
+	private String place;
+
 	@ManyToOne
 	@JoinColumn(name = "routine_id")
 	private HappinessRoutine routine;
