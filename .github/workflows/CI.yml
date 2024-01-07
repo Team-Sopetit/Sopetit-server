@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     env:
-      working-directory: src
+      working-directory: ./
 
     steps:
       - name: 체크아웃
