@@ -22,6 +22,7 @@ jobs:
 
       - name: application.yaml 생성
         run: |
+          mkdir src/main/resources
           cd src/main/resources
           echo "${{ secrets.APPLICATION }}" > ./application.yaml
         working-directory: ${{ env.working-directory }}
