@@ -1,6 +1,8 @@
 ### ✈ API 명세서
 
 ### 📑 Architecture
+![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/51d9f1cd-a0d7-4d13-8253-f2c82744d3a3)
+
 
 ### 📖 Directory
 
