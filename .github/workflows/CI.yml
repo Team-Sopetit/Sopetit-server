@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
 
       - name: application.yaml 생성
-        run:
+        run: |
           cd src/main/resources
           echo "${{ secrets.APPLICATION }}" > ./application.yaml
         working-directory: ${{ env.working-directory }}
