@@ -1,18 +1,12 @@
 import org.hidetake.gradle.swagger.generator.GenerateSwaggerUI
 
-buildscript {
-    ext {
-        restdocsApiSpecVersion = "0.18.2"
-    }
-}
-
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.1'
     id 'io.spring.dependency-management' version '1.1.4'
 
     // restdocs-swagger
-    id 'com.epages.restdocs-api-spec' version "${restdocsApiSpecVersion}"
+    id 'com.epages.restdocs-api-spec' version '0.18.2'
     id 'org.hidetake.swagger.generator' version '2.18.2'
 }
 
@@ -20,14 +14,6 @@ swaggerSources {
     sample {
         setInputFile(file("${project.buildDir}/api-spec/openapi3.yaml"))
     }
-}
-
-openapi3 {
-    server('http://localhost:8080')
-    title = 'API Documentation'
-    description = 'Spring REST Docs with SwaggerUI.'
-    version = '0.0.1'
-    format = 'yaml'
 }
 
 group = 'com.soptie'
@@ -62,7 +48,7 @@ dependencies {
 
     // restdocs-swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-    testImplementation "com.epages:restdocs-api-spec-mockmvc:${restdocsApiSpecVersion}"
+    testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.18.2'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 

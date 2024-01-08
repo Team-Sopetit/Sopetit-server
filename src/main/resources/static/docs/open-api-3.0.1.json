@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "smeme api documentation",
-    "description" : "Spring REST Docs with SwaggerUI.",
+    "title" : "소프티 API",
+    "description" : "소프티 API 명세서",
     "version" : "0.0.1"
   },
   "servers" : [ {

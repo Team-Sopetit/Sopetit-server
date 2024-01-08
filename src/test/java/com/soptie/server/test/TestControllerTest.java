@@ -53,6 +53,7 @@ public class TestControllerTest extends BaseControllerTest {
 							.requestFields()
 							.responseFields()
 							.build())))
-			.andExpect(MockMvcResultMatchers.status().isOk());
+			.andExpect(
+				MockMvcResultMatchers.status().isOk());
 	}
 }
