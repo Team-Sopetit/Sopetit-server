@@ -1,3 +1,12 @@
+---
+name: Issue Template
+about: Sopetit Issue Template
+title: ""
+labels: ''
+assignees: ''
+
+---
+
 [comment]: <> (priority 와 task size를 뱃지로 정해주세요)
 
 **📌 상세 설명**
