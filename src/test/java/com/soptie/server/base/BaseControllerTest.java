@@ -26,7 +26,6 @@ public abstract class BaseControllerTest {
 	protected WebApplicationContext context;
 	@Autowired
 	protected ObjectMapper objectMapper;
-
 	protected MockMvc mockMvc;
 
 
