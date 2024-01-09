@@ -20,7 +20,7 @@ public class Doll {
 	private Long id;
 
 	@Enumerated(value = EnumType.STRING)
-	private DollType type;
+	private DollType dollType;
 
 	@Embedded
 	private DollImage imageInfo;
