@@ -21,11 +21,13 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 	private final DailyThemeRepository dailyThemeRepository;
 	private final DailyRoutineRepository dailyRoutineRepository;
 
+	@Override
 	public DailyThemesResponse getThemes() {
 		val themes = dailyThemeRepository.findAllOrderByNameAsc();
 		return DailyThemesResponse.of(themes);
 	}
 
+	@Override
 	public DailyRoutinesResponse getRoutinesByThemes(String themes) {
 		val themeIds = getThemeIds(themes);
 		val routines = dailyRoutineRepository.findAllByThemes(themeIds);
