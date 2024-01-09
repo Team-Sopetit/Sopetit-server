@@ -35,40 +35,6 @@
         }
       }
     },
-    "/api/v1/dolls/image/{type}" : {
-      "get" : {
-        "tags" : [ "DOLL" ],
-        "summary" : "인형 이미지 조회",
-        "description" : "인형 이미지 조회",
-        "operationId" : "get-doll-image-docs",
-        "parameters" : [ {
-          "name" : "type",
-          "in" : "path",
-          "description" : "인형 타입",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "200",
-            "content" : {
-              "application/json;charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-dolls-image-type-1785135499"
-                },
-                "examples" : {
-                  "get-doll-image-docs" : {
-                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"인형 이미지 조회 성공\",\n  \"data\" : {\n    \"faceImageUrl\" : \"face-image-url\"\n  }\n}"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/routines/daily/themes" : {
       "get" : {
         "tags" : [ "DAILY ROUTINE" ],
@@ -197,29 +163,6 @@
                     }
                   }
                 }
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
-      },
-      "api-v1-dolls-image-type-1785135499" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "faceImageUrl" : {
-                "type" : "string",
-                "description" : "인형 얼굴 이미지 url"
               }
             },
             "description" : "응답 데이터"
