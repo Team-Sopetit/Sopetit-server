@@ -45,7 +45,7 @@ jobs:
       - name: Upload to AWS S3
         run: |
           aws deploy push \
-            --application-name ${{ secrets.AWS_BUCKET_NAME }} \
+            --application-name sopetit-codedeploy \
             --ignore-hidden-files \
             --s3-location s3://${{ secrets.AWS_BUCKET_NAME }}/$GITHUB_SHA.zip \
             --source .
