@@ -22,6 +22,7 @@ public class DailyRoutineRepositoryImpl implements DailyRoutineCustomRepository 
 		return queryFactory
 			.selectFrom(dailyRoutine)
 			.where(dailyRoutine.theme.id.in(themeIds))
+			.orderBy(dailyRoutine.content.asc())
 			.fetch();
 	}
 }
