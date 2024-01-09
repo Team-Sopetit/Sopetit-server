@@ -25,9 +25,6 @@ public class DailyRoutine {
 	@Column(nullable = false)
 	private String content;
 
-	@Embedded
-	private RoutineImage imageInfo;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theme_id")
 	private DailyTheme theme;

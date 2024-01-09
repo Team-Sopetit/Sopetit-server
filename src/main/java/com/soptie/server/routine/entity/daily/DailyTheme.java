@@ -1,14 +1,17 @@
 package com.soptie.server.routine.entity.daily;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class DailyTheme {
 
 	@Id
@@ -19,5 +22,6 @@ public class DailyTheme {
 	@Column(nullable = false)
 	private String name;
 
-	private String imageUrl;
+	@Embedded
+	private RoutineImage imageInfo;
 }
