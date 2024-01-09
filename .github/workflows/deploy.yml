@@ -1,7 +1,7 @@
 name: deploy
 
 on:
-  push:
+  pull_request:
     branches: [ develop ]
 
 jobs:
@@ -27,12 +27,12 @@ jobs:
         run: ./gradlew build
         shell: bash
 
-      - name: Create application-secret.yml
+      - name: application.yaml 생성
         run: |
-            pwd
-            touch src/main/resources/application-secret.yml
-            echo "${{ secrets.APPLICATION_SECRET_YML }}" >> src/main/resources/application-secret.yml
-            cat src/main/resources/application-secret.yml
+          cd src/main/resources
+          echo "${{ secrets.APPLICATION_SECRET_YML }}" > ./application-secret.yml
+        working-directory: ${{ env.working-directory }}
+
       ## 추가 ##
 
       - name: Make zip file
