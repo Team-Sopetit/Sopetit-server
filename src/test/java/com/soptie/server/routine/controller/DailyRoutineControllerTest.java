@@ -87,7 +87,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 		queries.add("themes", themes);
 
 		// when
-		when(controller.getRoutines(themes)).thenReturn(response);
+		when(controller.getRoutinesByThemes(themes)).thenReturn(response);
 
 		// then
 		mockMvc
@@ -107,6 +107,47 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 							.description("테마 리스트 별 데일리 루틴 리스트 조회")
 							.queryParameters(
 								parameterWithName("themes").description("조회할 테마 id 정보")
+							)
+							.requestFields()
+							.responseFields(
+								fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
+								fieldWithPath("message").type(STRING).description("응답 메시지"),
+								fieldWithPath("data").type(OBJECT).description("응답 데이터"),
+								fieldWithPath("data.routines").type(ARRAY).description("루틴 정보 리스트"),
+								fieldWithPath("data.routines[].routineId").type(NUMBER).description("루틴 id"),
+								fieldWithPath("data.routines[].content").type(STRING).description("테마 내용")
+							)
+							.build())))
+			.andExpect(status().isOk());
+	}
+
+	@Test
+	@DisplayName("테마 별 데일리 루틴 리스트 조회 성공")
+	void success_getDailyRoutinesByTheme() throws Exception {
+		// given
+		DailyRoutinesResponse routines = DailyRoutineFixture.createDailyRoutinesResponseDTO();
+		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
+
+		// when
+		when(controller.getRoutinesByTheme(anyLong())).thenReturn(response);
+
+		// then
+		mockMvc
+			.perform(
+				RestDocumentationRequestBuilders.get(DEFAULT_URL + "/{themeId}", 1L)
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON))
+			.andDo(
+				MockMvcRestDocumentation.document(
+					"get-routines-docs",
+					preprocessRequest(prettyPrint()),
+					preprocessResponse(prettyPrint()),
+					resource(
+						ResourceSnippetParameters.builder()
+							.tag(TAG)
+							.description("테마 별 데일리 루틴 리스트 조회")
+							.pathParameters(
+								parameterWithName("themeId").description("테마 id")
 							)
 							.requestFields()
 							.responseFields(
