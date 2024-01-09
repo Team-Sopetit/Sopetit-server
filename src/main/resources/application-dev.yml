@@ -17,8 +17,12 @@ spring:
         default_batch_fetch_size: 1000
         auto_quote_keyword: true
 
-logging.level:
-  org.hibernate.SQL: debug
+logging:
+  level:
+    org.hibernate.SQL: debug
+  slack:
+    webhook_url: ${SLACK.WEBHOOK_URL}
+    config: classpath:logback-spring.xml
 
 jwt:
   secret: ${JWT.SECRET}
