@@ -1,6 +1,6 @@
 spring:
   config:
-    import: /SOPT/server/src/main/resources/application-secret.yml
+    import: classpath:application-secret.yml
     activate:
       on-profile: dev
   datasource:
