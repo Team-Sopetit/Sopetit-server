@@ -34,10 +34,149 @@
           }
         }
       }
+    },
+    "/api/v1/routines/daily" : {
+      "get" : {
+        "tags" : [ "DAILY ROUTINE" ],
+        "summary" : "테마 리스트 별 데일리 루틴 리스트 조회",
+        "description" : "테마 리스트 별 데일리 루틴 리스트 조회",
+        "operationId" : "get-routines-docs",
+        "parameters" : [ {
+          "name" : "themes",
+          "in" : "query",
+          "description" : "조회할 테마 id 정보",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-54531209"
+                },
+                "examples" : {
+                  "get-routines-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 0,\n      \"content\" : \"content0\"\n    }, {\n      \"routineId\" : 1,\n      \"content\" : \"content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"content4\"\n    } ]\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/routines/daily/themes" : {
+      "get" : {
+        "tags" : [ "DAILY ROUTINE" ],
+        "summary" : "데일리 루틴 테마 리스트 조회",
+        "description" : "데일리 루틴 테마 리스트 조회",
+        "operationId" : "get-themes-docs",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-themes1975236624"
+                },
+                "examples" : {
+                  "get-themes-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"테마 조회 성공\",\n  \"data\" : {\n    \"themes\" : [ {\n      \"themeId\" : 0,\n      \"name\" : \"Daily routine Theme0\",\n      \"iconImageUrl\" : \"icon_image_url0\",\n      \"backgroundImageUrl\" : \"background_image_url0\"\n    }, {\n      \"themeId\" : 1,\n      \"name\" : \"Daily routine Theme1\",\n      \"iconImageUrl\" : \"icon_image_url1\",\n      \"backgroundImageUrl\" : \"background_image_url1\"\n    }, {\n      \"themeId\" : 2,\n      \"name\" : \"Daily routine Theme2\",\n      \"iconImageUrl\" : \"icon_image_url2\",\n      \"backgroundImageUrl\" : \"background_image_url2\"\n    }, {\n      \"themeId\" : 3,\n      \"name\" : \"Daily routine Theme3\",\n      \"iconImageUrl\" : \"icon_image_url3\",\n      \"backgroundImageUrl\" : \"background_image_url3\"\n    }, {\n      \"themeId\" : 4,\n      \"name\" : \"Daily routine Theme4\",\n      \"iconImageUrl\" : \"icon_image_url4\",\n      \"backgroundImageUrl\" : \"background_image_url4\"\n    } ]\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
     "schemas" : {
+      "api-v1-routines-daily-54531209" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "routines" : {
+                "type" : "array",
+                "description" : "루틴 정보 리스트",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "routineId" : {
+                      "type" : "number",
+                      "description" : "루틴 id"
+                    },
+                    "content" : {
+                      "type" : "string",
+                      "description" : "테마 내용"
+                    }
+                  }
+                }
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-daily-themes1975236624" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "themes" : {
+                "type" : "array",
+                "description" : "테마 정보 리스트",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "iconImageUrl" : {
+                      "type" : "string",
+                      "description" : "아이콘 이미지 url"
+                    },
+                    "name" : {
+                      "type" : "string",
+                      "description" : "테마 이름"
+                    },
+                    "themeId" : {
+                      "type" : "number",
+                      "description" : "테마 id"
+                    },
+                    "backgroundImageUrl" : {
+                      "type" : "string",
+                      "description" : "배경 이미지 url"
+                    }
+                  }
+                }
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-test486549215" : {
         "type" : "object"
       }
