@@ -21,6 +21,7 @@ import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.routine.dto.DailyThemesResponse;
+import com.soptie.server.routine.fixture.DailyRoutineFixture;
 
 @WebMvcTest(DailyRoutineController.class)
 class DailyRoutineControllerTest extends BaseControllerTest {
