@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.routine.service.DailyRoutineServiceImpl;
+import com.soptie.server.routine.service.DailyRoutineService;
 
 import lombok.*;
 
@@ -19,7 +19,7 @@ import lombok.*;
 @RequestMapping("/api/v1/routines/daily")
 public class DailyRoutineController {
 
-	private final DailyRoutineServiceImpl dailyRoutineService;
+	private final DailyRoutineService dailyRoutineService;
 
 	@GetMapping("/themes")
 	public ResponseEntity<Response> getThemes() {
