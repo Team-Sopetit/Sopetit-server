@@ -35,16 +35,16 @@
         }
       }
     },
-    "/api/v1/routines/daily" : {
+    "/api/v1/dolls/image/{type}" : {
       "get" : {
-        "tags" : [ "DAILY ROUTINE" ],
-        "summary" : "테마 리스트 별 데일리 루틴 리스트 조회",
-        "description" : "테마 리스트 별 데일리 루틴 리스트 조회",
-        "operationId" : "get-routines-docs",
+        "tags" : [ "DOLL" ],
+        "summary" : "인형 이미지 조회",
+        "description" : "인형 이미지 조회",
+        "operationId" : "get-doll-image-docs",
         "parameters" : [ {
-          "name" : "themes",
-          "in" : "query",
-          "description" : "조회할 테마 id 정보",
+          "name" : "type",
+          "in" : "path",
+          "description" : "인형 타입",
           "required" : true,
           "schema" : {
             "type" : "string"
@@ -56,11 +56,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-routines-daily-54531209"
+                  "$ref" : "#/components/schemas/api-v1-dolls-image-type-1785135499"
                 },
                 "examples" : {
-                  "get-routines-docs" : {
-                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 0,\n      \"content\" : \"content0\"\n    }, {\n      \"routineId\" : 1,\n      \"content\" : \"content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"content4\"\n    } ]\n  }\n}"
+                  "get-doll-image-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"인형 이미지 조회 성공\",\n  \"data\" : {\n    \"faceImageUrl\" : \"face-image-url\"\n  }\n}"
                   }
                 }
               }
@@ -93,11 +93,45 @@
           }
         }
       }
+    },
+    "/api/v1/routines/daily/{themeId}" : {
+      "get" : {
+        "tags" : [ "DAILY ROUTINE" ],
+        "summary" : "테마 별 데일리 루틴 리스트 조회",
+        "description" : "테마 별 데일리 루틴 리스트 조회",
+        "operationId" : "get-routines-docs",
+        "parameters" : [ {
+          "name" : "themeId",
+          "in" : "path",
+          "description" : "테마 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-themeId-54531209"
+                },
+                "examples" : {
+                  "get-routines-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 0,\n      \"content\" : \"content0\"\n    }, {\n      \"routineId\" : 1,\n      \"content\" : \"content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"content4\"\n    } ]\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
     "schemas" : {
-      "api-v1-routines-daily-54531209" : {
+      "api-v1-routines-daily-themeId-54531209" : {
         "type" : "object",
         "properties" : {
           "data" : {
@@ -163,6 +197,29 @@
                     }
                   }
                 }
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-dolls-image-type-1785135499" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "faceImageUrl" : {
+                "type" : "string",
+                "description" : "인형 얼굴 이미지 url"
               }
             },
             "description" : "응답 데이터"
