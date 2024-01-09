@@ -27,6 +27,12 @@ jobs:
         run: ./gradlew build
         shell: bash
 
+      - name: application.yaml 생성
+        run: |
+          cd src/main/resources
+          echo "${{ secrets.APPLICATION_SECRET_YML }}" > ./application-secret.yml
+        working-directory: ${{ env.working-directory }}
+
       ## 추가 ##
 
       - name: Make zip file
