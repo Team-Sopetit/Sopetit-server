@@ -17,12 +17,6 @@ import static com.soptie.server.common.dto.Response.success;
 public class AuthController {
 
     private final AuthService authService;
-/*
-    @ResponseBody
-    @GetMapping("/kakao")
-    public void kakaoCallback(@RequestParam String code) throws Exception {
-        System.out.println(authService.getKakaoAccessToken(code));
-    }*/
 
     @PostMapping
     public ResponseEntity<Response> signIn(@RequestHeader("Authorization") String socialAccessToken, @RequestBody SignInRequest request) {

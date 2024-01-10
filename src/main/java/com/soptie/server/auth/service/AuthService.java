@@ -85,33 +85,4 @@ public class AuthService {
         return new Token(jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired()),
                 jwtTokenProvider.generateToken(authentication, valueConfig.getRefreshTokenExpired()));
     }
-
-    public String getKakaoAccessToken(String code) throws JsonProcessingException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("Accept", "application/json");
-
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("grant_type", "authorization_code");
-        body.add("client_id", valueConfig.getClientId());
-        body.add("redirect_uri", valueConfig.getRedirectUri());
-        body.add("client_secret", valueConfig.getClientSecret());
-        body.add("code", code);
-
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<String> response = rt.exchange(
-                valueConfig.getTokenUri(),
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
-
-        String responseBody = response.getBody();
-
-        if(Objects.isNull(responseBody)) throw new IllegalArgumentException("유효하지 않은 토큰");
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(responseBody);
-        return jsonNode.get("access_token").asText();
-    }
 }
