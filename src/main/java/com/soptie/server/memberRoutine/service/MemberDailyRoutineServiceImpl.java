@@ -33,6 +33,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	private final CompletedMemberDailyRoutineRepository completedMemberDailyRoutineRepository;
 
 	@Override
+	@Transactional
 	public MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request) {
 		val member = findMember(memberId);
 		val routine = findRoutine(request.routineId());
