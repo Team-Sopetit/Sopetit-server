@@ -11,6 +11,7 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.CompletedMemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
@@ -75,11 +76,6 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		return AchievedMemberDailyRoutineResponse.of(routine);
 	}
 
-	private Member findMember(Long id) {
-		return memberRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
-	}
-
 	private MemberDailyRoutine findMemberRoutine(Long id) {
 		return memberDailyRoutineRepository.findById(id)
 			.orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
@@ -89,5 +85,17 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		if (!member.getDailyRoutines().contains(routine)) {
 			throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMeesage());
 		}
+	}
+
+	@Override
+	public MemberDailyRoutinesResponse getMemberDailyRoutines(long memberId) {
+		val member = findMember(memberId);
+		val routines = memberDailyRoutineRepository.findAllByMember(member);
+		return MemberDailyRoutinesResponse.of(routines);
+	}
+
+	private Member findMember(Long id) {
+		return memberRepository.findById(id)
+			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
 	}
 }
