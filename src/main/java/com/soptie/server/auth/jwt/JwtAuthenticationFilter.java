@@ -23,7 +23,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String BEARER_HEADER = "Bearer ";
-    private static final int BEARER_HEADER_LENGTH = 7;
+    private static final String BLANK = "";
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -48,7 +48,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getAccessTokenFromRequest(HttpServletRequest request) {
+        return isContainsAccessToken(request) ? getAuthorizationAccessToken(request) : null;
+    }
+
+    private boolean isContainsAccessToken(HttpServletRequest request) {
         String authorization = request.getHeader(AUTHORIZATION);
-        return (hasText(authorization) && authorization.startsWith(BEARER_HEADER)) ? authorization.substring(BEARER_HEADER_LENGTH) : null;
+        return authorization != null && authorization.startsWith(BEARER_HEADER);
+    }
+
+    private String getAuthorizationAccessToken(HttpServletRequest request) {
+        return request.getHeader(AUTHORIZATION).replaceFirst(BEARER_HEADER, BLANK);
     }
 }

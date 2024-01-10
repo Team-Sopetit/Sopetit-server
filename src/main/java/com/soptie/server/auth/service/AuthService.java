@@ -22,6 +22,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.soptie.server.auth.message.ErrorMessage.INVALID_MEMBER;
 import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
@@ -38,41 +39,34 @@ public class AuthService {
 
     @Transactional
     public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
-        Member member = getMember(socialAccessToken, request);
-        return SignInResponse.of(getToken(member));
+        return SignInResponse.of(getToken(getMember(socialAccessToken, request)));
     }
 
     private Member getMember(String socialAccessToken, SignInRequest request) {
         SocialType socialType = request.socialType();
         String socialId = getSocialId(socialAccessToken, socialType);
-        signUp(socialType, socialId);
-        return getMember(socialType, socialId);
+        return signUp(socialType, socialId);
     }
 
     private String getSocialId(String socialAccessToken, SocialType socialType) {
-        return switch (socialType.toString()) {
-            case "KAKAO" -> kakaoService.getKakaoData(socialAccessToken);
+        return switch (socialType) {
+            case KAKAO -> kakaoService.getKakaoData(socialAccessToken);
             default -> throw new IllegalArgumentException(INVALID_TOKEN.getMessage());
         };
     }
 
-    private void signUp(SocialType socialType, String socialId) {
-        if (!checkMemberExist(socialType, socialId)) {
-            memberRepository.save(
-                    Member.builder()
-                    .socialType(socialType)
-                    .socialId(socialId)
-                    .build());
-        }
-    }
-
-    private boolean checkMemberExist(SocialType socialType, String socialId) {
-        return memberRepository.existsBySocialTypeAndSocialId(socialType, socialId);
-    }
-
-    private Member getMember(SocialType socialType, String socialId) {
+    private Member signUp(SocialType socialType, String socialId) {
         return memberRepository.findBySocialTypeAndSocialId(socialType, socialId)
-                .orElseThrow(() -> new RuntimeException(INVALID_MEMBER.getMessage()));
+                .orElseGet(() -> saveMember(socialType, socialId));
+    }
+
+    private Member saveMember(SocialType socialType, String socialId) {
+        Member member = Member.builder()
+                .socialType(socialType)
+                .socialId(socialId)
+                .build();
+        memberRepository.save(member);
+        return member;
     }
 
     private Token getToken(Member member) {
