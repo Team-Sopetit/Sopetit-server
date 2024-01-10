@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.entity.daily.CompletedMemberDailyRoutine;
@@ -54,6 +55,26 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		deleteMemberRoutine(routine);
 	}
 
+	private void deleteMemberRoutine(MemberDailyRoutine routine) {
+		moveCompletedRoutine(routine);
+		memberDailyRoutineRepository.delete(routine);
+	}
+
+	private void moveCompletedRoutine(MemberDailyRoutine routine) {
+		val completedRoutine = new CompletedMemberDailyRoutine(routine);
+		completedMemberDailyRoutineRepository.save(completedRoutine);
+	}
+
+	@Override
+	@Transactional
+	public AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(long memberId, Long routineId) {
+		val member = findMember(memberId);
+		val routine = findMemberRoutine(routineId);
+		checkRoutineForMember(member, routine);
+		routine.achieveRoutine();
+		return AchievedMemberDailyRoutineResponse.of(routine);
+	}
+
 	private Member findMember(Long id) {
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
@@ -68,15 +89,5 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		if (!member.getDailyRoutines().contains(routine)) {
 			throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMeesage());
 		}
-	}
-
-	private void deleteMemberRoutine(MemberDailyRoutine routine) {
-		moveCompletedRoutine(routine);
-		memberDailyRoutineRepository.delete(routine);
-	}
-
-	private void moveCompletedRoutine(MemberDailyRoutine routine) {
-		val completedRoutine = new CompletedMemberDailyRoutine(routine);
-		completedMemberDailyRoutineRepository.save(completedRoutine);
 	}
 }

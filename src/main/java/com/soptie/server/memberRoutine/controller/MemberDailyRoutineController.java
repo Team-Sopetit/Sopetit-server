@@ -4,11 +4,11 @@ import static com.soptie.server.common.dto.Response.*;
 import static com.soptie.server.memberRoutine.message.ResponseMessage.*;
 
 import java.net.URI;
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,5 +53,12 @@ public class MemberDailyRoutineController {
 		val memberId = Long.parseLong(principal.getName());
 		memberDailyRoutineService.deleteMemberDailyRoutine(memberId, routineId);
 		return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
+	}
+
+	@PatchMapping("/routine/{routineId}")
+	public ResponseEntity<Response> achieveMemberDailyRoutine(Principal principal, @PathVariable Long routineId) {
+		val memberId = Long.parseLong(principal.getName());
+		val response = memberDailyRoutineService.achieveMemberDailyRoutine(memberId, routineId);
+		return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
 	}
 }
