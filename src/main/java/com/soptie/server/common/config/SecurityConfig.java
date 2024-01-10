@@ -35,6 +35,9 @@ public class SecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/auth/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/test")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily/themes")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/dolls/image/{type}")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
