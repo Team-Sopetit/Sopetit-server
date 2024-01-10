@@ -32,8 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String token = getAccessTokenFromRequest(request);
             if (hasText(token) && jwtTokenProvider.validateToken(token) == VALID_JWT) {
-                Long userId = jwtTokenProvider.getUserFromJwt(token);
-                UserAuthentication authentication = new UserAuthentication(userId, null, null); // 아이디, 비밀번호, 권한
+                UserAuthentication authentication = new UserAuthentication(getMemberId(token), null, null);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
@@ -42,6 +41,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private Long getMemberId(String token) {
+        return jwtTokenProvider.getUserFromJwt(token);
     }
 
     private String getAccessTokenFromRequest(HttpServletRequest request) {
