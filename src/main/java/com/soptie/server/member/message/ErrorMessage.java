@@ -13,5 +13,5 @@ public enum ErrorMessage {
 	INACCESSIBLE_ROUTINE("회원의 루틴이 아닙니다."),
 	;
 
-	private final String message;
+	private final String meesage;
 }

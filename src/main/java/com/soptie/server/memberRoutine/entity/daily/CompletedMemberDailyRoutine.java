@@ -39,7 +39,7 @@ public class CompletedMemberDailyRoutine {
 	}
 
 	private void setMember(MemberDailyRoutine routine) {
-		member.getDailyRoutines().remove(routine);
+		routine.getMember().getDailyRoutines().remove(routine);
 		this.member = routine.getMember();
 	}
 }
