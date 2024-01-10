@@ -31,4 +31,15 @@ public class CompletedMemberDailyRoutine {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "routine_id")
 	private DailyRoutine routine;
+
+	public CompletedMemberDailyRoutine(MemberDailyRoutine routine) {
+		this.achieveCount = routine.getAchieveCount();
+		setMember(routine);
+		this.routine = routine.getRoutine();
+	}
+
+	private void setMember(MemberDailyRoutine routine) {
+		member.getDailyRoutines().remove(routine);
+		this.member = routine.getMember();
+	}
 }

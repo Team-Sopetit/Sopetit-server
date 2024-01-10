@@ -12,7 +12,9 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.entity.daily.CompletedMemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
@@ -28,6 +30,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	private final MemberDailyRoutineRepository memberDailyRoutineRepository;
 	private final MemberRepository memberRepository;
 	private final DailyRoutineRepository dailyRoutineRepository;
+	private final CompletedMemberDailyRoutineRepository completedMemberDailyRoutineRepository;
 
 	@Override
 	public MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request) {
@@ -44,13 +47,12 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	}
 
 	@Override
+	@Transactional
 	public void deleteMemberDailyRoutine(long memberId, Long routineId) throws AccessDeniedException {
 		val member = findMember(memberId);
 		val routine = findMemberRoutine(routineId);
-
 		checkRoutineForMember(member, routine);
-
-
+		deleteMemberRoutine(routine);
 	}
 
 	private Member findMember(Long id) {
@@ -67,5 +69,15 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		if (!member.getDailyRoutines().contains(routine)) {
 			throw new AccessDeniedException(INACCESSIBLE_ROUTINE.getMeesage());
 		}
+	}
+
+	private void deleteMemberRoutine(MemberDailyRoutine routine) {
+		moveCompletedRoutine(routine);
+		memberDailyRoutineRepository.delete(routine);
+	}
+
+	private void moveCompletedRoutine(MemberDailyRoutine routine) {
+		val completedRoutine = new CompletedMemberDailyRoutine(routine);
+		completedMemberDailyRoutineRepository.save(completedRoutine);
 	}
 }
