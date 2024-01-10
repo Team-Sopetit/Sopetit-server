@@ -27,6 +27,10 @@ public class MemberDailyRoutineRepositoryImpl implements MemberDailyRoutineCusto
 			.where(memberDailyRoutine.member.eq(member))
 			.leftJoin(memberDailyRoutine.routine, dailyRoutine).fetchJoin().distinct()
 			.leftJoin(dailyRoutine.theme, dailyTheme).fetchJoin().distinct()
+			.orderBy(
+				memberDailyRoutine.achieveCount.desc(),
+				memberDailyRoutine.routine.content.asc()
+			)
 			.fetch();
 	}
 }
