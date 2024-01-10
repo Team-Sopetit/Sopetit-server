@@ -39,7 +39,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private Member findMember(Long id) {
 		return memberRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
 	}
 
 	private DailyRoutine findRoutine(Long id) {
