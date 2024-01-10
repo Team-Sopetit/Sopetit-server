@@ -1,8 +1,5 @@
 package com.soptie.server.auth.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soptie.server.auth.dto.SignInRequest;
 import com.soptie.server.auth.dto.SignInResponse;
 import com.soptie.server.auth.jwt.JwtTokenProvider;
@@ -13,16 +10,9 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.Objects;
-import java.util.Optional;
 
 import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
 
@@ -64,8 +54,7 @@ public class AuthService {
                 .socialType(socialType)
                 .socialId(socialId)
                 .build();
-        memberRepository.save(member);
-        return member;
+        return memberRepository.save(member);
     }
 
     private Token getToken(Member member) {

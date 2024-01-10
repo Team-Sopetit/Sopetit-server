@@ -34,8 +34,8 @@ public class SecurityConfig {
                         exceptionHandling.authenticationEntryPoint(customJwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
+                                .requestMatchers(new AntPathRequestMatcher("/api/v1/auth/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/test")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/auth")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                                 .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

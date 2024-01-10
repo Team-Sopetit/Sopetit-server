@@ -4,7 +4,6 @@ import com.soptie.server.common.config.ValueConfig;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -37,18 +36,17 @@ public class JwtTokenProvider {
         try {
             getBody(token);
             return VALID_JWT;
-        } catch (MalformedJwtException ex) {
-            log.error(String.valueOf(INVALID_JWT_TOKEN));
-            System.out.println(ex.getMessage());
+        } catch (MalformedJwtException exception) {
+            log.error(exception.getMessage());
             return INVALID_JWT_TOKEN;
-        } catch (ExpiredJwtException ex) {
-            log.error(String.valueOf(EXPIRED_JWT_TOKEN));
+        } catch (ExpiredJwtException exception) {
+            log.error(exception.getMessage());
             return EXPIRED_JWT_TOKEN;
-        } catch (UnsupportedJwtException ex) {
-            log.error(String.valueOf(UNSUPPORTED_JWT_TOKEN));
+        } catch (UnsupportedJwtException exception) {
+            log.error(exception.getMessage());
             return UNSUPPORTED_JWT_TOKEN;
-        } catch (IllegalArgumentException ex) {
-            log.error(String.valueOf(EMPTY_JWT));
+        } catch (IllegalArgumentException exception) {
+            log.error(exception.getMessage());
             return EMPTY_JWT;
         }
     }
