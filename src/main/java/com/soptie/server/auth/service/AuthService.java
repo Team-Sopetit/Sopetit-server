@@ -38,20 +38,20 @@ public class AuthService {
 
     @Transactional
     public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
-        Member member = processMemberTasks(socialAccessToken, request);
-        return SignInResponse.of(processTokenTasks(member));
+        Member member = getMember(socialAccessToken, request);
+        return SignInResponse.of(getToken(member));
     }
 
-    private Member processMemberTasks(String socialAccessToken, SignInRequest request) {
+    private Member getMember(String socialAccessToken, SignInRequest request) {
         SocialType socialType = request.socialType();
-        String socialId = login(socialAccessToken, socialType);
+        String socialId = getSocialId(socialAccessToken, socialType);
         signUp(socialType, socialId);
         return getMember(socialType, socialId);
     }
 
-    private String login(String socialAccessToken, SocialType socialType) {
-        return switch (socialType.toString()) {
-            case "KAKAO" -> kakaoService.getKakaoData(socialAccessToken);
+    private String getSocialId(String socialAccessToken, SocialType socialType) {
+        return switch (socialType) {
+            case KAKAO -> kakaoService.getKakaoData(socialAccessToken);
             default -> throw new IllegalArgumentException(INVALID_TOKEN.getMessage());
         };
     }
@@ -75,7 +75,7 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException(INVALID_MEMBER.getMessage()));
     }
 
-    private Token processTokenTasks(Member member) {
+    private Token getToken(Member member) {
         Token token = generateToken(new UserAuthentication(member.getId(), null, null));
         member.updateRefreshToken(token.getRefreshToken());
         return token;
