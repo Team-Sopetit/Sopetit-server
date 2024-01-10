@@ -24,7 +24,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.soptie.server.auth.message.ErrorMessage.INVALID_MEMBER;
 import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
 
 @Service
