@@ -1,6 +1,7 @@
 package com.soptie.server.memberRoutine.controller;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.*;
+import static com.soptie.server.common.dto.Response.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
@@ -46,7 +47,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 		MemberDailyRoutineResponse savedMemberRoutine = MemberDailyRoutineFixture.createMemberDailyRoutineResponseDTO();
 		ResponseEntity<Response> response = ResponseEntity
 			.created(URI.create("redirect_uri"))
-			.body(Response.success("루틴 추가 성공", savedMemberRoutine));
+			.body(success("루틴 추가 성공", savedMemberRoutine));
 
 		// when
 		when(controller.createMemberDailyRoutine(principal, request)).thenReturn(response);
@@ -81,5 +82,41 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 					)
 				))
 			.andExpect(status().isCreated());
+	}
+
+	@Test
+	@DisplayName("회원 데일리 루틴 삭제 성공")
+	void success_deleteMemberDailyRoutine() throws Exception {
+		// given
+		Long routineId = 1L;
+		ResponseEntity<Response> response = ResponseEntity.ok(success("루틴 삭제 성공"));
+
+		// when
+		when(controller.deleteMemberDailyRoutine(principal, routineId)).thenReturn(response);
+
+		// then
+		mockMvc.perform(delete(DEFAULT_URL + "/routine/{routineId}", routineId)
+				.contentType(APPLICATION_JSON)
+				.accept(APPLICATION_JSON)
+				.principal(principal))
+			.andDo(
+				document("delete-routine-docs",
+					preprocessRequest(prettyPrint()),
+					preprocessResponse(prettyPrint()),
+					resource(ResourceSnippetParameters.builder()
+						.tag(TAG)
+						.description("회원 데일리 루틴 삭제 성공")
+						.pathParameters(
+							parameterWithName("routineId").description("루틴 id")
+						)
+						.responseFields(
+							fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
+							fieldWithPath("message").type(STRING).description("응답 메시지"),
+							fieldWithPath("data").type(NULL).description("응답 데이터")
+						)
+						.build()
+					)
+				))
+			.andExpect(status().isOk());
 	}
 }

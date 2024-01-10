@@ -37,7 +37,7 @@ class DollControllerTest extends BaseControllerTest {
 	@DisplayName("인형 이미지 조회 성공")
 	void success_getDollImage() throws Exception {
 		// given
-		DollType dollType = DollType.BEAR;
+		DollType dollType = DollType.BROWN;
 		DollImageResponse dollImage = DollFixture.createDollImageResponseDTO();
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("인형 이미지 조회 성공", dollImage));
 
