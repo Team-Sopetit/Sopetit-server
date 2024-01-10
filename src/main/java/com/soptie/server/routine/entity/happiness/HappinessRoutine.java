@@ -1,22 +1,14 @@
 package com.soptie.server.routine.entity.happiness;
 
-import com.soptie.server.routine.entity.daily.DailyTheme;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class HappinessRoutine {
 
 	@Id
@@ -27,7 +19,17 @@ public class HappinessRoutine {
 	@Column(nullable = false)
 	private String title;
 
+	@Column(nullable = false)
+	private String titleColor;
+
+	@Column(nullable = false)
+	private String content;
+
+	@Column(nullable = false)
+	private String imageUrl;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theme_id")
 	private HappinessTheme theme;
+
 }
