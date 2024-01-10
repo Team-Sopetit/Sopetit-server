@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum ErrorMessage {
-
     EMPTY_MEMBER("존재하지 않는 회원입니다."),
     DUPLICATE_USERNAME("이미 존재하는 닉네임입니다."),
     INVALID_MEMBER("유효하지 않은 회원입니다."),
