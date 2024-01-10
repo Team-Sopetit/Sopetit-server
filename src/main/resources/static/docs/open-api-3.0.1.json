@@ -69,53 +69,6 @@
         }
       }
     },
-    "/api/v1/routines/daily/member" : {
-      "post" : {
-        "tags" : [ "MEMBER DAILY ROUTINE" ],
-        "summary" : "회원 데일리 루틴 추가 성공",
-        "description" : "회원 데일리 루틴 추가 성공",
-        "operationId" : "post-routine-docs",
-        "requestBody" : {
-          "content" : {
-            "application/json;charset=UTF-8" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/api-v1-routines-daily-member1721287602"
-              },
-              "examples" : {
-                "post-routine-docs" : {
-                  "value" : "{\n  \"routineId\" : 1\n}"
-                }
-              }
-            }
-          }
-        },
-        "responses" : {
-          "201" : {
-            "description" : "201",
-            "headers" : {
-              "Location" : {
-                "description" : "Redirect URI",
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "content" : {
-              "application/json;charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-routines-daily-member1327124516"
-                },
-                "examples" : {
-                  "post-routine-docs" : {
-                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 추가 성공\",\n  \"data\" : {\n    \"routineId\" : 1\n  }\n}"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/routines/daily/themes" : {
       "get" : {
         "tags" : [ "DAILY ROUTINE" ],
@@ -248,15 +201,6 @@
           }
         }
       },
-      "api-v1-routines-daily-member1721287602" : {
-        "type" : "object",
-        "properties" : {
-          "routineId" : {
-            "type" : "number",
-            "description" : "추가할 루틴 id"
-          }
-        }
-      },
       "api-v1-routines-daily-themes1975236624" : {
         "type" : "object",
         "properties" : {
@@ -324,6 +268,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "api-v1-routines-daily-member-routine-routineId594740350" : {
         "type" : "object",
         "properties" : {
@@ -360,6 +305,8 @@
           }
         }
       },
+=======
+>>>>>>> develop
       "api-v1-test486549215" : {
         "type" : "object"
       }
