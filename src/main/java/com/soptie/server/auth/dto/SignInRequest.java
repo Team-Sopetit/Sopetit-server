@@ -6,7 +6,7 @@ public record SignInRequest(
         SocialType socialType
 ) {
 
-    public static SignInRequest of (SocialType socialType) {
+    public static SignInRequest of(SocialType socialType) {
         return new SignInRequest(socialType);
     }
 }
