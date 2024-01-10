@@ -13,7 +13,7 @@ import static com.soptie.server.common.dto.Response.success;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/oauth")
+@RequestMapping("api/v1/auth")
 public class AuthController {
 
     private final AuthService authService;
