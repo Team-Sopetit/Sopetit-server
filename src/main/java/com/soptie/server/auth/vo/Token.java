@@ -1,5 +1,6 @@
 package com.soptie.server.auth.vo;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Objects;
@@ -10,6 +11,7 @@ public class Token {
     private final String accessToken;
     private final String refreshToken;
 
+    @Builder
     public Token(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;

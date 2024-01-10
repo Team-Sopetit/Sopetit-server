@@ -76,7 +76,9 @@ public class AuthService {
     }
 
     private Token generateToken(Authentication authentication) {
-        return new Token(jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired()),
-                jwtTokenProvider.generateToken(authentication, valueConfig.getRefreshTokenExpired()));
+        return Token.builder()
+                .accessToken(jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired()))
+                .refreshToken(jwtTokenProvider.generateToken(authentication, valueConfig.getRefreshTokenExpired()))
+                .build();
     }
 }
