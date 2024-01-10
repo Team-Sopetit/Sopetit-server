@@ -19,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -52,11 +53,21 @@ public class Member extends BaseTime {
 	@JoinColumn(name = "happiness_routine_id")
 	private MemberHappinessRoutine happinessRoutine;
 
+	@Builder
+	public Member(SocialType socialType, String socialId) {
+		this.socialType = socialType;
+		this.socialId = socialId;
+	}
+
 	public void initHappinessRoutine() {
 		this.happinessRoutine = null;
 	}
 
 	public void addHappinessRoutine(MemberHappinessRoutine happinessRoutine) {
 		this.happinessRoutine = happinessRoutine;
+	}
+
+	public void updateRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 }
