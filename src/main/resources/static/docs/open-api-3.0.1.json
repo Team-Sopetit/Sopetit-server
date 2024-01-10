@@ -69,6 +69,53 @@
         }
       }
     },
+    "/api/v1/routines/daily/member" : {
+      "post" : {
+        "tags" : [ "MEMBER DAILY ROUTINE" ],
+        "summary" : "회원 데일리 루틴 추가 성공",
+        "description" : "회원 데일리 루틴 추가 성공",
+        "operationId" : "post-routine-docs",
+        "requestBody" : {
+          "content" : {
+            "application/json;charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/api-v1-routines-daily-member1721287602"
+              },
+              "examples" : {
+                "post-routine-docs" : {
+                  "value" : "{\n  \"routineId\" : 1\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "201",
+            "headers" : {
+              "Location" : {
+                "description" : "Redirect URI",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-member1327124516"
+                },
+                "examples" : {
+                  "post-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 추가 성공\",\n  \"data\" : {\n    \"routineId\" : 1\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/routines/daily/themes" : {
       "get" : {
         "tags" : [ "DAILY ROUTINE" ],
@@ -127,6 +174,40 @@
           }
         }
       }
+    },
+    "/api/v1/routines/daily/member/routine/{routineId}" : {
+      "delete" : {
+        "tags" : [ "MEMBER DAILY ROUTINE" ],
+        "summary" : "회원 데일리 루틴 삭제 성공",
+        "description" : "회원 데일리 루틴 삭제 성공",
+        "operationId" : "delete-routine-docs",
+        "parameters" : [ {
+          "name" : "routineId",
+          "in" : "path",
+          "description" : "루틴 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-member-routine-routineId594740350"
+                },
+                "examples" : {
+                  "delete-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 삭제 성공\",\n  \"data\" : null\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -164,6 +245,15 @@
           "message" : {
             "type" : "string",
             "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-daily-member1721287602" : {
+        "type" : "object",
+        "properties" : {
+          "routineId" : {
+            "type" : "number",
+            "description" : "추가할 루틴 id"
           }
         }
       },
@@ -220,6 +310,42 @@
               "faceImageUrl" : {
                 "type" : "string",
                 "description" : "인형 얼굴 이미지 url"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-daily-member-routine-routineId594740350" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-daily-member1327124516" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "routineId" : {
+                "type" : "number",
+                "description" : "생성한 루틴 id"
               }
             },
             "description" : "응답 데이터"
