@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.soptie.server.common.config.ValueConfig;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +20,12 @@ public class KakaoService {
     private final ValueConfig valueConfig;
 
     protected String getKakaoData(String socialAccessToken) {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
+        val restTemplate = new RestTemplate();
+        val headers = new HttpHeaders();
         headers.add("Authorization", socialAccessToken);
-        HttpEntity<JsonArray> httpEntity = new HttpEntity<>(headers);
-        ResponseEntity<Object> responseData = restTemplate.postForEntity(valueConfig.getUserInfoUri(), httpEntity, Object.class);
-        ObjectMapper objectMapper = new ObjectMapper();
+        val httpEntity = new HttpEntity<JsonArray>(headers);
+        val responseData = restTemplate.postForEntity(valueConfig.getUserInfoUri(), httpEntity, Object.class);
+        val objectMapper = new ObjectMapper();
         return objectMapper.convertValue(responseData.getBody(), Map.class).get("id").toString();
     }
 }

@@ -10,6 +10,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,8 @@ public class AuthService {
     }
 
     private Member getMember(String socialAccessToken, SignInRequest request) {
-        SocialType socialType = request.socialType();
-        String socialId = getSocialId(socialAccessToken, socialType);
+        val socialType = request.socialType();
+        val socialId = getSocialId(socialAccessToken, socialType);
         return signUp(socialType, socialId);
     }
 
@@ -50,7 +51,7 @@ public class AuthService {
     }
 
     private Member saveMember(SocialType socialType, String socialId) {
-        Member member = Member.builder()
+        val member = Member.builder()
                 .socialType(socialType)
                 .socialId(socialId)
                 .build();
@@ -58,7 +59,7 @@ public class AuthService {
     }
 
     private Token getToken(Member member) {
-        Token token = generateToken(new UserAuthentication(member.getId(), null, null));
+        val token = generateToken(new UserAuthentication(member.getId(), null, null));
         member.updateRefreshToken(token.getRefreshToken());
         return token;
     }

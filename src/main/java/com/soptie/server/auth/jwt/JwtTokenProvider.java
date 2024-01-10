@@ -4,6 +4,7 @@ import com.soptie.server.common.config.ValueConfig;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -52,13 +53,13 @@ public class JwtTokenProvider {
     }
 
     private Claims generateClaims(Authentication authentication) {
-        Claims claims = Jwts.claims();
+        val claims = Jwts.claims();
         claims.put("memberId", authentication.getPrincipal());
         return claims;
     }
 
     public Long getUserFromJwt(String token) {
-        Claims claims = getBody(token);
+        val claims = getBody(token);
         return Long.parseLong(claims.get("memberId").toString());
     }
 
@@ -71,7 +72,7 @@ public class JwtTokenProvider {
     }
 
     private SecretKey getSigningKey() {
-        String encodedKey = getEncoder().encodeToString(valueConfig.getSecretKey().getBytes());
+        val encodedKey = getEncoder().encodeToString(valueConfig.getSecretKey().getBytes());
         return hmacShaKeyFor(encodedKey.getBytes());
     }
 }
