@@ -57,6 +57,7 @@ public class Member extends BaseTime {
 	public Member(SocialType socialType, String socialId) {
 		this.socialType = socialType;
 		this.socialId = socialId;
+		cottonInfo = new Cotton(0, 0);
 	}
 
 	public void initHappinessRoutine() {
