@@ -4,6 +4,7 @@ import static com.soptie.server.common.dto.Response.*;
 import static com.soptie.server.memberRoutine.message.ResponseMessage.*;
 
 import java.net.URI;
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 
 import org.springframework.http.ResponseEntity;

@@ -3,8 +3,6 @@ package com.soptie.server.memberRoutine.service;
 import static com.soptie.server.member.message.ErrorMessage.*;
 import static com.soptie.server.routine.message.ErrorMessage.*;
 
-import java.nio.file.AccessDeniedException;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +47,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	@Override
 	@Transactional
-	public void deleteMemberDailyRoutine(long memberId, Long routineId) throws AccessDeniedException {
+	public void deleteMemberDailyRoutine(long memberId, Long routineId) {
 		val member = findMember(memberId);
 		val routine = findMemberRoutine(routineId);
 		checkRoutineForMember(member, routine);
@@ -66,9 +64,9 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 			.orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
 	}
 
-	private void checkRoutineForMember(Member member, MemberDailyRoutine routine) throws AccessDeniedException {
+	private void checkRoutineForMember(Member member, MemberDailyRoutine routine) {
 		if (!member.getDailyRoutines().contains(routine)) {
-			throw new AccessDeniedException(INACCESSIBLE_ROUTINE.getMeesage());
+			throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMeesage());
 		}
 	}
 
