@@ -36,7 +36,7 @@ public class MemberDoll extends BaseTime {
 	private Doll doll;
 
 	public MemberDoll(Member member, Doll doll, String name) {
-		happinessCottonCount = 0;
+		this.happinessCottonCount = 0;
 		setMember(member);
 		this.doll = doll;
 		this.name = name;

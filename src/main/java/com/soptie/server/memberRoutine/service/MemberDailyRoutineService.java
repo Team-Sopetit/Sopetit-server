@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MemberDailyRoutineService {
 	MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request);
-	void createMemberDailyRoutine(Member member, List<Long> routines);
+	void createMemberDailyRoutines(Member member, List<Long> routines);
 	void deleteMemberDailyRoutine(long memberId, Long routineId);
 	AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(long memberId, Long routineId);
 	MemberDailyRoutinesResponse getMemberDailyRoutines(long memberId);

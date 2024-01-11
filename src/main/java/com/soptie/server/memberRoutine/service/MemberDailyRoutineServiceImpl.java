@@ -46,7 +46,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	@Override
 	@Transactional
-	public void createMemberDailyRoutine(Member member, List<Long> routines) {
+	public void createMemberDailyRoutines(Member member, List<Long> routines) {
 		routines.forEach(routineId -> memberDailyRoutineRepository
 				.save(new MemberDailyRoutine(member, findRoutine(routineId))));
 	}
