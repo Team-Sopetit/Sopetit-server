@@ -1,11 +1,13 @@
 package com.soptie.server.memberRoutine.service;
 
 import com.soptie.server.member.entity.Member;
+import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
+import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -24,6 +26,7 @@ public class MemberHappinessRoutineServiceImpl {
 
     private final MemberHappinessRoutineRepository memberHappinessRoutineRepository;
     private final HappinessRoutineRepository happinessRoutineRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     @Transactional
