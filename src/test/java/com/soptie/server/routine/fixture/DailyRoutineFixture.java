@@ -21,6 +21,15 @@ public class DailyRoutineFixture {
 		return DailyThemesResponse.of(themes);
 	}
 
+	public static DailyTheme createDailyTheme(Long id, String name, String iconImageUrl, String backgroundImageUrl) {
+		RoutineImage routineImage = new RoutineImage(iconImageUrl, backgroundImageUrl);
+		return new DailyTheme(id, name, routineImage);
+	}
+
+	public static DailyRoutine createDailyRoutine(Long id, String content, DailyTheme theme) {
+		return new DailyRoutine(id, content, theme);
+	}
+
 	private static List<DailyTheme> getDailyThemes() {
 		List<DailyTheme> themes = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
@@ -31,11 +40,6 @@ public class DailyRoutineFixture {
 				BACKGROUND_IMAGE_URL + i));
 		}
 		return themes;
-	}
-
-	private static DailyTheme createDailyTheme(Long id, String name, String iconImageUrl, String backgroundImageUrl) {
-		RoutineImage routineImage = new RoutineImage(iconImageUrl, backgroundImageUrl);
-		return new DailyTheme(id, name, routineImage);
 	}
 
 	public static DailyRoutinesResponse createDailyRoutinesResponseDTO() {
@@ -50,9 +54,5 @@ public class DailyRoutineFixture {
 			routines.add(createDailyRoutine((long)i, "content" + i, theme));
 		}
 		return routines;
-	}
-
-	private static DailyRoutine createDailyRoutine(Long id, String content, DailyTheme theme) {
-		return new DailyRoutine(id, content, theme);
 	}
 }

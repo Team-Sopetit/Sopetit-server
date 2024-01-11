@@ -8,6 +8,7 @@ import java.security.Principal;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,5 +61,12 @@ public class MemberDailyRoutineController {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memberDailyRoutineService.achieveMemberDailyRoutine(memberId, routineId);
 		return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
+	}
+
+	@GetMapping
+	public ResponseEntity<Response> getMemberDailyRoutine(Principal principal) {
+		val memberId = Long.parseLong(principal.getName());
+		val response = memberDailyRoutineService.getMemberDailyRoutines(memberId);
+		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }
