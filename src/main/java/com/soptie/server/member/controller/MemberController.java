@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.security.Principal;
 
 import static com.soptie.server.common.dto.Response.success;
@@ -28,6 +30,15 @@ public class MemberController {
     public ResponseEntity<Response> createMemberProfile(Principal principal, @RequestBody MemberProfileRequest request) {
         val memberId = Long.parseLong(principal.getName());
         memberService.createMemberProfile(memberId, request);
-        return ResponseEntity.ok(success(SUCCESS_CREATE_PROFILE.getMessage(), null));
+        return ResponseEntity.created(getURI())
+                .body(success(SUCCESS_CREATE_PROFILE.getMessage(), null));
+    }
+
+    private URI getURI() {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/")
+                .buildAndExpand()
+                .toUri();
     }
 }

@@ -11,6 +11,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.soptie.server.member.message.ErrorMessage.EXIST_PROFILE;
 import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
 
 @Service
@@ -26,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void createMemberProfile(Long memberId, MemberProfileRequest request) {
         val member = findMember(memberId);
+        checkMemberProfileExist(member);
         memberDailyRoutineService.createMemberDailyRoutine(member, request.routines());
         memberDollService.createMemberDoll(member, request.dollType(), request.name());
     }
@@ -33,5 +35,11 @@ public class MemberServiceImpl implements MemberService {
     private Member findMember(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+    }
+
+    private void checkMemberProfileExist(Member member) {
+        if (member.getMemberDoll() != null) {
+            throw new IllegalStateException(EXIST_PROFILE.getMeesage());
+        }
     }
 }
