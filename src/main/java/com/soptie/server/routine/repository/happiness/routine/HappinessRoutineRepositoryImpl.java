@@ -1,5 +1,6 @@
 package com.soptie.server.routine.repository.happiness.routine;
 
+
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.soptie.server.routine.entity.happiness.QHappinessRoutine.happinessRoutine;
-
 
 @Repository
 @RequiredArgsConstructor
