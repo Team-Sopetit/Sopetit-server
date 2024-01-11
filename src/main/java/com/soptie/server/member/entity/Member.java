@@ -71,4 +71,8 @@ public class Member extends BaseTime {
 	public void updateRefreshToken(String refreshToken) {
 		this.refreshToken = refreshToken;
 	}
+
+	public void addDailyCotton() {
+		this.cottonInfo.addDailyCottonCotton();
+	}
 }

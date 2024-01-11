@@ -10,4 +10,8 @@ import lombok.NoArgsConstructor;
 public class Cotton {
 	private int dailyCottonCount;
 	private int happinessCottonCount;
+
+	protected void addDailyCottonCotton() {
+		this.dailyCottonCount++;
+	}
 }
