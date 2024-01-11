@@ -55,3 +55,8 @@ springdoc:
   swagger-ui:
     url: /docs/open-api-3.0.1.json
     path: /swagger
+
+softie:
+  cron:
+    init:
+      routine: "0 0 0 * * *"

@@ -60,4 +60,8 @@ public class MemberDailyRoutine {
 		this.achieveCount++;
 		this.member.addDailyCotton();
 	}
+
+	public void initAchievement() {
+		this.isAchieve = false;
+	}
 }
