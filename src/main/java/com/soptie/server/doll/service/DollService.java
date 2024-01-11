@@ -6,5 +6,4 @@ import com.soptie.server.doll.entity.DollType;
 
 public interface DollService {
 	DollImageResponse getDollImage(DollType type);
-	Doll getDoll(DollType type);
 }
