@@ -64,7 +64,7 @@ public class MemberDailyRoutineController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Response> getMemberDailyRoutine(Principal principal) {
+	public ResponseEntity<Response> getMemberDailyRoutines(Principal principal) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memberDailyRoutineService.getMemberDailyRoutines(memberId);
 		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));

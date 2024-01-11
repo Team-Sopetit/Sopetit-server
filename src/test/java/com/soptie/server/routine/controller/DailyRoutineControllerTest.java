@@ -53,7 +53,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 					.accept(MediaType.APPLICATION_JSON))
 			.andDo(
 				MockMvcRestDocumentation.document(
-					"get-themes-docs",
+					"get-daily-themes-docs",
 					preprocessRequest(prettyPrint()),
 					preprocessResponse(prettyPrint()),
 					resource(
@@ -98,7 +98,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 					.params(queries))
 			.andDo(
 				MockMvcRestDocumentation.document(
-					"get-routines-docs",
+					"get-themes-daily-routines-docs",
 					preprocessRequest(prettyPrint()),
 					preprocessResponse(prettyPrint()),
 					resource(
@@ -139,7 +139,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 					.accept(MediaType.APPLICATION_JSON))
 			.andDo(
 				MockMvcRestDocumentation.document(
-					"get-routines-docs",
+					"get-theme-daily-routines-docs",
 					preprocessRequest(prettyPrint()),
 					preprocessResponse(prettyPrint()),
 					resource(
