@@ -22,6 +22,8 @@ import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository
 import jakarta.persistence.EntityNotFoundException;
 import lombok.*;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -40,6 +42,13 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		val memberRoutine = new MemberDailyRoutine(member, routine);
 		val savedMemberRoutine = memberDailyRoutineRepository.save(memberRoutine);
 		return MemberDailyRoutineResponse.of(savedMemberRoutine.getId());
+	}
+
+	@Override
+	@Transactional
+	public void createMemberDailyRoutines(Member member, List<Long> routines) {
+		routines.forEach(routineId -> memberDailyRoutineRepository
+				.save(new MemberDailyRoutine(member, findRoutine(routineId))));
 	}
 
 	private DailyRoutine findRoutine(Long id) {
@@ -97,5 +106,12 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	private Member findMember(Long id) {
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+	}
+
+	@Override
+	@Transactional
+	public void initMemberDailyRoutines() {
+		val routines = memberDailyRoutineRepository.findAllByAchieved();
+		routines.forEach(MemberDailyRoutine::initAchievement);
 	}
 }
