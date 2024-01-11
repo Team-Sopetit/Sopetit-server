@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum ResponseMessage {
 	SUCCESS_GET_THEME("데일리 루틴 테마 조회 성공"),
 	SUCCESS_GET_ROUTINE("데일리 루틴 조회 성공"),
+	SUCCESS_GET_HAPPINESS_THEME("행복 루틴 테마 조회 성공")
 	;
 
 	private final String message;
