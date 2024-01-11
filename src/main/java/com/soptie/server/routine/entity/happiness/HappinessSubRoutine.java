@@ -25,6 +25,4 @@ public class HappinessSubRoutine {
 	@ManyToOne
 	@JoinColumn(name = "routine_id")
 	private HappinessRoutine routine;
-
-
 }

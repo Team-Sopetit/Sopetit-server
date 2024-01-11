@@ -22,5 +22,4 @@ public class HappinessRoutine {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theme_id")
 	private HappinessTheme theme;
-
 }
