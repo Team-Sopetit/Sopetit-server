@@ -33,4 +33,12 @@ public class MemberDailyRoutineRepositoryImpl implements MemberDailyRoutineCusto
 			)
 			.fetch();
 	}
+
+	@Override
+	public List<MemberDailyRoutine> findAllByAchieved() {
+		return queryFactory
+				.selectFrom(memberDailyRoutine)
+				.where(memberDailyRoutine.isAchieve.isTrue())
+				.fetch();
+	}
 }
