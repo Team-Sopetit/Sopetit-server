@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
+import com.soptie.server.routine.entity.daily.DailyTheme;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -27,5 +28,15 @@ public class DailyRoutineRepositoryImpl implements DailyRoutineCustomRepository 
 			.where(dailyRoutine.theme.id.in(themeIds))
 			.orderBy(contentInKRExpression.asc())
 			.fetch();
+	}
+
+	@Override
+	public List<DailyRoutine> findAllByTheme(DailyTheme theme) {
+		val contentInKRExpression = Expressions.stringTemplate("SUBSTR({0}, 1, 1)", dailyRoutine.content);
+		return queryFactory
+				.selectFrom(dailyRoutine)
+				.where(dailyRoutine.theme.eq(theme))
+				.orderBy(contentInKRExpression.asc())
+				.fetch();
 	}
 }
