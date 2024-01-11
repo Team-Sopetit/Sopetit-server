@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+
 public class HappinessRoutineServiceImpl implements HappinessRoutineService{
 
     private final HappinessThemeRepository happinessThemeRepository;
+
     @Override
     public HappinessThemesResponse getHappinessThemes() {
         val themes = happinessThemeRepository.findAllOrderByNameAsc();
