@@ -59,4 +59,8 @@ public class MemberDailyRoutine {
 		this.isAchieve = true;
 		this.achieveCount++;
 	}
+
+	public void initAchievement() {
+		this.isAchieve = false;
+	}
 }

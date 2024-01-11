@@ -10,4 +10,5 @@ public interface MemberDailyRoutineService {
 	void deleteMemberDailyRoutine(long memberId, Long routineId);
 	AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(long memberId, Long routineId);
 	MemberDailyRoutinesResponse getMemberDailyRoutines(long memberId);
+	void initMemberDailyRoutines();
 }

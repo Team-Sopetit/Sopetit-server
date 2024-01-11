@@ -98,4 +98,11 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
 	}
+
+	@Override
+	@Transactional
+	public void initMemberDailyRoutines() {
+		val routines = memberDailyRoutineRepository.findAllByAchieved();
+		routines.forEach(MemberDailyRoutine::initAchievement);
+	}
 }
