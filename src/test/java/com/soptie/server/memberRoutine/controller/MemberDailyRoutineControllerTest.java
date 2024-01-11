@@ -175,7 +175,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
 
 		// when
-		when(controller.getMemberDailyRoutine(principal)).thenReturn(response);
+		when(controller.getMemberDailyRoutines(principal)).thenReturn(response);
 
 		// then
 		mockMvc
