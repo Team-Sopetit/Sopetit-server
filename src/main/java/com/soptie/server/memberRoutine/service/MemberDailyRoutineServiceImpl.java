@@ -53,9 +53,11 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		return memberDailyRoutineRepository.save(new MemberDailyRoutine(member, routine));
 	}
 
-	private MemberDailyRoutine createOldRoutines(Member member, DailyRoutine routine, CompletedMemberDailyRoutine completedRoutine) {
+	private MemberDailyRoutine createOldRoutines(
+			Member member, DailyRoutine routine, CompletedMemberDailyRoutine completedRoutine) {
 		completedMemberDailyRoutineRepository.delete(completedRoutine);
-		return memberDailyRoutineRepository.save(new MemberDailyRoutine(member, routine, completedRoutine.getAchieveCount()));
+		return memberDailyRoutineRepository
+				.save(new MemberDailyRoutine(member, routine, completedRoutine.getAchieveCount()));
 	}
 
 	@Override
