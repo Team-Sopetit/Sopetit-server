@@ -11,7 +11,7 @@ public class Cotton {
 	private int dailyCottonCount;
 	private int happinessCottonCount;
 
-	protected void addDailyCottonCotton() {
+	protected void addDailyCotton() {
 		this.dailyCottonCount++;
 	}
 }
