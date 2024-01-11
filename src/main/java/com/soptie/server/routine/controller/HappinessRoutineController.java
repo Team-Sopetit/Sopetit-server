@@ -16,9 +16,11 @@ import static com.soptie.server.routine.message.ResponseMessage.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/routines/happiness")
+
 public class HappinessRoutineController {
 
     private final HappinessRoutineService happinessRoutineService;
+
     @GetMapping("/themes")
     public ResponseEntity<Response> getHappinessThemes() {
         val response = happinessRoutineService.getHappinessThemes();
