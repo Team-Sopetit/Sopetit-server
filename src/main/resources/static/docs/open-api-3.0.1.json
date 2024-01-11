@@ -10,6 +10,55 @@
   } ],
   "tags" : [ ],
   "paths" : {
+    "/api/v1/auth" : {
+      "post" : {
+        "tags" : [ "AUTH" ],
+        "summary" : "소셜 로그인",
+        "description" : "소셜 로그인",
+        "operationId" : "post-token-docs",
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Social Access Token",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "Bearer softietoken"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json;charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/api-v1-auth-1040425838"
+              },
+              "examples" : {
+                "post-token-docs" : {
+                  "value" : "{\n  \"socialType\" : \"KAKAO\"\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-auth162170271"
+                },
+                "examples" : {
+                  "post-token-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"소셜로그인 성공\",\n  \"data\" : {\n    \"accessToken\" : \"softie\",\n    \"refreshToken\" : \"token\"\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/test" : {
       "get" : {
         "tags" : [ "TEST" ],
@@ -27,6 +76,40 @@
                 "examples" : {
                   "test-docs" : {
                     "value" : "Success to server connect."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/routines/daily" : {
+      "get" : {
+        "tags" : [ "DAILY ROUTINE" ],
+        "summary" : "테마 리스트 별 데일리 루틴 리스트 조회",
+        "description" : "테마 리스트 별 데일리 루틴 리스트 조회",
+        "operationId" : "get-themes-daily-routines-docs",
+        "parameters" : [ {
+          "name" : "themes",
+          "in" : "query",
+          "description" : "조회할 테마 id 정보",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-theme-themeId-54531209"
+                },
+                "examples" : {
+                  "get-themes-daily-routines-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"content\" : \"Daily routine Content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"Daily routine Content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"Daily routine Content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"Daily routine Content4\"\n    }, {\n      \"routineId\" : 5,\n      \"content\" : \"Daily routine Content5\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -69,12 +152,82 @@
         }
       }
     },
+    "/api/v1/routines/daily/member" : {
+      "get" : {
+        "tags" : [ "MEMBER DAILY ROUTINE" ],
+        "summary" : "회원 별 데일리 루틴 리스트 조회",
+        "description" : "회원 별 데일리 루틴 리스트 조회",
+        "operationId" : "get-member-daily-routines-docs",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-member-336344243"
+                },
+                "examples" : {
+                  "get-member-daily-routines-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"content\" : \"Daily routine Content1\",\n      \"iconImageUrl\" : \"icon_image_url1\",\n      \"achieveCount\" : 1,\n      \"isAchieve\" : false\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"Daily routine Content2\",\n      \"iconImageUrl\" : \"icon_image_url2\",\n      \"achieveCount\" : 2,\n      \"isAchieve\" : true\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"Daily routine Content3\",\n      \"iconImageUrl\" : \"icon_image_url3\",\n      \"achieveCount\" : 3,\n      \"isAchieve\" : false\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"Daily routine Content4\",\n      \"iconImageUrl\" : \"icon_image_url4\",\n      \"achieveCount\" : 4,\n      \"isAchieve\" : true\n    }, {\n      \"routineId\" : 5,\n      \"content\" : \"Daily routine Content5\",\n      \"iconImageUrl\" : \"icon_image_url5\",\n      \"achieveCount\" : 5,\n      \"isAchieve\" : false\n    } ]\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "MEMBER DAILY ROUTINE" ],
+        "summary" : "회원 데일리 루틴 추가 성공",
+        "description" : "회원 데일리 루틴 추가 성공",
+        "operationId" : "post-member-daily-routine-docs",
+        "requestBody" : {
+          "content" : {
+            "application/json;charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/api-v1-routines-daily-member1721287602"
+              },
+              "examples" : {
+                "post-member-daily-routine-docs" : {
+                  "value" : "{\n  \"routineId\" : 1\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "201",
+            "headers" : {
+              "Location" : {
+                "description" : "Redirect URI",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-member1327124516"
+                },
+                "examples" : {
+                  "post-member-daily-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 추가 성공\",\n  \"data\" : {\n    \"routineId\" : 1\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/routines/daily/themes" : {
       "get" : {
         "tags" : [ "DAILY ROUTINE" ],
         "summary" : "데일리 루틴 테마 리스트 조회",
         "description" : "데일리 루틴 테마 리스트 조회",
-        "operationId" : "get-themes-docs",
+        "operationId" : "get-daily-themes-docs",
         "responses" : {
           "200" : {
             "description" : "200",
@@ -84,8 +237,8 @@
                   "$ref" : "#/components/schemas/api-v1-routines-daily-themes1975236624"
                 },
                 "examples" : {
-                  "get-themes-docs" : {
-                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"테마 조회 성공\",\n  \"data\" : {\n    \"themes\" : [ {\n      \"themeId\" : 0,\n      \"name\" : \"Daily routine Theme0\",\n      \"iconImageUrl\" : \"icon_image_url0\",\n      \"backgroundImageUrl\" : \"background_image_url0\"\n    }, {\n      \"themeId\" : 1,\n      \"name\" : \"Daily routine Theme1\",\n      \"iconImageUrl\" : \"icon_image_url1\",\n      \"backgroundImageUrl\" : \"background_image_url1\"\n    }, {\n      \"themeId\" : 2,\n      \"name\" : \"Daily routine Theme2\",\n      \"iconImageUrl\" : \"icon_image_url2\",\n      \"backgroundImageUrl\" : \"background_image_url2\"\n    }, {\n      \"themeId\" : 3,\n      \"name\" : \"Daily routine Theme3\",\n      \"iconImageUrl\" : \"icon_image_url3\",\n      \"backgroundImageUrl\" : \"background_image_url3\"\n    }, {\n      \"themeId\" : 4,\n      \"name\" : \"Daily routine Theme4\",\n      \"iconImageUrl\" : \"icon_image_url4\",\n      \"backgroundImageUrl\" : \"background_image_url4\"\n    } ]\n  }\n}"
+                  "get-daily-themes-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"테마 조회 성공\",\n  \"data\" : {\n    \"themes\" : [ {\n      \"themeId\" : 1,\n      \"name\" : \"Daily routine Theme1\",\n      \"iconImageUrl\" : \"icon_image_url1\",\n      \"backgroundImageUrl\" : \"background_image_url1\"\n    }, {\n      \"themeId\" : 2,\n      \"name\" : \"Daily routine Theme2\",\n      \"iconImageUrl\" : \"icon_image_url2\",\n      \"backgroundImageUrl\" : \"background_image_url2\"\n    }, {\n      \"themeId\" : 3,\n      \"name\" : \"Daily routine Theme3\",\n      \"iconImageUrl\" : \"icon_image_url3\",\n      \"backgroundImageUrl\" : \"background_image_url3\"\n    }, {\n      \"themeId\" : 4,\n      \"name\" : \"Daily routine Theme4\",\n      \"iconImageUrl\" : \"icon_image_url4\",\n      \"backgroundImageUrl\" : \"background_image_url4\"\n    }, {\n      \"themeId\" : 5,\n      \"name\" : \"Daily routine Theme5\",\n      \"iconImageUrl\" : \"icon_image_url5\",\n      \"backgroundImageUrl\" : \"background_image_url5\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -94,12 +247,12 @@
         }
       }
     },
-    "/api/v1/routines/daily/{themeId}" : {
+    "/api/v1/routines/daily/theme/{themeId}" : {
       "get" : {
         "tags" : [ "DAILY ROUTINE" ],
         "summary" : "테마 별 데일리 루틴 리스트 조회",
         "description" : "테마 별 데일리 루틴 리스트 조회",
-        "operationId" : "get-routines-docs",
+        "operationId" : "get-theme-daily-routines-docs",
         "parameters" : [ {
           "name" : "themeId",
           "in" : "path",
@@ -115,11 +268,77 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-routines-daily-themeId-54531209"
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-theme-themeId-54531209"
                 },
                 "examples" : {
-                  "get-routines-docs" : {
-                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 0,\n      \"content\" : \"content0\"\n    }, {\n      \"routineId\" : 1,\n      \"content\" : \"content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"content4\"\n    } ]\n  }\n}"
+                  "get-theme-daily-routines-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"content\" : \"Daily routine Content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"Daily routine Content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"Daily routine Content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"Daily routine Content4\"\n    }, {\n      \"routineId\" : 5,\n      \"content\" : \"Daily routine Content5\"\n    } ]\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/routines/daily/member/routine/{routineId}" : {
+      "delete" : {
+        "tags" : [ "MEMBER DAILY ROUTINE" ],
+        "summary" : "회원 데일리 루틴 삭제 성공",
+        "description" : "회원 데일리 루틴 삭제 성공",
+        "operationId" : "delete-member-daily-routine-docs",
+        "parameters" : [ {
+          "name" : "routineId",
+          "in" : "path",
+          "description" : "루틴 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-member-routine-routineId594740350"
+                },
+                "examples" : {
+                  "delete-member-daily-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 삭제 성공\",\n  \"data\" : null\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "MEMBER DAILY ROUTINE" ],
+        "summary" : "회원 데일리 루틴 달성 성공",
+        "description" : "회원 데일리 루틴 달성 성공",
+        "operationId" : "achieve-member-daily-routine-docs",
+        "parameters" : [ {
+          "name" : "routineId",
+          "in" : "path",
+          "description" : "루틴 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-member-routine-routineId-2021368021"
+                },
+                "examples" : {
+                  "achieve-member-daily-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 달성 성공\",\n  \"data\" : {\n    \"routineId\" : 1,\n    \"isAchieve\" : true,\n    \"achieveCount\" : 1\n  }\n}"
                   }
                 }
               }
@@ -131,7 +350,34 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-routines-daily-themeId-54531209" : {
+      "api-v1-auth162170271" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "accessToken" : {
+                "type" : "string",
+                "description" : "Access Token"
+              },
+              "refreshToken" : {
+                "type" : "string",
+                "description" : "Refresh Token"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-daily-theme-themeId-54531209" : {
         "type" : "object",
         "properties" : {
           "data" : {
@@ -164,6 +410,15 @@
           "message" : {
             "type" : "string",
             "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-daily-member1721287602" : {
+        "type" : "object",
+        "properties" : {
+          "routineId" : {
+            "type" : "number",
+            "description" : "추가할 루틴 id"
           }
         }
       },
@@ -211,6 +466,19 @@
           }
         }
       },
+      "api-v1-routines-daily-member-routine-routineId594740350" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-dolls-image-type-1785135499" : {
         "type" : "object",
         "properties" : {
@@ -234,8 +502,119 @@
           }
         }
       },
+      "api-v1-routines-daily-member1327124516" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "routineId" : {
+                "type" : "number",
+                "description" : "생성한 루틴 id"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-daily-member-336344243" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "routines" : {
+                "type" : "array",
+                "description" : "루틴 정보 리스트",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "achieveCount" : {
+                      "type" : "number",
+                      "description" : "달성 횟수"
+                    },
+                    "iconImageUrl" : {
+                      "type" : "string",
+                      "description" : "아이콘 이미지 url"
+                    },
+                    "routineId" : {
+                      "type" : "number",
+                      "description" : "루틴 id"
+                    },
+                    "content" : {
+                      "type" : "string",
+                      "description" : "테마 내용"
+                    },
+                    "isAchieve" : {
+                      "type" : "boolean",
+                      "description" : "달성 여부"
+                    }
+                  }
+                }
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-auth-1040425838" : {
+        "type" : "object",
+        "properties" : {
+          "socialType" : {
+            "type" : "string",
+            "description" : "소셜 종류"
+          }
+        }
+      },
       "api-v1-test486549215" : {
         "type" : "object"
+      },
+      "api-v1-routines-daily-member-routine-routineId-2021368021" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "achieveCount" : {
+                "type" : "number",
+                "description" : "달성 횟수"
+              },
+              "routineId" : {
+                "type" : "number",
+                "description" : "루틴 id"
+              },
+              "isAchieve" : {
+                "type" : "boolean",
+                "description" : "달성 여부"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
       }
     }
   }

@@ -15,17 +15,20 @@ public record HappinessRoutinesResponse (
     @Builder
     private record HappinessRoutineResponse(
             Long routineId,
+            String name,
+            String nameColor,
             String title,
-            String titleColor,
-            String content,
-            String imageUrl
+            String iconImageUrl
 
     ) {
 
         private static HappinessRoutineResponse of(HappinessRoutine routine) {
             return HappinessRoutineResponse.builder()
                     .routineId(routine.getId())
+                    .name(routine.getTheme().getName())
+                    .nameColor(routine.getTheme().getNameColor())
                     .title(routine.getTitle())
+                    .iconImageUrl(routine.getTheme().getImageInfo().getIconImageUrl())
                     .build();
         }
     }

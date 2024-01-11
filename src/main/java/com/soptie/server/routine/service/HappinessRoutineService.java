@@ -7,5 +7,5 @@ import com.soptie.server.routine.dto.HappinessThemesResponse;
 public interface HappinessRoutineService {
     HappinessThemesResponse getHappinessThemes();
 
-    HappinessRoutinesResponse getHappinessRoutinesByThemes(String themes);
+    HappinessRoutinesResponse getHappinessRoutinesByTheme(Long themeId);
 }
