@@ -21,4 +21,10 @@ public class ErrorHandler {
 		log.error(exception.getMessage());
 		return ResponseEntity.status(NOT_FOUND).body(fail(exception.getMessage()));
 	}
+
+	@ExceptionHandler(IllegalStateException.class)
+	public ResponseEntity<Response> illegalStateException(IllegalStateException exception) {
+		log.error(exception.getMessage());
+		return ResponseEntity.status(BAD_REQUEST).body(fail(exception.getMessage()));
+	}
 }

@@ -52,4 +52,9 @@ public class MemberDailyRoutine {
 		this.member = member;
 		member.getDailyRoutines().add(this);
 	}
+
+	public void achieveRoutine() {
+		this.isAchieve = true;
+		this.achieveCount++;
+	}
 }
