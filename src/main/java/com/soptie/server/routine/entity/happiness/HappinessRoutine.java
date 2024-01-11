@@ -19,15 +19,6 @@ public class HappinessRoutine {
 	@Column(nullable = false)
 	private String title;
 
-	@Column(nullable = false)
-	private String titleColor;
-
-	@Column(nullable = false)
-	private String content;
-
-	@Column(nullable = false)
-	private String imageUrl;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theme_id")
 	private HappinessTheme theme;

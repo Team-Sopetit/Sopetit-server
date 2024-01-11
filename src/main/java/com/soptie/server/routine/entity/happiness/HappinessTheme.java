@@ -24,6 +24,9 @@ public class HappinessTheme {
 	@Column(nullable = false)
 	private String name;
 
+	@Column(nullable = false)
+	private String nameColor;
+
 	@Embedded
 	private RoutineImage imageInfo;
 }
