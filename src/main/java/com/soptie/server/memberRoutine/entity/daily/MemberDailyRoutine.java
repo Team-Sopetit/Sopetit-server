@@ -58,5 +58,6 @@ public class MemberDailyRoutine {
 	public void achieveRoutine() {
 		this.isAchieve = true;
 		this.achieveCount++;
+		this.member.addDailyCotton();
 	}
 }
