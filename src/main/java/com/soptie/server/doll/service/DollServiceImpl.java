@@ -26,7 +26,8 @@ public class DollServiceImpl implements DollService {
 		return DollImageResponse.of(doll);
 	}
 
-	private Doll getDoll(DollType type) {
+	@Override
+	public Doll getDoll(DollType type) {
 		return dollRepository.findByDollType(type)
 			.orElseThrow(() -> new EntityNotFoundException(INVALID_TYPE.getMessage()));
 	}

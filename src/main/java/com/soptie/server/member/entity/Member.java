@@ -60,6 +60,10 @@ public class Member extends BaseTime {
 		this.cottonInfo = new Cotton(0, 0);
 	}
 
+	public void setMemberDoll(MemberDoll memberDoll) {
+		this.memberDoll = memberDoll;
+	}
+
 	public void initHappinessRoutine() {
 		this.happinessRoutine = null;
 	}

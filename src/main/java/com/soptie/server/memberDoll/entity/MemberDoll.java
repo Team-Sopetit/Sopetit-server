@@ -34,4 +34,16 @@ public class MemberDoll extends BaseTime {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doll_id")
 	private Doll doll;
+
+	public MemberDoll(Member member, Doll doll, String name) {
+		happinessCottonCount = 0;
+		setMember(member);
+		this.doll = doll;
+		this.name = name;
+	}
+
+	private void setMember(Member member) {
+		this.member = member;
+		member.setMemberDoll(this);
+	}
 }
