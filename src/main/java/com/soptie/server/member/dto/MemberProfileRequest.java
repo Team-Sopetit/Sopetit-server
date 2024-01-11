@@ -9,8 +9,4 @@ public record MemberProfileRequest(
         String name,
         List<Long> routines
 ) {
-
-    public static MemberProfileRequest of(DollType dollType, String name, List<Long> routines) {
-        return new MemberProfileRequest(dollType, name, routines);
-    }
 }
