@@ -26,9 +26,6 @@ public record HappinessRoutinesResponse (
             return HappinessRoutineResponse.builder()
                     .routineId(routine.getId())
                     .title(routine.getTitle())
-                    .titleColor(routine.getTitleColor())
-                    .content(routine.getContent())
-                    .imageUrl(routine.getImageUrl())
                     .build();
         }
     }

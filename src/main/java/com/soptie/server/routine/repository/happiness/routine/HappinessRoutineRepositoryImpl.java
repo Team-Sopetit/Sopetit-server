@@ -12,7 +12,8 @@ import static com.soptie.server.routine.entity.happiness.QHappinessRoutine.happi
 
 @Repository
 @RequiredArgsConstructor
-public class HappinessRoutineRepositoryImpl implements HappinessRoutineCustomRepository{
+public class HappinessRoutineRepositoryImpl implements HappinessRoutineCustomRepository {
+
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -20,7 +21,7 @@ public class HappinessRoutineRepositoryImpl implements HappinessRoutineCustomRep
         return queryFactory
                 .selectFrom(happinessRoutine)
                 .where(happinessRoutine.theme.id.in(themeIds))
-                .orderBy(happinessRoutine.content.asc())
+                .orderBy(happinessRoutine.title.asc())
                 .fetch();
     }
 }
