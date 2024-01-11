@@ -134,7 +134,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 		// then
 		mockMvc
 			.perform(
-				RestDocumentationRequestBuilders.get(DEFAULT_URL + "/{themeId}", 1L)
+				RestDocumentationRequestBuilders.get(DEFAULT_URL + "/theme/{themeId}", 1L)
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON))
 			.andDo(
