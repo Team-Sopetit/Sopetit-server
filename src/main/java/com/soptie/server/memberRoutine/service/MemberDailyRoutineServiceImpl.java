@@ -39,9 +39,23 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	public MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request) {
 		val member = findMember(memberId);
 		val routine = findRoutine(request.routineId());
-		val memberRoutine = new MemberDailyRoutine(member, routine);
-		val savedMemberRoutine = memberDailyRoutineRepository.save(memberRoutine);
+		val savedMemberRoutine = getMemberDailyRoutine(member, routine);
 		return MemberDailyRoutineResponse.of(savedMemberRoutine.getId());
+	}
+
+	private MemberDailyRoutine getMemberDailyRoutine(Member member, DailyRoutine routine) {
+		return completedMemberDailyRoutineRepository.findByMemberAndRoutine(member, routine)
+				.map(completedRoutine -> createOldRoutines(member, routine, completedRoutine))
+				.orElseGet(() -> createNewRoutine(member, routine));
+	}
+
+	private MemberDailyRoutine createNewRoutine(Member member, DailyRoutine routine) {
+		return memberDailyRoutineRepository.save(new MemberDailyRoutine(member, routine));
+	}
+
+	private MemberDailyRoutine createOldRoutines(Member member, DailyRoutine routine, CompletedMemberDailyRoutine completedRoutine) {
+		completedMemberDailyRoutineRepository.delete(completedRoutine);
+		return memberDailyRoutineRepository.save(new MemberDailyRoutine(member, routine, completedRoutine.getAchieveCount()));
 	}
 
 	@Override
