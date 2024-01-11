@@ -7,8 +7,6 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
-import com.soptie.server.routine.entity.daily.DailyRoutine;
-import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.fixture.DailyRoutineFixture;
 
 public class MemberDailyRoutineFixture {
@@ -29,12 +27,6 @@ public class MemberDailyRoutineFixture {
 	}
 
 	private static MemberDailyRoutine createMemberDailyRoutine(int i) {
-		return new MemberDailyRoutine((long)i, i, i % 2 == 0, MEMBER, createDailyRoutine(i));
-	}
-
-	private static DailyRoutine createDailyRoutine(int i) {
-		DailyTheme theme = DailyRoutineFixture.createDailyTheme(
-			(long)i, "name-test", "image-url", "image-url");
-		return DailyRoutineFixture.createDailyRoutine((long)i, "content-test", theme);
+		return new MemberDailyRoutine((long)i, i, i % 2 == 0, MEMBER, DailyRoutineFixture.createDailyRoutine(i));
 	}
 }
