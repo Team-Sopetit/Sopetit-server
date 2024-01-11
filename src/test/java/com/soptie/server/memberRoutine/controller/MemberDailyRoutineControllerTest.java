@@ -66,7 +66,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 				.content(objectMapper.writeValueAsString(request))
 			)
 			.andDo(
-				document("post-routine-docs",
+				document("post-member-daily-routine-docs",
 					preprocessRequest(prettyPrint()),
 					preprocessResponse(prettyPrint()),
 					resource(ResourceSnippetParameters.builder()
@@ -106,7 +106,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 				.accept(APPLICATION_JSON)
 				.principal(principal))
 			.andDo(
-				document("delete-routine-docs",
+				document("delete-member-daily-routine-docs",
 					preprocessRequest(prettyPrint()),
 					preprocessResponse(prettyPrint()),
 					resource(ResourceSnippetParameters.builder()
@@ -144,7 +144,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 				.accept(APPLICATION_JSON)
 				.principal(principal))
 			.andDo(
-				document("ahieve-routine-docs",
+				document("achieve-member-daily-routine-docs",
 					preprocessRequest(prettyPrint()),
 					preprocessResponse(prettyPrint()),
 					resource(ResourceSnippetParameters.builder()
@@ -175,7 +175,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
 
 		// when
-		when(controller.getMemberDailyRoutine(principal)).thenReturn(response);
+		when(controller.getMemberDailyRoutines(principal)).thenReturn(response);
 
 		// then
 		mockMvc
@@ -186,7 +186,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 					.principal(principal))
 			.andDo(
 				MockMvcRestDocumentation.document(
-					"get-routines-docs",
+					"get-member-daily-routines-docs",
 					preprocessRequest(prettyPrint()),
 					preprocessResponse(prettyPrint()),
 					resource(
