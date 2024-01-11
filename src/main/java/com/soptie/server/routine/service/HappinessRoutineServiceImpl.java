@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 
-public class HappinessRoutineServiceImpl implements HappinessRoutineService{
+public class HappinessRoutineServiceImpl implements HappinessRoutineService {
 
     private final HappinessThemeRepository happinessThemeRepository;
 
