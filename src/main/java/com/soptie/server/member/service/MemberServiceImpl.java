@@ -1,5 +1,8 @@
 package com.soptie.server.member.service;
 
+import com.soptie.server.conversation.entity.Conversation;
+import com.soptie.server.conversation.repository.ConversationRepository;
+import com.soptie.server.member.dto.MemberHomeInfoResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
@@ -12,6 +15,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
@@ -25,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberDollService memberDollService;
     private final MemberDailyRoutineService memberDailyRoutineService;
     private final MemberRepository memberRepository;
+    private final ConversationRepository conversationRepository;
 
     @Override
     @Transactional
@@ -56,6 +61,12 @@ public class MemberServiceImpl implements MemberService {
         return member.subHappinessCotton();
     }
 
+    public MemberHomeInfoResponse showMemberHomeInfo(Long memberId) {
+        val member = findMember(memberId);
+        val conversations = getConversations();
+        return MemberHomeInfoResponse.of(member, conversations);
+    }
+
     private Member findMember(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
@@ -71,5 +82,11 @@ public class MemberServiceImpl implements MemberService {
         if (cottonCount <= 0) {
             throw new IllegalStateException(NOT_ENOUGH_COTTON.getMeesage());
         }
+    }
+
+    private List<String> getConversations() {
+        return conversationRepository.findAll().stream()
+                .map(Conversation::getContent)
+                .toList();
     }
 }

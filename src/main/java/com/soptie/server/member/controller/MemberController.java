@@ -17,6 +17,7 @@ import java.security.Principal;
 import static com.soptie.server.common.dto.Response.success;
 import static com.soptie.server.member.message.ResponseMessage.SUCCESS_CREATE_PROFILE;
 import static com.soptie.server.member.message.ResponseMessage.SUCCESS_GIVE_COTTON;
+import static com.soptie.server.member.message.ResponseMessage.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +34,14 @@ public class MemberController {
                 .body(success(SUCCESS_CREATE_PROFILE.getMessage(), null));
     }
 
+    private URI getURI() {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/")
+                .buildAndExpand()
+                .toUri();
+    }
+
     @PatchMapping("/{cottonType}")
     public ResponseEntity<Response> giveCotton(Principal principal, @PathVariable CottonType cottonType) {
         val memberId = Long.parseLong(principal.getName());
@@ -40,11 +49,11 @@ public class MemberController {
         return ResponseEntity.ok(success(SUCCESS_GIVE_COTTON.getMessage(), CottonCountResponse.of(cottonCount)));
     }
 
-    private URI getURI() {
-        return ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/")
-                .buildAndExpand()
-                .toUri();
+    @GetMapping
+    public ResponseEntity<Response> getMemberHomeInfo(Principal principal) {
+        val memberId = Long.parseLong(principal.getName());
+        val memberHomeInfoResponse = memberService.showMemberHomeInfo(memberId);
+        return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), memberHomeInfoResponse));
+
     }
 }
