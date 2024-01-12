@@ -8,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 public enum ResponseMessage {
 
     SUCCESS_CREATE_PROFILE("프로필 생성 성공"),
-    SUCCESS_HOME_SCREEN("홈 화면 불러오기 성공")
+    SUCCESS_GIVE_COTTON("솜뭉치 주기 성공"),
+    SUCCESS_HOME_INFO("홈 화면 불러오기 성공")
     ;
 
     private final String message;

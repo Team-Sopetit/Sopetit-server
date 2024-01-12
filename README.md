@@ -1,13 +1,13 @@
 ### ✈ API 명세서
+https://airy-hardhat-419.notion.site/b5149b1a89d0442395de92d136e7c448?v=4efcf271bb694ccd932fc12579258f40&pvs=4
 
 ### 📑 Architecture
-![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/51d9f1cd-a0d7-4d13-8253-f2c82744d3a3)
-
-
-### 📖 Directory
+![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/fc4c347d-03fd-4298-a097-3110d36c92ad)
 
 ### 📋 Model Diagram
+![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/a260dcff-292b-4dd1-8acd-030a57a57a65)
 
+### 📖 Directory
 
 ### ✉️ Commit Messge Rules
 
@@ -98,6 +98,6 @@
 
 |        **🍀 [최승빈](https://github.com/csb9427)**  |    **🍀 [남궁찬](https://github.com/Chan531)**                 |**🍀 [김소현](https://github.com/thguss)**                 |
   |:-----------------------------------:|:-----------------------------------:|:-----------------------------------:|
-|   Server Developer  |    Server Developer     |           Server Developer |
+|   Server Developer  |    Server Developer     |   Server Developer |
+| ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/4eaa9aaa-b834-4883-91c8-cb5dd3005c5d) |   ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/3e82a81c-1710-4199-8c5c-c920fdb8229b) |   ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/ca9420e7-744d-4725-a9d9-36f79669fd04) |
 |        프로젝트 세팅<br />    |       프로젝트 셋팅<br/>      |   프로젝트 세팅<br />    |  
-
