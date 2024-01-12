@@ -6,6 +6,8 @@ public interface MemberHappinessRoutineService {
 
 	MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request);
 	MemberHappinessRoutinesResponse getMemberHappinessRoutine(Long memberId);
-	void deleteMemberHappinessRoutine(long memberId, Long routineId);
+	void deleteMemberHappinessRoutine(Long memberId, Long routineId);
+
+	void achieveMemberHappinessRoutine(Long memberId, Long routineId);
 
 }

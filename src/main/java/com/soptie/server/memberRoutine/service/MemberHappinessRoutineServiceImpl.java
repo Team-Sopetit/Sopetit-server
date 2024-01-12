@@ -52,12 +52,13 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public void deleteMemberHappinessRoutine(long memberId, Long routineId) {
+    public void deleteMemberHappinessRoutine(Long memberId, Long routineId) {
         val member = findMember(memberId);
         val memberRoutine = findMemberRoutine(routineId);
         checkRoutineForMember(member, memberRoutine);
         deleteMemberRoutine(memberRoutine);
     }
+
 
     private Member findMember(Long id) {
         return memberRepository.findById(id)
@@ -67,6 +68,16 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     private void deleteMemberRoutine(MemberHappinessRoutine routine) {
         routine.getMember().deleteHappinessRoutine();
         memberHappinessRoutineRepository.delete(routine);
+    }
+
+    @Override
+    @Transactional
+    public void achieveMemberHappinessRoutine(Long memberId, Long routineId) {
+        val member = findMember(memberId);
+        val memberRoutine = findMemberRoutine(routineId);
+        checkRoutineForMember(member, memberRoutine);
+        member.addHappinessCotton();
+        deleteMemberRoutine(memberRoutine);
     }
 
     private MemberHappinessRoutine findMemberRoutine(Long id) {

@@ -17,6 +17,10 @@ public class Cotton {
 		this.dailyCottonCount++;
 	}
 
+	protected void addHappinessCotton(){
+		this.happinessCottonCount++;
+	}
+
 	protected int subtractDailyCotton() {
 		this.dailyCottonCount--;
 		return this.dailyCottonCount;

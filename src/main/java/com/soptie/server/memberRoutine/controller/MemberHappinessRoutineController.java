@@ -53,4 +53,11 @@ public class MemberHappinessRoutineController {
         memberHappinessRoutineService.deleteMemberHappinessRoutine(memberId, routineId);
         return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
     }
+
+    @PatchMapping("/routine/{routineId}")
+    public ResponseEntity<Response> achieveMemberHappinessRoutine(Principal principal, @PathVariable Long routineId){
+        val memberId = Long.parseLong(principal.getName());
+        memberHappinessRoutineService.achieveMemberHappinessRoutine(memberId, routineId);
+        return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage()));
+    }
 }
