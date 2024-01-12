@@ -25,11 +25,6 @@ public class CompletedMemberHappinessRoutine {
     @JoinColumn(name = "routine_id")
     private HappinessRoutine routine;
 
-    public CompletedMemberHappinessRoutine(MemberHappinessRoutine routine) {
-        this.achieveCount = routine.getAchieveCount();
-        setMember(routine);
-        this.routine = routine.getRoutine();
-    }
 
     private void setMember(MemberHappinessRoutine routine) {
         routine.getMember().getDailyRoutines().remove(routine);

@@ -5,9 +5,7 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutinesResponse;
-import com.soptie.server.memberRoutine.entity.happiness.CompletedMemberHappinessRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
-import com.soptie.server.memberRoutine.repository.CompletedMemberHappinessRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import com.soptie.server.routine.repository.happiness.routine.HappinessSubRoutineRepository;
@@ -29,7 +27,6 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     private final MemberHappinessRoutineRepository memberHappinessRoutineRepository;
     private final HappinessSubRoutineRepository happinessSubRoutineRepository;
     private final MemberRepository memberRepository;
-    private final CompletedMemberHappinessRoutineRepository completedMemberHappinessRoutineRepository;
 
     @Override
     @Transactional
@@ -53,36 +50,33 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         return MemberHappinessRoutinesResponse.of(memberRoutine);
     }
 
+    @Override
+    @Transactional
+    public void deleteMemberHappinessRoutine(long memberId, Long routineId) {
+        val member = findMember(memberId);
+        val memberRoutine = findMemberRoutine(routineId);
+        checkRoutineForMember(member, memberRoutine);
+        deleteMemberRoutine(memberRoutine);
+    }
+
     private Member findMember(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
     }
 
-    @Override
-    @Transactional
-    public void deleteMemberHappinessRoutine(long memberId, Long routineId) {
-        val member = findMember(memberId);
-        val routine = findMemberRoutine(routineId);
-        checkRoutineForMember(member, routine);
-        deleteMemberRoutine(routine);
-    }
-
     private void deleteMemberRoutine(MemberHappinessRoutine routine) {
-        moveCompletedRoutine(routine);
+        routine.getMember().deleteHappinessRoutine();
         memberHappinessRoutineRepository.delete(routine);
     }
+
     private MemberHappinessRoutine findMemberRoutine(Long id) {
         return memberHappinessRoutineRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
     }
 
     private void checkRoutineForMember(Member member, MemberHappinessRoutine routine) {
-        if (!member.getHappinessRoutine().contains(routine)) {
+        if (!member.getHappinessRoutine().equals(routine)) {
             throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMeesage());
         }
-    }
-    private void moveCompletedRoutine(MemberHappinessRoutine routine) {
-        val completedRoutine = new CompletedMemberHappinessRoutine(routine);
-        completedMemberHappinessRoutineRepository.save(completedRoutine);
     }
 }
