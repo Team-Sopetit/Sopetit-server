@@ -1,10 +1,9 @@
 package com.soptie.server.routine.dto;
 
-import java.util.List;
-
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
-
 import lombok.Builder;
+
+import java.util.List;
 
 public record HappinessThemesResponse(
         List<HappinessThemeResponse> themes
@@ -14,7 +13,7 @@ public record HappinessThemesResponse(
     }
 
     @Builder
-    private record HappinessThemeResponse(
+    public record HappinessThemeResponse(
             Long themeId,
             String name
     ) {
