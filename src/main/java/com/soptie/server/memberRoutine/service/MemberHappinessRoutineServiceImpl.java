@@ -36,20 +36,12 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         return MemberHappinessRoutineResponse.of(savedMemberRoutine);
     }
 
-    @Transactional
-    public void createMemberHappinessRoutine(Long memberId, Long routineId) {
-        Member member = findMember(memberId);
-        HappinessSubRoutine routine = findRoutine(routineId);
-
-        memberHappinessRoutineRepository.save(new MemberHappinessRoutine(member, routine));
-    }
-
-    private HappinessSubRoutine findRoutine(Long id) {
+    private HappinessSubRoutine findRoutine(long id) {
         return happinessSubRoutineRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
     }
 
-    private Member findMember(Long id) {
+    private Member findMember(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
     }
