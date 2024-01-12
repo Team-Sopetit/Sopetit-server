@@ -14,8 +14,7 @@ import java.net.URI;
 import java.security.Principal;
 
 import static com.soptie.server.common.dto.Response.success;
-import static com.soptie.server.member.message.ResponseMessage.SUCCESS_CREATE_PROFILE;
-import static com.soptie.server.member.message.ResponseMessage.SUCCESS_HOME_SCREEN;
+import static com.soptie.server.member.message.ResponseMessage.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,8 +34,8 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<Response> getMemberHomeInfo(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
-        MemberHomeInfoResponse memberHomeScreenResponse = memberService.showMemberHomeScreen(memberId);
-        return ResponseEntity.ok(success(SUCCESS_HOME_SCREEN.getMessage(), memberHomeScreenResponse));
+        val memberHomeInfoResponse = memberService.showMemberHomeInfo(memberId);
+        return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), memberHomeInfoResponse));
     }
 
     private URI getURI() {

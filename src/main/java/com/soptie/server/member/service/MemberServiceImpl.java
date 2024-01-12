@@ -40,9 +40,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberHomeInfoResponse showMemberHomeScreen(Long memberId) {
+    public MemberHomeInfoResponse showMemberHomeInfo(Long memberId) {
         val member = findMember(memberId);
-        List<String> conversations = getConversations();
+        val conversations = getConversations();
         return MemberHomeInfoResponse.of(member, conversations);
     }
 

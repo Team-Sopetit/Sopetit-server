@@ -26,8 +26,7 @@ import java.util.List;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.soptie.server.common.dto.Response.success;
 import static com.soptie.server.doll.entity.DollType.BROWN;
-import static com.soptie.server.member.message.ResponseMessage.SUCCESS_CREATE_PROFILE;
-import static com.soptie.server.member.message.ResponseMessage.SUCCESS_HOME_SCREEN;
+import static com.soptie.server.member.message.ResponseMessage.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -103,7 +102,7 @@ class MemberControllerTest extends BaseControllerTest {
         MemberDoll memberDoll = new MemberDoll(member, doll, "softie");
         List<String> conversations = List.of("안녕", "하이", "봉쥬르");
         MemberHomeInfoResponse response = MemberHomeInfoResponse.of(member, conversations);
-        ResponseEntity<Response> result = ResponseEntity.ok((success(SUCCESS_HOME_SCREEN.getMessage(), response)));
+        ResponseEntity<Response> result = ResponseEntity.ok((success(SUCCESS_HOME_INFO.getMessage(), response)));
 
         // when
         when(controller.getMemberHomeInfo(principal)).thenReturn(result);
