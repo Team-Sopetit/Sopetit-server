@@ -16,9 +16,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
+import java.security.Principal;
+
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
+import static com.soptie.server.auth.message.ResponseMessage.SUCCESS_SIGN_IN;
+import static com.soptie.server.auth.message.ResponseMessage.SUCCESS_SIGN_OUT;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
@@ -31,6 +36,8 @@ class AuthControllerTest extends BaseControllerTest {
 
     @MockBean
     AuthController controller;
+    @MockBean
+    Principal principal;
 
     private final String DEFAULT_URL = "/api/v1/auth";
     private final String TAG = "AUTH";
@@ -47,7 +54,7 @@ class AuthControllerTest extends BaseControllerTest {
                 .refreshToken("token")
                 .build()
         );
-        ResponseEntity<Response> result = ResponseEntity.ok(Response.success("소셜로그인 성공", response));
+        ResponseEntity<Response> result = ResponseEntity.ok(Response.success(SUCCESS_SIGN_IN.getMessage(), response));
 
         // when
         when(controller.signIn(socialAccessToken, request)).thenReturn(result);
@@ -55,7 +62,7 @@ class AuthControllerTest extends BaseControllerTest {
         // then
         mockMvc
                 .perform(
-                        RestDocumentationRequestBuilders.post(DEFAULT_URL)
+                        post(DEFAULT_URL)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .header("Authorization", socialAccessToken)
@@ -80,6 +87,41 @@ class AuthControllerTest extends BaseControllerTest {
                                                         fieldWithPath("data").type(OBJECT).description("응답 데이터"),
                                                         fieldWithPath("data.accessToken").type(STRING).description("Access Token"),
                                                         fieldWithPath("data.refreshToken").type(STRING).description("Refresh Token")
+                                                )
+                                                .build())))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("로그아웃 성공")
+    void success_signOut() throws Exception {
+        // given
+        ResponseEntity<Response> result = ResponseEntity.ok(Response.success(SUCCESS_SIGN_OUT.getMessage(), null));
+
+        // when
+        when(controller.signOut(principal)).thenReturn(result);
+
+        // then
+        mockMvc
+                .perform(
+                        post(DEFAULT_URL + "/logout")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .principal(principal)
+                )
+                .andDo(
+                        MockMvcRestDocumentation.document(
+                                "post-logout-docs",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                resource(
+                                        ResourceSnippetParameters.builder()
+                                                .tag(TAG)
+                                                .description("로그아웃")
+                                                .responseFields(
+                                                        fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
+                                                        fieldWithPath("message").type(STRING).description("응답 메시지"),
+                                                        fieldWithPath("data").type(NULL).description("응답 데이터")
                                                 )
                                                 .build())))
                 .andExpect(status().isOk());
