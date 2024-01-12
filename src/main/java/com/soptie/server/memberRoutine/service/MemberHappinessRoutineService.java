@@ -6,6 +6,6 @@ import com.soptie.server.memberRoutine.dto.MemberHappinessRoutinesResponse;
 
 public interface MemberHappinessRoutineService {
 
-    MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request);
+	MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request);
 	MemberHappinessRoutinesResponse getMemberHappinessRoutine(Long memberId);
 }
