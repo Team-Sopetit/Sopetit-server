@@ -97,7 +97,7 @@ class MemberControllerTest extends BaseControllerTest {
         // given
         Cotton cotton = new Cotton(0, 0);
         List<String> conversations = List.of("안녕", "하이", "봉쥬르");
-        MemberHomeScreenResponse response = MemberHomeScreenResponse.of("소프티", BROWN, "attentionImageUrl", "frameImageUrl", cotton, conversations);
+        MemberHomeScreenResponse response = MemberHomeScreenResponse.of("소프티", BROWN,"frameImageUrl", cotton, conversations);
         ResponseEntity<Response> result = ResponseEntity.ok((success(SUCCESS_HOME_SCREEN.getMessage(), response)));
 
         // when
@@ -123,7 +123,6 @@ class MemberControllerTest extends BaseControllerTest {
                                                         fieldWithPath("data").type(OBJECT).description("응답 데이터"),
                                                         fieldWithPath("data.name").type(STRING).description("인형 이름"),
                                                         fieldWithPath("data.dollType").type(STRING).description("인형 종류"),
-                                                        fieldWithPath("data.attentionImageUrl").type(STRING).description("인형 이미지 url"),
                                                         fieldWithPath("data.frameImageUrl").type(STRING).description("인형 배경 이미지 url"),
                                                         fieldWithPath("data.dailyCottonCount").type(NUMBER).description("솜뭉치 개수"),
                                                         fieldWithPath("data.happinessCottonCount").type(NUMBER).description("행운 솜뭉치 개수"),

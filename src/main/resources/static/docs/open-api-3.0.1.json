@@ -60,29 +60,6 @@
       }
     },
     "/api/v1/members" : {
-      "get" : {
-        "tags" : [ "MEMBER" ],
-        "summary" : "홈 화면 불러오기",
-        "description" : "홈 화면 불러오기",
-        "operationId" : "get-member-home-screen-docs",
-        "responses" : {
-          "200" : {
-            "description" : "200",
-            "content" : {
-              "application/json;charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-members935091773"
-                },
-                "examples" : {
-                  "get-member-home-screen-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"홈 화면 불러오기 성공\",\r\n  \"data\" : {\r\n    \"name\" : \"소프티\",\r\n    \"dollType\" : \"BROWN\",\r\n    \"attentionImageUrl\" : \"attentionImageUrl\",\r\n    \"frameImageUrl\" : \"frameImageUrl\",\r\n    \"dailyCottonCount\" : 0,\r\n    \"happinessCottonCount\" : 0,\r\n    \"conversations\" : [ \"안녕\", \"하이\", \"봉쥬르\" ]\r\n  }\r\n}"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
       "post" : {
         "tags" : [ "MEMBER" ],
         "summary" : "프로필 생성",
@@ -146,6 +123,40 @@
                 "examples" : {
                   "test-docs" : {
                     "value" : "Success to server connect."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/members/{cottonType}" : {
+      "patch" : {
+        "tags" : [ "MEMBER" ],
+        "summary" : "솜뭉치 주기",
+        "description" : "솜뭉치 주기",
+        "operationId" : "give-cotton-docs",
+        "parameters" : [ {
+          "name" : "cottonType",
+          "in" : "path",
+          "description" : "솜뭉치 종류",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-members-cottonType-1561973557"
+                },
+                "examples" : {
+                  "give-cotton-docs" : {
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"솜뭉치 주기 성공\",\r\n  \"data\" : {\r\n    \"cottonCount\" : 0\r\n  }\r\n}"
                   }
                 }
               }
@@ -420,64 +431,6 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-members935091773" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "dailyCottonCount" : {
-                "type" : "number",
-                "description" : "솜뭉치 개수"
-              },
-              "name" : {
-                "type" : "string",
-                "description" : "인형 이름"
-              },
-              "attentionImageUrl" : {
-                "type" : "string",
-                "description" : "인형 이미지 url"
-              },
-              "frameImageUrl" : {
-                "type" : "string",
-                "description" : "인형 배경 이미지 url"
-              },
-              "dollType" : {
-                "type" : "string",
-                "description" : "인형 종류"
-              },
-              "conversations" : {
-                "type" : "array",
-                "description" : "인형 대화 리스트",
-                "items" : {
-                  "oneOf" : [ {
-                    "type" : "object"
-                  }, {
-                    "type" : "boolean"
-                  }, {
-                    "type" : "string"
-                  }, {
-                    "type" : "number"
-                  } ]
-                }
-              },
-              "happinessCottonCount" : {
-                "type" : "number",
-                "description" : "행운 솜뭉치 개수"
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
-      },
       "api-v1-routines-daily-theme-themeId-54531209" : {
         "type" : "object",
         "properties" : {
@@ -570,6 +523,29 @@
       "api-v1-members594740350" : {
         "type" : "object",
         "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-members-cottonType-1561973557" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "cottonCount" : {
+                "type" : "number",
+                "description" : "남은 솜뭉치 개수"
+              }
+            },
+            "description" : "응답 데이터"
+          },
           "success" : {
             "type" : "boolean",
             "description" : "응답 성공 여부"

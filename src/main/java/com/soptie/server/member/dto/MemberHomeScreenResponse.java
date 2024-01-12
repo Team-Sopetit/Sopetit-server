@@ -11,18 +11,16 @@ import java.util.List;
 public record MemberHomeScreenResponse(
         String name,
         DollType dollType,
-        String attentionImageUrl,
         String frameImageUrl,
         int dailyCottonCount,
         int happinessCottonCount,
         List<String> conversations
 ) {
 
-    public static MemberHomeScreenResponse of(String name, DollType dollType, String attentionImageUrl, String frameImageUrl, Cotton cotton, List<String> conversations) {
+    public static MemberHomeScreenResponse of(String name, DollType dollType, String frameImageUrl, Cotton cotton, List<String> conversations) {
         return MemberHomeScreenResponse.builder()
                 .name(name)
                 .dollType(dollType)
-                .attentionImageUrl(attentionImageUrl)
                 .frameImageUrl(frameImageUrl)
                 .dailyCottonCount(cotton.getDailyCottonCount())
                 .happinessCottonCount(cotton.getHappinessCottonCount())

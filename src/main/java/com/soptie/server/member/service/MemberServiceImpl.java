@@ -52,7 +52,6 @@ public class MemberServiceImpl implements MemberService {
         return MemberHomeScreenResponse.of(memberDoll.getName(),
                 doll.getDollType(),
                 doll.getImageInfo().getAttentionImageUrl(),
-                doll.getImageInfo().getFrameImageUrl(),
                 member.getCottonInfo(),
                 conversations);
     }
