@@ -1,10 +1,12 @@
 package com.soptie.server.routine.entity.happiness;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class HappinessSubRoutine {
 
 	@Id
