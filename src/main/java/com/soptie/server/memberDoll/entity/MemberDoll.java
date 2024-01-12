@@ -46,4 +46,8 @@ public class MemberDoll extends BaseTime {
 		this.member = member;
 		member.setMemberDoll(this);
 	}
+
+	public void addHappinessCottonCount() {
+		this.happinessCottonCount++;
+	}
 }
