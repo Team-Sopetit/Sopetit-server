@@ -4,6 +4,7 @@ import com.soptie.server.conversation.entity.Conversation;
 import com.soptie.server.conversation.repository.ConversationRepository;
 import com.soptie.server.member.dto.MemberHomeInfoResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
+import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.service.MemberDollService;
@@ -17,8 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.soptie.server.member.message.ErrorMessage.EXIST_PROFILE;
-import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
+import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
+import static com.soptie.server.member.message.ErrorMessage.*;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +41,31 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberHomeInfoResponse showMemberHomeInfo(Long memberId) {
+    @Transactional
+    public int giveCotton(Long memberId, CottonType cottonType) {
+        val member = findMember(memberId);
+        return giveCottonByCottonType(member, cottonType);
+    }
+
+    private int giveCottonByCottonType(Member member, CottonType cottonType) {
+        return switch (cottonType) {
+            case DAILY -> giveDailyCotton(member);
+            case HAPPINESS -> giveHappinessCotton(member);
+        };
+    }
+
+    private int giveDailyCotton(Member member) {
+        checkMemberCottonCount(member.getCottonInfo().getDailyCottonCount());
+        return member.subtractDailyCotton();
+    }
+
+    private int giveHappinessCotton(Member member) {
+        checkMemberCottonCount(member.getCottonInfo().getHappinessCottonCount());
+        member.getMemberDoll().addHappinessCottonCount();
+        return member.subtractHappinessCotton();
+    }
+
+    public MemberHomeInfoResponse getMemberHomeInfo(Long memberId) {
         val member = findMember(memberId);
         val conversations = getConversations();
         return MemberHomeInfoResponse.of(member, conversations);
@@ -54,6 +79,12 @@ public class MemberServiceImpl implements MemberService {
     private void checkMemberProfileExist(Member member) {
         if (Objects.nonNull(member)) {
             throw new IllegalStateException(EXIST_PROFILE.getMeesage());
+        }
+    }
+
+    private void checkMemberCottonCount(int cottonCount) {
+        if (cottonCount <= 0) {
+            throw new IllegalStateException(NOT_ENOUGH_COTTON.getMeesage());
         }
     }
 

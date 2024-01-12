@@ -1,8 +1,9 @@
 package com.soptie.server.member.controller;
 
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.member.dto.MemberHomeInfoResponse;
+import com.soptie.server.member.dto.CottonCountResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
+import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -14,6 +15,8 @@ import java.net.URI;
 import java.security.Principal;
 
 import static com.soptie.server.common.dto.Response.success;
+import static com.soptie.server.member.message.ResponseMessage.SUCCESS_CREATE_PROFILE;
+import static com.soptie.server.member.message.ResponseMessage.SUCCESS_GIVE_COTTON;
 import static com.soptie.server.member.message.ResponseMessage.*;
 
 @RestController
@@ -31,18 +34,27 @@ public class MemberController {
                 .body(success(SUCCESS_CREATE_PROFILE.getMessage(), null));
     }
 
-    @GetMapping
-    public ResponseEntity<Response> getMemberHomeInfo(Principal principal) {
-        val memberId = Long.parseLong(principal.getName());
-        val memberHomeInfoResponse = memberService.showMemberHomeInfo(memberId);
-        return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), memberHomeInfoResponse));
-    }
-
     private URI getURI() {
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/")
                 .buildAndExpand()
                 .toUri();
+    }
+
+    @PatchMapping("/{cottonType}")
+    public ResponseEntity<Response> giveCotton(Principal principal, @PathVariable CottonType cottonType) {
+        val memberId = Long.parseLong(principal.getName());
+        val cottonCount = memberService.giveCotton(memberId, cottonType);
+        val cottonCountResponse = CottonCountResponse.of(cottonCount);
+        return ResponseEntity.ok(success(SUCCESS_GIVE_COTTON.getMessage(), cottonCountResponse));
+    }
+
+    @GetMapping
+    public ResponseEntity<Response> getMemberHomeInfo(Principal principal) {
+        val memberId = Long.parseLong(principal.getName());
+        val memberHomeInfoResponse = memberService.getMemberHomeInfo(memberId);
+        return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), memberHomeInfoResponse));
+
     }
 }
