@@ -9,7 +9,6 @@ import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import com.soptie.server.routine.repository.happiness.routine.HappinessSubRoutineRepository;
-
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -30,7 +29,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public MemberHappinessRoutineResponse createMemberHappinessRoutine(long memberId, MemberHappinessRoutineRequest request) {
+    public MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request) {
         val member = findMember(memberId);
         val routine = findRoutine(request.routineId());
         val memberRoutine = new MemberHappinessRoutine(member, routine);
@@ -44,7 +43,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     }
 
     @Override
-    public MemberHappinessRoutinesResponse getMemberHappinessRoutine(long memberId) {
+    public MemberHappinessRoutinesResponse getMemberHappinessRoutine(Long memberId) {
         val member = findMember(memberId);
         val memberRoutine = member.getHappinessRoutine();
         return MemberHappinessRoutinesResponse.of(memberRoutine);

@@ -27,7 +27,7 @@ public class MemberHappinessRoutineController {
     private final MemberHappinessRoutineService memberHappinessRoutineService;
 
     @PostMapping
-    public ResponseEntity<Response> createMemberDailyRoutine(
+    public ResponseEntity<Response> createMemberHappinessRoutine(
             Principal principal, @RequestBody MemberHappinessRoutineRequest request) {
         val memberId = Long.parseLong(principal.getName());
         val response = memberHappinessRoutineService.createMemberHappinessRoutine(memberId, request);
