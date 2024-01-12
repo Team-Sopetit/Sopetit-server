@@ -1,8 +1,7 @@
 package com.soptie.server.member.controller;
 
-import com.soptie.server.auth.message.ResponseMessage;
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.member.dto.MemberHomeScreenResponse;
+import com.soptie.server.member.dto.MemberHomeInfoResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +33,9 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity<Response> showMemberHomeScreen(Principal principal) {
+    public ResponseEntity<Response> getMemberHomeInfo(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
-        MemberHomeScreenResponse memberHomeScreenResponse = memberService.showMemberHomeScreen(memberId);
+        MemberHomeInfoResponse memberHomeScreenResponse = memberService.showMemberHomeScreen(memberId);
         return ResponseEntity.ok(success(SUCCESS_HOME_SCREEN.getMessage(), memberHomeScreenResponse));
     }
 

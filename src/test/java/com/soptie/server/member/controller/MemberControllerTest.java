@@ -3,9 +3,7 @@ package com.soptie.server.member.controller;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.doll.entity.DollImage;
-import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.member.dto.MemberHomeScreenResponse;
+import com.soptie.server.member.dto.MemberHomeInfoResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.Cotton;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +16,6 @@ import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 
 import java.net.URI;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
@@ -93,15 +90,15 @@ class MemberControllerTest extends BaseControllerTest {
 
     @Test
     @DisplayName("홈 화면을 불러온다.")
-    void success_showMemberHomeScreen() throws Exception {
+    void success_getMemberHomeInfo() throws Exception {
         // given
         Cotton cotton = new Cotton(0, 0);
         List<String> conversations = List.of("안녕", "하이", "봉쥬르");
-        MemberHomeScreenResponse response = MemberHomeScreenResponse.of("소프티", BROWN, "attentionImageUrl", "frameImageUrl", cotton, conversations);
+        MemberHomeInfoResponse response = MemberHomeInfoResponse.of("소프티", BROWN, "attentionImageUrl", "frameImageUrl", cotton, conversations);
         ResponseEntity<Response> result = ResponseEntity.ok((success(SUCCESS_HOME_SCREEN.getMessage(), response)));
 
         // when
-        when(controller.showMemberHomeScreen(principal)).thenReturn(result);
+        when(controller.getMemberHomeInfo(principal)).thenReturn(result);
 
         // then
         mockMvc.perform(get(DEFAULT_URL)
