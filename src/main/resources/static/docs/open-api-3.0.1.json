@@ -71,11 +71,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-members-980081866"
+                  "$ref" : "#/components/schemas/api-v1-members935091773"
                 },
                 "examples" : {
                   "get-member-home-screen-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"홈 화면 불러오기 성공\",\r\n  \"data\" : {\r\n    \"name\" : \"소프티\",\r\n    \"dollType\" : \"BROWN\",\r\n    \"frameImageUrl\" : \"frameImageUrl\",\r\n    \"dailyCottonCount\" : 0,\r\n    \"happinessCottonCount\" : 0,\r\n    \"conversations\" : [ \"안녕\", \"하이\", \"봉쥬르\" ]\r\n  }\r\n}"
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"홈 화면 불러오기 성공\",\r\n  \"data\" : {\r\n    \"name\" : \"softie\",\r\n    \"dollType\" : \"BROWN\",\r\n    \"attentionImageUrl\" : \"attentionImageUrl\",\r\n    \"frameImageUrl\" : \"frameImageUrl\",\r\n    \"dailyCottonCount\" : 0,\r\n    \"happinessCottonCount\" : 0,\r\n    \"conversations\" : [ \"안녕\", \"하이\", \"봉쥬르\" ]\r\n  }\r\n}"
                   }
                 }
               }
@@ -420,7 +420,7 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-members-980081866" : {
+      "api-v1-members935091773" : {
         "type" : "object",
         "properties" : {
           "data" : {
@@ -433,6 +433,10 @@
               "name" : {
                 "type" : "string",
                 "description" : "인형 이름"
+              },
+              "attentionImageUrl" : {
+                "type" : "string",
+                "description" : "인형 이미지 url"
               },
               "frameImageUrl" : {
                 "type" : "string",
