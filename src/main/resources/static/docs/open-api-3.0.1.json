@@ -71,11 +71,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-members935091773"
+                  "$ref" : "#/components/schemas/api-v1-members-980081866"
                 },
                 "examples" : {
                   "get-member-home-screen-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"홈 화면 불러오기 성공\",\r\n  \"data\" : {\r\n    \"name\" : \"softie\",\r\n    \"dollType\" : \"BROWN\",\r\n    \"attentionImageUrl\" : \"attentionImageUrl\",\r\n    \"frameImageUrl\" : \"frameImageUrl\",\r\n    \"dailyCottonCount\" : 0,\r\n    \"happinessCottonCount\" : 0,\r\n    \"conversations\" : [ \"안녕\", \"하이\", \"봉쥬르\" ]\r\n  }\r\n}"
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"홈 화면 불러오기 성공\",\r\n  \"data\" : {\r\n    \"name\" : \"softie\",\r\n    \"dollType\" : \"BROWN\",\r\n    \"frameImageUrl\" : \"frameImageUrl\",\r\n    \"dailyCottonCount\" : 0,\r\n    \"happinessCottonCount\" : 0,\r\n    \"conversations\" : [ \"안녕\", \"하이\", \"봉쥬르\" ]\r\n  }\r\n}"
                   }
                 }
               }
@@ -146,6 +146,31 @@
                 "examples" : {
                   "test-docs" : {
                     "value" : "Success to server connect."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout" : {
+      "post" : {
+        "tags" : [ "AUTH" ],
+        "summary" : "로그아웃",
+        "description" : "로그아웃",
+        "operationId" : "post-logout-docs",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-members594740350"
+                },
+                "examples" : {
+                  "post-logout-docs" : {
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"로그아웃 성공\",\r\n  \"data\" : null\r\n}"
                   }
                 }
               }
@@ -479,7 +504,7 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-members935091773" : {
+      "api-v1-members-980081866" : {
         "type" : "object",
         "properties" : {
           "data" : {
@@ -492,10 +517,6 @@
               "name" : {
                 "type" : "string",
                 "description" : "인형 이름"
-              },
-              "attentionImageUrl" : {
-                "type" : "string",
-                "description" : "인형 이미지 url"
               },
               "frameImageUrl" : {
                 "type" : "string",

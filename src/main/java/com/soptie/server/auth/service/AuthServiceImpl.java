@@ -9,6 +9,7 @@ import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.repository.MemberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
+import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +33,13 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
         return SignInResponse.of(getToken(getMember(socialAccessToken, request)));
+    }
+
+    @Override
+    @Transactional
+    public void signOut(Long memberId) {
+        val member = findMember(memberId);
+        member.resetRefreshToken();
     }
 
     private Member getMember(String socialAccessToken, SignInRequest request) {
@@ -70,5 +79,10 @@ public class AuthServiceImpl implements AuthService {
                 .accessToken(jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired()))
                 .refreshToken(jwtTokenProvider.generateToken(authentication, valueConfig.getRefreshTokenExpired()))
                 .build();
+    }
+
+    private Member findMember(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
     }
 }

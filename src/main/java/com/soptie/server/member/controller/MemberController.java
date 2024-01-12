@@ -55,6 +55,5 @@ public class MemberController {
         val memberId = Long.parseLong(principal.getName());
         val memberHomeInfoResponse = memberService.getMemberHomeInfo(memberId);
         return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), memberHomeInfoResponse));
-
     }
 }
