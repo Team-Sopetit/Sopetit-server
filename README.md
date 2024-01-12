@@ -98,6 +98,6 @@ https://airy-hardhat-419.notion.site/b5149b1a89d0442395de92d136e7c448?v=4efcf271
 
 |        **🍀 [최승빈](https://github.com/csb9427)**  |    **🍀 [남궁찬](https://github.com/Chan531)**                 |**🍀 [김소현](https://github.com/thguss)**                 |
   |:-----------------------------------:|:-----------------------------------:|:-----------------------------------:|
-|   Server Developer  |    Server Developer     |           Server Developer |
+|   Server Developer  |    Server Developer     |   Server Developer |
+| ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/4eaa9aaa-b834-4883-91c8-cb5dd3005c5d) |   ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/3e82a81c-1710-4199-8c5c-c920fdb8229b) |   ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/ca9420e7-744d-4725-a9d9-36f79669fd04) |
 |        프로젝트 세팅<br />    |       프로젝트 셋팅<br/>      |   프로젝트 세팅<br />    |  
-
