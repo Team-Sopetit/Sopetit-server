@@ -1,7 +1,6 @@
 package com.soptie.server.auth.controller;
 
 import com.soptie.server.auth.dto.SignInRequest;
-import com.soptie.server.auth.message.ResponseMessage;
 import com.soptie.server.auth.service.AuthService;
 import com.soptie.server.common.dto.Response;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +8,9 @@ import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
+import static com.soptie.server.auth.message.ResponseMessage.*;
 import static com.soptie.server.common.dto.Response.success;
 
 @RestController
@@ -21,6 +23,13 @@ public class AuthController {
     @PostMapping
     public ResponseEntity<Response> signIn(@RequestHeader("Authorization") String socialAccessToken, @RequestBody SignInRequest request) {
         val response = authService.signIn(socialAccessToken, request);
-        return ResponseEntity.ok(success(ResponseMessage.SUCCESS_SIGNIN.getMessage(), response));
+        return ResponseEntity.ok(success(SUCCESS_SIGN_IN.getMessage(), response));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Response> signOut(Principal principal) {
+        val memberId = Long.parseLong(principal.getName());
+        authService.signOut(memberId);
+        return ResponseEntity.ok(success(SUCCESS_SIGN_OUT.getMessage(), null));
     }
 }

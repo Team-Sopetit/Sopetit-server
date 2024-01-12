@@ -6,4 +6,5 @@ import com.soptie.server.auth.dto.SignInResponse;
 public interface AuthService {
 
     SignInResponse signIn(String socialAccessToken, SignInRequest request);
+    void signOut(Long memberId);
 }
