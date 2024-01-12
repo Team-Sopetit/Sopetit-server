@@ -28,7 +28,7 @@ public class HappinessRoutineController {
         return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
     }
 
-    @GetMapping("theme/{themeId}")
+    @GetMapping("/theme/{themeId}")
     public ResponseEntity<Response> getHappinessRoutinesByThemes(@PathVariable Long themeId) {
         val response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
         return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_ROUTINE.getMessage(), response));
