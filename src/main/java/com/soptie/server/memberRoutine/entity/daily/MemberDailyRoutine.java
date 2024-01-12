@@ -47,6 +47,13 @@ public class MemberDailyRoutine {
 		this.routine = routine;
 	}
 
+	public MemberDailyRoutine(Member member, DailyRoutine routine, int achieveCount) {
+		this.achieveCount = achieveCount;
+		this.isAchieve = false;
+		setMember(member);
+		this.routine = routine;
+	}
+
 	private void setMember(Member member) {
 		if (Objects.nonNull(this.member)) {
 			this.member.getDailyRoutines().remove(this);
