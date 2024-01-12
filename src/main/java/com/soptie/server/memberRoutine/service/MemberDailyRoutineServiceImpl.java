@@ -45,7 +45,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private MemberDailyRoutine getMemberDailyRoutine(Member member, DailyRoutine routine) {
 		return completedMemberDailyRoutineRepository.findByMemberAndRoutine(member, routine)
-				.map(completedRoutine -> createOldRoutines(member, routine, completedRoutine))
+				.map(completedRoutine -> recreateOldRoutines(member, routine, completedRoutine))
 				.orElseGet(() -> createNewRoutine(member, routine));
 	}
 
@@ -53,7 +53,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		return memberDailyRoutineRepository.save(new MemberDailyRoutine(member, routine));
 	}
 
-	private MemberDailyRoutine createOldRoutines(
+	private MemberDailyRoutine recreateOldRoutines(
 			Member member, DailyRoutine routine, CompletedMemberDailyRoutine completedRoutine) {
 		completedMemberDailyRoutineRepository.delete(completedRoutine);
 		return memberDailyRoutineRepository
