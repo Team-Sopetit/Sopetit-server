@@ -28,7 +28,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public MemberHappinessRoutineResponse createMemberHappinessRoutine(long memberId, MemberHappinessRoutineRequest request) {
+    public MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request) {
         val member = findMember(memberId);
         val routine = findRoutine(request.routineId());
         val memberRoutine = new MemberHappinessRoutine(member, routine);
@@ -36,12 +36,12 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         return MemberHappinessRoutineResponse.of(savedMemberRoutine);
     }
 
-    private HappinessSubRoutine findRoutine(long id) {
+    private HappinessSubRoutine findRoutine(Long id) {
         return happinessSubRoutineRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
     }
 
-    private Member findMember(long id) {
+    private Member findMember(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
     }
