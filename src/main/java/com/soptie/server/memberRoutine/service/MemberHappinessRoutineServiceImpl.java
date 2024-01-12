@@ -8,14 +8,11 @@ import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import com.soptie.server.routine.repository.happiness.routine.HappinessSubRoutineRepository;
-
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
 import static com.soptie.server.routine.message.ErrorMessage.INVALID_ROUTINE;
@@ -39,11 +36,12 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         return MemberHappinessRoutineResponse.of(savedMemberRoutine);
     }
 
-    @Override
     @Transactional
-    public void createMemberHappinessRoutines(Member member, List<Long> routines) {
-        routines.forEach(routineId -> memberHappinessRoutineRepository
-                .save(new MemberHappinessRoutine(member, findRoutine(routineId))));
+    public void createMemberHappinessRoutine(Long memberId, Long routineId) {
+        Member member = findMember(memberId);
+        HappinessSubRoutine routine = findRoutine(routineId);
+
+        memberHappinessRoutineRepository.save(new MemberHappinessRoutine(member, routine));
     }
 
     private HappinessSubRoutine findRoutine(Long id) {
