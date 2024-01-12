@@ -40,7 +40,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		val member = findMember(memberId);
 		val routine = findRoutine(request.routineId());
 		val savedMemberRoutine = getMemberDailyRoutine(member, routine);
-		return MemberDailyRoutineResponse.of(savedMemberRoutine.getId());
+		return MemberDailyRoutineResponse.of(savedMemberRoutine);
 	}
 
 	private MemberDailyRoutine getMemberDailyRoutine(Member member, DailyRoutine routine) {
