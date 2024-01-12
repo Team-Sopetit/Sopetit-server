@@ -60,6 +60,29 @@
       }
     },
     "/api/v1/members" : {
+      "get" : {
+        "tags" : [ "MEMBER" ],
+        "summary" : "홈 화면 불러오기",
+        "description" : "홈 화면 불러오기",
+        "operationId" : "get-member-home-screen-docs",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-members935091773"
+                },
+                "examples" : {
+                  "get-member-home-screen-docs" : {
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"홈 화면 불러오기 성공\",\r\n  \"data\" : {\r\n    \"name\" : \"소프티\",\r\n    \"dollType\" : \"BROWN\",\r\n    \"attentionImageUrl\" : \"attentionImageUrl\",\r\n    \"frameImageUrl\" : \"frameImageUrl\",\r\n    \"dailyCottonCount\" : 0,\r\n    \"happinessCottonCount\" : 0,\r\n    \"conversations\" : [ \"안녕\", \"하이\", \"봉쥬르\" ]\r\n  }\r\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "post" : {
         "tags" : [ "MEMBER" ],
         "summary" : "프로필 생성",
@@ -397,19 +420,50 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-auth162170271" : {
+      "api-v1-members935091773" : {
         "type" : "object",
         "properties" : {
           "data" : {
             "type" : "object",
             "properties" : {
-              "accessToken" : {
-                "type" : "string",
-                "description" : "Access Token"
+              "dailyCottonCount" : {
+                "type" : "number",
+                "description" : "솜뭉치 개수"
               },
-              "refreshToken" : {
+              "name" : {
                 "type" : "string",
-                "description" : "Refresh Token"
+                "description" : "인형 이름"
+              },
+              "attentionImageUrl" : {
+                "type" : "string",
+                "description" : "인형 이미지 url"
+              },
+              "frameImageUrl" : {
+                "type" : "string",
+                "description" : "인형 배경 이미지 url"
+              },
+              "dollType" : {
+                "type" : "string",
+                "description" : "인형 종류"
+              },
+              "conversations" : {
+                "type" : "array",
+                "description" : "인형 대화 리스트",
+                "items" : {
+                  "oneOf" : [ {
+                    "type" : "object"
+                  }, {
+                    "type" : "boolean"
+                  }, {
+                    "type" : "string"
+                  }, {
+                    "type" : "number"
+                  } ]
+                }
+              },
+              "happinessCottonCount" : {
+                "type" : "number",
+                "description" : "행운 솜뭉치 개수"
               }
             },
             "description" : "응답 데이터"
@@ -549,6 +603,73 @@
           }
         }
       },
+      "api-v1-auth-1040425838" : {
+        "type" : "object",
+        "properties" : {
+          "socialType" : {
+            "type" : "string",
+            "description" : "소셜 종류"
+          }
+        }
+      },
+      "api-v1-routines-daily-member-routine-routineId-2021368021" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "achieveCount" : {
+                "type" : "number",
+                "description" : "달성 횟수"
+              },
+              "routineId" : {
+                "type" : "number",
+                "description" : "루틴 id"
+              },
+              "isAchieve" : {
+                "type" : "boolean",
+                "description" : "달성 여부"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-auth162170271" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "accessToken" : {
+                "type" : "string",
+                "description" : "Access Token"
+              },
+              "refreshToken" : {
+                "type" : "string",
+                "description" : "Refresh Token"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-members-2061462562" : {
         "type" : "object",
         "properties" : {
@@ -625,15 +746,6 @@
           }
         }
       },
-      "api-v1-auth-1040425838" : {
-        "type" : "object",
-        "properties" : {
-          "socialType" : {
-            "type" : "string",
-            "description" : "소셜 종류"
-          }
-        }
-      },
       "api-v1-routines-daily-member1327124516" : {
         "type" : "object",
         "properties" : {
@@ -643,37 +755,6 @@
               "routineId" : {
                 "type" : "number",
                 "description" : "생성한 루틴 id"
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
-      },
-      "api-v1-routines-daily-member-routine-routineId-2021368021" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "achieveCount" : {
-                "type" : "number",
-                "description" : "달성 횟수"
-              },
-              "routineId" : {
-                "type" : "number",
-                "description" : "루틴 id"
-              },
-              "isAchieve" : {
-                "type" : "boolean",
-                "description" : "달성 여부"
               }
             },
             "description" : "응답 데이터"
