@@ -52,7 +52,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public void deleteMemberHappinessRoutine(long memberId, Long routineId) {
+    public void deleteMemberHappinessRoutine(Long memberId, Long routineId) {
         val member = findMember(memberId);
         val memberRoutine = findMemberRoutine(routineId);
         checkRoutineForMember(member, memberRoutine);
