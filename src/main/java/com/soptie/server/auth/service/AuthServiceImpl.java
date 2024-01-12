@@ -38,8 +38,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void signOut(Long memberId) {
-        Member member = findMember(memberId);
-        member.updateRefreshToken(null);
+        val member = findMember(memberId);
+        member.resetRefreshToken();
     }
 
     private Member getMember(String socialAccessToken, SignInRequest request) {
