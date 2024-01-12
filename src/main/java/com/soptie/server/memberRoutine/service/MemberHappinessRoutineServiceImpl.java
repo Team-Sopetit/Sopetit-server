@@ -6,8 +6,9 @@ import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
-import com.soptie.server.routine.entity.happiness.HappinessRoutine;
-import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
+import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
+import com.soptie.server.routine.repository.happiness.routine.HappinessSubRoutineRepository;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -22,10 +23,10 @@ import static com.soptie.server.routine.message.ErrorMessage.INVALID_ROUTINE;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class MemberHappinessRoutineServiceImpl {
+public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutineService {
 
     private final MemberHappinessRoutineRepository memberHappinessRoutineRepository;
-    private final HappinessRoutineRepository happinessRoutineRepository;
+    private final HappinessSubRoutineRepository happinessSubRoutineRepository;
     private final MemberRepository memberRepository;
 
     @Override
@@ -35,7 +36,7 @@ public class MemberHappinessRoutineServiceImpl {
         val routine = findRoutine(request.routineId());
         val memberRoutine = new MemberHappinessRoutine(member, routine);
         val savedMemberRoutine = memberHappinessRoutineRepository.save(memberRoutine);
-        return MemberHappinessRoutineResponse.of(savedMemberRoutine.getId());
+        return MemberHappinessRoutineResponse.of(savedMemberRoutine);
     }
 
     @Override
@@ -45,8 +46,8 @@ public class MemberHappinessRoutineServiceImpl {
                 .save(new MemberHappinessRoutine(member, findRoutine(routineId))));
     }
 
-    private HappinessRoutine findRoutine(Long id) {
-        return happinessRoutineRepository.findById(id)
+    private HappinessSubRoutine findRoutine(Long id) {
+        return happinessSubRoutineRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
     }
 
