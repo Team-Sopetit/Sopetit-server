@@ -17,12 +17,12 @@ public class Cotton {
 		this.dailyCottonCount++;
 	}
 
-	protected int subDailyCotton() {
+	protected int subtractDailyCotton() {
 		this.dailyCottonCount--;
 		return this.dailyCottonCount;
 	}
 
-	protected int subHappinessCotton() {
+	protected int subtractHappinessCotton() {
 		this.happinessCottonCount--;
 		return this.happinessCottonCount;
 	}

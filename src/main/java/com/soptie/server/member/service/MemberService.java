@@ -8,5 +8,5 @@ public interface MemberService {
 
     void createMemberProfile(Long memberId, MemberProfileRequest request);
     int giveCotton(Long memberId, CottonType cottonType);
-    MemberHomeInfoResponse showMemberHomeInfo(Long memberId);
+    MemberHomeInfoResponse getMemberHomeInfo(Long memberId);
 }

@@ -40,8 +40,7 @@ import static com.soptie.server.member.message.ResponseMessage.SUCCESS_GIVE_COTT
 import static com.soptie.server.member.message.ResponseMessage.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
@@ -162,7 +161,7 @@ class MemberControllerTest extends BaseControllerTest {
             // then
             mockMvc
                     .perform(
-                            RestDocumentationRequestBuilders.patch(DEFAULT_URL + "/{cottonType}", DAILY)
+                            patch(DEFAULT_URL + "/{cottonType}", DAILY)
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
                                     .principal(principal))

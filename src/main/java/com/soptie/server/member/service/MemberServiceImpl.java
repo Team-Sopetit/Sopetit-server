@@ -44,6 +44,10 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public int giveCotton(Long memberId, CottonType cottonType) {
         val member = findMember(memberId);
+        return giveCottonByCottonType(member, cottonType);
+    }
+
+    private int giveCottonByCottonType(Member member, CottonType cottonType) {
         return switch (cottonType) {
             case DAILY -> giveDailyCotton(member);
             case HAPPINESS -> giveHappinessCotton(member);
@@ -52,16 +56,16 @@ public class MemberServiceImpl implements MemberService {
 
     private int giveDailyCotton(Member member) {
         checkMemberCottonCount(member.getCottonInfo().getDailyCottonCount());
-        return member.subDailyCotton();
+        return member.subtractDailyCotton();
     }
 
     private int giveHappinessCotton(Member member) {
         checkMemberCottonCount(member.getCottonInfo().getHappinessCottonCount());
         member.getMemberDoll().addHappinessCottonCount();
-        return member.subHappinessCotton();
+        return member.subtractHappinessCotton();
     }
 
-    public MemberHomeInfoResponse showMemberHomeInfo(Long memberId) {
+    public MemberHomeInfoResponse getMemberHomeInfo(Long memberId) {
         val member = findMember(memberId);
         val conversations = getConversations();
         return MemberHomeInfoResponse.of(member, conversations);

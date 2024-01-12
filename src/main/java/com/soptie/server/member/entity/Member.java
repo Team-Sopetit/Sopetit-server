@@ -80,11 +80,11 @@ public class Member extends BaseTime {
 		this.cottonInfo.addDailyCotton();
 	}
 
-	public int subDailyCotton() {
-		return this.cottonInfo.subDailyCotton();
+	public int subtractDailyCotton() {
+		return this.cottonInfo.subtractDailyCotton();
 	}
 
-	public int subHappinessCotton() {
-		return this.cottonInfo.subHappinessCotton();
+	public int subtractHappinessCotton() {
+		return this.cottonInfo.subtractHappinessCotton();
 	}
 }

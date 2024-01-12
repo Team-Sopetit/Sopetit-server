@@ -45,14 +45,15 @@ public class MemberController {
     @PatchMapping("/{cottonType}")
     public ResponseEntity<Response> giveCotton(Principal principal, @PathVariable CottonType cottonType) {
         val memberId = Long.parseLong(principal.getName());
-        int cottonCount = memberService.giveCotton(memberId, cottonType);
-        return ResponseEntity.ok(success(SUCCESS_GIVE_COTTON.getMessage(), CottonCountResponse.of(cottonCount)));
+        val cottonCount = memberService.giveCotton(memberId, cottonType);
+        val cottonCountResponse = CottonCountResponse.of(cottonCount);
+        return ResponseEntity.ok(success(SUCCESS_GIVE_COTTON.getMessage(), cottonCountResponse));
     }
 
     @GetMapping
     public ResponseEntity<Response> getMemberHomeInfo(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
-        val memberHomeInfoResponse = memberService.showMemberHomeInfo(memberId);
+        val memberHomeInfoResponse = memberService.getMemberHomeInfo(memberId);
         return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), memberHomeInfoResponse));
 
     }
