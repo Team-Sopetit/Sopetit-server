@@ -6,11 +6,7 @@ import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -49,5 +45,12 @@ public class MemberHappinessRoutineController {
         val memberId = Long.parseLong(principal.getName());
         val response = memberHappinessRoutineService.getMemberHappinessRoutine(memberId);
         return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
+    }
+
+    @DeleteMapping("/routine/{routineId}")
+    public ResponseEntity<Response> deleteMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
+        val memberId = Long.parseLong(principal.getName());
+        memberHappinessRoutineService.deleteMemberHappinessRoutine(memberId, routineId);
+        return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
     }
 }
