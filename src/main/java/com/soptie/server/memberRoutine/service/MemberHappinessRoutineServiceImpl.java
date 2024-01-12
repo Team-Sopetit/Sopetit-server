@@ -4,6 +4,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
+import com.soptie.server.memberRoutine.dto.MemberHappinessRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
@@ -39,6 +40,13 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     private HappinessSubRoutine findRoutine(Long id) {
         return happinessSubRoutineRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
+    }
+
+    @Override
+    public MemberHappinessRoutinesResponse getMemberHappinessRoutine(Long memberId) {
+        val member = findMember(memberId);
+        val memberRoutine = member.getHappinessRoutine();
+        return MemberHappinessRoutinesResponse.of(memberRoutine);
     }
 
     private Member findMember(Long id) {

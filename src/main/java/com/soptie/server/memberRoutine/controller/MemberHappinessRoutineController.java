@@ -6,6 +6,7 @@ import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import java.net.URI;
 import java.security.Principal;
 
 import static com.soptie.server.common.dto.Response.success;
-import static com.soptie.server.memberRoutine.message.ResponseMessage.SUCCESS_CREATE_ROUTINE;
+import static com.soptie.server.memberRoutine.message.ResponseMessage.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,5 +42,12 @@ public class MemberHappinessRoutineController {
                 .path("/")
                 .buildAndExpand()
                 .toUri();
+    }
+
+    @GetMapping
+    public ResponseEntity<Response> getMemberHappinessRoutine(Principal principal) {
+        val memberId = Long.parseLong(principal.getName());
+        val response = memberHappinessRoutineService.getMemberHappinessRoutine(memberId);
+        return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
     }
 }
