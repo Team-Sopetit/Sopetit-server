@@ -23,9 +23,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 import java.net.URI;
 import java.security.Principal;
@@ -138,7 +135,6 @@ class MemberControllerTest extends BaseControllerTest {
                                                         fieldWithPath("data").type(OBJECT).description("응답 데이터"),
                                                         fieldWithPath("data.name").type(STRING).description("인형 이름"),
                                                         fieldWithPath("data.dollType").type(STRING).description("인형 종류"),
-                                                        fieldWithPath("data.attentionImageUrl").type(STRING).description("인형 이미지 url"),
                                                         fieldWithPath("data.frameImageUrl").type(STRING).description("인형 배경 이미지 url"),
                                                         fieldWithPath("data.dailyCottonCount").type(NUMBER).description("솜뭉치 개수"),
                                                         fieldWithPath("data.happinessCottonCount").type(NUMBER).description("행운 솜뭉치 개수"),

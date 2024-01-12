@@ -8,6 +8,43 @@ https://airy-hardhat-419.notion.site/b5149b1a89d0442395de92d136e7c448?v=4efcf271
 ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/a260dcff-292b-4dd1-8acd-030a57a57a65)
 
 ### 📖 Directory
+```
+📁 Sopetit-server
+├── .github
+├── .idea
+├── build
+├── gen
+├── gradel
+├── scripts
+├── src.main
+│   ├──java.com.soptie.server
+│       ├── auth
+│       ├── common
+│       ├── conversation
+│       ├── doll
+│       ├── member
+│           ├── controller
+│           ├── dto
+│           ├── entity
+│           ├── message
+│           ├── repository
+│           ├── service
+│       ├── memberDoll
+│       ├── memberRoutine
+│       ├── routine
+│       ├── test
+├── src.test
+│    ├──java.com.soptie.server
+│       ├── auth
+│       ├── base
+│       ├── doll
+│       ├── member
+│       ├── memberRoutine
+│           ├── controller
+│           ├── fixture
+│       ├── routine
+│       ├── test
+```
 
 ### ✉️ Commit Messge Rules
 

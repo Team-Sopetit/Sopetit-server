@@ -11,7 +11,6 @@ import java.util.List;
 public record MemberHomeInfoResponse(
         String name,
         DollType dollType,
-        String attentionImageUrl,
         String frameImageUrl,
         int dailyCottonCount,
         int happinessCottonCount,
@@ -22,7 +21,6 @@ public record MemberHomeInfoResponse(
         return MemberHomeInfoResponse.builder()
                 .name(member.getMemberDoll().getName())
                 .dollType(member.getMemberDoll().getDoll().getDollType())
-                .attentionImageUrl(member.getMemberDoll().getDoll().getImageInfo().getAttentionImageUrl())
                 .frameImageUrl(member.getMemberDoll().getDoll().getImageInfo().getFrameImageUrl())
                 .dailyCottonCount(member.getCottonInfo().getDailyCottonCount())
                 .happinessCottonCount(member.getCottonInfo().getHappinessCottonCount())
