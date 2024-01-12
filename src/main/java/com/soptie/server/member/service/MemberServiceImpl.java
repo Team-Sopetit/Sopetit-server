@@ -1,5 +1,8 @@
 package com.soptie.server.member.service;
 
+import com.soptie.server.conversation.entity.Conversation;
+import com.soptie.server.conversation.repository.ConversationRepository;
+import com.soptie.server.member.dto.MemberHomeInfoResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
@@ -11,6 +14,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.soptie.server.member.message.ErrorMessage.EXIST_PROFILE;
@@ -24,6 +28,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberDollService memberDollService;
     private final MemberDailyRoutineService memberDailyRoutineService;
     private final MemberRepository memberRepository;
+    private final ConversationRepository conversationRepository;
 
     @Override
     @Transactional
@@ -32,6 +37,13 @@ public class MemberServiceImpl implements MemberService {
         checkMemberProfileExist(member);
         memberDailyRoutineService.createMemberDailyRoutines(member, request.routines());
         memberDollService.createMemberDoll(member, request.dollType(), request.name());
+    }
+
+    @Override
+    public MemberHomeInfoResponse showMemberHomeInfo(Long memberId) {
+        val member = findMember(memberId);
+        val conversations = getConversations();
+        return MemberHomeInfoResponse.of(member, conversations);
     }
 
     private Member findMember(Long id) {
@@ -43,5 +55,11 @@ public class MemberServiceImpl implements MemberService {
         if (Objects.nonNull(member)) {
             throw new IllegalStateException(EXIST_PROFILE.getMeesage());
         }
+    }
+
+    private List<String> getConversations() {
+        return conversationRepository.findAll().stream()
+                .map(Conversation::getContent)
+                .toList();
     }
 }

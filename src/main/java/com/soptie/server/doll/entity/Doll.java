@@ -8,11 +8,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class Doll {
 
@@ -26,4 +28,9 @@ public class Doll {
 
 	@Embedded
 	private DollImage imageInfo;
+
+	public Doll(DollType dollType, DollImage imageInfo) {
+		this.dollType = dollType;
+		this.imageInfo = imageInfo;
+	}
 }
