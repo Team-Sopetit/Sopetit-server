@@ -59,7 +59,6 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         deleteMemberRoutine(memberRoutine);
     }
 
-
     private Member findMember(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
