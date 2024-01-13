@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.soptie.server.common.dto.Response.success;
@@ -28,8 +28,8 @@ public class HappinessRoutineController {
         return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
     }
 
-    @GetMapping("/theme/{themeId}")
-    public ResponseEntity<Response> getHappinessRoutinesByThemes(@PathVariable Long themeId) {
+    @GetMapping
+    public ResponseEntity<Response> getHappinessRoutinesByThemes(@RequestParam(required = false) Long themeId) {
         val response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
         return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_ROUTINE.getMessage(), response));
     }

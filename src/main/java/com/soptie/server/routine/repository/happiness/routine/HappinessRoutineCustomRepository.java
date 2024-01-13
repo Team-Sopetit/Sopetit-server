@@ -6,5 +6,5 @@ import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import java.util.List;
 
 public interface HappinessRoutineCustomRepository {
-    List<HappinessRoutine> findAllByTheme(HappinessTheme theme);
+    List<HappinessRoutine> findAllByThemeId(Long themeId);
 }
