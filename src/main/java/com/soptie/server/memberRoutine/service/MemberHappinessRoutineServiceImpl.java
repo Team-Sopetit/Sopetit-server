@@ -15,6 +15,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.soptie.server.member.message.ErrorMessage.INACCESSIBLE_ROUTINE;
 import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
 import static com.soptie.server.routine.message.ErrorMessage.INVALID_ROUTINE;
 
@@ -49,8 +50,33 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         return MemberHappinessRoutinesResponse.of(memberRoutine);
     }
 
+    @Override
+    @Transactional
+    public void deleteMemberHappinessRoutine(Long memberId, Long routineId) {
+        val member = findMember(memberId);
+        val memberRoutine = findMemberRoutine(routineId);
+        checkRoutineForMember(member, memberRoutine);
+        deleteMemberRoutine(memberRoutine);
+    }
+
     private Member findMember(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+    }
+
+    private void deleteMemberRoutine(MemberHappinessRoutine routine) {
+        routine.getMember().deleteHappinessRoutine();
+        memberHappinessRoutineRepository.delete(routine);
+    }
+
+    private MemberHappinessRoutine findMemberRoutine(Long id) {
+        return memberHappinessRoutineRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
+    }
+
+    private void checkRoutineForMember(Member member, MemberHappinessRoutine routine) {
+        if (!member.getHappinessRoutine().equals(routine)) {
+            throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMeesage());
+        }
     }
 }
