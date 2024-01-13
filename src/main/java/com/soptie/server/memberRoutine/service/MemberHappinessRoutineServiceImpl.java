@@ -69,6 +69,16 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         memberHappinessRoutineRepository.delete(routine);
     }
 
+    @Override
+    @Transactional
+    public void achieveMemberHappinessRoutine(Long memberId, Long routineId) {
+        val member = findMember(memberId);
+        val memberRoutine = findMemberRoutine(routineId);
+        checkRoutineForMember(member, memberRoutine);
+        member.addHappinessCotton();
+        deleteMemberRoutine(memberRoutine);
+    }
+
     private MemberHappinessRoutine findMemberRoutine(Long id) {
         return memberHappinessRoutineRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));

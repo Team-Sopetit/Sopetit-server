@@ -59,6 +59,53 @@
         }
       }
     },
+    "/api/v1/members" : {
+      "post" : {
+        "tags" : [ "MEMBER" ],
+        "summary" : "프로필 생성",
+        "description" : "프로필 생성",
+        "operationId" : "post-member-profile-docs",
+        "requestBody" : {
+          "content" : {
+            "application/json;charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/api-v1-members-2061462562"
+              },
+              "examples" : {
+                "post-member-profile-docs" : {
+                  "value" : "{\n  \"dollType\" : \"BROWN\",\n  \"name\" : \"소프티\",\n  \"routines\" : [ 1, 2, 3 ]\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "201",
+            "headers" : {
+              "Location" : {
+                "description" : "Redirect URI",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-member-routine-routineId594740350"
+                },
+                "examples" : {
+                  "post-member-profile-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"프로필 생성 성공\",\n  \"data\" : null\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/test" : {
       "get" : {
         "tags" : [ "TEST" ],
@@ -247,6 +294,31 @@
         }
       }
     },
+    "/api/v1/routines/happiness/member" : {
+      "get" : {
+        "tags" : [ "MEMBER HAPPINESS ROUTINE" ],
+        "summary" : "회원 별 행복 루틴 리스트 조회",
+        "description" : "회원 별 행복 루틴 리스트 조회",
+        "operationId" : "get-member-happiness-routine-docs",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-happiness-member-160843619"
+                },
+                "examples" : {
+                  "get-member-happiness-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routineId\" : 1,\n    \"iconImageUrl\" : \"icon-image-url\",\n    \"contentImageUrl\" : \"content-image-url\",\n    \"themeName\" : \"태마 이름\",\n    \"themeNameColor\" : \"#ffcdc5\",\n    \"title\" : \"루틴 제목\",\n    \"content\" : \"routine-content\",\n    \"detailContent\" : \"routine-detail-content\",\n    \"place\" : \"루틴 장소\",\n    \"timeTaken\" : \"5~10분 소요\"\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/routines/daily/theme/{themeId}" : {
       "get" : {
         "tags" : [ "DAILY ROUTINE" ],
@@ -350,33 +422,6 @@
   },
   "components" : {
     "schemas" : {
-      "api-v1-auth162170271" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "accessToken" : {
-                "type" : "string",
-                "description" : "Access Token"
-              },
-              "refreshToken" : {
-                "type" : "string",
-                "description" : "Refresh Token"
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
-      },
       "api-v1-routines-daily-theme-themeId-54531209" : {
         "type" : "object",
         "properties" : {
@@ -502,6 +547,132 @@
           }
         }
       },
+      "api-v1-auth-1040425838" : {
+        "type" : "object",
+        "properties" : {
+          "socialType" : {
+            "type" : "string",
+            "description" : "소셜 종류"
+          }
+        }
+      },
+      "api-v1-routines-daily-member-routine-routineId-2021368021" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "achieveCount" : {
+                "type" : "number",
+                "description" : "달성 횟수"
+              },
+              "routineId" : {
+                "type" : "number",
+                "description" : "루틴 id"
+              },
+              "isAchieve" : {
+                "type" : "boolean",
+                "description" : "달성 여부"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-happiness-member-160843619" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "timeTaken" : {
+                "type" : "string",
+                "description" : "소요 시간"
+              },
+              "detailContent" : {
+                "type" : "string",
+                "description" : "루틴 상세 내용"
+              },
+              "themeName" : {
+                "type" : "string",
+                "description" : "테마 이름"
+              },
+              "contentImageUrl" : {
+                "type" : "string",
+                "description" : "카드 이미지 url"
+              },
+              "themeNameColor" : {
+                "type" : "string",
+                "description" : "테마 이름 색상"
+              },
+              "iconImageUrl" : {
+                "type" : "string",
+                "description" : "아이콘 이미지 url"
+              },
+              "place" : {
+                "type" : "string",
+                "description" : "장소"
+              },
+              "title" : {
+                "type" : "string",
+                "description" : "루틴 제목"
+              },
+              "routineId" : {
+                "type" : "number",
+                "description" : "루틴 id"
+              },
+              "content" : {
+                "type" : "string",
+                "description" : "루틴 내용"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-auth162170271" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "accessToken" : {
+                "type" : "string",
+                "description" : "Access Token"
+              },
+              "refreshToken" : {
+                "type" : "string",
+                "description" : "Refresh Token"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-routines-daily-member1327124516" : {
         "type" : "object",
         "properties" : {
@@ -573,48 +744,36 @@
           }
         }
       },
-      "api-v1-auth-1040425838" : {
+      "api-v1-members-2061462562" : {
         "type" : "object",
         "properties" : {
-          "socialType" : {
+          "name" : {
             "type" : "string",
-            "description" : "소셜 종류"
+            "description" : "인형 이름"
+          },
+          "routines" : {
+            "type" : "array",
+            "description" : "인형 종류",
+            "items" : {
+              "oneOf" : [ {
+                "type" : "object"
+              }, {
+                "type" : "boolean"
+              }, {
+                "type" : "string"
+              }, {
+                "type" : "number"
+              } ]
+            }
+          },
+          "dollType" : {
+            "type" : "string",
+            "description" : "인형 종류"
           }
         }
       },
       "api-v1-test486549215" : {
         "type" : "object"
-      },
-      "api-v1-routines-daily-member-routine-routineId-2021368021" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "achieveCount" : {
-                "type" : "number",
-                "description" : "달성 횟수"
-              },
-              "routineId" : {
-                "type" : "number",
-                "description" : "루틴 id"
-              },
-              "isAchieve" : {
-                "type" : "boolean",
-                "description" : "달성 여부"
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
       }
     }
   }
