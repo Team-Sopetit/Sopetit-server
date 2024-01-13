@@ -38,15 +38,30 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	@Transactional
 	public MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request) {
 		val member = findMember(memberId);
+		checkMemberRoutineAddition(member);
 		val routine = findRoutine(request.routineId());
 		val savedMemberRoutine = getMemberDailyRoutine(member, routine);
 		return MemberDailyRoutineResponse.of(savedMemberRoutine);
 	}
 
+	private void checkMemberRoutineAddition(Member member) {
+		if (member.getDailyRoutines().size() >= 3) {
+			throw new IllegalStateException(CANNOT_ADD_MEMBER_ROUTINE.getMessage());
+		}
+	}
+
 	private MemberDailyRoutine getMemberDailyRoutine(Member member, DailyRoutine routine) {
+		checkDuplicatedMemberRoutine(member, routine);
 		return completedMemberDailyRoutineRepository.findByMemberAndRoutine(member, routine)
 				.map(completedRoutine -> recreateOldRoutines(member, routine, completedRoutine))
 				.orElseGet(() -> createNewRoutine(member, routine));
+	}
+
+	private void checkDuplicatedMemberRoutine(Member member, DailyRoutine routine) {
+		val isExistRoutine = memberDailyRoutineRepository.existsByMemberAndRoutine(member, routine);
+		if (isExistRoutine) {
+			throw new IllegalStateException(DUPLICATED_ROUTINE.getMessage());
+		}
 	}
 
 	private MemberDailyRoutine createNewRoutine(Member member, DailyRoutine routine) {
