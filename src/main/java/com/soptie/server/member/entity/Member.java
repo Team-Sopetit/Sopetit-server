@@ -1,27 +1,16 @@
 package com.soptie.server.member.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -84,11 +73,19 @@ public class Member extends BaseTime {
 		this.cottonInfo.addDailyCotton();
 	}
 
+	public void addHappinessCotton() {
+		this.cottonInfo.addHappinessCotton();
+	}
+
 	public int subtractDailyCotton() {
 		return this.cottonInfo.subtractDailyCotton();
 	}
 
 	public int subtractHappinessCotton() {
 		return this.cottonInfo.subtractHappinessCotton();
+	}
+
+	public void deleteHappinessRoutine() {
+		this.happinessRoutine = null;
 	}
 }

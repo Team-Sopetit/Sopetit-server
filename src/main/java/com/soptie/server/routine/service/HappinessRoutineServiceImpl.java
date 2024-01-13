@@ -2,16 +2,12 @@ package com.soptie.server.routine.service;
 
 import com.soptie.server.routine.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessThemesResponse;
-import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
 import com.soptie.server.routine.repository.happiness.theme.HappinessThemeRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static com.soptie.server.routine.message.ErrorMessage.INVALID_THEME;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,13 +27,7 @@ public class HappinessRoutineServiceImpl implements HappinessRoutineService {
 
     @Override
     public HappinessRoutinesResponse getHappinessRoutinesByTheme(Long themeId) {
-        val theme = getTheme(themeId);
-        val routines = happinessRoutineRepository.findAllByTheme(theme);
+        val routines = happinessRoutineRepository.findAllByThemeId(themeId);
         return HappinessRoutinesResponse.of(routines);
-    }
-
-    private HappinessTheme getTheme(Long id) {
-        return happinessThemeRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_THEME.getMessage()));
     }
 }
