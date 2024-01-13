@@ -460,6 +460,40 @@
         }
       }
     },
+    "/api/v1/routines/happiness/theme/{themeId}" : {
+      "get" : {
+        "tags" : [ "HAPPINESS ROUTINE" ],
+        "summary" : "테마 별 행복 루틴 리스트 조회",
+        "description" : "테마 별 행복 루틴 리스트 조회",
+        "operationId" : "get-theme-happiness-routines-docs",
+        "parameters" : [ {
+          "name" : "themeId",
+          "in" : "path",
+          "description" : "테마 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-happiness-theme-themeId1133934080"
+                },
+                "examples" : {
+                  "get-theme-happiness-routines-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"name\" : \"Happiness routine Theme1\",\n      \"nameColor\" : \"Happiness routine Theme1\",\n      \"title\" : \"Happiness routine Theme1\",\n      \"iconImageUrl\" : \"icon_image_url1\"\n    }, {\n      \"routineId\" : 2,\n      \"name\" : \"Happiness routine Theme2\",\n      \"nameColor\" : \"Happiness routine Theme2\",\n      \"title\" : \"Happiness routine Theme2\",\n      \"iconImageUrl\" : \"icon_image_url2\"\n    }, {\n      \"routineId\" : 3,\n      \"name\" : \"Happiness routine Theme3\",\n      \"nameColor\" : \"Happiness routine Theme3\",\n      \"title\" : \"Happiness routine Theme3\",\n      \"iconImageUrl\" : \"icon_image_url3\"\n    }, {\n      \"routineId\" : 4,\n      \"name\" : \"Happiness routine Theme4\",\n      \"nameColor\" : \"Happiness routine Theme4\",\n      \"title\" : \"Happiness routine Theme4\",\n      \"iconImageUrl\" : \"icon_image_url4\"\n    }, {\n      \"routineId\" : 5,\n      \"name\" : \"Happiness routine Theme5\",\n      \"nameColor\" : \"Happiness routine Theme5\",\n      \"title\" : \"Happiness routine Theme5\",\n      \"iconImageUrl\" : \"icon_image_url5\"\n    } ]\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/routines/daily/member/routine/{routineId}" : {
       "delete" : {
         "tags" : [ "MEMBER DAILY ROUTINE" ],
@@ -879,6 +913,54 @@
               "refreshToken" : {
                 "type" : "string",
                 "description" : "Refresh Token"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-happiness-theme-themeId1133934080" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "routines" : {
+                "type" : "array",
+                "description" : "루틴 정보 리스트",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "iconImageUrl" : {
+                      "type" : "string",
+                      "description" : "이미지 url"
+                    },
+                    "nameColor" : {
+                      "type" : "string",
+                      "description" : "행복 루틴 제목 색상"
+                    },
+                    "name" : {
+                      "type" : "string",
+                      "description" : "행복 루틴 제목"
+                    },
+                    "title" : {
+                      "type" : "string",
+                      "description" : "행복 루틴 설명"
+                    },
+                    "routineId" : {
+                      "type" : "number",
+                      "description" : "행복 루틴 id"
+                    }
+                  }
+                }
               }
             },
             "description" : "응답 데이터"

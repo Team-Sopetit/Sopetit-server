@@ -72,7 +72,7 @@ class HappinessRoutineControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @DisplayName("테마 별 데일리 루틴 리스트 조회 성공")
+    @DisplayName("테마 별 행복 루틴 리스트 조회 성공")
     void success_getHappinessRoutinesByTheme() throws Exception {
         HappinessRoutinesResponse routines = HappinessRoutineFixture.createHappinessRoutinesResponseDTO();
         ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
@@ -104,9 +104,9 @@ class HappinessRoutineControllerTest extends BaseControllerTest {
                                                         fieldWithPath("data.routines").type(ARRAY).description("루틴 정보 리스트"),
                                                         fieldWithPath("data.routines[].routineId").type(NUMBER).description("행복 루틴 id"),
                                                         fieldWithPath("data.routines[].name").type(STRING).description("행복 루틴 제목"),
-                                                        fieldWithPath("data.routines[].nameColor").type(NUMBER).description("행복 루틴 제목 색상"),
+                                                        fieldWithPath("data.routines[].nameColor").type(STRING).description("행복 루틴 제목 색상"),
                                                         fieldWithPath("data.routines[].title").type(STRING).description("행복 루틴 설명"),
-                                                        fieldWithPath("data.routines[].iconImageUrl").type(NUMBER).description("이미지 url")
+                                                        fieldWithPath("data.routines[].iconImageUrl").type(STRING).description("이미지 url")
                                                 )
                                                 .build())))
                 .andExpect(status().isOk());
