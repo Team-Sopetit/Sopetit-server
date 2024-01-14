@@ -32,4 +32,11 @@ public class AuthController {
         authService.signOut(memberId);
         return ResponseEntity.ok(success(SUCCESS_SIGN_OUT.getMessage(), null));
     }
+
+    @DeleteMapping
+    public ResponseEntity<Response> withdrawal(Principal principal) {
+        val memberId = Long.parseLong(principal.getName());
+        authService.withdraw(memberId);
+        return ResponseEntity.ok(success(SUCCESS_WITHDRAWAL.getMessage()));
+    }
 }

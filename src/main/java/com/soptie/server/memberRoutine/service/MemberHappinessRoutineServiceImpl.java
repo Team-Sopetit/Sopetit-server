@@ -99,4 +99,10 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
             throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMeesage());
         }
     }
+
+    @Override
+    @Transactional
+    public void deleteMemberHappinessRoutine(MemberHappinessRoutine routine) {
+        memberHappinessRoutineRepository.delete(routine);
+    }
 }

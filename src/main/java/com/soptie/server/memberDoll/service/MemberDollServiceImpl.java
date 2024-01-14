@@ -31,6 +31,12 @@ public class MemberDollServiceImpl implements MemberDollService {
         memberDollRepository.save(memberDoll);
     }
 
+    @Override
+    @Transactional
+    public void deleteByMember(Member member) {
+        memberDollRepository.deleteByMember(member);
+    }
+
     private Doll getDoll(DollType type) {
         return dollRepository.findByDollType(type)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_TYPE.getMessage()));

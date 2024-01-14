@@ -6,4 +6,5 @@ import com.soptie.server.member.entity.Member;
 public interface MemberDollService {
 
     void createMemberDoll(Member member, DollType dollType, String name);
+    void deleteByMember(Member member);
 }

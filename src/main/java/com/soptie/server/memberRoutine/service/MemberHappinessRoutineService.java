@@ -1,6 +1,7 @@
 package com.soptie.server.memberRoutine.service;
 
 import com.soptie.server.memberRoutine.dto.*;
+import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 
 public interface MemberHappinessRoutineService {
 
@@ -8,4 +9,5 @@ public interface MemberHappinessRoutineService {
 	MemberHappinessRoutinesResponse getMemberHappinessRoutine(Long memberId);
 	void deleteMemberHappinessRoutine(Long memberId, Long routineId);
 	void achieveMemberHappinessRoutine(Long memberId, Long routineId);
+	void deleteMemberHappinessRoutine(MemberHappinessRoutine routine);
 }

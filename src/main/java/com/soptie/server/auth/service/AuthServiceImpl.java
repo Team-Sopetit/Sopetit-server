@@ -9,12 +9,20 @@ import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.memberDoll.service.MemberDollService;
+import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
+import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
+import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
+import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
 import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
@@ -27,6 +35,9 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberRepository memberRepository;
     private final KakaoService kakaoService;
+    private final MemberDailyRoutineService memberDailyRoutineService;
+    private final MemberHappinessRoutineService memberHappinessRoutineService;
+    private final MemberDollService memberDollService;
     private final ValueConfig valueConfig;
 
     @Override
@@ -40,6 +51,16 @@ public class AuthServiceImpl implements AuthService {
     public void signOut(Long memberId) {
         val member = findMember(memberId);
         member.resetRefreshToken();
+    }
+
+    @Override
+    @Transactional
+    public void withdraw(Long memberId) {
+        val member = findMember(memberId);
+        deleteMemberDoll(member);
+        deleteMemberDailyRoutine(member);
+        deleteMemberHappinessRoutine(member);
+        deleteMember(member);
     }
 
     private Member getMember(String socialAccessToken, SignInRequest request) {
@@ -84,5 +105,25 @@ public class AuthServiceImpl implements AuthService {
     private Member findMember(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+    }
+
+    private void deleteMemberDoll(Member member) {
+        memberDollService.deleteByMember(member);
+    }
+
+    private void deleteMemberDailyRoutine(Member member) {
+        for (MemberDailyRoutine routine : member.getDailyRoutines()) {
+            memberDailyRoutineService.deleteMemberDailyRoutine(routine);
+        }
+    }
+
+    private void deleteMemberHappinessRoutine(Member member) {
+        if (Objects.nonNull(member.getHappinessRoutine())) {
+            memberHappinessRoutineService.deleteMemberHappinessRoutine(member.getHappinessRoutine());
+        }
+    }
+
+    private void deleteMember(Member member) {
+        memberRepository.delete(member);
     }
 }
