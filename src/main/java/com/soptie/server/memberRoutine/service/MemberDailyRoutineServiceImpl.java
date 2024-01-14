@@ -58,10 +58,13 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	}
 
 	private void checkDuplicatedMemberRoutine(Member member, DailyRoutine routine) {
-		val isExistRoutine = memberDailyRoutineRepository.existsByMemberAndRoutine(member, routine);
-		if (isExistRoutine) {
+		if (isExistRoutine(member, routine)) {
 			throw new IllegalStateException(DUPLICATED_ROUTINE.getMessage());
 		}
+	}
+
+	private boolean isExistRoutine(Member member, DailyRoutine routine) {
+		return memberDailyRoutineRepository.existsByMemberAndRoutine(member, routine);
 	}
 
 	private MemberDailyRoutine createNewRoutine(Member member, DailyRoutine routine) {
