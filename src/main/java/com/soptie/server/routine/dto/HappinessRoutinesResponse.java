@@ -13,7 +13,7 @@ public record HappinessRoutinesResponse (
     }
 
     @Builder
-    private record HappinessRoutineResponse(
+    public record HappinessRoutineResponse(
             Long routineId,
             String name,
             String nameColor,
