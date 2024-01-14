@@ -15,8 +15,11 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 import static com.soptie.server.member.message.ErrorMessage.INACCESSIBLE_ROUTINE;
 import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
+import static com.soptie.server.routine.message.ErrorMessage.CANNOT_ADD_MEMBER_ROUTINE;
 import static com.soptie.server.routine.message.ErrorMessage.INVALID_ROUTINE;
 
 @Service
@@ -32,10 +35,17 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     @Transactional
     public MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request) {
         val member = findMember(memberId);
+        checkMemberRoutineAddition(member);
         val routine = findRoutine(request.routineId());
         val memberRoutine = new MemberHappinessRoutine(member, routine);
         val savedMemberRoutine = memberHappinessRoutineRepository.save(memberRoutine);
         return MemberHappinessRoutineResponse.of(savedMemberRoutine);
+    }
+
+    private void checkMemberRoutineAddition(Member member) {
+        if (Objects.nonNull(member.getHappinessRoutine())) {
+            throw new IllegalStateException(CANNOT_ADD_MEMBER_ROUTINE.getMessage());
+        }
     }
 
     private HappinessSubRoutine findRoutine(Long id) {
