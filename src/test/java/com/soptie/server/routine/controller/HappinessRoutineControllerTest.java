@@ -14,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -77,13 +79,18 @@ class HappinessRoutineControllerTest extends BaseControllerTest {
         HappinessRoutinesResponse routines = HappinessRoutineFixture.createHappinessRoutinesResponseDTO();
         ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
 
+        MultiValueMap<String, String> queries = new LinkedMultiValueMap<>();
+        String themes = "1";
+        queries.add("themeId", themes);
+
         when(controller.getHappinessRoutinesByThemes(anyLong())).thenReturn(response);
 
         mockMvc
                 .perform(
-                        RestDocumentationRequestBuilders.get(DEFAULT_URL + "/theme/{themeId}", 1L)
+                        RestDocumentationRequestBuilders.get(DEFAULT_URL)
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON))
+                                .accept(MediaType.APPLICATION_JSON)
+                                .params(queries))
                 .andDo(
                         MockMvcRestDocumentation.document(
                                 "get-theme-happiness-routines-docs",
@@ -93,8 +100,8 @@ class HappinessRoutineControllerTest extends BaseControllerTest {
                                         ResourceSnippetParameters.builder()
                                                 .tag(TAG)
                                                 .description("테마 별 행복 루틴 리스트 조회")
-                                                .pathParameters(
-                                                        parameterWithName("themeId").description("테마 id")
+                                                .queryParameters(
+                                                        parameterWithName("themeId").description("조회할 테마 id")
                                                 )
                                                 .requestFields()
                                                 .responseFields(
