@@ -19,10 +19,10 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import java.security.Principal;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
-import static com.soptie.server.auth.message.ResponseMessage.SUCCESS_SIGN_IN;
-import static com.soptie.server.auth.message.ResponseMessage.SUCCESS_SIGN_OUT;
+import static com.soptie.server.auth.message.ResponseMessage.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
@@ -68,7 +68,7 @@ class AuthControllerTest extends BaseControllerTest {
                                 .header("Authorization", socialAccessToken)
                                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(
-                        MockMvcRestDocumentation.document(
+                        document(
                                 "post-token-docs",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
@@ -110,7 +110,7 @@ class AuthControllerTest extends BaseControllerTest {
                                 .principal(principal)
                 )
                 .andDo(
-                        MockMvcRestDocumentation.document(
+                        document(
                                 "post-logout-docs",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
@@ -118,6 +118,41 @@ class AuthControllerTest extends BaseControllerTest {
                                         ResourceSnippetParameters.builder()
                                                 .tag(TAG)
                                                 .description("로그아웃")
+                                                .responseFields(
+                                                        fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
+                                                        fieldWithPath("message").type(STRING).description("응답 메시지"),
+                                                        fieldWithPath("data").type(NULL).description("응답 데이터")
+                                                )
+                                                .build())))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("회원탈퇴 성공")
+    void success_withdrawal() throws Exception {
+        // given
+        ResponseEntity<Response> result = ResponseEntity.ok(Response.success(SUCCESS_WITHDRAWAL.getMessage()));
+
+        // when
+        when(controller.withdrawal(principal)).thenReturn(result);
+
+        // then
+        mockMvc
+                .perform(
+                        delete(DEFAULT_URL)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .principal(principal)
+                )
+                .andDo(
+                        document(
+                                "delete-withdrawal-docs",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                resource(
+                                        ResourceSnippetParameters.builder()
+                                                .tag(TAG)
+                                                .description("회원탈퇴")
                                                 .responseFields(
                                                         fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
                                                         fieldWithPath("message").type(STRING).description("응답 메시지"),
