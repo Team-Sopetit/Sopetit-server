@@ -32,10 +32,17 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     @Transactional
     public MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request) {
         val member = findMember(memberId);
+        checkMemberRoutineAddtion(member);
         val routine = findRoutine(request.routineId());
         val memberRoutine = new MemberHappinessRoutine(member, routine);
         val savedMemberRoutine = memberHappinessRoutineRepository.save(memberRoutine);
         return MemberHappinessRoutineResponse.of(savedMemberRoutine);
+    }
+
+    private void checkMemberRoutineAddtion(Member member) {
+        if(member.getHappinessRoutine() != null) {
+            throw new IllegalStateException(CANNOT_ADD_MEMBER_ROUTINE.getMessage());
+        }
     }
 
     private HappinessSubRoutine findRoutine(Long id) {
