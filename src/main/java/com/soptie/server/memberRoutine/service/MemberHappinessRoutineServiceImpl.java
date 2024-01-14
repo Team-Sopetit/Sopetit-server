@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.soptie.server.member.message.ErrorMessage.INACCESSIBLE_ROUTINE;
 import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
+import static com.soptie.server.routine.message.ErrorMessage.CANNOT_ADD_MEMBER_ROUTINE;
 import static com.soptie.server.routine.message.ErrorMessage.INVALID_ROUTINE;
 
 @Service
