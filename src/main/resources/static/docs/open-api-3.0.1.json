@@ -247,6 +247,40 @@
         }
       }
     },
+    "/api/v1/routines/happiness" : {
+      "get" : {
+        "tags" : [ "HAPPINESS ROUTINE" ],
+        "summary" : "테마 별 행복 루틴 리스트 조회",
+        "description" : "테마 별 행복 루틴 리스트 조회",
+        "operationId" : "get-theme-happiness-routines-docs",
+        "parameters" : [ {
+          "name" : "themeId",
+          "in" : "query",
+          "description" : "조회할 테마 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-happiness1133934080"
+                },
+                "examples" : {
+                  "get-theme-happiness-routines-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"name\" : \"Happiness routine Theme1\",\n      \"nameColor\" : \"Happiness routine Theme1\",\n      \"title\" : \"Happiness routine Theme1\",\n      \"iconImageUrl\" : \"icon_image_url1\"\n    }, {\n      \"routineId\" : 2,\n      \"name\" : \"Happiness routine Theme2\",\n      \"nameColor\" : \"Happiness routine Theme2\",\n      \"title\" : \"Happiness routine Theme2\",\n      \"iconImageUrl\" : \"icon_image_url2\"\n    }, {\n      \"routineId\" : 3,\n      \"name\" : \"Happiness routine Theme3\",\n      \"nameColor\" : \"Happiness routine Theme3\",\n      \"title\" : \"Happiness routine Theme3\",\n      \"iconImageUrl\" : \"icon_image_url3\"\n    }, {\n      \"routineId\" : 4,\n      \"name\" : \"Happiness routine Theme4\",\n      \"nameColor\" : \"Happiness routine Theme4\",\n      \"title\" : \"Happiness routine Theme4\",\n      \"iconImageUrl\" : \"icon_image_url4\"\n    }, {\n      \"routineId\" : 5,\n      \"name\" : \"Happiness routine Theme5\",\n      \"nameColor\" : \"Happiness routine Theme5\",\n      \"title\" : \"Happiness routine Theme5\",\n      \"iconImageUrl\" : \"icon_image_url5\"\n    } ]\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/dolls/image/{type}" : {
       "get" : {
         "tags" : [ "DOLL" ],
@@ -452,40 +486,6 @@
                 "examples" : {
                   "get-theme-daily-routines-docs" : {
                     "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"content\" : \"Daily routine Content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"Daily routine Content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"Daily routine Content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"Daily routine Content4\"\n    }, {\n      \"routineId\" : 5,\n      \"content\" : \"Daily routine Content5\"\n    } ]\n  }\n}"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/routines/happiness/theme/{themeId}" : {
-      "get" : {
-        "tags" : [ "HAPPINESS ROUTINE" ],
-        "summary" : "테마 별 행복 루틴 리스트 조회",
-        "description" : "테마 별 행복 루틴 리스트 조회",
-        "operationId" : "get-theme-happiness-routines-docs",
-        "parameters" : [ {
-          "name" : "themeId",
-          "in" : "path",
-          "description" : "테마 id",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "200",
-            "content" : {
-              "application/json;charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-routines-happiness-theme-themeId1133934080"
-                },
-                "examples" : {
-                  "get-theme-happiness-routines-docs" : {
-                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"name\" : \"Happiness routine Theme1\",\n      \"nameColor\" : \"Happiness routine Theme1\",\n      \"title\" : \"Happiness routine Theme1\",\n      \"iconImageUrl\" : \"icon_image_url1\"\n    }, {\n      \"routineId\" : 2,\n      \"name\" : \"Happiness routine Theme2\",\n      \"nameColor\" : \"Happiness routine Theme2\",\n      \"title\" : \"Happiness routine Theme2\",\n      \"iconImageUrl\" : \"icon_image_url2\"\n    }, {\n      \"routineId\" : 3,\n      \"name\" : \"Happiness routine Theme3\",\n      \"nameColor\" : \"Happiness routine Theme3\",\n      \"title\" : \"Happiness routine Theme3\",\n      \"iconImageUrl\" : \"icon_image_url3\"\n    }, {\n      \"routineId\" : 4,\n      \"name\" : \"Happiness routine Theme4\",\n      \"nameColor\" : \"Happiness routine Theme4\",\n      \"title\" : \"Happiness routine Theme4\",\n      \"iconImageUrl\" : \"icon_image_url4\"\n    }, {\n      \"routineId\" : 5,\n      \"name\" : \"Happiness routine Theme5\",\n      \"nameColor\" : \"Happiness routine Theme5\",\n      \"title\" : \"Happiness routine Theme5\",\n      \"iconImageUrl\" : \"icon_image_url5\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -927,7 +927,7 @@
           }
         }
       },
-      "api-v1-routines-happiness-theme-themeId1133934080" : {
+      "api-v1-routines-happiness1133934080" : {
         "type" : "object",
         "properties" : {
           "data" : {
