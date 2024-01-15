@@ -1,5 +1,6 @@
 package com.soptie.server.routine.service;
 
+import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import com.soptie.server.routine.repository.happiness.routine.HappinessSubRoutineRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class HappinessSubRoutineServiceImpl implements HappinessSubRoutineServic
     private final HappinessSubRoutineRepository happinessSubRoutineRepository;
 
     @Override
-    public List<HappinessSubRoutine> getHappinessSubRoutines(Long routineId) {
-        return happinessSubRoutineRepository.findAllByRoutineId(routineId);
+    public List<HappinessSubRoutine> getHappinessSubRoutines(HappinessRoutine routine) {
+        return happinessSubRoutineRepository.findAllByRoutine(routine);
     }
 }

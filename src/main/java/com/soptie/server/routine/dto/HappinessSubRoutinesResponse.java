@@ -1,6 +1,5 @@
 package com.soptie.server.routine.dto;
 
-import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import lombok.Builder;
 
@@ -8,7 +7,6 @@ import java.util.List;
 
 @Builder
 public record HappinessSubRoutinesResponse(
-
         String title,
         String name,
         String nameColor,

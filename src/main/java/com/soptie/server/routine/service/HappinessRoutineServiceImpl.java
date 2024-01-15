@@ -1,11 +1,9 @@
 package com.soptie.server.routine.service;
 
-import com.soptie.server.routine.dto.HappinessRoutineResponse;
 import com.soptie.server.routine.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessThemesResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
-import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
 import com.soptie.server.routine.repository.happiness.theme.HappinessThemeRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static com.soptie.server.routine.message.ErrorMessage.INVALID_ROUTINE;
 
@@ -41,7 +37,13 @@ public class HappinessRoutineServiceImpl implements HappinessRoutineService {
 
     @Override
     public HappinessSubRoutinesResponse getHappinessSubRoutines(Long routineId) {
-        val happinessSubRoutines = happinessSubRoutineService.getHappinessSubRoutines(routineId);
+        val routine = findRoutine(routineId);
+        val happinessSubRoutines = happinessSubRoutineService.getHappinessSubRoutines(routine);
         return HappinessSubRoutinesResponse.of(happinessSubRoutines);
+    }
+
+    private HappinessRoutine findRoutine(Long routineId) {
+        return happinessRoutineRepository.findById(routineId)
+                .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
     }
 }
