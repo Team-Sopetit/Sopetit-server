@@ -694,6 +694,38 @@
             }
           }
         }
+      },
+      "patch" : {
+        "tags" : [ "MEMBER HAPPINESS ROUTINE" ],
+        "summary" : "회원 행복 루틴 달성 성공",
+        "description" : "회원 행복 루틴 달성 성공",
+        "operationId" : "achieve-member-happiness-routine-docs",
+        "parameters" : [ {
+          "name" : "routineId",
+          "in" : "path",
+          "description" : "루틴 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-auth594740350"
+                },
+                "examples" : {
+                  "achieve-member-happiness-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"회원 행복 루틴 달성 성공\",\n  \"data\" : null\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
