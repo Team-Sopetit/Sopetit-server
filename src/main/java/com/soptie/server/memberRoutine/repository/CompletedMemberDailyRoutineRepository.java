@@ -10,4 +10,5 @@ import com.soptie.server.routine.entity.daily.DailyRoutine;
 
 public interface CompletedMemberDailyRoutineRepository extends JpaRepository<CompletedMemberDailyRoutine, Long> {
 	Optional<CompletedMemberDailyRoutine> findByMemberAndRoutine(Member member, DailyRoutine routine);
+	void deleteAllByMember(Member member);
 }

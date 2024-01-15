@@ -33,8 +33,8 @@ public class MemberDollServiceImpl implements MemberDollService {
 
     @Override
     @Transactional
-    public void deleteByMember(Member member) {
-        memberDollRepository.deleteByMember(member);
+    public void deleteMemberDoll(MemberDoll memberDoll) {
+        memberDollRepository.delete(memberDoll);
     }
 
     private Doll getDoll(DollType type) {
