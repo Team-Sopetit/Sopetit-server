@@ -4,5 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 
-public interface HappinessSubRoutineRepository extends JpaRepository<HappinessSubRoutine, Long> {
+import java.util.List;
+
+public interface HappinessSubRoutineRepository extends JpaRepository<HappinessSubRoutine, Long>, HappinessSubRoutineCustomRepository {
 }
