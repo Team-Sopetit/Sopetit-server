@@ -9,6 +9,7 @@ import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
 import com.soptie.server.memberRoutine.service.CompletedMemberDailyRoutineService;
 import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
@@ -56,10 +57,10 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public void withdraw(Long memberId) {
         val member = findMember(memberId);
-        deleteMemberDoll(member);
+        deleteMemberDoll(member.getMemberDoll());
         deleteMemberDailyRoutines(member);
         deleteMemberHappinessRoutine(member);
-        deleteCompletedMemberDailyRoutine(member);
+        deleteCompletedMemberDailyRoutines(member);
         deleteMember(member);
     }
 
@@ -107,9 +108,9 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
     }
 
-    private void deleteMemberDoll(Member member) {
-        if (Objects.nonNull(member.getMemberDoll())) {
-            memberDollService.deleteMemberDoll(member.getMemberDoll());
+    private void deleteMemberDoll(MemberDoll memberDoll) {
+        if (Objects.nonNull(memberDoll)) {
+            memberDollService.deleteMemberDoll(memberDoll);
         }
     }
 
@@ -124,8 +125,8 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private void deleteCompletedMemberDailyRoutine(Member member) {
-        completedMemberDailyRoutineService.deleteCompletedMemberDailyRoutine(member);
+    private void deleteCompletedMemberDailyRoutines(Member member) {
+        completedMemberDailyRoutineService.deleteCompletedMemberDailyRoutines(member);
     }
 
     private void deleteMember(Member member) {

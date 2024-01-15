@@ -13,7 +13,9 @@ public class CompletedMemberDailyRoutineServiceImpl implements CompletedMemberDa
 
     private final CompletedMemberDailyRoutineRepository completedMemberDailyRoutineRepository;
 
-    public void deleteCompletedMemberDailyRoutine(Member member) {
+    @Override
+    @Transactional
+    public void deleteCompletedMemberDailyRoutines(Member member) {
         completedMemberDailyRoutineRepository.deleteAllByMember(member);
     }
 }

@@ -4,5 +4,5 @@ import com.soptie.server.member.entity.Member;
 
 public interface CompletedMemberDailyRoutineService {
 
-    void deleteCompletedMemberDailyRoutine(Member member);
+    void deleteCompletedMemberDailyRoutines(Member member);
 }
