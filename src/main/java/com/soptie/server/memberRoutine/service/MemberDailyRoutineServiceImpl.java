@@ -148,4 +148,10 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		val routines = memberDailyRoutineRepository.findAllByAchieved();
 		routines.forEach(MemberDailyRoutine::initAchievement);
 	}
+
+	@Override
+	@Transactional
+	public void deleteMemberDailyRoutine(MemberDailyRoutine routine) {
+		memberDailyRoutineRepository.delete(routine);
+	}
 }
