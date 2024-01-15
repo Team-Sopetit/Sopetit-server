@@ -1,18 +1,14 @@
 package com.soptie.server.routine.controller;
 
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
 import com.soptie.server.routine.service.HappinessRoutineService;
-import com.soptie.server.routine.service.HappinessSubRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-
 import static com.soptie.server.common.dto.Response.success;
-import static com.soptie.server.routine.message.ResponseMessage.*;
+import static com.soptie.server.routine.message.SuccessMessage.*;
 
 @RestController
 @RequiredArgsConstructor

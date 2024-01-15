@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum ResponseMessage {
+public enum SuccessMessage {
 
     SUCCESS_SIGN_IN("소셜로그인 성공"),
     SUCCESS_SIGN_OUT("로그아웃 성공"),
