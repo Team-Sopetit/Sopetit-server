@@ -28,7 +28,6 @@ public record HappinessSubRoutinesResponse(
 
     @Builder
     public record HappinessSubRoutineResponse(
-
             Long subRoutineId,
             String content,
             String detailContent,
