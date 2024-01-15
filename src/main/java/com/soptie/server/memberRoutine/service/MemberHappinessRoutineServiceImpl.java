@@ -75,7 +75,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     }
 
     private void deleteMemberRoutine(MemberHappinessRoutine routine) {
-        routine.getMember().deleteHappinessRoutine();
+        routine.getMember().resetHappinessRoutine();
         memberHappinessRoutineRepository.delete(routine);
     }
 

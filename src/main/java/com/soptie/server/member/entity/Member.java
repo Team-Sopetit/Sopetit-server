@@ -53,7 +53,7 @@ public class Member extends BaseTime {
 		this.memberDoll = memberDoll;
 	}
 
-	public void initHappinessRoutine() {
+	public void resetHappinessRoutine() {
 		this.happinessRoutine = null;
 	}
 
@@ -83,9 +83,5 @@ public class Member extends BaseTime {
 
 	public int subtractHappinessCotton() {
 		return this.cottonInfo.subtractHappinessCotton();
-	}
-
-	public void deleteHappinessRoutine() {
-		this.happinessRoutine = null;
 	}
 }
