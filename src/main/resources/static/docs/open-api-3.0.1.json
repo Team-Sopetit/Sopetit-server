@@ -661,6 +661,40 @@
           }
         }
       }
+    },
+    "/api/v1/routines/happiness/member/routine/{routineId}" : {
+      "delete" : {
+        "tags" : [ "MEMBER HAPPINESS ROUTINE" ],
+        "summary" : "회원 행복 루틴 삭제 성공",
+        "description" : "회원 행복 루틴 삭제 성공",
+        "operationId" : "delete-member-happiness-routine-docs",
+        "parameters" : [ {
+          "name" : "routineId",
+          "in" : "path",
+          "description" : "루틴 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-auth594740350"
+                },
+                "examples" : {
+                  "delete-member-happiness-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 삭제 성공\",\n  \"data\" : null\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {

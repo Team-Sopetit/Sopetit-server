@@ -25,10 +25,12 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MemberHappinessRoutineController.class)
@@ -129,6 +131,40 @@ class MemberHappinessRoutineControllerTest extends BaseControllerTest {
 								)
 						))
 				.andExpect(status().isCreated());
+	}
+
+	@Test
+	@DisplayName("회원 행복 루틴 삭제 성공")
+	void success_deleteMemberHappinessRoutine() throws Exception {
+
+		Long routineId = 1L;
+		ResponseEntity<Response> response = ResponseEntity.ok(success("루틴 삭제 성공"));
+
+		when(controller.deleteMemberHappinessRoutine(principal, routineId)).thenReturn(response);
+
+		mockMvc.perform(delete(DEFAULT_URL + "/routine/{routineId}", routineId)
+						.contentType(APPLICATION_JSON)
+						.accept(APPLICATION_JSON)
+						.principal(principal))
+				.andDo(
+						document("delete-member-happiness-routine-docs",
+								preprocessRequest(prettyPrint()),
+								preprocessResponse(prettyPrint()),
+								resource(ResourceSnippetParameters.builder()
+										.tag(TAG)
+										.description("회원 행복 루틴 삭제 성공")
+										.pathParameters(
+												parameterWithName("routineId").description("루틴 id")
+										)
+										.responseFields(
+												fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
+												fieldWithPath("message").type(STRING).description("응답 메시지"),
+												fieldWithPath("data").type(NULL).description("응답 데이터")
+										)
+										.build()
+								)
+						))
+				.andExpect(status().isOk());
 	}
 
 }
