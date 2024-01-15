@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum ResponseMessage {
+public enum SuccessMessage {
 	SUCCESS_CREATE_ROUTINE("루틴 추가 성공"),
 	SUCCESS_DELETE_ROUTINE("루틴 삭제 성공"),
 	SUCCESS_ACHIEVE_ROUTINE("루틴 달성 성공"),

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum ResponseMessage {
+public enum SuccessMessage {
 
     SUCCESS_CREATE_PROFILE("프로필 생성 성공"),
     SUCCESS_GIVE_COTTON("솜뭉치 주기 성공"),

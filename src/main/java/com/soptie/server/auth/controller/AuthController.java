@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import static com.soptie.server.auth.message.ResponseMessage.*;
+import static com.soptie.server.auth.message.SuccessMessage.*;
 import static com.soptie.server.common.dto.Response.success;
 
 @RestController

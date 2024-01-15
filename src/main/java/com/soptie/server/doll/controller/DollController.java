@@ -1,7 +1,7 @@
 package com.soptie.server.doll.controller;
 
 import static com.soptie.server.common.dto.Response.*;
-import static com.soptie.server.doll.message.ResponseMessage.*;
+import static com.soptie.server.doll.message.SuccessMessage.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
