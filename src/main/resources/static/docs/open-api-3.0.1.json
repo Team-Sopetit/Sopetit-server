@@ -517,6 +517,40 @@
         }
       }
     },
+    "/api/v1/routines/happiness/routine/{routineId}" : {
+      "get" : {
+        "tags" : [ "HAPPINESS ROUTINE" ],
+        "summary" : "행복 루틴 별 서브 행복 루틴 리스트 조회",
+        "description" : "행복 루틴 별 서브 행복 루틴 리스트 조회",
+        "operationId" : "get-sub-happiness-routines-by-routine-of-theme-docs",
+        "parameters" : [ {
+          "name" : "routineId",
+          "in" : "path",
+          "description" : "루틴 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-happiness-routine-routineId2107530734"
+                },
+                "examples" : {
+                  "get-sub-happiness-routines-by-routine-of-theme-docs" : {
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"행복 루틴 별 서브 루틴 리스트 조회 성공\",\r\n  \"data\" : {\r\n    \"title\" : \"타이틀\",\r\n    \"name\" : \"테마\",\r\n    \"nameColor\" : \"색깔\",\r\n    \"iconImageUrl\" : \"iconImageUrl\",\r\n    \"contentImageUrl\" : \"contentImageUrl\",\r\n    \"subRoutines\" : [ {\r\n      \"subRoutineId\" : 1,\r\n      \"content\" : \"소프티숙소\",\r\n      \"detailContent\" : \"detailContent\",\r\n      \"timeTaken\" : \"10분\",\r\n      \"place\" : \"소프티숙소\"\r\n    } ]\r\n  }\r\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/routines/daily/member/routine/{routineId}" : {
       "delete" : {
         "tags" : [ "MEMBER DAILY ROUTINE" ],
@@ -850,6 +884,74 @@
               "isAchieve" : {
                 "type" : "boolean",
                 "description" : "달성 여부"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-happiness-routine-routineId2107530734" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "subRoutines" : {
+                "type" : "array",
+                "description" : "서브 루틴 정보 리스트",
+                "items" : {
+                  "type" : "object",
+                  "properties" : {
+                    "timeTaken" : {
+                      "type" : "string",
+                      "description" : "소요 시간"
+                    },
+                    "detailContent" : {
+                      "type" : "string",
+                      "description" : "서브 루틴 세부 내용"
+                    },
+                    "place" : {
+                      "type" : "string",
+                      "description" : "장소"
+                    },
+                    "subRoutineId" : {
+                      "type" : "number",
+                      "description" : "서브 루틴 id"
+                    },
+                    "content" : {
+                      "type" : "string",
+                      "description" : "서브 루틴 내용"
+                    }
+                  }
+                }
+              },
+              "contentImageUrl" : {
+                "type" : "string",
+                "description" : "카드 이미지 url"
+              },
+              "iconImageUrl" : {
+                "type" : "string",
+                "description" : "아이콘 이미지 url"
+              },
+              "nameColor" : {
+                "type" : "string",
+                "description" : "색깔"
+              },
+              "name" : {
+                "type" : "string",
+                "description" : "테마 이름"
+              },
+              "title" : {
+                "type" : "string",
+                "description" : "행복 루틴 주제"
               }
             },
             "description" : "응답 데이터"

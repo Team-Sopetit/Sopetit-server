@@ -8,6 +8,7 @@ import java.util.List;
 public record HappinessRoutinesResponse (
     List<HappinessRoutineResponse> routines
 ) {
+
     public static HappinessRoutinesResponse of(List<HappinessRoutine> routines) {
         return new HappinessRoutinesResponse(routines.stream().map(HappinessRoutineResponse::of).toList());
     }
