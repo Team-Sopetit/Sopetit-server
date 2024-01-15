@@ -126,7 +126,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private void checkRoutineForMember(Member member, MemberDailyRoutine routine) {
 		if (!member.getDailyRoutines().contains(routine)) {
-			throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMeesage());
+			throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMessage());
 		}
 	}
 
@@ -139,7 +139,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private Member findMember(Long id) {
 		return memberRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
 	}
 
 	@Override

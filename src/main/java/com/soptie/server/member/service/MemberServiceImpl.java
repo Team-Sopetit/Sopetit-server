@@ -73,18 +73,18 @@ public class MemberServiceImpl implements MemberService {
 
     private Member findMember(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
     }
 
     private void checkMemberProfileExist(Member member) {
         if (Objects.nonNull(member)) {
-            throw new IllegalStateException(EXIST_PROFILE.getMeesage());
+            throw new IllegalStateException(EXIST_PROFILE.getMessage());
         }
     }
 
     private void checkMemberCottonCount(int cottonCount) {
         if (cottonCount <= 0) {
-            throw new IllegalStateException(NOT_ENOUGH_COTTON.getMeesage());
+            throw new IllegalStateException(NOT_ENOUGH_COTTON.getMessage());
         }
     }
 

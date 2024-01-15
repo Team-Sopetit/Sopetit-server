@@ -105,7 +105,7 @@ public class AuthServiceImpl implements AuthService {
 
     private Member findMember(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
     }
 
     private void deleteMemberDoll(MemberDoll memberDoll) {
