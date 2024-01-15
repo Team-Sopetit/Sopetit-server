@@ -30,7 +30,7 @@ public class AuthController {
     public ResponseEntity<Response> signOut(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
         authService.signOut(memberId);
-        return ResponseEntity.ok(success(SUCCESS_SIGN_OUT.getMessage(), null));
+        return ResponseEntity.ok(success(SUCCESS_SIGN_OUT.getMessage()));
     }
 
     @DeleteMapping

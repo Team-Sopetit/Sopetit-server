@@ -31,7 +31,7 @@ public class MemberController {
         val memberId = Long.parseLong(principal.getName());
         memberService.createMemberProfile(memberId, request);
         return ResponseEntity.created(getURI())
-                .body(success(SUCCESS_CREATE_PROFILE.getMessage(), null));
+                .body(success(SUCCESS_CREATE_PROFILE.getMessage()));
     }
 
     private URI getURI() {
