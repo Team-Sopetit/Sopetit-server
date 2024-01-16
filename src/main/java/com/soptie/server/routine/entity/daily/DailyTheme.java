@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,10 @@ public class DailyTheme {
 
 	@Embedded
 	private RoutineImage imageInfo;
+
+	@Builder
+	public DailyTheme(String name, RoutineImage imageInfo) {
+		this.name = name;
+		this.imageInfo = imageInfo;
+	}
 }
