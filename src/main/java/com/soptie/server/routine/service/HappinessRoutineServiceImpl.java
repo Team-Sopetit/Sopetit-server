@@ -39,7 +39,7 @@ public class HappinessRoutineServiceImpl implements HappinessRoutineService {
     public HappinessSubRoutinesResponse getHappinessSubRoutines(long routineId) {
         val routine = findRoutine(routineId);
         val happinessSubRoutines = happinessSubRoutineService.getHappinessSubRoutines(routine);
-        return HappinessSubRoutinesResponse.of(happinessSubRoutines);
+        return HappinessSubRoutinesResponse.of(routine, happinessSubRoutines);
     }
 
     private HappinessRoutine findRoutine(long routineId) {

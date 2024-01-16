@@ -12,4 +12,6 @@ public class RoutineImage {
 	private String iconImageUrl;
 
 	private String contentImageUrl;
+
+	private String twinkleIconImageUrl;
 }
