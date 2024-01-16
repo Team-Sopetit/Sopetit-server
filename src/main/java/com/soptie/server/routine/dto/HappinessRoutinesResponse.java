@@ -2,11 +2,12 @@ package com.soptie.server.routine.dto;
 
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import lombok.Builder;
+import lombok.NonNull;
 
 import java.util.List;
 
 public record HappinessRoutinesResponse (
-    List<HappinessRoutineResponse> routines
+    @NonNull List<HappinessRoutineResponse> routines
 ) {
 
     public static HappinessRoutinesResponse of(List<HappinessRoutine> routines) {
@@ -15,12 +16,11 @@ public record HappinessRoutinesResponse (
 
     @Builder
     public record HappinessRoutineResponse(
-            Long routineId,
-            String name,
-            String nameColor,
-            String title,
-            String iconImageUrl
-
+            long routineId,
+            @NonNull String name,
+            @NonNull String nameColor,
+            @NonNull String title,
+            @NonNull String iconImageUrl
     ) {
 
         private static HappinessRoutineResponse of(HappinessRoutine routine) {

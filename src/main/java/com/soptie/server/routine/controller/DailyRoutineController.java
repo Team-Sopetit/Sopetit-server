@@ -35,7 +35,7 @@ public class DailyRoutineController {
 	}
 
 	@GetMapping("/theme/{themeId}")
-	public ResponseEntity<Response> getRoutinesByTheme(@PathVariable Long themeId) {
+	public ResponseEntity<Response> getRoutinesByTheme(@PathVariable long themeId) {
 		val response = dailyRoutineService.getRoutinesByTheme(themeId);
 		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}

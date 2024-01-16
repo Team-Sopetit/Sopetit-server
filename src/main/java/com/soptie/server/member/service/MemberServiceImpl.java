@@ -2,6 +2,7 @@ package com.soptie.server.member.service;
 
 import com.soptie.server.conversation.entity.Conversation;
 import com.soptie.server.conversation.repository.ConversationRepository;
+import com.soptie.server.member.dto.CottonCountResponse;
 import com.soptie.server.member.dto.MemberHomeInfoResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.CottonType;
@@ -18,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
 import static com.soptie.server.member.message.ErrorMessage.*;
 
 @Service
@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void createMemberProfile(Long memberId, MemberProfileRequest request) {
+    public void createMemberProfile(long memberId, MemberProfileRequest request) {
         val member = findMember(memberId);
         checkMemberProfileExist(member);
         memberDailyRoutineService.createMemberDailyRoutines(member, request.routines());
@@ -42,9 +42,10 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public int giveCotton(Long memberId, CottonType cottonType) {
+    public CottonCountResponse giveCotton(long memberId, CottonType cottonType) {
         val member = findMember(memberId);
-        return giveCottonByCottonType(member, cottonType);
+        val cottonCount = giveCottonByCottonType(member, cottonType);
+        return CottonCountResponse.of(cottonCount);
     }
 
     private int giveCottonByCottonType(Member member, CottonType cottonType) {
@@ -65,13 +66,13 @@ public class MemberServiceImpl implements MemberService {
         return member.subtractHappinessCotton();
     }
 
-    public MemberHomeInfoResponse getMemberHomeInfo(Long memberId) {
+    public MemberHomeInfoResponse getMemberHomeInfo(long memberId) {
         val member = findMember(memberId);
         val conversations = getConversations();
         return MemberHomeInfoResponse.of(member, conversations);
     }
 
-    private Member findMember(Long id) {
+    private Member findMember(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
     }

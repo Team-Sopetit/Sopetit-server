@@ -8,5 +8,5 @@ public interface HappinessRoutineService {
     HappinessThemesResponse getHappinessThemes();
 
     HappinessRoutinesResponse getHappinessRoutinesByTheme(Long themeId);
-    HappinessSubRoutinesResponse getHappinessSubRoutines(Long routineId);
+    HappinessSubRoutinesResponse getHappinessSubRoutines(long routineId);
 }
