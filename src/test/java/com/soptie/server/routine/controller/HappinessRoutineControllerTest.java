@@ -131,12 +131,22 @@ class HappinessRoutineControllerTest extends BaseControllerTest {
     @DisplayName("행복 루틴 별 서브 행복 루틴 리스트 조회 성공")
     void success_getHappinessSubRoutinesByRoutineOfTheme()  throws Exception {
         // given
-        RoutineImage routineImage = new RoutineImage("iconImageUrl", "contentImageUrl");
-        HappinessTheme happinessTheme = new HappinessTheme(1L, "테마", "색깔", routineImage);
-        HappinessRoutine happinessRoutine = new HappinessRoutine(1L, "타이틀", happinessTheme);
-        HappinessSubRoutine happinessSubRoutine = new HappinessSubRoutine(1L, "content", "detailContent", "10분", "소프티숙소", happinessRoutine);
-        List<HappinessSubRoutine> subRoutines = List.of(happinessSubRoutine);
-        HappinessSubRoutinesResponse response = HappinessSubRoutinesResponse.of(subRoutines);
+        List<HappinessSubRoutinesResponse.HappinessSubRoutineResponse> subRoutines = List.of(
+                HappinessSubRoutinesResponse.HappinessSubRoutineResponse.builder()
+                        .subRoutineId(1L)
+                        .content("소프티 숙소")
+                        .detailContent("어쩌구 저쩌구")
+                        .timeTaken("아무때")
+                        .place("소프티 만나러 가는 길")
+                        .build());
+        HappinessSubRoutinesResponse response = HappinessSubRoutinesResponse.builder()
+                .title("타이틀")
+                .name("테마 이름")
+                .nameColor("#999")
+                .iconImageUrl("https://...")
+                .contentImageUrl("https://...")
+                .subRoutines(subRoutines)
+                .build();
         ResponseEntity<Response> result = ResponseEntity.ok(Response.success(SUCCESS_GET_HAPPINESS_SUB_ROUTINES.getMessage(), response));
 
         // when

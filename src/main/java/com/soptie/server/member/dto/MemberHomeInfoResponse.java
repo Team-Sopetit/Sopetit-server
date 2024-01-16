@@ -1,7 +1,6 @@
 package com.soptie.server.member.dto;
 
 import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.member.entity.Cotton;
 import com.soptie.server.member.entity.Member;
 import lombok.Builder;
 
