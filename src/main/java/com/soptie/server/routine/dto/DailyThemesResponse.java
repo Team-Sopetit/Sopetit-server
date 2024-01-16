@@ -15,7 +15,7 @@ public record DailyThemesResponse(
 	}
 
 	@Builder
-	private record DailyThemeResponse(
+	public record DailyThemeResponse(
 		Long themeId,
 		String name,
 		String iconImageUrl,

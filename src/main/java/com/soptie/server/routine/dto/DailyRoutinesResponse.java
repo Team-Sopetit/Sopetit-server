@@ -15,7 +15,7 @@ public record DailyRoutinesResponse(
 	}
 
 	@Builder
-	private record DailyRoutineResponse(
+	public record DailyRoutineResponse(
 		Long routineId,
 		String content
 	) {

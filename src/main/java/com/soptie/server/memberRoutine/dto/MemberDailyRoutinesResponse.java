@@ -15,7 +15,7 @@ public record MemberDailyRoutinesResponse(
 	}
 
 	@Builder
-	private record MemberDailyRoutineResponse(
+	public record MemberDailyRoutineResponse(
 		long routineId,
 		String content,
 		String iconImageUrl,
