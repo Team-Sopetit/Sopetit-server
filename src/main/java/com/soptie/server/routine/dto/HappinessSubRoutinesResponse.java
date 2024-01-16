@@ -1,5 +1,6 @@
 package com.soptie.server.routine.dto;
 
+import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import lombok.Builder;
 
@@ -15,13 +16,13 @@ public record HappinessSubRoutinesResponse(
         List<HappinessSubRoutineResponse> subRoutines
 ) {
 
-    public static HappinessSubRoutinesResponse of(List<HappinessSubRoutine> subRoutines) {
+    public static HappinessSubRoutinesResponse of(HappinessRoutine routine, List<HappinessSubRoutine> subRoutines) {
         return HappinessSubRoutinesResponse.builder()
-                .title(subRoutines.get(0).getRoutine().getTitle())
-                .name(subRoutines.get(0).getRoutine().getTheme().getName())
-                .nameColor(subRoutines.get(0).getRoutine().getTheme().getNameColor())
-                .iconImageUrl(subRoutines.get(0).getRoutine().getTheme().getImageInfo().getIconImageUrl())
-                .contentImageUrl(subRoutines.get(0).getRoutine().getTheme().getImageInfo().getContentImageUrl())
+                .title(routine.getTitle())
+                .name(routine.getTheme().getName())
+                .nameColor(routine.getTheme().getNameColor())
+                .iconImageUrl(routine.getTheme().getImageInfo().getTwinkleIconImageUrl())
+                .contentImageUrl(routine.getTheme().getImageInfo().getContentImageUrl())
                 .subRoutines(subRoutines.stream().map(HappinessSubRoutineResponse::of).toList())
                 .build();
     }
