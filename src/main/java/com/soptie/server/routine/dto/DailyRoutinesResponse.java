@@ -5,9 +5,10 @@ import java.util.List;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 
 import lombok.Builder;
+import lombok.NonNull;
 
 public record DailyRoutinesResponse(
-	List<DailyRoutineResponse> routines
+		@NonNull List<DailyRoutineResponse> routines
 ) {
 
 	public static DailyRoutinesResponse of(List<DailyRoutine> routines) {
@@ -15,16 +16,16 @@ public record DailyRoutinesResponse(
 	}
 
 	@Builder
-	private record DailyRoutineResponse(
-		Long routineId,
-		String content
+	public record DailyRoutineResponse(
+			Long routineId,
+			@NonNull String content
 	) {
 
 		private static DailyRoutineResponse of(DailyRoutine routine) {
 			return DailyRoutineResponse.builder()
-				.routineId(routine.getId())
-				.content(routine.getContent())
-				.build();
+					.routineId(routine.getId())
+					.content(routine.getContent())
+					.build();
 		}
 	}
 }

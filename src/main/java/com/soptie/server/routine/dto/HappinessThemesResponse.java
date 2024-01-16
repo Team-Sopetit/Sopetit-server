@@ -2,11 +2,12 @@ package com.soptie.server.routine.dto;
 
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import lombok.Builder;
+import lombok.NonNull;
 
 import java.util.List;
 
 public record HappinessThemesResponse(
-        List<HappinessThemeResponse> themes
+        @NonNull List<HappinessThemeResponse> themes
 ) {
     public static HappinessThemesResponse of(List<HappinessTheme> themes) {
         return new HappinessThemesResponse(themes.stream().map(HappinessThemeResponse::of).toList());
@@ -14,8 +15,8 @@ public record HappinessThemesResponse(
 
     @Builder
     public record HappinessThemeResponse(
-            Long themeId,
-            String name
+            long themeId,
+            @NonNull String name
     ) {
         private static HappinessThemeResponse of(HappinessTheme theme) {
             return HappinessThemeResponse.builder()

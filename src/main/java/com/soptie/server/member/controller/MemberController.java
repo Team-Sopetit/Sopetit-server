@@ -1,7 +1,6 @@
 package com.soptie.server.member.controller;
 
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.member.dto.CottonCountResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.service.MemberService;
@@ -45,15 +44,14 @@ public class MemberController {
     @PatchMapping("/{cottonType}")
     public ResponseEntity<Response> giveCotton(Principal principal, @PathVariable CottonType cottonType) {
         val memberId = Long.parseLong(principal.getName());
-        val cottonCount = memberService.giveCotton(memberId, cottonType);
-        val cottonCountResponse = CottonCountResponse.of(cottonCount);
-        return ResponseEntity.ok(success(SUCCESS_GIVE_COTTON.getMessage(), cottonCountResponse));
+        val response = memberService.giveCotton(memberId, cottonType);
+        return ResponseEntity.ok(success(SUCCESS_GIVE_COTTON.getMessage(), response));
     }
 
     @GetMapping
     public ResponseEntity<Response> getMemberHomeInfo(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
-        val memberHomeInfoResponse = memberService.getMemberHomeInfo(memberId);
-        return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), memberHomeInfoResponse));
+        val response = memberService.getMemberHomeInfo(memberId);
+        return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), response));
     }
 }

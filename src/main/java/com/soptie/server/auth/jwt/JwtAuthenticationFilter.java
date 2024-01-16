@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private Long getMemberId(String token) {
+    private long getMemberId(String token) {
         return jwtTokenProvider.getUserFromJwt(token);
     }
 

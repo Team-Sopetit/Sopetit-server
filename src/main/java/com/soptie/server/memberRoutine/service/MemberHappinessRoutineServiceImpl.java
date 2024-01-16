@@ -32,7 +32,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request) {
+    public MemberHappinessRoutineResponse createMemberHappinessRoutine(long memberId, MemberHappinessRoutineRequest request) {
         val member = findMember(memberId);
         checkMemberRoutineAddition(member);
         val routine = findRoutine(request.routineId());
@@ -47,13 +47,13 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         }
     }
 
-    private HappinessSubRoutine findRoutine(Long id) {
+    private HappinessSubRoutine findRoutine(long id) {
         return happinessSubRoutineRepository.findById(id)
                 .orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
     }
 
     @Override
-    public MemberHappinessRoutinesResponse getMemberHappinessRoutine(Long memberId) {
+    public MemberHappinessRoutinesResponse getMemberHappinessRoutine(long memberId) {
         val member = findMember(memberId);
         val memberRoutine = member.getHappinessRoutine();
         return MemberHappinessRoutinesResponse.of(memberRoutine);
@@ -61,14 +61,14 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public void deleteMemberHappinessRoutine(Long memberId, Long routineId) {
+    public void deleteMemberHappinessRoutine(long memberId, Long routineId) {
         val member = findMember(memberId);
         val memberRoutine = findMemberRoutine(routineId);
         checkRoutineForMember(member, memberRoutine);
         deleteMemberRoutine(memberRoutine);
     }
 
-    private Member findMember(Long id) {
+    private Member findMember(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
@@ -80,7 +80,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public void achieveMemberHappinessRoutine(Long memberId, Long routineId) {
+    public void achieveMemberHappinessRoutine(long memberId, Long routineId) {
         val member = findMember(memberId);
         val memberRoutine = findMemberRoutine(routineId);
         checkRoutineForMember(member, memberRoutine);
@@ -88,7 +88,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
         deleteMemberRoutine(memberRoutine);
     }
 
-    private MemberHappinessRoutine findMemberRoutine(Long id) {
+    private MemberHappinessRoutine findMemberRoutine(long id) {
         return memberHappinessRoutineRepository.findById(id)
                 .orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
     }
