@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.soptie.server.member.message.ErrorMessage.*;
+import static com.soptie.server.member.message.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor

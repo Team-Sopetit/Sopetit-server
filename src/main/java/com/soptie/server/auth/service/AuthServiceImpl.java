@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.soptie.server.auth.message.ErrorCode.*;
-import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
+import static com.soptie.server.member.message.ErrorCode.INVALID_MEMBER;
 
 @Service
 @RequiredArgsConstructor

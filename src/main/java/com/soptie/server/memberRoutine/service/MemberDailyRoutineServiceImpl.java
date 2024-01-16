@@ -1,6 +1,6 @@
 package com.soptie.server.memberRoutine.service;
 
-import static com.soptie.server.member.message.ErrorMessage.*;
+import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.ErrorMessage.*;
 
 import org.springframework.stereotype.Service;
