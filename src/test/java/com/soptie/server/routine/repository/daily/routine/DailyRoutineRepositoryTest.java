@@ -75,10 +75,10 @@ class DailyRoutineRepositoryTest extends BaseRepositoryTest {
 				.forEach(i -> dailyRoutineRepository.save(getRoutine(i)));
 
 		// when
-		List<DailyRoutine> routineList = dailyRoutineRepository.findAllByTheme(THEME);
+		List<DailyRoutine> result = dailyRoutineRepository.findAllByTheme(THEME);
 
 		// then
-		assertThat(routineList.size(), is(equalTo(size)));
+		assertThat(result.size(), is(equalTo(size)));
 	}
 
 	private DailyRoutine getRoutine(int i) {
