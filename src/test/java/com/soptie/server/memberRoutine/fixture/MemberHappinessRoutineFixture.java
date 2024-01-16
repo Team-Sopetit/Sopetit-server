@@ -1,5 +1,6 @@
 package com.soptie.server.memberRoutine.fixture;
 
+import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutinesResponse;
 
 public class MemberHappinessRoutineFixture {
@@ -28,5 +29,9 @@ public class MemberHappinessRoutineFixture {
 				.timeTaken(TIME_TAKEN)
 				.build();
 
+	}
+
+	public static MemberHappinessRoutineResponse createMemberHappinessRoutineResponseDTO() {
+		return new MemberHappinessRoutineResponse(1L);
 	}
 }
