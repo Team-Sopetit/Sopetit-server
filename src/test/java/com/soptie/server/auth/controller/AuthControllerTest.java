@@ -41,7 +41,7 @@ class AuthControllerTest extends BaseControllerTest {
     private final String TAG = "AUTH";
 
     @Test
-    @DisplayName("socialAccessToken이 유효한 지 검증한 후, 유효하다면 회원 정보를 얻어온다. 그 후, 회원 정보를 토대로 Token Vo를 반환해준다.")
+    @DisplayName("소셜 로그인 성공")
     void success_getTokenBySocialAccessToken() throws Exception {
         // given
         String socialAccessToken = "Bearer softietoken";

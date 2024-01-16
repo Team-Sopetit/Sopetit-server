@@ -23,10 +23,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.Objects;
 
-import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
 import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
 
 @Service
@@ -37,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberRepository memberRepository;
     private final KakaoService kakaoService;
+    private final AppleService appleService;
     private final MemberDailyRoutineService memberDailyRoutineService;
     private final MemberHappinessRoutineService memberHappinessRoutineService;
     private final MemberDollService memberDollService;
@@ -45,8 +47,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
-        return SignInResponse.of(getToken(getMember(socialAccessToken, request)));
+    public SignInResponse signIn(String socialAccessToken, SignInRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        val member = getMember(socialAccessToken, request);
+        val token = getToken(member);
+        return SignInResponse.of(token);
     }
 
     @Override
@@ -67,16 +71,16 @@ public class AuthServiceImpl implements AuthService {
         deleteMember(member);
     }
 
-    private Member getMember(String socialAccessToken, SignInRequest request) {
+    private Member getMember(String socialAccessToken, SignInRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
         val socialType = request.socialType();
         val socialId = getSocialId(socialAccessToken, socialType);
         return signUp(socialType, socialId);
     }
 
-    private String getSocialId(String socialAccessToken, SocialType socialType) {
+    private String getSocialId(String socialAccessToken, SocialType socialType) throws NoSuchAlgorithmException, InvalidKeySpecException {
         return switch (socialType) {
+            case APPLE -> appleService.getAppleData(socialAccessToken);
             case KAKAO -> kakaoService.getKakaoData(socialAccessToken);
-            default -> throw new IllegalArgumentException(INVALID_TOKEN.getMessage());
         };
     }
 
