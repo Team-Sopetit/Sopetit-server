@@ -7,5 +7,5 @@ public interface DailyRoutineService {
 
 	DailyThemesResponse getThemes();
 	DailyRoutinesResponse getRoutinesByThemes(String themes);
-	DailyRoutinesResponse getRoutinesByTheme(Long themeId);
+	DailyRoutinesResponse getRoutinesByTheme(long themeId);
 }

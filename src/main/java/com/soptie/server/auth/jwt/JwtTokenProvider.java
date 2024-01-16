@@ -23,7 +23,7 @@ public class JwtTokenProvider {
 
     private final ValueConfig valueConfig;
 
-    public String generateToken(Authentication authentication, Long expiration) {
+    public String generateToken(Authentication authentication, long expiration) {
         return Jwts.builder()
                 .setHeaderParam(TYPE, JWT_TYPE)
                 .setClaims(generateClaims(authentication))

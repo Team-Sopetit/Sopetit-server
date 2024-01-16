@@ -3,7 +3,7 @@ package com.soptie.server.memberRoutine.dto;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 
 public record AchievedMemberDailyRoutineResponse(
-	Long routineId,
+	long routineId,
 	boolean isAchieve,
 	int achieveCount
 ) {

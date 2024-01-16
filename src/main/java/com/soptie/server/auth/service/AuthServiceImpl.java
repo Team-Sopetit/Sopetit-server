@@ -51,14 +51,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public void signOut(Long memberId) {
+    public void signOut(long memberId) {
         val member = findMember(memberId);
         member.resetRefreshToken();
     }
 
     @Override
     @Transactional
-    public void withdraw(Long memberId) {
+    public void withdraw(long memberId) {
         val member = findMember(memberId);
         deleteMemberDoll(member.getMemberDoll());
         deleteMemberDailyRoutines(member.getDailyRoutines());
