@@ -8,6 +8,7 @@ import com.soptie.server.auth.vo.Token;
 import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
+import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
@@ -16,7 +17,6 @@ import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.service.CompletedMemberDailyRoutineService;
 import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
 import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.security.core.Authentication;
@@ -28,7 +28,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.Objects;
 
-import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
+import static com.soptie.server.member.message.ErrorCode.INVALID_MEMBER;
 
 @Service
 @RequiredArgsConstructor
@@ -112,7 +112,7 @@ public class AuthServiceImpl implements AuthService {
 
     private Member findMember(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
     private void deleteMemberDoll(MemberDoll memberDoll) {

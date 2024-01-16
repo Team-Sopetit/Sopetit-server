@@ -7,10 +7,10 @@ import com.soptie.server.member.dto.MemberHomeInfoResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
+import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.service.MemberDollService;
 import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.soptie.server.member.message.ErrorMessage.*;
+import static com.soptie.server.member.message.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -74,18 +74,18 @@ public class MemberServiceImpl implements MemberService {
 
     private Member findMember(long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
     private void checkMemberProfileExist(Member member) {
         if (Objects.nonNull(member.getMemberDoll())) {
-            throw new IllegalStateException(EXIST_PROFILE.getMessage());
+            throw new MemberException(EXIST_PROFILE);
         }
     }
 
     private void checkMemberCottonCount(int cottonCount) {
         if (cottonCount <= 0) {
-            throw new IllegalStateException(NOT_ENOUGH_COTTON.getMessage());
+            throw new MemberException(NOT_ENOUGH_COTTON);
         }
     }
 
