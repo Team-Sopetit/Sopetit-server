@@ -18,8 +18,8 @@ public record MemberDailyRoutinesResponse(
 	@Builder
 	public record MemberDailyRoutineResponse(
 		long routineId,
-		String content,
-		String iconImageUrl,
+		@NonNull String content,
+		@NonNull String iconImageUrl,
 		int achieveCount,
 		boolean isAchieve
 	) {

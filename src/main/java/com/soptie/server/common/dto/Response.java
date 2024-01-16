@@ -1,8 +1,10 @@
 package com.soptie.server.common.dto;
 
+import lombok.NonNull;
+
 public record Response(
 	boolean success,
-	String message,
+	@NonNull String message,
 	Object data
 ) {
 
