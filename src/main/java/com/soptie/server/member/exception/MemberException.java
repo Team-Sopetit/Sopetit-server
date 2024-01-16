@@ -1,6 +1,6 @@
 package com.soptie.server.member.exception;
 
-import com.soptie.server.auth.message.ErrorCode;
+import com.soptie.server.member.message.ErrorCode;
 
 import lombok.Getter;
 

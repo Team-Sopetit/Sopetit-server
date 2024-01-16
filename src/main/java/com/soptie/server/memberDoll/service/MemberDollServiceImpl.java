@@ -2,11 +2,11 @@ package com.soptie.server.memberDoll.service;
 
 import com.soptie.server.doll.entity.Doll;
 import com.soptie.server.doll.entity.DollType;
+import com.soptie.server.doll.exception.DollException;
 import com.soptie.server.doll.repository.DollRepository;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.repository.MemberDollRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -38,6 +38,6 @@ public class MemberDollServiceImpl implements MemberDollService {
 
     private Doll getDoll(DollType type) {
         return dollRepository.findByDollType(type)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_TYPE.getMessage()));
+                .orElseThrow(() -> new DollException(INVALID_TYPE));
     }
 }

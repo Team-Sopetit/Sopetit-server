@@ -1,12 +1,13 @@
 package com.soptie.server.memberRoutine.service;
 
 import static com.soptie.server.member.message.ErrorCode.*;
-import static com.soptie.server.routine.message.ErrorMessage.*;
+import static com.soptie.server.routine.message.ErrorCode.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.entity.Member;
+import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
@@ -17,9 +18,9 @@ import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
+import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.*;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private void checkMemberRoutineAddition(Member member) {
 		if (member.getDailyRoutines().size() >= 3) {
-			throw new IllegalStateException(CANNOT_ADD_MEMBER_ROUTINE.getMessage());
+			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
 		}
 	}
 
@@ -59,7 +60,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private void checkDuplicatedMemberRoutine(Member member, DailyRoutine routine) {
 		if (isExistRoutine(member, routine)) {
-			throw new IllegalStateException(DUPLICATED_ROUTINE.getMessage());
+			throw new RoutineException(DUPLICATED_ROUTINE);
 		}
 	}
 
@@ -87,7 +88,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private DailyRoutine findRoutine(Long id) {
 		return dailyRoutineRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
+			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
 	@Override
@@ -121,12 +122,12 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private MemberDailyRoutine findMemberRoutine(Long id) {
 		return memberDailyRoutineRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
+			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
 	private void checkRoutineForMember(Member member, MemberDailyRoutine routine) {
 		if (!member.getDailyRoutines().contains(routine)) {
-			throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMessage());
+			throw new MemberException(INACCESSIBLE_ROUTINE);
 		}
 	}
 
@@ -139,7 +140,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private Member findMember(Long id) {
 		return memberRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
+			.orElseThrow(() -> new MemberException(INVALID_MEMBER));
 	}
 
 	@Override
