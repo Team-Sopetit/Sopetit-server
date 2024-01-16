@@ -5,9 +5,10 @@ import java.util.List;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 
 import lombok.Builder;
+import lombok.NonNull;
 
 public record MemberDailyRoutinesResponse(
-	List<MemberDailyRoutineResponse> routines
+	@NonNull List<MemberDailyRoutineResponse> routines
 ) {
 
 	public static MemberDailyRoutinesResponse of(List<MemberDailyRoutine> routines) {

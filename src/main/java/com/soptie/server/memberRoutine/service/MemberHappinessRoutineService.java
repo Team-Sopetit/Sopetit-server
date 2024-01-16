@@ -5,9 +5,9 @@ import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 
 public interface MemberHappinessRoutineService {
 
-	MemberHappinessRoutineResponse createMemberHappinessRoutine(Long memberId, MemberHappinessRoutineRequest request);
-	MemberHappinessRoutinesResponse getMemberHappinessRoutine(Long memberId);
-	void deleteMemberHappinessRoutine(Long memberId, Long routineId);
-	void achieveMemberHappinessRoutine(Long memberId, Long routineId);
+	MemberHappinessRoutineResponse createMemberHappinessRoutine(long memberId, MemberHappinessRoutineRequest request);
+	MemberHappinessRoutinesResponse getMemberHappinessRoutine(long memberId);
+	void deleteMemberHappinessRoutine(long memberId, Long routineId);
+	void achieveMemberHappinessRoutine(long memberId, Long routineId);
 	void deleteMemberHappinessRoutine(MemberHappinessRoutine routine);
 }

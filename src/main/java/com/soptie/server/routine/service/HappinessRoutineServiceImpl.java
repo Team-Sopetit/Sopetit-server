@@ -36,13 +36,13 @@ public class HappinessRoutineServiceImpl implements HappinessRoutineService {
     }
 
     @Override
-    public HappinessSubRoutinesResponse getHappinessSubRoutines(Long routineId) {
+    public HappinessSubRoutinesResponse getHappinessSubRoutines(long routineId) {
         val routine = findRoutine(routineId);
         val happinessSubRoutines = happinessSubRoutineService.getHappinessSubRoutines(routine);
         return HappinessSubRoutinesResponse.of(happinessSubRoutines);
     }
 
-    private HappinessRoutine findRoutine(Long routineId) {
+    private HappinessRoutine findRoutine(long routineId) {
         return happinessRoutineRepository.findById(routineId)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
     }

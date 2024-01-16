@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void createMemberProfile(Long memberId, MemberProfileRequest request) {
+    public void createMemberProfile(long memberId, MemberProfileRequest request) {
         val member = findMember(memberId);
         checkMemberProfileExist(member);
         memberDailyRoutineService.createMemberDailyRoutines(member, request.routines());
@@ -42,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public CottonCountResponse giveCotton(Long memberId, CottonType cottonType) {
+    public CottonCountResponse giveCotton(long memberId, CottonType cottonType) {
         val member = findMember(memberId);
         val cottonCount = giveCottonByCottonType(member, cottonType);
         return CottonCountResponse.of(cottonCount);
@@ -66,13 +66,13 @@ public class MemberServiceImpl implements MemberService {
         return member.subtractHappinessCotton();
     }
 
-    public MemberHomeInfoResponse getMemberHomeInfo(Long memberId) {
+    public MemberHomeInfoResponse getMemberHomeInfo(long memberId) {
         val member = findMember(memberId);
         val conversations = getConversations();
         return MemberHomeInfoResponse.of(member, conversations);
     }
 
-    private Member findMember(Long id) {
+    private Member findMember(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
     }

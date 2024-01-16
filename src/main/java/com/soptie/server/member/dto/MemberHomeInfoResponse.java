@@ -3,17 +3,18 @@ package com.soptie.server.member.dto;
 import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.member.entity.Member;
 import lombok.Builder;
+import lombok.NonNull;
 
 import java.util.List;
 
 @Builder
 public record MemberHomeInfoResponse(
-        String name,
-        DollType dollType,
-        String frameImageUrl,
+        @NonNull String name,
+        @NonNull DollType dollType,
+        @NonNull String frameImageUrl,
         int dailyCottonCount,
         int happinessCottonCount,
-        List<String> conversations
+        @NonNull List<String> conversations
 ) {
 
     public static MemberHomeInfoResponse of(Member member, List<String> conversations) {

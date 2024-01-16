@@ -5,9 +5,10 @@ import java.util.List;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 
 import lombok.Builder;
+import lombok.NonNull;
 
 public record DailyThemesResponse(
-	List<DailyThemeResponse> themes
+	@NonNull List<DailyThemeResponse> themes
 ) {
 
 	public static DailyThemesResponse of(List<DailyTheme> themes) {
@@ -16,10 +17,10 @@ public record DailyThemesResponse(
 
 	@Builder
 	public record DailyThemeResponse(
-		Long themeId,
-		String name,
-		String iconImageUrl,
-		String backgroundImageUrl
+		long themeId,
+		@NonNull String name,
+		@NonNull String iconImageUrl,
+		@NonNull String backgroundImageUrl
 	) {
 		private static DailyThemeResponse of(DailyTheme theme) {
 			return DailyThemeResponse.builder()

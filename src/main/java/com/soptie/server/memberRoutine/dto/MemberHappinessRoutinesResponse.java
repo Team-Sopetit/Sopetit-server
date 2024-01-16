@@ -3,19 +3,20 @@ package com.soptie.server.memberRoutine.dto;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 
 import lombok.Builder;
+import lombok.NonNull;
 
 @Builder
 public record MemberHappinessRoutinesResponse(
-		Long routineId,
-		String iconImageUrl,
-		String contentImageUrl,
-		String themeName,
-		String themeNameColor,
-		String title,
-		String content,
-		String detailContent,
-		String place,
-		String timeTaken
+		long routineId,
+		@NonNull String iconImageUrl,
+		@NonNull String contentImageUrl,
+		@NonNull String themeName,
+		@NonNull String themeNameColor,
+		@NonNull String title,
+		@NonNull String content,
+		@NonNull String detailContent,
+		@NonNull String place,
+		@NonNull String timeTaken
 ) {
 
 	public static MemberHappinessRoutinesResponse of(MemberHappinessRoutine routine) {
