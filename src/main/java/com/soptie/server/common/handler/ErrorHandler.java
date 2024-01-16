@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.common.dto.Response;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import lombok.*;
 
 @Slf4j
 @RestControllerAdvice
@@ -26,5 +28,13 @@ public class ErrorHandler {
 	public ResponseEntity<Response> illegalStateException(IllegalStateException exception) {
 		log.error(exception.getMessage());
 		return ResponseEntity.status(BAD_REQUEST).body(fail(exception.getMessage()));
+	}
+
+	@ExceptionHandler(AuthException.class)
+	public ResponseEntity<Response> authException(AuthException exception) {
+		log.error(exception.getMessage());
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(fail(errorCode.getMessage()));
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
+import static com.soptie.server.auth.message.ErrorCode.*;
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 

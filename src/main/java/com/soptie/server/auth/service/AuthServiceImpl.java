@@ -2,6 +2,7 @@ package com.soptie.server.auth.service;
 
 import com.soptie.server.auth.dto.SignInRequest;
 import com.soptie.server.auth.dto.SignInResponse;
+import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.auth.jwt.JwtTokenProvider;
 import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.auth.vo.Token;
@@ -26,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
+import static com.soptie.server.auth.message.ErrorCode.*;
 import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
 
 @Service
@@ -76,7 +77,7 @@ public class AuthServiceImpl implements AuthService {
     private String getSocialId(String socialAccessToken, SocialType socialType) {
         return switch (socialType) {
             case KAKAO -> kakaoService.getKakaoData(socialAccessToken);
-            default -> throw new IllegalArgumentException(INVALID_TOKEN.getMessage());
+            default -> throw new AuthException(INVALID_TOKEN);
         };
     }
 
