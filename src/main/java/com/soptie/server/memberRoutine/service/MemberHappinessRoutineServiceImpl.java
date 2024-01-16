@@ -1,6 +1,7 @@
 package com.soptie.server.memberRoutine.service;
 
 import com.soptie.server.member.entity.Member;
+import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
@@ -8,8 +9,8 @@ import com.soptie.server.memberRoutine.dto.MemberHappinessRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
+import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.happiness.routine.HappinessSubRoutineRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
-import static com.soptie.server.member.message.ErrorMessage.INACCESSIBLE_ROUTINE;
-import static com.soptie.server.member.message.ErrorMessage.INVALID_MEMBER;
-import static com.soptie.server.routine.message.ErrorMessage.CANNOT_ADD_MEMBER_ROUTINE;
-import static com.soptie.server.routine.message.ErrorMessage.INVALID_ROUTINE;
+import static com.soptie.server.member.message.ErrorCode.*;
+import static com.soptie.server.routine.message.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -44,13 +43,13 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     private void checkMemberRoutineAddition(Member member) {
         if (Objects.nonNull(member.getHappinessRoutine())) {
-            throw new IllegalStateException(CANNOT_ADD_MEMBER_ROUTINE.getMessage());
+            throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
         }
     }
 
     private HappinessSubRoutine findRoutine(long id) {
         return happinessSubRoutineRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
+                .orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
     }
 
     @Override
@@ -71,7 +70,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     private Member findMember(long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
     private void deleteMemberRoutine(MemberHappinessRoutine routine) {
@@ -91,12 +90,12 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     private MemberHappinessRoutine findMemberRoutine(long id) {
         return memberHappinessRoutineRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_ROUTINE.getMessage()));
+                .orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
     }
 
     private void checkRoutineForMember(Member member, MemberHappinessRoutine routine) {
         if (!member.getHappinessRoutine().equals(routine)) {
-            throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMessage());
+            throw new MemberException(INACCESSIBLE_ROUTINE);
         }
     }
 

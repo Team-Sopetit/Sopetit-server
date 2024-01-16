@@ -1,6 +1,6 @@
 package com.soptie.server.routine.service;
 
-import static com.soptie.server.routine.message.ErrorMessage.*;
+import static com.soptie.server.routine.message.ErrorCode.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.routine.dto.DailyRoutinesResponse;
 import com.soptie.server.routine.dto.DailyThemesResponse;
 import com.soptie.server.routine.entity.daily.DailyTheme;
+import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.*;
 
 @Service
@@ -56,6 +56,6 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 
 	private DailyTheme getTheme(long id) {
 		return dailyThemeRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(INVALID_THEME.getMessage()));
+			.orElseThrow(() -> new RoutineException(INVALID_THEME));
 	}
 }

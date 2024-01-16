@@ -1,30 +1,53 @@
 package com.soptie.server.common.handler;
 
 import static com.soptie.server.common.dto.Response.*;
-import static org.springframework.http.HttpStatus.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.common.dto.Response;
+import com.soptie.server.doll.exception.DollException;
+import com.soptie.server.member.exception.MemberException;
+import com.soptie.server.routine.exception.RoutineException;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import lombok.*;
 
 @Slf4j
 @RestControllerAdvice
 public class ErrorHandler {
 
-	@ExceptionHandler(EntityNotFoundException.class)
-	public ResponseEntity<Response> entityNotFoundException(EntityNotFoundException exception) {
+	@ExceptionHandler(AuthException.class)
+	public ResponseEntity<Response> authException(AuthException exception) {
 		log.error(exception.getMessage());
-		return ResponseEntity.status(NOT_FOUND).body(fail(exception.getMessage()));
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(fail(errorCode.getMessage()));
 	}
 
-	@ExceptionHandler(IllegalStateException.class)
-	public ResponseEntity<Response> illegalStateException(IllegalStateException exception) {
+	@ExceptionHandler(DollException.class)
+	public ResponseEntity<Response> dollException(DollException exception) {
 		log.error(exception.getMessage());
-		return ResponseEntity.status(BAD_REQUEST).body(fail(exception.getMessage()));
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(fail(errorCode.getMessage()));
+	}
+
+	@ExceptionHandler(MemberException.class)
+	public ResponseEntity<Response> memberException(MemberException exception) {
+		log.error(exception.getMessage());
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(fail(errorCode.getMessage()));
+	}
+
+	@ExceptionHandler(RoutineException.class)
+	public ResponseEntity<Response> routineException(RoutineException exception) {
+		log.error(exception.getMessage());
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(fail(errorCode.getMessage()));
 	}
 }
