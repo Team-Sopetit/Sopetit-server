@@ -34,7 +34,7 @@
               },
               "examples" : {
                 "post-token-docs" : {
-                  "value" : "{\r\n  \"socialType\" : \"KAKAO\"\r\n}"
+                  "value" : "{\n  \"socialType\" : \"KAKAO\"\n}"
                 }
               }
             }
@@ -50,7 +50,7 @@
                 },
                 "examples" : {
                   "post-token-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"소셜로그인 성공\",\r\n  \"data\" : {\r\n    \"accessToken\" : \"softie\",\r\n    \"refreshToken\" : \"token\"\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"소셜로그인 성공\",\n  \"data\" : {\n    \"accessToken\" : \"softie\",\n    \"refreshToken\" : \"token\"\n  }\n}"
                   }
                 }
               }
@@ -69,11 +69,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-members594740350"
+                  "$ref" : "#/components/schemas/api-v1-auth594740350"
                 },
                 "examples" : {
                   "delete-withdrawal-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"회원 탈퇴 성공\",\r\n  \"data\" : null\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"회원 탈퇴 성공\",\n  \"data\" : null\n}"
                   }
                 }
               }
@@ -98,7 +98,7 @@
                 },
                 "examples" : {
                   "get-member-home-screen-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"홈 화면 불러오기 성공\",\r\n  \"data\" : {\r\n    \"name\" : \"softie\",\r\n    \"dollType\" : \"BROWN\",\r\n    \"frameImageUrl\" : \"frameImageUrl\",\r\n    \"dailyCottonCount\" : 0,\r\n    \"happinessCottonCount\" : 0,\r\n    \"conversations\" : [ \"안녕\", \"하이\", \"봉쥬르\" ]\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"홈 화면 불러오기 성공\",\n  \"data\" : {\n    \"name\" : \"softie\",\n    \"dollType\" : \"BROWN\",\n    \"frameImageUrl\" : \"https://...\",\n    \"dailyCottonCount\" : 0,\n    \"happinessCottonCount\" : 0,\n    \"conversations\" : [ \"안녕\", \"하이\", \"봉쥬르\" ]\n  }\n}"
                   }
                 }
               }
@@ -119,7 +119,7 @@
               },
               "examples" : {
                 "post-member-profile-docs" : {
-                  "value" : "{\r\n  \"dollType\" : \"BROWN\",\r\n  \"name\" : \"소프티\",\r\n  \"routines\" : [ 1, 2, 3 ]\r\n}"
+                  "value" : "{\n  \"dollType\" : \"BROWN\",\n  \"name\" : \"소프티\",\n  \"routines\" : [ 1, 2, 3 ]\n}"
                 }
               }
             }
@@ -139,11 +139,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-members594740350"
+                  "$ref" : "#/components/schemas/api-v1-auth594740350"
                 },
                 "examples" : {
                   "post-member-profile-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"프로필 생성 성공\",\r\n  \"data\" : null\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"프로필 생성 성공\",\n  \"data\" : null\n}"
                   }
                 }
               }
@@ -189,11 +189,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-members594740350"
+                  "$ref" : "#/components/schemas/api-v1-auth594740350"
                 },
                 "examples" : {
                   "post-logout-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"로그아웃 성공\",\r\n  \"data\" : null\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"로그아웃 성공\",\n  \"data\" : null\n}"
                   }
                 }
               }
@@ -227,7 +227,7 @@
                 },
                 "examples" : {
                   "give-cotton-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"솜뭉치 주기 성공\",\r\n  \"data\" : {\r\n    \"cottonCount\" : 0\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"솜뭉치 주기 성공\",\n  \"data\" : {\n    \"cottonCount\" : 0\n  }\n}"
                   }
                 }
               }
@@ -261,7 +261,7 @@
                 },
                 "examples" : {
                   "get-themes-daily-routines-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"루틴 조회 성공\",\r\n  \"data\" : {\r\n    \"routines\" : [ {\r\n      \"routineId\" : 1,\r\n      \"content\" : \"Daily routine Content1\"\r\n    }, {\r\n      \"routineId\" : 2,\r\n      \"content\" : \"Daily routine Content2\"\r\n    }, {\r\n      \"routineId\" : 3,\r\n      \"content\" : \"Daily routine Content3\"\r\n    }, {\r\n      \"routineId\" : 4,\r\n      \"content\" : \"Daily routine Content4\"\r\n    }, {\r\n      \"routineId\" : 5,\r\n      \"content\" : \"Daily routine Content5\"\r\n    } ]\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"content\" : \"routine content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"routine content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"routine content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"routine content4\"\n    }, {\n      \"routineId\" : 5,\n      \"content\" : \"routine content5\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -295,7 +295,7 @@
                 },
                 "examples" : {
                   "get-theme-happiness-routines-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"루틴 조회 성공\",\r\n  \"data\" : {\r\n    \"routines\" : [ {\r\n      \"routineId\" : 1,\r\n      \"name\" : \"Happiness routine Theme1\",\r\n      \"nameColor\" : \"Happiness routine Theme1\",\r\n      \"title\" : \"Happiness routine Theme1\",\r\n      \"iconImageUrl\" : \"icon_image_url1\"\r\n    }, {\r\n      \"routineId\" : 2,\r\n      \"name\" : \"Happiness routine Theme2\",\r\n      \"nameColor\" : \"Happiness routine Theme2\",\r\n      \"title\" : \"Happiness routine Theme2\",\r\n      \"iconImageUrl\" : \"icon_image_url2\"\r\n    }, {\r\n      \"routineId\" : 3,\r\n      \"name\" : \"Happiness routine Theme3\",\r\n      \"nameColor\" : \"Happiness routine Theme3\",\r\n      \"title\" : \"Happiness routine Theme3\",\r\n      \"iconImageUrl\" : \"icon_image_url3\"\r\n    }, {\r\n      \"routineId\" : 4,\r\n      \"name\" : \"Happiness routine Theme4\",\r\n      \"nameColor\" : \"Happiness routine Theme4\",\r\n      \"title\" : \"Happiness routine Theme4\",\r\n      \"iconImageUrl\" : \"icon_image_url4\"\r\n    }, {\r\n      \"routineId\" : 5,\r\n      \"name\" : \"Happiness routine Theme5\",\r\n      \"nameColor\" : \"Happiness routine Theme5\",\r\n      \"title\" : \"Happiness routine Theme5\",\r\n      \"iconImageUrl\" : \"icon_image_url5\"\r\n    } ]\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"name\" : \"Happiness routine Theme1\",\n      \"nameColor\" : \"Happiness routine Theme1\",\n      \"title\" : \"Happiness routine Theme1\",\n      \"iconImageUrl\" : \"icon_image_url1\"\n    }, {\n      \"routineId\" : 2,\n      \"name\" : \"Happiness routine Theme2\",\n      \"nameColor\" : \"Happiness routine Theme2\",\n      \"title\" : \"Happiness routine Theme2\",\n      \"iconImageUrl\" : \"icon_image_url2\"\n    }, {\n      \"routineId\" : 3,\n      \"name\" : \"Happiness routine Theme3\",\n      \"nameColor\" : \"Happiness routine Theme3\",\n      \"title\" : \"Happiness routine Theme3\",\n      \"iconImageUrl\" : \"icon_image_url3\"\n    }, {\n      \"routineId\" : 4,\n      \"name\" : \"Happiness routine Theme4\",\n      \"nameColor\" : \"Happiness routine Theme4\",\n      \"title\" : \"Happiness routine Theme4\",\n      \"iconImageUrl\" : \"icon_image_url4\"\n    }, {\n      \"routineId\" : 5,\n      \"name\" : \"Happiness routine Theme5\",\n      \"nameColor\" : \"Happiness routine Theme5\",\n      \"title\" : \"Happiness routine Theme5\",\n      \"iconImageUrl\" : \"icon_image_url5\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -329,7 +329,7 @@
                 },
                 "examples" : {
                   "get-doll-image-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"인형 이미지 조회 성공\",\r\n  \"data\" : {\r\n    \"faceImageUrl\" : \"face-image-url\"\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"인형 이미지 조회 성공\",\n  \"data\" : {\n    \"faceImageUrl\" : \"face-image-url\"\n  }\n}"
                   }
                 }
               }
@@ -354,7 +354,7 @@
                 },
                 "examples" : {
                   "get-member-daily-routines-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"루틴 조회 성공\",\r\n  \"data\" : {\r\n    \"routines\" : [ {\r\n      \"routineId\" : 1,\r\n      \"content\" : \"Daily routine Content1\",\r\n      \"iconImageUrl\" : \"icon_image_url1\",\r\n      \"achieveCount\" : 1,\r\n      \"isAchieve\" : false\r\n    }, {\r\n      \"routineId\" : 2,\r\n      \"content\" : \"Daily routine Content2\",\r\n      \"iconImageUrl\" : \"icon_image_url2\",\r\n      \"achieveCount\" : 2,\r\n      \"isAchieve\" : true\r\n    }, {\r\n      \"routineId\" : 3,\r\n      \"content\" : \"Daily routine Content3\",\r\n      \"iconImageUrl\" : \"icon_image_url3\",\r\n      \"achieveCount\" : 3,\r\n      \"isAchieve\" : false\r\n    }, {\r\n      \"routineId\" : 4,\r\n      \"content\" : \"Daily routine Content4\",\r\n      \"iconImageUrl\" : \"icon_image_url4\",\r\n      \"achieveCount\" : 4,\r\n      \"isAchieve\" : true\r\n    }, {\r\n      \"routineId\" : 5,\r\n      \"content\" : \"Daily routine Content5\",\r\n      \"iconImageUrl\" : \"icon_image_url5\",\r\n      \"achieveCount\" : 5,\r\n      \"isAchieve\" : false\r\n    } ]\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"content\" : \"routine content1\",\n      \"iconImageUrl\" : \"https://...\",\n      \"achieveCount\" : 1,\n      \"isAchieve\" : false\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"routine content2\",\n      \"iconImageUrl\" : \"https://...\",\n      \"achieveCount\" : 2,\n      \"isAchieve\" : true\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"routine content3\",\n      \"iconImageUrl\" : \"https://...\",\n      \"achieveCount\" : 3,\n      \"isAchieve\" : false\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"routine content4\",\n      \"iconImageUrl\" : \"https://...\",\n      \"achieveCount\" : 4,\n      \"isAchieve\" : true\n    }, {\n      \"routineId\" : 5,\n      \"content\" : \"routine content5\",\n      \"iconImageUrl\" : \"https://...\",\n      \"achieveCount\" : 5,\n      \"isAchieve\" : false\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -375,7 +375,7 @@
               },
               "examples" : {
                 "post-member-daily-routine-docs" : {
-                  "value" : "{\r\n  \"routineId\" : 1\r\n}"
+                  "value" : "{\n  \"routineId\" : 1\n}"
                 }
               }
             }
@@ -399,7 +399,7 @@
                 },
                 "examples" : {
                   "post-member-daily-routine-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"루틴 추가 성공\",\r\n  \"data\" : {\r\n    \"routineId\" : 1\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 추가 성공\",\n  \"data\" : {\n    \"routineId\" : 1\n  }\n}"
                   }
                 }
               }
@@ -424,7 +424,7 @@
                 },
                 "examples" : {
                   "get-daily-themes-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"테마 조회 성공\",\r\n  \"data\" : {\r\n    \"themes\" : [ {\r\n      \"themeId\" : 1,\r\n      \"name\" : \"Daily routine Theme1\",\r\n      \"iconImageUrl\" : \"icon_image_url1\",\r\n      \"backgroundImageUrl\" : \"background_image_url1\"\r\n    }, {\r\n      \"themeId\" : 2,\r\n      \"name\" : \"Daily routine Theme2\",\r\n      \"iconImageUrl\" : \"icon_image_url2\",\r\n      \"backgroundImageUrl\" : \"background_image_url2\"\r\n    }, {\r\n      \"themeId\" : 3,\r\n      \"name\" : \"Daily routine Theme3\",\r\n      \"iconImageUrl\" : \"icon_image_url3\",\r\n      \"backgroundImageUrl\" : \"background_image_url3\"\r\n    }, {\r\n      \"themeId\" : 4,\r\n      \"name\" : \"Daily routine Theme4\",\r\n      \"iconImageUrl\" : \"icon_image_url4\",\r\n      \"backgroundImageUrl\" : \"background_image_url4\"\r\n    }, {\r\n      \"themeId\" : 5,\r\n      \"name\" : \"Daily routine Theme5\",\r\n      \"iconImageUrl\" : \"icon_image_url5\",\r\n      \"backgroundImageUrl\" : \"background_image_url5\"\r\n    } ]\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"테마 조회 성공\",\n  \"data\" : {\n    \"themes\" : [ {\n      \"themeId\" : 1,\n      \"name\" : \"theme name1\",\n      \"iconImageUrl\" : \"https://...\",\n      \"backgroundImageUrl\" : \"https://...\"\n    }, {\n      \"themeId\" : 2,\n      \"name\" : \"theme name2\",\n      \"iconImageUrl\" : \"https://...\",\n      \"backgroundImageUrl\" : \"https://...\"\n    }, {\n      \"themeId\" : 3,\n      \"name\" : \"theme name3\",\n      \"iconImageUrl\" : \"https://...\",\n      \"backgroundImageUrl\" : \"https://...\"\n    }, {\n      \"themeId\" : 4,\n      \"name\" : \"theme name4\",\n      \"iconImageUrl\" : \"https://...\",\n      \"backgroundImageUrl\" : \"https://...\"\n    }, {\n      \"themeId\" : 5,\n      \"name\" : \"theme name5\",\n      \"iconImageUrl\" : \"https://...\",\n      \"backgroundImageUrl\" : \"https://...\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -449,7 +449,52 @@
                 },
                 "examples" : {
                   "get-member-happiness-routine-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"루틴 조회 성공\",\r\n  \"data\" : {\r\n    \"routineId\" : 1,\r\n    \"iconImageUrl\" : \"icon-image-url\",\r\n    \"contentImageUrl\" : \"content-image-url\",\r\n    \"themeName\" : \"태마 이름\",\r\n    \"themeNameColor\" : \"#ffcdc5\",\r\n    \"title\" : \"루틴 제목\",\r\n    \"content\" : \"routine-content\",\r\n    \"detailContent\" : \"routine-detail-content\",\r\n    \"place\" : \"루틴 장소\",\r\n    \"timeTaken\" : \"5~10분 소요\"\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routineId\" : 1,\n    \"iconImageUrl\" : \"icon-image-url\",\n    \"contentImageUrl\" : \"content-image-url\",\n    \"themeName\" : \"태마 이름\",\n    \"themeNameColor\" : \"#ffcdc5\",\n    \"title\" : \"루틴 제목\",\n    \"content\" : \"routine-content\",\n    \"detailContent\" : \"routine-detail-content\",\n    \"place\" : \"루틴 장소\",\n    \"timeTaken\" : \"5~10분 소요\"\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "MEMBER HAPPINESS ROUTINE" ],
+        "summary" : "회원 행복 루틴 추가 성공",
+        "description" : "회원 행복 루틴 추가 성공",
+        "operationId" : "post-member-happiness-routine-docs",
+        "requestBody" : {
+          "content" : {
+            "application/json;charset=UTF-8" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/api-v1-routines-daily-member1721287602"
+              },
+              "examples" : {
+                "post-member-happiness-routine-docs" : {
+                  "value" : "{\n  \"routineId\" : 1\n}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "201",
+            "headers" : {
+              "Location" : {
+                "description" : "Redirect URI",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-routines-daily-member1327124516"
+                },
+                "examples" : {
+                  "post-member-happiness-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 추가 성공\",\n  \"data\" : {\n    \"routineId\" : 1\n  }\n}"
                   }
                 }
               }
@@ -474,7 +519,7 @@
                 },
                 "examples" : {
                   "get-happiness-themes-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"테마 조회 성공\",\r\n  \"data\" : {\r\n    \"themes\" : [ {\r\n      \"themeId\" : 1,\r\n      \"name\" : \"Happiness routine Theme1\"\r\n    }, {\r\n      \"themeId\" : 2,\r\n      \"name\" : \"Happiness routine Theme2\"\r\n    }, {\r\n      \"themeId\" : 3,\r\n      \"name\" : \"Happiness routine Theme3\"\r\n    }, {\r\n      \"themeId\" : 4,\r\n      \"name\" : \"Happiness routine Theme4\"\r\n    }, {\r\n      \"themeId\" : 5,\r\n      \"name\" : \"Happiness routine Theme5\"\r\n    } ]\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"테마 조회 성공\",\n  \"data\" : {\n    \"themes\" : [ {\n      \"themeId\" : 1,\n      \"name\" : \"Happiness routine Theme1\"\n    }, {\n      \"themeId\" : 2,\n      \"name\" : \"Happiness routine Theme2\"\n    }, {\n      \"themeId\" : 3,\n      \"name\" : \"Happiness routine Theme3\"\n    }, {\n      \"themeId\" : 4,\n      \"name\" : \"Happiness routine Theme4\"\n    }, {\n      \"themeId\" : 5,\n      \"name\" : \"Happiness routine Theme5\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -508,7 +553,7 @@
                 },
                 "examples" : {
                   "get-theme-daily-routines-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"루틴 조회 성공\",\r\n  \"data\" : {\r\n    \"routines\" : [ {\r\n      \"routineId\" : 1,\r\n      \"content\" : \"Daily routine Content1\"\r\n    }, {\r\n      \"routineId\" : 2,\r\n      \"content\" : \"Daily routine Content2\"\r\n    }, {\r\n      \"routineId\" : 3,\r\n      \"content\" : \"Daily routine Content3\"\r\n    }, {\r\n      \"routineId\" : 4,\r\n      \"content\" : \"Daily routine Content4\"\r\n    }, {\r\n      \"routineId\" : 5,\r\n      \"content\" : \"Daily routine Content5\"\r\n    } ]\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 조회 성공\",\n  \"data\" : {\n    \"routines\" : [ {\n      \"routineId\" : 1,\n      \"content\" : \"routine content1\"\n    }, {\n      \"routineId\" : 2,\n      \"content\" : \"routine content2\"\n    }, {\n      \"routineId\" : 3,\n      \"content\" : \"routine content3\"\n    }, {\n      \"routineId\" : 4,\n      \"content\" : \"routine content4\"\n    }, {\n      \"routineId\" : 5,\n      \"content\" : \"routine content5\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -542,7 +587,7 @@
                 },
                 "examples" : {
                   "get-sub-happiness-routines-by-routine-of-theme-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"행복 루틴 별 서브 루틴 리스트 조회 성공\",\r\n  \"data\" : {\r\n    \"title\" : \"타이틀\",\r\n    \"name\" : \"테마\",\r\n    \"nameColor\" : \"색깔\",\r\n    \"iconImageUrl\" : \"iconImageUrl\",\r\n    \"contentImageUrl\" : \"contentImageUrl\",\r\n    \"subRoutines\" : [ {\r\n      \"subRoutineId\" : 1,\r\n      \"content\" : \"소프티숙소\",\r\n      \"detailContent\" : \"detailContent\",\r\n      \"timeTaken\" : \"10분\",\r\n      \"place\" : \"소프티숙소\"\r\n    } ]\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"행복 루틴 별 서브 루틴 리스트 조회 성공\",\n  \"data\" : {\n    \"title\" : \"타이틀\",\n    \"name\" : \"테마 이름\",\n    \"nameColor\" : \"#999\",\n    \"iconImageUrl\" : \"https://...\",\n    \"contentImageUrl\" : \"https://...\",\n    \"subRoutines\" : [ {\n      \"subRoutineId\" : 1,\n      \"content\" : \"소프티 숙소\",\n      \"detailContent\" : \"어쩌구 저쩌구\",\n      \"timeTaken\" : \"아무때\",\n      \"place\" : \"소프티 만나러 가는 길\"\n    } ]\n  }\n}"
                   }
                 }
               }
@@ -572,11 +617,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-members594740350"
+                  "$ref" : "#/components/schemas/api-v1-auth594740350"
                 },
                 "examples" : {
                   "delete-member-daily-routine-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"루틴 삭제 성공\",\r\n  \"data\" : null\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 삭제 성공\",\n  \"data\" : null\n}"
                   }
                 }
               }
@@ -608,7 +653,73 @@
                 },
                 "examples" : {
                   "achieve-member-daily-routine-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"루틴 달성 성공\",\r\n  \"data\" : {\r\n    \"routineId\" : 1,\r\n    \"isAchieve\" : true,\r\n    \"achieveCount\" : 1\r\n  }\r\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 달성 성공\",\n  \"data\" : {\n    \"routineId\" : 1,\n    \"isAchieve\" : true,\n    \"achieveCount\" : 1\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/routines/happiness/member/routine/{routineId}" : {
+      "delete" : {
+        "tags" : [ "MEMBER HAPPINESS ROUTINE" ],
+        "summary" : "회원 행복 루틴 삭제 성공",
+        "description" : "회원 행복 루틴 삭제 성공",
+        "operationId" : "delete-member-happiness-routine-docs",
+        "parameters" : [ {
+          "name" : "routineId",
+          "in" : "path",
+          "description" : "루틴 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-auth594740350"
+                },
+                "examples" : {
+                  "delete-member-happiness-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"루틴 삭제 성공\",\n  \"data\" : null\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "MEMBER HAPPINESS ROUTINE" ],
+        "summary" : "회원 행복 루틴 달성 성공",
+        "description" : "회원 행복 루틴 달성 성공",
+        "operationId" : "achieve-member-happiness-routine-docs",
+        "parameters" : [ {
+          "name" : "routineId",
+          "in" : "path",
+          "description" : "루틴 id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-auth594740350"
+                },
+                "examples" : {
+                  "achieve-member-happiness-routine-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"회원 행복 루틴 달성 성공\",\n  \"data\" : null\n}"
                   }
                 }
               }
@@ -799,6 +910,19 @@
           }
         }
       },
+      "api-v1-auth594740350" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-members-cottonType-1561973557" : {
         "type" : "object",
         "properties" : {
@@ -835,19 +959,6 @@
             },
             "description" : "응답 데이터"
           },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
-      },
-      "api-v1-members594740350" : {
-        "type" : "object",
-        "properties" : {
           "success" : {
             "type" : "boolean",
             "description" : "응답 성공 여부"
@@ -1100,6 +1211,29 @@
           }
         }
       },
+      "api-v1-routines-daily-member1327124516" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "routineId" : {
+                "type" : "number",
+                "description" : "생성한 루틴 id"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-members-2061462562" : {
         "type" : "object",
         "properties" : {
@@ -1162,29 +1296,6 @@
                     }
                   }
                 }
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
-      },
-      "api-v1-routines-daily-member1327124516" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "routineId" : {
-                "type" : "number",
-                "description" : "생성한 루틴 id"
               }
             },
             "description" : "응답 데이터"
