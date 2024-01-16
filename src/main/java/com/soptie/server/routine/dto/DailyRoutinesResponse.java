@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.NonNull;
 
 public record DailyRoutinesResponse(
-	@NonNull List<DailyRoutineResponse> routines
+		@NonNull List<DailyRoutineResponse> routines
 ) {
 
 	public static DailyRoutinesResponse of(List<DailyRoutine> routines) {
@@ -17,15 +17,15 @@ public record DailyRoutinesResponse(
 
 	@Builder
 	public record DailyRoutineResponse(
-		long routineId,
-		@NonNull String content
+			Long routineId,
+			@NonNull String content
 	) {
 
 		private static DailyRoutineResponse of(DailyRoutine routine) {
 			return DailyRoutineResponse.builder()
-				.routineId(routine.getId())
-				.content(routine.getContent())
-				.build();
+					.routineId(routine.getId())
+					.content(routine.getContent())
+					.build();
 		}
 	}
 }

@@ -1,13 +1,7 @@
 package com.soptie.server.routine.entity.daily;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
@@ -24,4 +18,10 @@ public class DailyTheme {
 
 	@Embedded
 	private RoutineImage imageInfo;
+
+	@Builder
+	public DailyTheme(String name, RoutineImage imageInfo) {
+		this.name = name;
+		this.imageInfo = imageInfo;
+	}
 }
