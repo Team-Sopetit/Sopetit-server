@@ -3,30 +3,33 @@ package com.soptie.server.memberRoutine.fixture;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
-import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
-import com.soptie.server.routine.fixture.DailyRoutineFixture;
 
 public class MemberDailyRoutineFixture {
 
-	private static final Member MEMBER = new Member();
 
 	public static MemberDailyRoutineResponse createMemberDailyRoutineResponseDTO() {
 		return new MemberDailyRoutineResponse(1L);
 	}
 
 	public static MemberDailyRoutinesResponse createMemberDailyRoutinesResponseDTO() {
-		return MemberDailyRoutinesResponse.of(createMemberDailyRoutines());
+		return new MemberDailyRoutinesResponse(createDailyRoutineResponses());
 	}
 
-	private static List<MemberDailyRoutine> createMemberDailyRoutines() {
+	private static List<MemberDailyRoutinesResponse.MemberDailyRoutineResponse> createDailyRoutineResponses() {
 		return Stream.iterate(1, i -> i + 1).limit(5)
-			.map(MemberDailyRoutineFixture::createMemberDailyRoutine).toList();
+				.map(MemberDailyRoutineFixture::createDailyRoutineResponse)
+				.toList();
 	}
 
-	private static MemberDailyRoutine createMemberDailyRoutine(int i) {
-		return new MemberDailyRoutine((long)i, i, i % 2 == 0, MEMBER, DailyRoutineFixture.createDailyRoutine(i));
+	private static MemberDailyRoutinesResponse.MemberDailyRoutineResponse createDailyRoutineResponse(int i) {
+		return MemberDailyRoutinesResponse.MemberDailyRoutineResponse.builder()
+				.routineId(i)
+				.content("routine content" + i)
+				.iconImageUrl("https://...")
+				.achieveCount(i)
+				.isAchieve(i % 2 == 0)
+				.build();
 	}
 }
