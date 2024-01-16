@@ -1,6 +1,6 @@
 package com.soptie.server.doll.service;
 
-import static com.soptie.server.doll.message.ErrorMessage.*;
+import static com.soptie.server.doll.message.ErrorCode.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -3,7 +3,6 @@ package com.soptie.server.memberDoll.service;
 import com.soptie.server.doll.entity.Doll;
 import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.doll.repository.DollRepository;
-import com.soptie.server.doll.service.DollService;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.repository.MemberDollRepository;
@@ -13,7 +12,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.soptie.server.doll.message.ErrorMessage.INVALID_TYPE;
+import static com.soptie.server.doll.message.ErrorCode.INVALID_TYPE;
 
 @Service
 @RequiredArgsConstructor

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.common.dto.Response;
+import com.soptie.server.doll.exception.DollException;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,14 @@ public class ErrorHandler {
 
 	@ExceptionHandler(AuthException.class)
 	public ResponseEntity<Response> authException(AuthException exception) {
+		log.error(exception.getMessage());
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(fail(errorCode.getMessage()));
+	}
+
+	@ExceptionHandler(DollException.class)
+	public ResponseEntity<Response> dollException(DollException exception) {
 		log.error(exception.getMessage());
 
 		val errorCode = exception.getErrorCode();
