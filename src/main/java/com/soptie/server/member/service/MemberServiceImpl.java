@@ -78,7 +78,7 @@ public class MemberServiceImpl implements MemberService {
 
     private void checkMemberProfileExist(Member member) {
         if (Objects.nonNull(member.getMemberDoll())) {
-            throw new IllegalStateException(EXIST_PROFILE.getMeesage());
+            throw new IllegalStateException(EXIST_PROFILE.getMessage());
         }
     }
 
