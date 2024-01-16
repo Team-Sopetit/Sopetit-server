@@ -33,6 +33,6 @@ public class HappinessRoutineRepositoryImpl implements HappinessRoutineCustomRep
     }
 
     private BooleanExpression themeIdEq(Long themeId) {
-        return nonNull(themeId) ? happinessRoutine.theme.id.eq(themeId): null;
+        return (isNull(themeId) || themeId == 0L) ? null : happinessRoutine.theme.id.eq(themeId);
     }
 }
