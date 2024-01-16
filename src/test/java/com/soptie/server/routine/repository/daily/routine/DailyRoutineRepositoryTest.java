@@ -70,14 +70,15 @@ class DailyRoutineRepositoryTest extends BaseRepositoryTest {
 	@Test
 	void success_getRoutinesByTheme() {
 		// given
-		Stream.iterate(1, i -> i + 1).limit(5)
+		int size = 5;
+		Stream.iterate(1, i -> i + 1).limit(size)
 				.forEach(i -> dailyRoutineRepository.save(getRoutine(i)));
 
 		// when
 		List<DailyRoutine> routineList = dailyRoutineRepository.findAllByTheme(THEME);
 
 		// then
-		assertThat(routineList.size(), is(equalTo(5)));
+		assertThat(routineList.size(), is(equalTo(size)));
 	}
 
 	private DailyRoutine getRoutine(int i) {
