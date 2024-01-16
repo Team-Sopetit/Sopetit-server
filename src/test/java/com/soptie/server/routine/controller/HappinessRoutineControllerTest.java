@@ -3,7 +3,6 @@ package com.soptie.server.routine.controller;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.routine.dto.DailyRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessThemesResponse;
@@ -11,7 +10,6 @@ import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import com.soptie.server.routine.entity.happiness.RoutineImage;
-import com.soptie.server.routine.fixture.DailyRoutineFixture;
 import com.soptie.server.routine.fixture.HappinessRoutineFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,11 +22,10 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
-import static com.soptie.server.routine.message.ResponseMessage.SUCCESS_GET_HAPPINESS_SUB_ROUTINES;
+import static com.soptie.server.routine.message.SuccessMessage.SUCCESS_GET_HAPPINESS_SUB_ROUTINES;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;

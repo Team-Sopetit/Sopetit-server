@@ -15,5 +15,5 @@ public enum ErrorMessage {
 	NOT_ENOUGH_COTTON("솜뭉치가 부족합니다.")
 	;
 
-	private final String meesage;
+	private final String message;
 }
