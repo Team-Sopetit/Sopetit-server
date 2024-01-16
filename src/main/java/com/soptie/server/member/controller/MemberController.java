@@ -15,9 +15,9 @@ import java.net.URI;
 import java.security.Principal;
 
 import static com.soptie.server.common.dto.Response.success;
-import static com.soptie.server.member.message.ResponseMessage.SUCCESS_CREATE_PROFILE;
-import static com.soptie.server.member.message.ResponseMessage.SUCCESS_GIVE_COTTON;
-import static com.soptie.server.member.message.ResponseMessage.*;
+import static com.soptie.server.member.message.SuccessMessage.SUCCESS_CREATE_PROFILE;
+import static com.soptie.server.member.message.SuccessMessage.SUCCESS_GIVE_COTTON;
+import static com.soptie.server.member.message.SuccessMessage.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class MemberController {
         val memberId = Long.parseLong(principal.getName());
         memberService.createMemberProfile(memberId, request);
         return ResponseEntity.created(getURI())
-                .body(success(SUCCESS_CREATE_PROFILE.getMessage(), null));
+                .body(success(SUCCESS_CREATE_PROFILE.getMessage()));
     }
 
     private URI getURI() {

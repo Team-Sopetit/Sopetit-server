@@ -41,7 +41,7 @@ public class MemberHappinessRoutine {
 
 	private void setMember(Member member) {
 		if (Objects.nonNull(this.member)) {
-			this.member.initHappinessRoutine();
+			this.member.resetHappinessRoutine();
 		}
 		this.member = member;
 		member.addHappinessRoutine(this);

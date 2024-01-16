@@ -71,11 +71,11 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     private Member findMember(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
     }
 
     private void deleteMemberRoutine(MemberHappinessRoutine routine) {
-        routine.getMember().deleteHappinessRoutine();
+        routine.getMember().resetHappinessRoutine();
         memberHappinessRoutineRepository.delete(routine);
     }
 
@@ -96,7 +96,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     private void checkRoutineForMember(Member member, MemberHappinessRoutine routine) {
         if (!member.getHappinessRoutine().equals(routine)) {
-            throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMeesage());
+            throw new IllegalStateException(INACCESSIBLE_ROUTINE.getMessage());
         }
     }
 

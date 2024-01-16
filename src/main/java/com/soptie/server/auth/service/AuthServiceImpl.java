@@ -11,6 +11,8 @@ import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
+import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.service.CompletedMemberDailyRoutineService;
 import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
 import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
@@ -21,6 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.soptie.server.auth.message.ErrorMessage.INVALID_TOKEN;
@@ -58,8 +61,8 @@ public class AuthServiceImpl implements AuthService {
     public void withdraw(Long memberId) {
         val member = findMember(memberId);
         deleteMemberDoll(member.getMemberDoll());
-        deleteMemberDailyRoutines(member);
-        deleteMemberHappinessRoutine(member);
+        deleteMemberDailyRoutines(member.getDailyRoutines());
+        deleteMemberHappinessRoutine(member.getHappinessRoutine());
         deleteCompletedMemberDailyRoutines(member);
         deleteMember(member);
     }
@@ -105,7 +108,7 @@ public class AuthServiceImpl implements AuthService {
 
     private Member findMember(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMeesage()));
+                .orElseThrow(() -> new EntityNotFoundException(INVALID_MEMBER.getMessage()));
     }
 
     private void deleteMemberDoll(MemberDoll memberDoll) {
@@ -114,14 +117,14 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private void deleteMemberDailyRoutines(Member member) {
-        member.getDailyRoutines()
+    private void deleteMemberDailyRoutines(List<MemberDailyRoutine> memberDailyRoutines) {
+        memberDailyRoutines
                 .forEach(memberDailyRoutineService::deleteMemberDailyRoutine);
     }
 
-    private void deleteMemberHappinessRoutine(Member member) {
-        if (Objects.nonNull(member.getHappinessRoutine())) {
-            memberHappinessRoutineService.deleteMemberHappinessRoutine(member.getHappinessRoutine());
+    private void deleteMemberHappinessRoutine(MemberHappinessRoutine memberHappinessRoutine) {
+        if (Objects.nonNull(memberHappinessRoutine)) {
+            memberHappinessRoutineService.deleteMemberHappinessRoutine(memberHappinessRoutine);
         }
     }
 

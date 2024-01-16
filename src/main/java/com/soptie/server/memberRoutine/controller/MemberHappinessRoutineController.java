@@ -13,7 +13,7 @@ import java.net.URI;
 import java.security.Principal;
 
 import static com.soptie.server.common.dto.Response.success;
-import static com.soptie.server.memberRoutine.message.ResponseMessage.*;
+import static com.soptie.server.memberRoutine.message.SuccessMessage.*;
 
 @RestController
 @RequiredArgsConstructor
