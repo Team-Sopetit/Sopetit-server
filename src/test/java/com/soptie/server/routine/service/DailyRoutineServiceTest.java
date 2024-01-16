@@ -32,24 +32,27 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 	private DailyThemeRepository dailyThemeRepository;
 
 	private final DailyTheme THEME = theme();
-	private final long THEME_ID = 1L;
 	private final int LIST_SIZE = 5;
+	private final String ROUTINE_CONTENT = "오늘의 음악 선곡하기";
 
 	@DisplayName("테마별 데일리 루틴 조회")
 	@Test
 	void success_getRoutinesByTheme() {
 		// given
-		when(dailyThemeRepository.findById(THEME_ID)).thenReturn(Optional.of(THEME));
+		long themeId = 1L;
+
+		when(dailyThemeRepository.findById(themeId)).thenReturn(Optional.of(THEME));
 		when(dailyRoutineRepository.findAllByTheme(THEME)).thenReturn(routineList());
 
 		// when
-		DailyRoutinesResponse response = dailyRoutineService.getRoutinesByTheme(THEME_ID);
+		DailyRoutinesResponse response = dailyRoutineService.getRoutinesByTheme(themeId);
 
 		// then
 		assertThat(response.routines().size(), is(equalTo(LIST_SIZE)));
+		assertThat(response.routines().get(0).content(), is(equalTo(ROUTINE_CONTENT + 1)));
 
 		// verify
-		verify(dailyThemeRepository, times(1)).findById(THEME_ID);
+		verify(dailyThemeRepository, times(1)).findById(themeId);
 		verify(dailyRoutineRepository, times(1)).findAllByTheme(THEME);
 	}
 
@@ -60,7 +63,7 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 
 	private DailyRoutine routine(int i) {
 		return DailyRoutine.builder()
-				.content("오늘의 음악 선곡하기" + i)
+				.content(ROUTINE_CONTENT + i)
 				.theme(THEME)
 				.build();
 	}
