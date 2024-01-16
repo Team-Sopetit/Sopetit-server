@@ -4,9 +4,11 @@ import com.soptie.server.doll.entity.DollType;
 
 import java.util.List;
 
+import lombok.NonNull;
+
 public record MemberProfileRequest(
-        DollType dollType,
-        String name,
-        List<Long> routines
+        @NonNull DollType dollType,
+        @NonNull String name,
+        @NonNull List<Long> routines
 ) {
 }

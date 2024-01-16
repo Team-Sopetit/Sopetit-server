@@ -3,17 +3,18 @@ package com.soptie.server.routine.dto;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import lombok.Builder;
+import lombok.NonNull;
 
 import java.util.List;
 
 @Builder
 public record HappinessSubRoutinesResponse(
-        String title,
-        String name,
-        String nameColor,
-        String iconImageUrl,
-        String contentImageUrl,
-        List<HappinessSubRoutineResponse> subRoutines
+        @NonNull String title,
+        @NonNull String name,
+        @NonNull String nameColor,
+        @NonNull String iconImageUrl,
+        @NonNull String contentImageUrl,
+        @NonNull List<HappinessSubRoutineResponse> subRoutines
 ) {
 
     public static HappinessSubRoutinesResponse of(HappinessRoutine routine, List<HappinessSubRoutine> subRoutines) {
@@ -29,11 +30,11 @@ public record HappinessSubRoutinesResponse(
 
     @Builder
     public record HappinessSubRoutineResponse(
-            Long subRoutineId,
-            String content,
-            String detailContent,
-            String timeTaken,
-            String place
+            long subRoutineId,
+            @NonNull String content,
+            @NonNull String detailContent,
+            @NonNull String timeTaken,
+            @NonNull String place
     ) {
 
         private static HappinessSubRoutinesResponse.HappinessSubRoutineResponse of(HappinessSubRoutine subRoutine) {

@@ -5,12 +5,7 @@ import com.soptie.server.base.BaseControllerTest;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.member.dto.CottonCountResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
-import com.soptie.server.doll.entity.Doll;
-import com.soptie.server.doll.entity.DollImage;
 import com.soptie.server.member.dto.MemberHomeInfoResponse;
-import com.soptie.server.member.entity.Member;
-import com.soptie.server.member.entity.SocialType;
-import com.soptie.server.memberDoll.entity.MemberDoll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -99,12 +94,14 @@ class MemberControllerTest extends BaseControllerTest {
     @DisplayName("홈 화면을 불러온다.")
     void success_getMemberHomeInfo() throws Exception {
         // given
-        Member member = new Member(SocialType.KAKAO, "softie-id");
-        DollImage dollImage = new DollImage("faceImageUrl", "attentionImageUrl", "frameImageUrl");
-        Doll doll = new Doll(BROWN, dollImage);
-        MemberDoll memberDoll = new MemberDoll(member, doll, "softie");
-        List<String> conversations = List.of("안녕", "하이", "봉쥬르");
-        MemberHomeInfoResponse response = MemberHomeInfoResponse.of(member, conversations);
+        MemberHomeInfoResponse response = MemberHomeInfoResponse.builder()
+                .name("softie")
+                .dollType(BROWN)
+                .frameImageUrl("https://...")
+                .dailyCottonCount(0)
+                .happinessCottonCount(0)
+                .conversations(List.of("안녕", "하이", "봉쥬르"))
+                .build();
         ResponseEntity<Response> result = ResponseEntity.ok((success(SUCCESS_HOME_INFO.getMessage(), response)));
 
         // when

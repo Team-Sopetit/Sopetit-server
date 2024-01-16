@@ -30,7 +30,7 @@ public class HappinessRoutineController {
     }
 
     @GetMapping("/routine/{routineId}")
-    public ResponseEntity<Response> getHappinessSubRoutinesByRoutineOfTheme(@PathVariable Long routineId) {
+    public ResponseEntity<Response> getHappinessSubRoutinesByRoutineOfTheme(@PathVariable long routineId) {
         val response = happinessRoutineService.getHappinessSubRoutines(routineId);
         return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_SUB_ROUTINES.getMessage(), response));
     }
