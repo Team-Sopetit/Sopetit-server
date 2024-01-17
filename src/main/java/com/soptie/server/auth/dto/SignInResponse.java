@@ -8,14 +8,14 @@ import lombok.NonNull;
 public record SignInResponse(
         @NonNull String accessToken,
         @NonNull String refreshToken,
-        boolean isRegistered
+        boolean isMemberDollExist
 ) {
 
-    public static SignInResponse of(Token token, boolean isRegistered) {
+    public static SignInResponse of(Token token, boolean isMemberDollExist) {
         return SignInResponse.builder()
                 .accessToken(token.getAccessToken())
                 .refreshToken(token.getRefreshToken())
-                .isRegistered(isRegistered)
+                .isMemberDollExist(isMemberDollExist)
                 .build();
     }
 }

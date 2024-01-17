@@ -10,6 +10,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.member.service.MemberService;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
@@ -37,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
     private final MemberRepository memberRepository;
     private final KakaoService kakaoService;
     private final AppleService appleService;
+    private final MemberService memberService;
     private final MemberDailyRoutineService memberDailyRoutineService;
     private final MemberHappinessRoutineService memberHappinessRoutineService;
     private final MemberDollService memberDollService;
@@ -48,8 +50,8 @@ public class AuthServiceImpl implements AuthService {
     public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
         val member = getMember(socialAccessToken, request);
         val token = getToken(member);
-        val isRegistered = checkMemberProfileExist(member);
-        return SignInResponse.of(token, isRegistered);
+        val isMemberDollExist = memberService.isMemberDollExist(member);
+        return SignInResponse.of(token, isMemberDollExist);
     }
 
     @Override

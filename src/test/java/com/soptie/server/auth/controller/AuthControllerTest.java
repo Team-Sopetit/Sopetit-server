@@ -85,7 +85,7 @@ class AuthControllerTest extends BaseControllerTest {
                                                         fieldWithPath("data").type(OBJECT).description("응답 데이터"),
                                                         fieldWithPath("data.accessToken").type(STRING).description("Access Token"),
                                                         fieldWithPath("data.refreshToken").type(STRING).description("Refresh Token"),
-                                                        fieldWithPath("data.isRegistered").type(BOOLEAN).description("프로필 존재 여부")
+                                                        fieldWithPath("data.isMemberDollExist").type(BOOLEAN).description("프로필 존재 여부")
                                                 )
                                                 .build())))
                 .andExpect(status().isOk());

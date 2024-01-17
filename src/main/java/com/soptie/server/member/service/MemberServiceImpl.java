@@ -47,6 +47,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public boolean isMemberDollExist(Member member) {
+        return Objects.nonNull(member.getMemberDoll());
+    }
+
+    @Override
     @Transactional
     public CottonCountResponse giveCotton(long memberId, CottonType cottonType) {
         val member = findMember(memberId);
