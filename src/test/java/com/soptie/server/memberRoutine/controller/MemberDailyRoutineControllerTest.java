@@ -117,10 +117,10 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 					preprocessResponse(prettyPrint()),
 					resource(ResourceSnippetParameters.builder()
 						.tag(TAG)
-						.description("회원 데일리 루틴 삭제 성공")
-						// .queryParameters(
-						// 	parameterWithName("routines").description("삭제할 루틴 id 리스트")
-						// )
+						.description("회원 데일리 루틴 삭제")
+						.queryParameters(
+							parameterWithName("routines").description("삭제할 루틴 id 리스트")
+						)
 						.responseFields(
 							fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
 							fieldWithPath("message").type(STRING).description("응답 메시지"),
