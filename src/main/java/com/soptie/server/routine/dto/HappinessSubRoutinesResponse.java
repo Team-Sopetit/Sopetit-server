@@ -40,7 +40,7 @@ public record HappinessSubRoutinesResponse(
         private static HappinessSubRoutinesResponse.HappinessSubRoutineResponse of(HappinessSubRoutine subRoutine) {
             return HappinessSubRoutineResponse.builder()
                     .subRoutineId(subRoutine.getId())
-                    .content(subRoutine.getPlace())
+                    .content(subRoutine.getContent())
                     .detailContent(subRoutine.getDetailContent())
                     .timeTaken(subRoutine.getTimeTaken())
                     .place(subRoutine.getPlace())
