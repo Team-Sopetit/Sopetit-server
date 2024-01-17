@@ -1,7 +1,10 @@
 package com.soptie.server.auth.service;
 
+import static com.soptie.server.auth.message.ErrorCode.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
+import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.common.config.ValueConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -22,10 +25,14 @@ public class KakaoServiceImpl implements KakaoService {
 
     @Override
     public String getKakaoData(String socialAccessToken) {
-        val headers = new HttpHeaders();
-        headers.add("Authorization", socialAccessToken);
-        val httpEntity = new HttpEntity<JsonArray>(headers);
-        val responseData = restTemplate.postForEntity(valueConfig.getKakaoUri(), httpEntity, Object.class);
-        return objectMapper.convertValue(responseData.getBody(), Map.class).get("id").toString();
+        try {
+            val headers = new HttpHeaders();
+            headers.add("Authorization", socialAccessToken);
+            val httpEntity = new HttpEntity<JsonArray>(headers);
+            val responseData = restTemplate.postForEntity(valueConfig.getKakaoUri(), httpEntity, Object.class);
+            return objectMapper.convertValue(responseData.getBody(), Map.class).get("id").toString();
+        } catch (Exception exception) {
+            throw new AuthException(INVALID_TOKEN);
+        }
     }
 }
