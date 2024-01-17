@@ -2,8 +2,10 @@ package com.soptie.server.memberDoll.entity;
 
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.doll.entity.Doll;
+import com.soptie.server.doll.message.ErrorCode;
 import com.soptie.server.member.entity.Member;
 
+import com.soptie.server.memberDoll.exception.MemberDollException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,10 +18,14 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static com.soptie.server.doll.message.ErrorCode.*;
+
 @Entity
 @NoArgsConstructor
 @Getter
 public class MemberDoll extends BaseTime {
+
+	private static final String MEMBER_DOLL_CONDITION = "^[a-zA-Z0-9가-힣]{1,10}$";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,12 +47,19 @@ public class MemberDoll extends BaseTime {
 		this.happinessCottonCount = 0;
 		setMember(member);
 		this.doll = doll;
+		checkNameCondition(name);
 		this.name = name;
 	}
 
 	private void setMember(Member member) {
 		this.member = member;
 		member.setMemberDoll(this);
+	}
+
+	private void checkNameCondition(String name) {
+		if (!name.matches(MEMBER_DOLL_CONDITION)) {
+			throw new MemberDollException(INVALID_NAME);
+		}
 	}
 
 	public void addHappinessCottonCount() {
