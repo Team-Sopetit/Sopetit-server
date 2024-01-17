@@ -52,9 +52,9 @@ public class MemberDailyRoutineController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Response> deleteMemberDailyRoutines(Principal principal, @RequestParam(name = "test") List<Long> test) {
+	public ResponseEntity<Response> deleteMemberDailyRoutines(Principal principal, @RequestParam List<Long> routines) {
 		val memberId = Long.parseLong(principal.getName());
-		memberDailyRoutineService.deleteMemberDailyRoutines(memberId, test);
+		memberDailyRoutineService.deleteMemberDailyRoutines(memberId, routines);
 		return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
 	}
 
