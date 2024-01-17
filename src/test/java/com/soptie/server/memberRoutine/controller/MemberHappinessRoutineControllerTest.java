@@ -115,7 +115,7 @@ class MemberHappinessRoutineControllerTest extends BaseControllerTest {
 										.tag(TAG)
 										.description("회원 행복 루틴 추가 성공")
 										.requestFields(
-												fieldWithPath("routineId").type(NUMBER).description("추가할 루틴 id")
+												fieldWithPath("subRoutineId").type(NUMBER).description("추가할 루틴 id")
 										)
 										.responseHeaders(
 												headerWithName("Location").description("Redirect URI")
