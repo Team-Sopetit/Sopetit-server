@@ -1,6 +1,3 @@
-### ✈ API 명세서
-https://airy-hardhat-419.notion.site/b5149b1a89d0442395de92d136e7c448?v=4efcf271bb694ccd932fc12579258f40&pvs=4
-
 ### 📑 Architecture
 ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/fc4c347d-03fd-4298-a097-3110d36c92ad)
 
