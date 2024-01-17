@@ -79,7 +79,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private void checkMemberDoll(Member member) {
-        if (Objects.nonNull(member.getMemberDoll())) {
+        if (Objects.isNull(member.getMemberDoll())) {
             throw new MemberException(NOT_EXIST_DOLL);
         }
     }
