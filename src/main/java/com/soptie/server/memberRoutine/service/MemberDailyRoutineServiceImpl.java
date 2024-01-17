@@ -87,11 +87,21 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	@Override
 	@Transactional
-	public void deleteMemberDailyRoutine(long memberId, long routineId) {
+	public void deleteMemberDailyRoutines(long memberId, List<Long> routineIds) {
 		val member = findMember(memberId);
-		val routine = findMemberRoutine(routineId);
-		member.checkDailyRoutineForMember(routine);
-		deleteMemberRoutine(routine);
+		val routines = getMemberRoutines(member, routineIds);
+		deleteMemberRoutines(routines);
+	}
+
+	private List<MemberDailyRoutine> getMemberRoutines(Member member, List<Long> routineIds) {
+		return routineIds.stream()
+				.map(this::findMemberRoutine)
+				.filter(member::isDailyRoutineForMember)
+				.toList();
+	}
+
+	private void deleteMemberRoutines(List<MemberDailyRoutine> routines) {
+		routines.forEach(this::deleteMemberRoutine);
 	}
 
 	private void deleteMemberRoutine(MemberDailyRoutine routine) {

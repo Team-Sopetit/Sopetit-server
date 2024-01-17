@@ -3,6 +3,8 @@ package com.soptie.server.routine.controller;
 import static com.soptie.server.common.dto.Response.*;
 import static com.soptie.server.routine.message.SuccessMessage.*;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +31,7 @@ public class DailyRoutineController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Response> getRoutinesByThemes(@RequestParam String themes) {
+	public ResponseEntity<Response> getRoutinesByThemes(@RequestParam List<Long> themes) {
 		val response = dailyRoutineService.getRoutinesByThemes(themes);
 		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}

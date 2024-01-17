@@ -2,7 +2,6 @@ package com.soptie.server.routine.service;
 
 import static com.soptie.server.routine.message.ErrorCode.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -32,19 +31,9 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 	}
 
 	@Override
-	public DailyRoutinesResponse getRoutinesByThemes(String themes) {
-		val themeIds = getThemeIds(themes);
+	public DailyRoutinesResponse getRoutinesByThemes(List<Long> themeIds) {
 		val routines = dailyRoutineRepository.findAllByThemes(themeIds);
 		return DailyRoutinesResponse.of(routines);
-	}
-
-	private List<Long> getThemeIds(String themes) {
-		val themeList = convertStringToList(themes);
-		return themeList.stream().map(Long::valueOf).toList();
-	}
-
-	private List<String> convertStringToList(String themes) {
-		return Arrays.stream(themes.split(",")).toList();
 	}
 
 	@Override

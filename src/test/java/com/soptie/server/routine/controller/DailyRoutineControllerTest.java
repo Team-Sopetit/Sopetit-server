@@ -8,6 +8,8 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -87,7 +89,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 		queries.add("themes", themes);
 
 		// when
-		when(controller.getRoutinesByThemes(themes)).thenReturn(response);
+		when(controller.getRoutinesByThemes(List.of(1L, 2L, 3L))).thenReturn(response);
 
 		// then
 		mockMvc
@@ -105,9 +107,9 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 						ResourceSnippetParameters.builder()
 							.tag(TAG)
 							.description("테마 리스트 별 데일리 루틴 리스트 조회")
-							.queryParameters(
-								parameterWithName("themes").description("조회할 테마 id 정보")
-							)
+							// .queryParameters(
+							// 	parameterWithName("themes").description("조회할 테마 id 정보")
+							// )
 							.requestFields()
 							.responseFields(
 								fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
