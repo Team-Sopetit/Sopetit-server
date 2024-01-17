@@ -110,7 +110,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 				.contentType(APPLICATION_JSON)
 				.accept(APPLICATION_JSON)
 				.principal(principal)
-				.params(queries))
+				.queryParams(queries))
 			.andDo(
 				document("delete-member-daily-routines-docs",
 					preprocessRequest(prettyPrint()),
@@ -118,9 +118,9 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 					resource(ResourceSnippetParameters.builder()
 						.tag(TAG)
 						.description("회원 데일리 루틴 삭제")
-						// .queryParameters(
-						// 	parameterWithName("routines").description("삭제할 루틴 id 리스트")
-						// )
+						.queryParameters(
+							parameterWithName("routines").description("삭제할 루틴 id 리스트")
+						)
 						.responseFields(
 							fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
 							fieldWithPath("message").type(STRING).description("응답 메시지"),
