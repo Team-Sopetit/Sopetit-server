@@ -47,8 +47,7 @@ public class MemberDoll extends BaseTime {
 		this.happinessCottonCount = 0;
 		setMember(member);
 		this.doll = doll;
-		checkNameCondition(name);
-		this.name = name;
+		setName(name);
 	}
 
 	private void setMember(Member member) {
@@ -56,10 +55,11 @@ public class MemberDoll extends BaseTime {
 		member.setMemberDoll(this);
 	}
 
-	private void checkNameCondition(String name) {
+	private void setName(String name) {
 		if (!name.matches(MEMBER_DOLL_CONDITION)) {
 			throw new MemberDollException(INVALID_NAME);
 		}
+		this.name = name;
 	}
 
 	public void addHappinessCottonCount() {
