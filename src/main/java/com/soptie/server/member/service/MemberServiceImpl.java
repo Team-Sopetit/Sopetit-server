@@ -68,6 +68,7 @@ public class MemberServiceImpl implements MemberService {
 
     public MemberHomeInfoResponse getMemberHomeInfo(long memberId) {
         val member = findMember(memberId);
+        checkMemberDoll(member);
         val conversations = getConversations();
         return MemberHomeInfoResponse.of(member, conversations);
     }
@@ -75,6 +76,12 @@ public class MemberServiceImpl implements MemberService {
     private Member findMember(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));
+    }
+
+    private void checkMemberDoll(Member member) {
+        if (Objects.nonNull(member.getMemberDoll())) {
+            throw new MemberException(NOT_EXIST_DOLL);
+        }
     }
 
     private void checkMemberProfileExist(Member member) {
