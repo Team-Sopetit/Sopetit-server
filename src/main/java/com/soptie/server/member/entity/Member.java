@@ -1,5 +1,6 @@
 package com.soptie.server.member.entity;
 
+import static com.soptie.server.common.util.Constant.*;
 import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.ErrorCode.*;
 
@@ -103,7 +104,7 @@ public class Member extends BaseTime {
 	}
 
 	public void checkDailyRoutineAddition() {
-		if (this.getDailyRoutines().size() >= 3) {
+		if (this.getDailyRoutines().size() >= DAILY_ROUTINE_MAX_COUNT) {
 			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
 		}
 	}
