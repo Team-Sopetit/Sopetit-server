@@ -48,7 +48,8 @@ public class AuthServiceImpl implements AuthService {
     public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
         val member = getMember(socialAccessToken, request);
         val token = getToken(member);
-        return SignInResponse.of(token);
+        val isRegistered = checkMemberProfileExist(member);
+        return SignInResponse.of(token, isRegistered);
     }
 
     @Override
@@ -111,6 +112,10 @@ public class AuthServiceImpl implements AuthService {
     private Member findMember(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));
+    }
+
+    private boolean checkMemberProfileExist(Member member) {
+        return Objects.nonNull(member.getMemberDoll());
     }
 
     private void deleteMemberDoll(MemberDoll memberDoll) {

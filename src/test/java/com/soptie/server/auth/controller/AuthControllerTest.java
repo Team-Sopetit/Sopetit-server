@@ -50,7 +50,7 @@ class AuthControllerTest extends BaseControllerTest {
                 Token.builder()
                 .accessToken("softie")
                 .refreshToken("token")
-                .build()
+                .build(), false
         );
         ResponseEntity<Response> result = ResponseEntity.ok(Response.success(SUCCESS_SIGN_IN.getMessage(), response));
 
@@ -84,7 +84,8 @@ class AuthControllerTest extends BaseControllerTest {
                                                         fieldWithPath("message").type(STRING).description("응답 메시지"),
                                                         fieldWithPath("data").type(OBJECT).description("응답 데이터"),
                                                         fieldWithPath("data.accessToken").type(STRING).description("Access Token"),
-                                                        fieldWithPath("data.refreshToken").type(STRING).description("Refresh Token")
+                                                        fieldWithPath("data.refreshToken").type(STRING).description("Refresh Token"),
+                                                        fieldWithPath("data.isRegistered").type(BOOLEAN).description("프로필 존재 여부")
                                                 )
                                                 .build())))
                 .andExpect(status().isOk());

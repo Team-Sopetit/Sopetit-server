@@ -395,7 +395,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-routines-daily-member1327124516"
+                  "$ref" : "#/components/schemas/api-v1-routines-happiness-member1327124516"
                 },
                 "examples" : {
                   "post-member-daily-routine-docs" : {
@@ -466,11 +466,11 @@
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
-                "$ref" : "#/components/schemas/api-v1-routines-daily-member1721287602"
+                "$ref" : "#/components/schemas/api-v1-routines-happiness-member1502060882"
               },
               "examples" : {
                 "post-member-happiness-routine-docs" : {
-                  "value" : "{\r\n  \"routineId\" : 1\r\n}"
+                  "value" : "{\r\n  \"subRoutineId\" : 1\r\n}"
                 }
               }
             }
@@ -490,7 +490,7 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-routines-daily-member1327124516"
+                  "$ref" : "#/components/schemas/api-v1-routines-happiness-member1327124516"
                 },
                 "examples" : {
                   "post-member-happiness-routine-docs" : {
@@ -1136,6 +1136,15 @@
           }
         }
       },
+      "api-v1-routines-happiness-member1502060882" : {
+        "type" : "object",
+        "properties" : {
+          "subRoutineId" : {
+            "type" : "number",
+            "description" : "추가할 루틴 id"
+          }
+        }
+      },
       "api-v1-auth162170271" : {
         "type" : "object",
         "properties" : {
@@ -1197,6 +1206,29 @@
                     }
                   }
                 }
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-routines-happiness-member1327124516" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "routineId" : {
+                "type" : "number",
+                "description" : "생성한 루틴 id"
               }
             },
             "description" : "응답 데이터"
@@ -1284,29 +1316,6 @@
           "dollType" : {
             "type" : "string",
             "description" : "인형 종류"
-          }
-        }
-      },
-      "api-v1-routines-daily-member1327124516" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "routineId" : {
-                "type" : "number",
-                "description" : "생성한 루틴 id"
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
           }
         }
       },
