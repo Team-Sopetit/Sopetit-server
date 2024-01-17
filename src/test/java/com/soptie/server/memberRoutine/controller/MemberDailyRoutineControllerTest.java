@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.net.URI;
 import java.security.Principal;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
@@ -91,30 +94,33 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 	}
 
 	@Test
-	@DisplayName("회원 데일리 루틴 삭제 성공")
-	void success_deleteMemberDailyRoutine() throws Exception {
+	@DisplayName("회원 데일리 루틴 삭제")
+	void success_deleteMemberDailyRoutines() throws Exception {
 		// given
-		Long routineId = 1L;
 		ResponseEntity<Response> response = ResponseEntity.ok(success("루틴 삭제 성공"));
+		MultiValueMap<String, String> queries = new LinkedMultiValueMap<>();
+		String routines = "1,2,3";
+		queries.add("routines", routines);
 
 		// when
-		when(controller.deleteMemberDailyRoutine(principal, routineId)).thenReturn(response);
+		when(controller.deleteMemberDailyRoutines(principal, List.of(1L, 2L, 3L))).thenReturn(response);
 
 		// then
-		mockMvc.perform(delete(DEFAULT_URL + "/routine/{routineId}", routineId)
+		mockMvc.perform(delete(DEFAULT_URL)
 				.contentType(APPLICATION_JSON)
 				.accept(APPLICATION_JSON)
-				.principal(principal))
+				.principal(principal)
+				.params(queries))
 			.andDo(
-				document("delete-member-daily-routine-docs",
+				document("delete-member-daily-routines-docs",
 					preprocessRequest(prettyPrint()),
 					preprocessResponse(prettyPrint()),
 					resource(ResourceSnippetParameters.builder()
 						.tag(TAG)
 						.description("회원 데일리 루틴 삭제 성공")
-						.pathParameters(
-							parameterWithName("routineId").description("루틴 id")
-						)
+						// .queryParameters(
+						// 	parameterWithName("routines").description("삭제할 루틴 id 리스트")
+						// )
 						.responseFields(
 							fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
 							fieldWithPath("message").type(STRING).description("응답 메시지"),

@@ -116,9 +116,13 @@ public class Member extends BaseTime {
 	}
 
 	public void checkDailyRoutineForMember(MemberDailyRoutine routine) {
-		if (!this.getDailyRoutines().contains(routine)) {
+		if (!isDailyRoutineForMember(routine)) {
 			throw new MemberException(INACCESSIBLE_ROUTINE);
 		}
+	}
+
+	public boolean isDailyRoutineForMember(MemberDailyRoutine routine) {
+		return this.getDailyRoutines().contains(routine);
 	}
 
 	public void checkHappinessRoutineForMember(MemberHappinessRoutine routine) {
