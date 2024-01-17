@@ -11,9 +11,9 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 
-	/* 400 BAD_REQUEST : 잘못된 요청 */
-	INVALID_TOKEN(BAD_REQUEST, "유효하지 않은 토큰입니다."),
-	INVALID_KEY(BAD_REQUEST, "유효하지 않은 키입니다."),
+	/* 401 UNAUTHORIZED : 권한 없음 */
+	INVALID_TOKEN(UNAUTHORIZED, "유효하지 않은 토큰입니다."),
+	INVALID_KEY(UNAUTHORIZED, "유효하지 않은 키입니다."),
 	;
 
 	private final HttpStatus httpStatus;
