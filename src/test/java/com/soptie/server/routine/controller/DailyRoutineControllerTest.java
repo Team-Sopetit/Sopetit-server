@@ -107,9 +107,9 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 						ResourceSnippetParameters.builder()
 							.tag(TAG)
 							.description("테마 리스트 별 데일리 루틴 리스트 조회")
-							// .queryParameters(
-							// 	parameterWithName("themes").description("조회할 테마 id 정보")
-							// )
+							.queryParameters(
+								parameterWithName("themes").description("조회할 테마 id 정보")
+							)
 							.requestFields()
 							.responseFields(
 								fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),

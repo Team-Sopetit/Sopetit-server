@@ -100,7 +100,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 		ResponseEntity<Response> response = ResponseEntity.ok(success("루틴 삭제 성공"));
 		MultiValueMap<String, String> queries = new LinkedMultiValueMap<>();
 		String routines = "1,2,3";
-		queries.add("routines", routines);
+		queries.add("test", routines);
 
 		// when
 		when(controller.deleteMemberDailyRoutines(principal, List.of(1L, 2L, 3L))).thenReturn(response);
@@ -119,7 +119,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 						.tag(TAG)
 						.description("회원 데일리 루틴 삭제 성공")
 						// .queryParameters(
-						// 	parameterWithName("routines").description("삭제할 루틴 id 리스트")
+						// 	parameterWithName("test").description("삭제할 루틴 id 리스트")
 						// )
 						.responseFields(
 							fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
