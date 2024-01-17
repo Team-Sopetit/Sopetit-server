@@ -13,6 +13,7 @@ public enum ErrorCode {
 
 	/* 400 BAD_REQUEST : 잘못된 요청 */
 	INVALID_TYPE(BAD_REQUEST, "유효하지 않은 인형 타입입니다."),
+	INVALID_NAME(BAD_REQUEST, "조건에 맞지 않는 이름입니다.")
 	;
 
 	private final HttpStatus httpStatus;
