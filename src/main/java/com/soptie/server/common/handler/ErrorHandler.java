@@ -2,6 +2,7 @@ package com.soptie.server.common.handler;
 
 import static com.soptie.server.common.dto.Response.*;
 
+import com.soptie.server.memberDoll.exception.MemberDollException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -37,6 +38,14 @@ public class ErrorHandler {
 
 	@ExceptionHandler(MemberException.class)
 	public ResponseEntity<Response> memberException(MemberException exception) {
+		log.error(exception.getMessage());
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(fail(errorCode.getMessage()));
+	}
+
+	@ExceptionHandler(MemberDollException.class)
+	public ResponseEntity<Response> memberDollException(MemberDollException exception) {
 		log.error(exception.getMessage());
 
 		val errorCode = exception.getErrorCode();

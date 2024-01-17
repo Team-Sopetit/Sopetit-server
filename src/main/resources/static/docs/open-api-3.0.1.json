@@ -46,11 +46,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-auth1093119901"
+                  "$ref" : "#/components/schemas/api-v1-auth123505361"
                 },
                 "examples" : {
                   "post-token-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"소셜로그인 성공\",\r\n  \"data\" : {\r\n    \"accessToken\" : \"softie\",\r\n    \"refreshToken\" : \"token\",\r\n    \"isRegistered\" : false\r\n  }\r\n}"
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"소셜로그인 성공\",\r\n  \"data\" : {\r\n    \"accessToken\" : \"softie\",\r\n    \"refreshToken\" : \"token\",\r\n    \"isMemberDollExist\" : false\r\n  }\r\n}"
                   }
                 }
               }
@@ -969,6 +969,37 @@
           }
         }
       },
+      "api-v1-auth123505361" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "isMemberDollExist" : {
+                "type" : "boolean",
+                "description" : "프로필 존재 여부"
+              },
+              "accessToken" : {
+                "type" : "string",
+                "description" : "Access Token"
+              },
+              "refreshToken" : {
+                "type" : "string",
+                "description" : "Refresh Token"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-auth-1040425838" : {
         "type" : "object",
         "properties" : {
@@ -1179,37 +1210,6 @@
                     }
                   }
                 }
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
-      },
-      "api-v1-auth1093119901" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "isRegistered" : {
-                "type" : "boolean",
-                "description" : "프로필 존재 여부"
-              },
-              "accessToken" : {
-                "type" : "string",
-                "description" : "Access Token"
-              },
-              "refreshToken" : {
-                "type" : "string",
-                "description" : "Refresh Token"
               }
             },
             "description" : "응답 데이터"
