@@ -1,6 +1,7 @@
 package com.soptie.server.auth.service;
 
 import com.google.gson.*;
+import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.common.config.ValueConfig;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPublicKeySpec;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Objects;
+
+import static com.soptie.server.auth.message.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +47,7 @@ public class AppleServiceImpl implements AppleService {
     private final ValueConfig valueConfig;
 
     @Override
-    public String getAppleData(String socialAccessToken) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public String getAppleData(String socialAccessToken) {
         val publicKeyList = getApplePublicKeys();
         val publicKey = makePublicKey(socialAccessToken, publicKeyList);
 
@@ -102,18 +104,22 @@ public class AppleServiceImpl implements AppleService {
         }
     }
 
-    private PublicKey makePublicKey(String accessToken, JsonArray publicKeyList) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        val decodeArray = accessToken.split(TOKEN_VALUE_DELIMITER);
-        val header = new String(Base64.getDecoder().decode(decodeArray[0].replaceFirst(BEARER_HEADER, BLANK)));
-        val kid = ((JsonObject) JsonParser.parseString(header)).get(KID_HEADER_KEY);
-        val alg = ((JsonObject) JsonParser.parseString(header)).get(ALG_HEADER_KEY);
-        val matchingPublicKey = findMatchingPublicKey(publicKeyList, kid, alg);
+    private PublicKey makePublicKey(String accessToken, JsonArray publicKeyList) {
+        try {
+            val decodeArray = accessToken.split(TOKEN_VALUE_DELIMITER);
+            val header = new String(Base64.getDecoder().decode(decodeArray[0].replaceFirst(BEARER_HEADER, BLANK)));
+            val kid = ((JsonObject) JsonParser.parseString(header)).get(KID_HEADER_KEY);
+            val alg = ((JsonObject) JsonParser.parseString(header)).get(ALG_HEADER_KEY);
+            val matchingPublicKey = findMatchingPublicKey(publicKeyList, kid, alg);
 
-        if (Objects.isNull(matchingPublicKey)) {
-            throw new InvalidKeySpecException("공개키를 찾을 수 없습니다.");
+            if (Objects.isNull(matchingPublicKey)) {
+                throw new InvalidKeySpecException("공개키를 찾을 수 없습니다.");
+            }
+
+            return getPublicKey(matchingPublicKey);
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException exception) {
+            throw new AuthException(INVALID_KEY);
         }
-
-        return getPublicKey(matchingPublicKey);
     }
 
     private JsonObject findMatchingPublicKey(JsonArray publicKeyList, JsonElement kid, JsonElement alg) {

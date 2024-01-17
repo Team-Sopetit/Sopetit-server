@@ -23,8 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public SignInResponse signIn(String socialAccessToken, SignInRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
         val member = getMember(socialAccessToken, request);
         val token = getToken(member);
         return SignInResponse.of(token);
@@ -71,13 +69,13 @@ public class AuthServiceImpl implements AuthService {
         deleteMember(member);
     }
 
-    private Member getMember(String socialAccessToken, SignInRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    private Member getMember(String socialAccessToken, SignInRequest request) {
         val socialType = request.socialType();
         val socialId = getSocialId(socialAccessToken, socialType);
         return signUp(socialType, socialId);
     }
 
-    private String getSocialId(String socialAccessToken, SocialType socialType) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    private String getSocialId(String socialAccessToken, SocialType socialType) {
         return switch (socialType) {
             case APPLE -> appleService.getAppleData(socialAccessToken);
             case KAKAO -> kakaoService.getKakaoData(socialAccessToken);

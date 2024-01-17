@@ -8,9 +8,7 @@ import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
-import java.security.spec.InvalidKeySpecException;
 
 import static com.soptie.server.auth.message.SuccessMessage.*;
 import static com.soptie.server.common.dto.Response.success;
@@ -23,7 +21,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping
-    public ResponseEntity<Response> signIn(@RequestHeader("Authorization") String socialAccessToken, @RequestBody SignInRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public ResponseEntity<Response> signIn(@RequestHeader("Authorization") String socialAccessToken, @RequestBody SignInRequest request) {
         val response = authService.signIn(socialAccessToken, request);
         return ResponseEntity.ok(success(SUCCESS_SIGN_IN.getMessage(), response));
     }
