@@ -7,13 +7,15 @@ import lombok.NonNull;
 @Builder
 public record SignInResponse(
         @NonNull String accessToken,
-        @NonNull String refreshToken
+        @NonNull String refreshToken,
+        boolean isMemberDollExist
 ) {
 
-    public static SignInResponse of(Token token) {
+    public static SignInResponse of(Token token, boolean isMemberDollExist) {
         return SignInResponse.builder()
                 .accessToken(token.getAccessToken())
                 .refreshToken(token.getRefreshToken())
+                .isMemberDollExist(isMemberDollExist)
                 .build();
     }
 }
