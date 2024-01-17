@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.ErrorCode.*;
@@ -53,10 +54,14 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     }
 
     @Override
-    public MemberHappinessRoutinesResponse getMemberHappinessRoutine(long memberId) {
+    public Optional<MemberHappinessRoutinesResponse> getMemberHappinessRoutine(long memberId) {
         val member = findMember(memberId);
         val memberRoutine = member.getHappinessRoutine();
-        return MemberHappinessRoutinesResponse.of(memberRoutine);
+        if (Objects.isNull(memberRoutine)) {
+            return Optional.empty();
+        }
+        val response = MemberHappinessRoutinesResponse.of(memberRoutine);
+        return Optional.of(response);
     }
 
     @Override

@@ -3,8 +3,11 @@ package com.soptie.server.memberRoutine.controller;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
+
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -41,11 +44,13 @@ public class MemberHappinessRoutineController {
     }
 
     @GetMapping
-    public ResponseEntity<Response> getMemberHappinessRoutine(Principal principal) {
+    public ResponseEntity<Response> getMemberHappinessRoutine(@NonNull Principal principal) {
         val memberId = Long.parseLong(principal.getName());
         val response = memberHappinessRoutineService.getMemberHappinessRoutine(memberId);
-        return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
-    }
+		return response
+                .map(result -> ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), result)))
+				.orElseGet(() -> ResponseEntity.noContent().build());
+	}
 
     @DeleteMapping("/routine/{routineId}")
     public ResponseEntity<Response> deleteMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
