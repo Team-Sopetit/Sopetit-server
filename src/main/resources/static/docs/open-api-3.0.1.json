@@ -409,9 +409,18 @@
       },
       "delete" : {
         "tags" : [ "MEMBER DAILY ROUTINE" ],
-        "summary" : "회원 데일리 루틴 삭제 성공",
-        "description" : "회원 데일리 루틴 삭제 성공",
+        "summary" : "회원 데일리 루틴 삭제",
+        "description" : "회원 데일리 루틴 삭제",
         "operationId" : "delete-member-daily-routines-docs",
+        "parameters" : [ {
+          "name" : "routines",
+          "in" : "query",
+          "description" : "삭제할 루틴 id 리스트",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "200",
