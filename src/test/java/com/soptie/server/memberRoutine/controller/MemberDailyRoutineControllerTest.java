@@ -110,7 +110,7 @@ class MemberDailyRoutineControllerTest extends BaseControllerTest {
 				.contentType(APPLICATION_JSON)
 				.accept(APPLICATION_JSON)
 				.principal(principal)
-				.params(queries))
+				.queryParams(queries))
 			.andDo(
 				document("delete-member-daily-routines-docs",
 					preprocessRequest(prettyPrint()),
