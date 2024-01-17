@@ -35,17 +35,11 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     @Transactional
     public MemberHappinessRoutineResponse createMemberHappinessRoutine(long memberId, MemberHappinessRoutineRequest request) {
         val member = findMember(memberId);
-        checkMemberRoutineAddition(member);
+        member.checkHappinessRoutineAddition();
         val routine = findRoutine(request.subRoutineId());
         val memberRoutine = new MemberHappinessRoutine(member, routine);
         val savedMemberRoutine = memberHappinessRoutineRepository.save(memberRoutine);
         return MemberHappinessRoutineResponse.of(savedMemberRoutine);
-    }
-
-    private void checkMemberRoutineAddition(Member member) {
-        if (Objects.nonNull(member.getHappinessRoutine())) {
-            throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
-        }
     }
 
     private HappinessSubRoutine findRoutine(long id) {
@@ -66,10 +60,10 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public void deleteMemberHappinessRoutine(long memberId, Long routineId) {
+    public void deleteMemberHappinessRoutine(long memberId, long routineId) {
         val member = findMember(memberId);
         val memberRoutine = findMemberRoutine(routineId);
-        checkRoutineForMember(member, memberRoutine);
+        member.checkHappinessRoutineForMember(memberRoutine);
         deleteMemberRoutine(memberRoutine);
     }
 
@@ -85,10 +79,10 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
 
     @Override
     @Transactional
-    public void achieveMemberHappinessRoutine(long memberId, Long routineId) {
+    public void achieveMemberHappinessRoutine(long memberId, long routineId) {
         val member = findMember(memberId);
         val memberRoutine = findMemberRoutine(routineId);
-        checkRoutineForMember(member, memberRoutine);
+        member.checkHappinessRoutineForMember(memberRoutine);
         member.addHappinessCotton();
         deleteMemberRoutine(memberRoutine);
     }
@@ -96,12 +90,6 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     private MemberHappinessRoutine findMemberRoutine(long id) {
         return memberHappinessRoutineRepository.findById(id)
                 .orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
-    }
-
-    private void checkRoutineForMember(Member member, MemberHappinessRoutine routine) {
-        if (!member.getHappinessRoutine().equals(routine)) {
-            throw new MemberException(INACCESSIBLE_ROUTINE);
-        }
     }
 
     @Override

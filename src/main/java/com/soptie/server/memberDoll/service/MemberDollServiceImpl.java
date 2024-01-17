@@ -25,7 +25,7 @@ public class MemberDollServiceImpl implements MemberDollService {
     @Override
     @Transactional
     public void createMemberDoll(Member member, DollType dollType, String name) {
-        val doll = getDoll(dollType);
+        val doll = findDoll(dollType);
         val memberDoll = new MemberDoll(member, doll, name);
         memberDollRepository.save(memberDoll);
     }
@@ -36,7 +36,7 @@ public class MemberDollServiceImpl implements MemberDollService {
         memberDollRepository.delete(memberDoll);
     }
 
-    private Doll getDoll(DollType type) {
+    private Doll findDoll(DollType type) {
         return dollRepository.findByDollType(type)
                 .orElseThrow(() -> new DollException(INVALID_TYPE));
     }

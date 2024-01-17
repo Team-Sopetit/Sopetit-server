@@ -42,8 +42,8 @@ public class HappinessRoutineServiceImpl implements HappinessRoutineService {
         return HappinessSubRoutinesResponse.of(routine, happinessSubRoutines);
     }
 
-    private HappinessRoutine findRoutine(long routineId) {
-        return happinessRoutineRepository.findById(routineId)
+    private HappinessRoutine findRoutine(long id) {
+        return happinessRoutineRepository.findById(id)
                 .orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
     }
 }

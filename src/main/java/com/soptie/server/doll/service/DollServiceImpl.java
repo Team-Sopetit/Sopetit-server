@@ -22,11 +22,11 @@ public class DollServiceImpl implements DollService {
 
 	@Override
 	public DollImageResponse getDollImage(DollType type) {
-		val doll = getDoll(type);
+		val doll = findDoll(type);
 		return DollImageResponse.of(doll);
 	}
 
-	private Doll getDoll(DollType type) {
+	private Doll findDoll(DollType type) {
 		return dollRepository.findByDollType(type)
 			.orElseThrow(() -> new DollException(INVALID_TYPE));
 	}

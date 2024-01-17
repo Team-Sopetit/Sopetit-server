@@ -9,7 +9,7 @@ public interface MemberHappinessRoutineService {
 
 	MemberHappinessRoutineResponse createMemberHappinessRoutine(long memberId, MemberHappinessRoutineRequest request);
 	Optional<MemberHappinessRoutinesResponse> getMemberHappinessRoutine(long memberId);
-	void deleteMemberHappinessRoutine(long memberId, Long routineId);
-	void achieveMemberHappinessRoutine(long memberId, Long routineId);
+	void deleteMemberHappinessRoutine(long memberId, long routineId);
+	void achieveMemberHappinessRoutine(long memberId, long routineId);
 	void deleteMemberHappinessRoutine(MemberHappinessRoutine routine);
 }
