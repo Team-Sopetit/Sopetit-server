@@ -36,7 +36,7 @@ public class MemberHappinessRoutineServiceImpl implements MemberHappinessRoutine
     public MemberHappinessRoutineResponse createMemberHappinessRoutine(long memberId, MemberHappinessRoutineRequest request) {
         val member = findMember(memberId);
         checkMemberRoutineAddition(member);
-        val routine = findRoutine(request.routineId());
+        val routine = findRoutine(request.subRoutineId());
         val memberRoutine = new MemberHappinessRoutine(member, routine);
         val savedMemberRoutine = memberHappinessRoutineRepository.save(memberRoutine);
         return MemberHappinessRoutineResponse.of(savedMemberRoutine);
