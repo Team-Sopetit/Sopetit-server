@@ -1,5 +1,9 @@
 package com.soptie.server.member.entity;
 
+import static com.soptie.server.member.message.ErrorCode.*;
+
+import com.soptie.server.member.exception.MemberException;
+
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,13 +26,28 @@ public class Cotton {
 		this.happinessCottonCount++;
 	}
 
-	protected int subtractDailyCotton() {
+	protected int subtractAndGetCotton(CottonType type) {
+		return switch (type) {
+			case DAILY -> subtractAndGetDailyCotton();
+			case HAPPINESS -> subtractAndGetHappinessCotton();
+		};
+	}
+
+	private int subtractAndGetDailyCotton() {
+		checkCount(this.dailyCottonCount);
 		this.dailyCottonCount--;
 		return this.dailyCottonCount;
 	}
 
-	protected int subtractHappinessCotton() {
+	private int subtractAndGetHappinessCotton() {
+		checkCount(this.happinessCottonCount);
 		this.happinessCottonCount--;
 		return this.happinessCottonCount;
+	}
+
+	private void checkCount(int count) {
+		if (count <= 0) {
+			throw new MemberException(NOT_ENOUGH_COTTON);
+		}
 	}
 }

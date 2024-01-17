@@ -39,16 +39,10 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	@Transactional
 	public MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request) {
 		val member = findMember(memberId);
-		checkMemberRoutineAddition(member);
+		member.checkDailyRoutineAddition();
 		val routine = findRoutine(request.routineId());
 		val savedMemberRoutine = getMemberDailyRoutine(member, routine);
 		return MemberDailyRoutineResponse.of(savedMemberRoutine);
-	}
-
-	private void checkMemberRoutineAddition(Member member) {
-		if (member.getDailyRoutines().size() >= 3) {
-			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
-		}
 	}
 
 	private MemberDailyRoutine getMemberDailyRoutine(Member member, DailyRoutine routine) {
@@ -86,17 +80,17 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 				.save(new MemberDailyRoutine(member, findRoutine(routineId))));
 	}
 
-	private DailyRoutine findRoutine(Long id) {
+	private DailyRoutine findRoutine(long id) {
 		return dailyRoutineRepository.findById(id)
 			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
 	@Override
 	@Transactional
-	public void deleteMemberDailyRoutine(long memberId, Long routineId) {
+	public void deleteMemberDailyRoutine(long memberId, long routineId) {
 		val member = findMember(memberId);
 		val routine = findMemberRoutine(routineId);
-		checkRoutineForMember(member, routine);
+		member.checkDailyRoutineForMember(routine);
 		deleteMemberRoutine(routine);
 	}
 
@@ -115,20 +109,14 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	public AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(long memberId, Long routineId) {
 		val member = findMember(memberId);
 		val routine = findMemberRoutine(routineId);
-		checkRoutineForMember(member, routine);
+		member.checkDailyRoutineForMember(routine);
 		routine.achieveRoutine();
 		return AchievedMemberDailyRoutineResponse.of(routine);
 	}
 
-	private MemberDailyRoutine findMemberRoutine(Long id) {
+	private MemberDailyRoutine findMemberRoutine(long id) {
 		return memberDailyRoutineRepository.findById(id)
 			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
-	}
-
-	private void checkRoutineForMember(Member member, MemberDailyRoutine routine) {
-		if (!member.getDailyRoutines().contains(routine)) {
-			throw new MemberException(INACCESSIBLE_ROUTINE);
-		}
 	}
 
 	@Override
@@ -138,7 +126,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		return MemberDailyRoutinesResponse.of(routines);
 	}
 
-	private Member findMember(Long id) {
+	private Member findMember(long id) {
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new MemberException(INVALID_MEMBER));
 	}

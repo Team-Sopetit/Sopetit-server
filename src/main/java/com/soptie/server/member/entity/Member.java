@@ -1,16 +1,22 @@
 package com.soptie.server.member.entity;
 
+import static com.soptie.server.common.util.Constant.*;
+import static com.soptie.server.member.message.ErrorCode.*;
+import static com.soptie.server.routine.message.ErrorCode.*;
+
 import com.soptie.server.common.entity.BaseTime;
+import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
+import com.soptie.server.routine.exception.RoutineException;
+
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -77,11 +83,47 @@ public class Member extends BaseTime {
 		this.cottonInfo.addHappinessCotton();
 	}
 
-	public int subtractDailyCotton() {
-		return this.cottonInfo.subtractDailyCotton();
+	public int subtractAndGetCotton(CottonType type) {
+		return cottonInfo.subtractAndGetCotton(type);
 	}
 
-	public int subtractHappinessCotton() {
-		return this.cottonInfo.subtractHappinessCotton();
+	public void checkMemberDollExist() {
+		if (!isMemberDollExist()) {
+			throw new MemberException(NOT_EXIST_DOLL);
+		}
+	}
+
+	public void checkMemberDollNonExist() {
+		if (isMemberDollExist()) {
+			throw new MemberException(EXIST_PROFILE);
+		}
+	}
+
+	public boolean isMemberDollExist() {
+		return Objects.nonNull(this.getMemberDoll());
+	}
+
+	public void checkDailyRoutineAddition() {
+		if (this.getDailyRoutines().size() >= DAILY_ROUTINE_MAX_COUNT) {
+			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
+		}
+	}
+
+	public void checkHappinessRoutineAddition() {
+		if (Objects.nonNull(this.getHappinessRoutine())) {
+			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
+		}
+	}
+
+	public void checkDailyRoutineForMember(MemberDailyRoutine routine) {
+		if (!this.getDailyRoutines().contains(routine)) {
+			throw new MemberException(INACCESSIBLE_ROUTINE);
+		}
+	}
+
+	public void checkHappinessRoutineForMember(MemberHappinessRoutine routine) {
+		if (!this.getHappinessRoutine().equals(routine)) {
+			throw new MemberException(INACCESSIBLE_ROUTINE);
+		}
 	}
 }

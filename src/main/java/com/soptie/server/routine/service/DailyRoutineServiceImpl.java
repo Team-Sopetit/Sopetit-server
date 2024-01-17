@@ -49,12 +49,12 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 
 	@Override
 	public DailyRoutinesResponse getRoutinesByTheme(long themeId) {
-		val theme = getTheme(themeId);
+		val theme = findTheme(themeId);
 		val routines = dailyRoutineRepository.findAllByTheme(theme);
 		return DailyRoutinesResponse.of(routines);
 	}
 
-	private DailyTheme getTheme(long id) {
+	private DailyTheme findTheme(long id) {
 		return dailyThemeRepository.findById(id)
 			.orElseThrow(() -> new RoutineException(INVALID_THEME));
 	}
