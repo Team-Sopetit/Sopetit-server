@@ -40,6 +40,12 @@ public class MemberServiceImpl implements MemberService {
         memberDollService.createMemberDoll(member, request.dollType(), request.name());
     }
 
+    private void checkMemberProfileExist(Member member) {
+        if (Objects.nonNull(member.getMemberDoll())) {
+            throw new MemberException(EXIST_PROFILE);
+        }
+    }
+
     @Override
     @Transactional
     public CottonCountResponse giveCotton(long memberId, CottonType cottonType) {
@@ -81,12 +87,6 @@ public class MemberServiceImpl implements MemberService {
     private void checkMemberDoll(Member member) {
         if (Objects.isNull(member.getMemberDoll())) {
             throw new MemberException(NOT_EXIST_DOLL);
-        }
-    }
-
-    private void checkMemberProfileExist(Member member) {
-        if (Objects.nonNull(member.getMemberDoll())) {
-            throw new MemberException(EXIST_PROFILE);
         }
     }
 
