@@ -25,7 +25,7 @@ public class KakaoServiceImpl implements KakaoService {
         val headers = new HttpHeaders();
         headers.add("Authorization", socialAccessToken);
         val httpEntity = new HttpEntity<JsonArray>(headers);
-        val responseData = restTemplate.postForEntity(valueConfig.getUserInfoUri(), httpEntity, Object.class);
+        val responseData = restTemplate.postForEntity(valueConfig.getKakaoUri(), httpEntity, Object.class);
         return objectMapper.convertValue(responseData.getBody(), Map.class).get("id").toString();
     }
 }

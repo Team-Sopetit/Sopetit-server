@@ -28,7 +28,10 @@ public class ValueConfig {
     private String tokenUri;
 
     @Value("${jwt.KAKAO_URL}")
-    private String userInfoUri;
+    private String kakaoUri;
+
+    @Value("${jwt.APPLE_URL}")
+    private String appleUri;
 
     @Value("${jwt.ACCESS_TOKEN_EXPIRED}")
     private Long accessTokenExpired;
