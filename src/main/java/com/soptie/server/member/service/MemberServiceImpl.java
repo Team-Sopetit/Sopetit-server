@@ -61,6 +61,11 @@ public class MemberServiceImpl implements MemberService {
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
+    @Override
+    public void deleteMember(Member member) {
+        memberRepository.delete(member);
+    }
+
     private Member findMember(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));

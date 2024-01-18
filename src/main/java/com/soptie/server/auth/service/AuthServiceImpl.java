@@ -38,7 +38,6 @@ import static com.soptie.server.member.message.ErrorCode.INVALID_MEMBER;
 public class AuthServiceImpl implements AuthService {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final MemberRepository memberRepository;
     private final KakaoService kakaoService;
     private final AppleService appleService;
     private final MemberService memberService;
@@ -152,6 +151,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void deleteMember(Member member) {
-        memberRepository.delete(member);
+        memberService.deleteMember(member);
     }
 }

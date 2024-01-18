@@ -12,4 +12,5 @@ public interface MemberService {
     CottonCountResponse giveCotton(long memberId, CottonType cottonType);
     MemberHomeInfoResponse getMemberHomeInfo(long memberId);
     Member findMemberByRefreshToken(String refreshToken);
+    void deleteMember(Member member);
 }
