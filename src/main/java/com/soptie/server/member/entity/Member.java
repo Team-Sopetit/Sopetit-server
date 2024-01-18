@@ -9,6 +9,7 @@ import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
+import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 
 import jakarta.persistence.*;
@@ -129,5 +130,10 @@ public class Member extends BaseTime {
 		if (!this.getHappinessRoutine().equals(routine)) {
 			throw new MemberException(INACCESSIBLE_ROUTINE);
 		}
+	}
+
+	public boolean isNotExistRoutine(DailyRoutine routine) {
+		return this.getDailyRoutines().stream()
+				.noneMatch(memberRoutine -> memberRoutine.getRoutine().equals(routine));
 	}
 }
