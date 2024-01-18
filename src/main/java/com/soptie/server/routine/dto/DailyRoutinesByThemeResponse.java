@@ -10,7 +10,7 @@ import lombok.NonNull;
 
 @Builder
 public record DailyRoutinesByThemeResponse(
-		String backgroundImageUrl,
+		@NonNull String backgroundImageUrl,
 		@NonNull List<DailyRoutineResponse> routines
 ) {
 
