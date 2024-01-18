@@ -7,6 +7,7 @@ import com.soptie.server.member.dto.MemberHomeInfoResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
+import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.service.MemberDollService;
@@ -37,6 +38,26 @@ public class MemberServiceImpl implements MemberService {
         member.checkMemberDollNonExist();
         memberDailyRoutineService.createMemberDailyRoutines(member, request.routines());
         memberDollService.createMemberDoll(member, request.dollType(), request.name());
+    }
+
+    @Override
+    public Member findBySocialTypeAndSocialId(SocialType socialType, String socialId) {
+        return memberRepository.findBySocialTypeAndSocialId(socialType, socialId)
+                .orElseGet(() -> saveMember(socialType, socialId));
+    }
+
+    private Member saveMember(SocialType socialType, String socialId) {
+        val member = Member.builder()
+                .socialType(socialType)
+                .socialId(socialId)
+                .build();
+        return memberRepository.save(member);
+    }
+
+    @Override
+    public Member findMemberById(long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
     @Override

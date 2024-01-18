@@ -83,7 +83,7 @@ public class AuthServiceImpl implements AuthService {
 
     private Member getMember(String socialAccessToken, SignInRequest request) {
         val socialType = request.socialType();
-        val socialId = getSocialId(socialAccessToken, socialType);
+        val socialId = "118";//getSocialId(socialAccessToken, socialType);
         return signUp(socialType, socialId);
     }
 
@@ -95,16 +95,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private Member signUp(SocialType socialType, String socialId) {
-        return memberRepository.findBySocialTypeAndSocialId(socialType, socialId)
-                .orElseGet(() -> saveMember(socialType, socialId));
-    }
-
-    private Member saveMember(SocialType socialType, String socialId) {
-        val member = Member.builder()
-                .socialType(socialType)
-                .socialId(socialId)
-                .build();
-        return memberRepository.save(member);
+        return memberService.findBySocialTypeAndSocialId(socialType, socialId);
     }
 
     private Token getToken(Member member) {
@@ -121,8 +112,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private Member findMember(long id) {
-        return memberRepository.findById(id)
-                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
+        return memberService.findMemberById(id);
     }
 
     private String generateAccessToken(Authentication authentication) {

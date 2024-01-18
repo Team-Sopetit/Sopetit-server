@@ -209,16 +209,16 @@
         "description" : "토큰 재발급",
         "operationId" : "post-recreate-token-docs",
         "responses" : {
-          "201" : {
-            "description" : "201",
+          "200" : {
+            "description" : "200",
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-auth-token162170271"
+                  "$ref" : "#/components/schemas/api-v1-auth-token-831815960"
                 },
                 "examples" : {
                   "post-recreate-token-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"토큰 재발급 성공\",\r\n  \"data\" : {\r\n    \"accessToken\" : \"accessToken\",\r\n    \"refreshToken\" : \"refreshToken\"\r\n  }\r\n}"
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"토큰 재발급 성공\",\r\n  \"data\" : {\r\n    \"accessToken\" : \"accessToken\"\r\n  }\r\n}"
                   }
                 }
               }
@@ -810,6 +810,29 @@
           }
         }
       },
+      "api-v1-auth-token-831815960" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "accessToken" : {
+                "type" : "string",
+                "description" : "Access Token"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-routines-daily-54531209" : {
         "type" : "object",
         "properties" : {
@@ -1238,33 +1261,6 @@
           "subRoutineId" : {
             "type" : "number",
             "description" : "추가할 루틴 id"
-          }
-        }
-      },
-      "api-v1-auth-token162170271" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "accessToken" : {
-                "type" : "string",
-                "description" : "Access Token"
-              },
-              "refreshToken" : {
-                "type" : "string",
-                "description" : "Refresh Token"
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
           }
         }
       },
