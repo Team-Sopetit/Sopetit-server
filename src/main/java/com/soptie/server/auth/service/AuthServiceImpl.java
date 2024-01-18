@@ -2,6 +2,7 @@ package com.soptie.server.auth.service;
 
 import com.soptie.server.auth.dto.SignInRequest;
 import com.soptie.server.auth.dto.SignInResponse;
+import com.soptie.server.auth.dto.TokenResponse;
 import com.soptie.server.auth.jwt.JwtTokenProvider;
 import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.auth.vo.Token;
@@ -50,6 +51,14 @@ public class AuthServiceImpl implements AuthService {
         val token = getToken(member);
         val isMemberDollExist = member.isMemberDollExist();
         return SignInResponse.of(token, isMemberDollExist);
+    }
+
+    @Override
+    public TokenResponse recreateToken(long memberId) {
+        Token token = generateToken(new UserAuthentication(memberId, null, null));
+        Member member = findMember(memberId);
+        member.updateRefreshToken(token.getRefreshToken());
+        return TokenResponse.of(token);
     }
 
     @Override
