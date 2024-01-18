@@ -8,6 +8,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -34,6 +35,8 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 
 	@MockBean
 	DailyRoutineController controller;
+	@MockBean
+	Principal principal;
 
 	private final String DEFAULT_URL = "/api/v1/routines/daily";
 	private final String TAG = "DAILY ROUTINE";
@@ -128,18 +131,20 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 	@DisplayName("테마 별 데일리 루틴 리스트 조회 성공")
 	void success_getDailyRoutinesByTheme() throws Exception {
 		// given
+		long themeId = 1L;
 		DailyRoutinesByThemeResponse routines = DailyRoutineFixture.createDailyRoutinesByThemeResponseDTO();
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
 
 		// when
-		when(controller.getRoutinesByTheme(anyLong())).thenReturn(response);
+		when(controller.getRoutinesByTheme(principal, themeId)).thenReturn(response);
 
 		// then
 		mockMvc
 			.perform(
 				RestDocumentationRequestBuilders.get(DEFAULT_URL + "/theme/{themeId}", 1L)
 					.contentType(MediaType.APPLICATION_JSON)
-					.accept(MediaType.APPLICATION_JSON))
+					.accept(MediaType.APPLICATION_JSON)
+					.principal(principal))
 			.andDo(
 				MockMvcRestDocumentation.document(
 					"get-theme-daily-routines-docs",

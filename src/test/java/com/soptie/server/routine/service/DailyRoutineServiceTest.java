@@ -6,6 +6,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.soptie.server.base.BaseServiceTest;
+import com.soptie.server.member.entity.Member;
+import com.soptie.server.member.entity.SocialType;
+import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
 import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
@@ -30,7 +34,12 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 	private DailyRoutineRepository dailyRoutineRepository;
 	@Mock
 	private DailyThemeRepository dailyThemeRepository;
+	@Mock
+	private MemberRepository memberRepository;
+	@Mock
+	private MemberDailyRoutineService memberDailyRoutineService;
 
+	private final Member MEMBER = member();
 	private final DailyTheme THEME = theme();
 	private final int LIST_SIZE = 5;
 	private final String ROUTINE_CONTENT = "오늘의 음악 선곡하기";
@@ -39,13 +48,17 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 	@Test
 	void success_getRoutinesByTheme() {
 		// given
+		long memberId = 0L;
 		long themeId = 1L;
+		List<DailyRoutine> routines = routineList();
 
+		when(memberRepository.findById(memberId)).thenReturn(Optional.of(MEMBER));
 		when(dailyThemeRepository.findById(themeId)).thenReturn(Optional.of(THEME));
-		when(dailyRoutineRepository.findAllByTheme(THEME)).thenReturn(routineList());
+		when(dailyRoutineRepository.findAllByTheme(THEME)).thenReturn(routines);
+		routines.forEach(routine -> when(memberDailyRoutineService.isExistRoutine(MEMBER, routine)).thenReturn(false));
 
 		// when
-		DailyRoutinesByThemeResponse response = dailyRoutineService.getRoutinesByTheme(themeId);
+		DailyRoutinesByThemeResponse response = dailyRoutineService.getRoutinesByTheme(memberId, themeId);
 
 		// then
 		assertThat(response.routines().size(), is(equalTo(LIST_SIZE)));
@@ -65,6 +78,13 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 		return DailyRoutine.builder()
 				.content(ROUTINE_CONTENT + i)
 				.theme(THEME)
+				.build();
+	}
+
+	private Member member() {
+		return Member.builder()
+				.socialType(SocialType.KAKAO)
+				.socialId("socialId")
 				.build();
 	}
 
