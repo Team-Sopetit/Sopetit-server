@@ -7,7 +7,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.routine.dto.DailyRoutinesResponse;
+import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
+import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
 import com.soptie.server.routine.dto.DailyThemesResponse;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.exception.RoutineException;
@@ -31,16 +32,16 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 	}
 
 	@Override
-	public DailyRoutinesResponse getRoutinesByThemes(List<Long> themeIds) {
+	public DailyRoutinesByThemesResponse getRoutinesByThemes(List<Long> themeIds) {
 		val routines = dailyRoutineRepository.findAllByThemes(themeIds);
-		return DailyRoutinesResponse.of(routines);
+		return DailyRoutinesByThemesResponse.of(routines);
 	}
 
 	@Override
-	public DailyRoutinesResponse getRoutinesByTheme(long themeId) {
+	public DailyRoutinesByThemeResponse getRoutinesByTheme(long themeId) {
 		val theme = findTheme(themeId);
 		val routines = dailyRoutineRepository.findAllByTheme(theme);
-		return DailyRoutinesResponse.of(routines);
+		return DailyRoutinesByThemeResponse.of(theme, routines);
 	}
 
 	private DailyTheme findTheme(long id) {

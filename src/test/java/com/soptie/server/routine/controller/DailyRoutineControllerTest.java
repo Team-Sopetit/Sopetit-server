@@ -24,7 +24,8 @@ import org.springframework.util.MultiValueMap;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.routine.dto.DailyRoutinesResponse;
+import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
+import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
 import com.soptie.server.routine.dto.DailyThemesResponse;
 import com.soptie.server.routine.fixture.DailyRoutineFixture;
 
@@ -81,7 +82,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 	@DisplayName("테마 리스트 별 데일리 루틴 리스트 조회 성공")
 	void success_getDailyRoutinesByThemes() throws Exception {
 		// given
-		DailyRoutinesResponse routines = DailyRoutineFixture.createDailyRoutinesResponseDTO();
+		DailyRoutinesByThemesResponse routines = DailyRoutineFixture.createDailyRoutinesByThemesResponseDTO();
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
 
 		MultiValueMap<String, String> queries = new LinkedMultiValueMap<>();
@@ -127,7 +128,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 	@DisplayName("테마 별 데일리 루틴 리스트 조회 성공")
 	void success_getDailyRoutinesByTheme() throws Exception {
 		// given
-		DailyRoutinesResponse routines = DailyRoutineFixture.createDailyRoutinesResponseDTO();
+		DailyRoutinesByThemeResponse routines = DailyRoutineFixture.createDailyRoutinesByThemeResponseDTO();
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
 
 		// when
@@ -156,6 +157,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 								fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
 								fieldWithPath("message").type(STRING).description("응답 메시지"),
 								fieldWithPath("data").type(OBJECT).description("응답 데이터"),
+								fieldWithPath("data.backgroundImageUrl").type(STRING).description("테마 배경 이미지 url"),
 								fieldWithPath("data.routines").type(ARRAY).description("루틴 정보 리스트"),
 								fieldWithPath("data.routines[].routineId").type(NUMBER).description("루틴 id"),
 								fieldWithPath("data.routines[].content").type(STRING).description("테마 내용")

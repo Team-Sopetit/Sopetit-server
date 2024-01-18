@@ -6,15 +6,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.soptie.server.base.BaseServiceTest;
-import com.soptie.server.routine.dto.DailyRoutinesResponse;
+import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.entity.daily.RoutineImage;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
 
-import static org.mockito.Mockito.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import java.util.List;
@@ -45,7 +45,7 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 		when(dailyRoutineRepository.findAllByTheme(THEME)).thenReturn(routineList());
 
 		// when
-		DailyRoutinesResponse response = dailyRoutineService.getRoutinesByTheme(themeId);
+		DailyRoutinesByThemeResponse response = dailyRoutineService.getRoutinesByTheme(themeId);
 
 		// then
 		assertThat(response.routines().size(), is(equalTo(LIST_SIZE)));
