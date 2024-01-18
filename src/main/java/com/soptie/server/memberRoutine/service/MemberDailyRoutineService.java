@@ -6,6 +6,7 @@ import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.routine.entity.daily.DailyRoutine;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface MemberDailyRoutineService {
 	MemberDailyRoutinesResponse getMemberDailyRoutines(long memberId);
 	void initMemberDailyRoutines();
 	void deleteMemberDailyRoutine(MemberDailyRoutine routine);
+	boolean isExistRoutine(Member member, DailyRoutine routine);
 }
