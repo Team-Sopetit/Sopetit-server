@@ -55,6 +55,12 @@ public class MemberServiceImpl implements MemberService {
         return MemberHomeInfoResponse.of(member, conversations);
     }
 
+    @Override
+    public Member findMemberByRefreshToken(String refreshToken) {
+        return memberRepository.findByRefreshToken(refreshToken)
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
+    }
+
     private Member findMember(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));

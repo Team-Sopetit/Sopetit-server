@@ -6,14 +6,12 @@ import lombok.NonNull;
 
 @Builder
 public record TokenResponse(
-        @NonNull String accessToken,
-        @NonNull String refreshToken
+        @NonNull String accessToken
 ) {
 
-    public static TokenResponse of(Token token) {
+    public static TokenResponse of(String accessToken) {
         return TokenResponse.builder()
-                .accessToken(token.getAccessToken())
-                .refreshToken(token.getRefreshToken())
+                .accessToken(accessToken)
                 .build();
     }
 }

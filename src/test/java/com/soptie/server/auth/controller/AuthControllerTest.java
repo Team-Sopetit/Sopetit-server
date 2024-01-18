@@ -96,15 +96,15 @@ class AuthControllerTest extends BaseControllerTest {
 
     @Test
     @DisplayName("토큰 재발급 성공")
-    void success_recreateToken() throws Exception {
+    void success_reissueToken() throws Exception {
         // given
-        Token token = new Token("accessToken", "refreshToken");
-        TokenResponse response = TokenResponse.of(token);
-        ResponseEntity<Response> result = ResponseEntity.created(URI.create("redirect_uri"))
-                .body(success(SUCCESS_RECREATE_TOKEN.getMessage(), response));
+        String refreshToken = "refreshToken";
+        String accessToken = "accessToken";
+        TokenResponse response = TokenResponse.of(accessToken);
+        ResponseEntity<Response> result = ResponseEntity.ok(success(SUCCESS_RECREATE_TOKEN.getMessage(), response));
 
         // when
-        when(controller.recreateToken(principal)).thenReturn(result);
+        when(controller.reissueToken(refreshToken)).thenReturn(result);
 
         // then
         mockMvc
@@ -112,7 +112,7 @@ class AuthControllerTest extends BaseControllerTest {
                         post(DEFAULT_URL + "/token")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
-                                .principal(principal)
+                                .header("Authorization", refreshToken)
                 )
                 .andDo(
                         document(
@@ -127,11 +127,10 @@ class AuthControllerTest extends BaseControllerTest {
                                                         fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
                                                         fieldWithPath("message").type(STRING).description("응답 메시지"),
                                                         fieldWithPath("data").type(OBJECT).description("응답 데이터"),
-                                                        fieldWithPath("data.accessToken").type(STRING).description("Access Token"),
-                                                        fieldWithPath("data.refreshToken").type(STRING).description("Refresh Token")
+                                                        fieldWithPath("data.accessToken").type(STRING).description("Access Token")
                                                 )
                                                 .build())))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
 
     @Test

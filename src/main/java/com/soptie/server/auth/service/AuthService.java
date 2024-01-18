@@ -10,5 +10,5 @@ public interface AuthService {
     SignInResponse signIn(String socialAccessToken, SignInRequest request);
     void signOut(long memberId);
     void withdraw(long memberId);
-    TokenResponse recreateToken(long memberId);
+    TokenResponse reissueToken(String refreshToken);
 }

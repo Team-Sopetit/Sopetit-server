@@ -218,7 +218,7 @@
                 },
                 "examples" : {
                   "post-recreate-token-docs" : {
-                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"로그아웃 성공\",\r\n  \"data\" : {\r\n    \"accessToken\" : \"accessToken\",\r\n    \"refreshToken\" : \"refreshToken\"\r\n  }\r\n}"
+                    "value" : "{\r\n  \"success\" : true,\r\n  \"message\" : \"토큰 재발급 성공\",\r\n  \"data\" : {\r\n    \"accessToken\" : \"accessToken\",\r\n    \"refreshToken\" : \"refreshToken\"\r\n  }\r\n}"
                   }
                 }
               }
@@ -1232,6 +1232,15 @@
           }
         }
       },
+      "api-v1-routines-happiness-member1502060882" : {
+        "type" : "object",
+        "properties" : {
+          "subRoutineId" : {
+            "type" : "number",
+            "description" : "추가할 루틴 id"
+          }
+        }
+      },
       "api-v1-auth-token162170271" : {
         "type" : "object",
         "properties" : {
@@ -1256,15 +1265,6 @@
           "message" : {
             "type" : "string",
             "description" : "응답 메시지"
-          }
-        }
-      },
-      "api-v1-routines-happiness-member1502060882" : {
-        "type" : "object",
-        "properties" : {
-          "subRoutineId" : {
-            "type" : "number",
-            "description" : "추가할 루틴 id"
           }
         }
       },

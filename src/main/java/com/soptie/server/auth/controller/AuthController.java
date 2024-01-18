@@ -30,19 +30,9 @@ public class AuthController {
     }
 
     @PostMapping("/token")
-    public ResponseEntity<Response> recreateToken(Principal principal) {
-        val memberId = Long.parseLong(principal.getName());
-        val response = authService.recreateToken(memberId);
-        return ResponseEntity.created(getURI())
-                .body(success(SUCCESS_RECREATE_TOKEN.getMessage(), response));
-    }
-
-    private URI getURI() {
-        return ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/")
-                .buildAndExpand()
-                .toUri();
+    public ResponseEntity<Response> reissueToken(@RequestHeader("Authorization") String refreshToken) {
+        val response = authService.reissueToken(refreshToken);
+        return ResponseEntity.ok(success(SUCCESS_RECREATE_TOKEN.getMessage(), response));
     }
 
     @PostMapping("/logout")

@@ -1,5 +1,8 @@
 package com.soptie.server.auth.jwt;
 
+import com.soptie.server.auth.exception.AuthException;
+import com.soptie.server.auth.message.ErrorCode;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +18,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 import static com.soptie.server.auth.jwt.JwtValidationType.VALID_JWT;
+import static com.soptie.server.auth.message.ErrorCode.EXPIRED_TOKEN;
+import static com.soptie.server.common.util.Constant.BEARER_HEADER;
+import static com.soptie.server.common.util.Constant.BLANK;
 import static io.jsonwebtoken.lang.Strings.hasText;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -22,9 +28,6 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
-    private static final String BEARER_HEADER = "Bearer ";
-    private static final String BLANK = "";
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -37,6 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
+        } catch (ExpiredJwtException exception) {
+            throw new AuthException(EXPIRED_TOKEN);
         } catch (Exception exception) {
             log.error(exception.getMessage());
         }
