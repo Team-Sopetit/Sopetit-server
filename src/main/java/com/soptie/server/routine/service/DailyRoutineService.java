@@ -10,5 +10,5 @@ public interface DailyRoutineService {
 
 	DailyThemesResponse getThemes();
 	DailyRoutinesByThemesResponse getRoutinesByThemes(List<Long> themeIds);
-	DailyRoutinesByThemeResponse getRoutinesByTheme(long themeId);
+	DailyRoutinesByThemeResponse getRoutinesByTheme(long memberId, long themeId);
 }

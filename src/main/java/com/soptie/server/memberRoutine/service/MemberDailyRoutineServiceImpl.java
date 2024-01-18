@@ -58,7 +58,8 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 		}
 	}
 
-	private boolean isExistRoutine(Member member, DailyRoutine routine) {
+	@Override
+	public boolean isExistRoutine(Member member, DailyRoutine routine) {
 		return memberDailyRoutineRepository.existsByMemberAndRoutine(member, routine);
 	}
 
