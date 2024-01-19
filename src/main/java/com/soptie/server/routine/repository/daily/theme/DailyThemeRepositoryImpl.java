@@ -1,6 +1,5 @@
 package com.soptie.server.routine.repository.daily.theme;
 
-import static com.soptie.server.routine.entity.daily.QDailyRoutine.*;
 import static com.soptie.server.routine.entity.daily.QDailyTheme.*;
 
 import java.util.List;
