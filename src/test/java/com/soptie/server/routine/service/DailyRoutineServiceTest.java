@@ -9,7 +9,6 @@ import com.soptie.server.base.BaseServiceTest;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
 import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
@@ -36,8 +35,6 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 	private DailyThemeRepository dailyThemeRepository;
 	@Mock
 	private MemberRepository memberRepository;
-	@Mock
-	private MemberDailyRoutineService memberDailyRoutineService;
 
 	private final Member MEMBER = member();
 	private final DailyTheme THEME = theme();
@@ -55,7 +52,6 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 		when(memberRepository.findById(memberId)).thenReturn(Optional.of(MEMBER));
 		when(dailyThemeRepository.findById(themeId)).thenReturn(Optional.of(THEME));
 		when(dailyRoutineRepository.findAllByTheme(THEME)).thenReturn(routines);
-		routines.forEach(routine -> when(memberDailyRoutineService.isExistRoutine(MEMBER, routine)).thenReturn(false));
 
 		// when
 		DailyRoutinesByThemeResponse response = dailyRoutineService.getRoutinesByTheme(memberId, themeId);

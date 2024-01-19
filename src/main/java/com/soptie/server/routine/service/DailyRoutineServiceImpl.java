@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
 import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
 import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
 import com.soptie.server.routine.dto.DailyThemesResponse;
@@ -31,7 +30,6 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 	private final DailyThemeRepository dailyThemeRepository;
 	private final DailyRoutineRepository dailyRoutineRepository;
 	private final MemberRepository memberRepository;
-	private final MemberDailyRoutineService memberDailyRoutineService;
 
 	@Override
 	public DailyThemesResponse getThemes() {
@@ -65,7 +63,7 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 
 	private List<DailyRoutine> getRoutines(Member member, DailyTheme theme) {
 		return dailyRoutineRepository.findAllByTheme(theme).stream()
-				.filter(routine -> !memberDailyRoutineService.isExistRoutine(member, routine))
+				.filter(member::isNotExistRoutine)
 				.toList();
 	}
 }

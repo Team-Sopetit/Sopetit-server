@@ -53,14 +53,9 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	}
 
 	private void checkDuplicatedMemberRoutine(Member member, DailyRoutine routine) {
-		if (isExistRoutine(member, routine)) {
+		if (!member.isNotExistRoutine(routine)) {
 			throw new RoutineException(DUPLICATED_ROUTINE);
 		}
-	}
-
-	@Override
-	public boolean isExistRoutine(Member member, DailyRoutine routine) {
-		return memberDailyRoutineRepository.existsByMemberAndRoutine(member, routine);
 	}
 
 	private MemberDailyRoutine createNewRoutine(Member member, DailyRoutine routine) {
