@@ -3,6 +3,7 @@ package com.soptie.server.member.entity;
 import static com.soptie.server.member.message.ErrorCode.*;
 
 import com.soptie.server.member.exception.MemberException;
+import com.soptie.server.memberDoll.entity.MemberDoll;
 
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -26,10 +27,10 @@ public class Cotton {
 		this.happinessCottonCount++;
 	}
 
-	protected int subtractAndGetCotton(CottonType type) {
+	protected int subtractAndGetCotton(CottonType type, MemberDoll memberDoll) {
 		return switch (type) {
 			case DAILY -> subtractAndGetDailyCotton();
-			case HAPPINESS -> subtractAndGetHappinessCotton();
+			case HAPPINESS -> subtractAndGetHappinessCotton(memberDoll);
 		};
 	}
 
@@ -39,9 +40,10 @@ public class Cotton {
 		return this.dailyCottonCount;
 	}
 
-	private int subtractAndGetHappinessCotton() {
+	private int subtractAndGetHappinessCotton(MemberDoll memberDoll) {
 		checkCount(this.happinessCottonCount);
 		this.happinessCottonCount--;
+		memberDoll.addHappinessCottonCount();
 		return this.happinessCottonCount;
 	}
 
