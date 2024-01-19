@@ -7,5 +7,4 @@ import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 
 public interface MemberDailyRoutineRepository extends JpaRepository<MemberDailyRoutine, Long>, MemberDailyRoutineCustomRepository {
-	boolean existsByMemberAndRoutine(Member member, DailyRoutine routine);
 }

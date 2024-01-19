@@ -10,6 +10,7 @@ import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import java.util.List;
 
 public interface MemberDailyRoutineService {
+
 	MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request);
 	void createMemberDailyRoutines(Member member, List<Long> routines);
 	void deleteMemberDailyRoutines(long memberId, List<Long> routineIds);

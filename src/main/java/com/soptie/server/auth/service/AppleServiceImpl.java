@@ -25,24 +25,12 @@ import java.util.Base64;
 import java.util.Objects;
 
 import static com.soptie.server.auth.message.ErrorCode.*;
+import static com.soptie.server.common.util.Constant.*;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class AppleServiceImpl implements AppleService {
-
-    private static final String TOKEN_VALUE_DELIMITER = "\\.";
-    private static final String BEARER_HEADER = "Bearer ";
-    private static final String BLANK = "";
-    private static final String MODULUS = "n";
-    private static final String EXPONENT = "e";
-    private static final String KID_HEADER_KEY = "kid";
-    private static final String ALG_HEADER_KEY = "alg";
-    private static final String RSA = "RSA";
-    private static final String KEY = "keys";
-    private static final String ID = "sub";
-    private static final int QUOTES = 1;
-    private static final int POSITIVE_NUMBER = 1;
 
     private final ValueConfig valueConfig;
 
