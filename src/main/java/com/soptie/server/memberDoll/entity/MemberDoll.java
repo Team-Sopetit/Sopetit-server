@@ -17,14 +17,13 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static com.soptie.server.common.util.Constant.MEMBER_DOLL_CONDITION;
 import static com.soptie.server.doll.message.ErrorCode.*;
 
 @Entity
 @NoArgsConstructor
 @Getter
 public class MemberDoll extends BaseTime {
-
-	private static final String MEMBER_DOLL_CONDITION = "^[가-힣a-zA-Zㄱ-ㅎㅏ-ㅣ]{1,10}$";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

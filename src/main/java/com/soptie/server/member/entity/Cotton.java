@@ -1,5 +1,6 @@
 package com.soptie.server.member.entity;
 
+import static com.soptie.server.common.util.Constant.MIN_COTTON_COUNT;
 import static com.soptie.server.member.message.ErrorCode.*;
 
 import com.soptie.server.member.exception.MemberException;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
 public class Cotton {
+
 	private int dailyCottonCount;
 	private int happinessCottonCount;
 
@@ -46,7 +48,7 @@ public class Cotton {
 	}
 
 	private void checkCount(int count) {
-		if (count <= 0) {
+		if (count <= MIN_COTTON_COUNT) {
 			throw new MemberException(NOT_ENOUGH_COTTON);
 		}
 	}
