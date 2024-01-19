@@ -17,7 +17,7 @@ public record DailyThemesResponse(
 
 	@Builder
 	public record DailyThemeResponse(
-		long themeId,
+		Long themeId,
 		@NonNull String name,
 		@NonNull String iconImageUrl,
 		@NonNull String backgroundImageUrl

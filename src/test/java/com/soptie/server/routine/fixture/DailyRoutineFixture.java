@@ -21,7 +21,7 @@ public class DailyRoutineFixture {
 
 	private static DailyThemesResponse.DailyThemeResponse createDailyThemeResponse(int i) {
 		return DailyThemesResponse.DailyThemeResponse.builder()
-				.themeId(i)
+				.themeId((long)i)
 				.name("theme name" + i)
 				.iconImageUrl("https://...")
 				.backgroundImageUrl("https://...")
