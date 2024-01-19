@@ -58,7 +58,7 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 
 		// then
 		assertThat(response.routines().size(), is(equalTo(LIST_SIZE)));
-		assertThat(response.routines().get(0).content(), is(equalTo(ROUTINE_CONTENT + 1)));
+		assertThat(response.routines().get(0).content(), is(equalTo(ROUTINE_CONTENT)));
 
 		// verify
 		verify(dailyThemeRepository, times(1)).findById(themeId);
@@ -67,12 +67,12 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 
 	private List<DailyRoutine> routineList() {
 		return Stream.iterate(1, i -> i + 1).limit(LIST_SIZE)
-				.map(this::routine).toList();
+				.map(i -> routine()).toList();
 	}
 
-	private DailyRoutine routine(int i) {
+	private DailyRoutine routine() {
 		return DailyRoutine.builder()
-				.content(ROUTINE_CONTENT + i)
+				.content(ROUTINE_CONTENT)
 				.theme(THEME)
 				.build();
 	}
