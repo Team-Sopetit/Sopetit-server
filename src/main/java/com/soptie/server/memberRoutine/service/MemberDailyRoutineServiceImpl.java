@@ -23,6 +23,7 @@ import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -64,9 +65,19 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	private MemberDailyRoutine recreateOldRoutines(
 			Member member, DailyRoutine routine, CompletedMemberDailyRoutine completedRoutine) {
+		val isTodayAchieved = isTodayAchieved(completedRoutine);
 		completedMemberDailyRoutineRepository.delete(completedRoutine);
-		return memberDailyRoutineRepository
-				.save(new MemberDailyRoutine(member, routine, completedRoutine.getAchieveCount()));
+		val memberRoutine = new MemberDailyRoutine(member, routine, completedRoutine.getAchieveCount(), isTodayAchieved);
+		return memberDailyRoutineRepository.save(memberRoutine);
+	}
+
+	private boolean isTodayAchieved(CompletedMemberDailyRoutine completedRoutine) {
+		return completedRoutine.getIsAchieve() && isTodayCompleted(completedRoutine);
+	}
+
+	private boolean isTodayCompleted(CompletedMemberDailyRoutine completedRoutine) {
+		val now = LocalDate.now();
+		return completedRoutine.getCreatedAt().toLocalDate().equals(now);
 	}
 
 	@Override

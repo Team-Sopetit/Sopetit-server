@@ -1,5 +1,9 @@
 package com.soptie.server.memberRoutine.entity.daily;
 
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
+
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 
@@ -26,6 +30,8 @@ public class CompletedMemberDailyRoutine {
 
 	private int achieveCount;
 
+	private Boolean isAchieve;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
@@ -34,8 +40,13 @@ public class CompletedMemberDailyRoutine {
 	@JoinColumn(name = "routine_id")
 	private DailyRoutine routine;
 
+	@CreatedDate
+	@Column(nullable = false)
+	protected LocalDateTime createdAt;
+
 	public CompletedMemberDailyRoutine(MemberDailyRoutine routine) {
 		this.achieveCount = routine.getAchieveCount();
+		this.isAchieve = routine.isAchieve();
 		setMember(routine);
 		this.routine = routine.getRoutine();
 	}
