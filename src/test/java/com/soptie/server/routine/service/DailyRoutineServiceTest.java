@@ -10,6 +10,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
+import com.soptie.server.routine.dto.DailyThemesResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.entity.daily.RoutineImage;
@@ -40,6 +41,23 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 	private final DailyTheme THEME = theme();
 	private final int LIST_SIZE = 5;
 	private final String ROUTINE_CONTENT = "오늘의 음악 선곡하기";
+	private final String THEME_NAME = "소중한 나";
+
+	@DisplayName("데일리 루틴 테마 조회")
+	@Test
+	void success_getDailyThemes() {
+		// given
+		List<DailyTheme> themes = themeList();
+
+		when(dailyThemeRepository.findAllOrderByNameAsc()).thenReturn(themes);
+
+		// when
+		DailyThemesResponse response = dailyRoutineService.getThemes();
+
+		// then
+		assertThat(response.themes().size(), is(equalTo(LIST_SIZE)));
+		assertThat(response.themes().get(0).name(), is(equalTo(THEME_NAME)));
+	}
 
 	@DisplayName("테마별 데일리 루틴 조회")
 	@Test
@@ -84,9 +102,14 @@ class DailyRoutineServiceTest extends BaseServiceTest {
 				.build();
 	}
 
+	private List<DailyTheme> themeList() {
+		return Stream.iterate(1, i -> i + 1).limit(LIST_SIZE)
+				.map(i -> theme()).toList();
+	}
+
 	private DailyTheme theme() {
 		return DailyTheme.builder()
-				.name("소중한 나")
+				.name(THEME_NAME)
 				.imageInfo(imageInfo())
 				.build();
 	}
