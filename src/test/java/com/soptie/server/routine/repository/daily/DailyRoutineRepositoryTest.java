@@ -1,4 +1,4 @@
-package com.soptie.server.routine.repository.daily.routine;
+package com.soptie.server.routine.repository.daily;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +13,7 @@ import com.soptie.server.base.BaseRepositoryTest;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.entity.daily.RoutineImage;
+import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
 
 import static org.hamcrest.MatcherAssert.*;
