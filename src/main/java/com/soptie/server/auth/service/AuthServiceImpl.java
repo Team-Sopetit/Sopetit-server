@@ -2,6 +2,7 @@ package com.soptie.server.auth.service;
 
 import com.soptie.server.auth.dto.SignInRequest;
 import com.soptie.server.auth.dto.SignInResponse;
+import com.soptie.server.auth.dto.TokenResponse;
 import com.soptie.server.auth.jwt.JwtTokenProvider;
 import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.auth.vo.Token;
@@ -10,6 +11,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.member.service.MemberService;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
@@ -26,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+import static com.soptie.server.common.util.Constant.BEARER_HEADER;
+import static com.soptie.server.common.util.Constant.BLANK;
 import static com.soptie.server.member.message.ErrorCode.INVALID_MEMBER;
 
 @Service
@@ -37,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
     private final MemberRepository memberRepository;
     private final KakaoService kakaoService;
     private final AppleService appleService;
+    private final MemberService memberService;
     private final MemberDailyRoutineService memberDailyRoutineService;
     private final MemberHappinessRoutineService memberHappinessRoutineService;
     private final MemberDollService memberDollService;
@@ -50,6 +55,14 @@ public class AuthServiceImpl implements AuthService {
         val token = getToken(member);
         val isMemberDollExist = member.isMemberDollExist();
         return SignInResponse.of(token, isMemberDollExist);
+    }
+
+    @Override
+    public TokenResponse reissueToken(String refreshToken) {
+        val member = memberRepository.findByRefreshToken(refreshToken.replaceFirst(BEARER_HEADER, BLANK))
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
+        val token = generateAccessToken(new UserAuthentication(member.getId(), null, null));
+        return TokenResponse.of(token);
     }
 
     @Override
@@ -114,6 +127,10 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
+    private String generateAccessToken(Authentication authentication) {
+        return jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired());
+    }
+
     private void deleteMemberDoll(MemberDoll memberDoll) {
         if (Objects.nonNull(memberDoll)) {
             memberDollService.deleteMemberDoll(memberDoll);
@@ -136,6 +153,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void deleteMember(Member member) {
-        memberRepository.delete(member);
+        memberService.deleteMember(member);
     }
 }

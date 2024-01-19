@@ -3,6 +3,7 @@ package com.soptie.server.auth.controller;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.auth.dto.SignInRequest;
 import com.soptie.server.auth.dto.SignInResponse;
+import com.soptie.server.auth.dto.TokenResponse;
 import com.soptie.server.auth.vo.Token;
 import com.soptie.server.base.BaseControllerTest;
 import com.soptie.server.common.dto.Response;
@@ -14,10 +15,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URI;
 import java.security.Principal;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.soptie.server.auth.message.SuccessMessage.*;
+import static com.soptie.server.common.dto.Response.success;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
@@ -52,7 +55,7 @@ class AuthControllerTest extends BaseControllerTest {
                 .refreshToken("token")
                 .build(), false
         );
-        ResponseEntity<Response> result = ResponseEntity.ok(Response.success(SUCCESS_SIGN_IN.getMessage(), response));
+        ResponseEntity<Response> result = ResponseEntity.ok(success(SUCCESS_SIGN_IN.getMessage(), response));
 
         // when
         when(controller.signIn(socialAccessToken, request)).thenReturn(result);
@@ -92,10 +95,49 @@ class AuthControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @DisplayName("토큰 재발급 성공")
+    void success_reissueToken() throws Exception {
+        // given
+        String refreshToken = "refreshToken";
+        String accessToken = "accessToken";
+        TokenResponse response = TokenResponse.of(accessToken);
+        ResponseEntity<Response> result = ResponseEntity.ok(success(SUCCESS_RECREATE_TOKEN.getMessage(), response));
+
+        // when
+        when(controller.reissueToken(refreshToken)).thenReturn(result);
+
+        // then
+        mockMvc
+                .perform(
+                        post(DEFAULT_URL + "/token")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .header("Authorization", refreshToken)
+                )
+                .andDo(
+                        document(
+                                "post-recreate-token-docs",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                resource(
+                                        ResourceSnippetParameters.builder()
+                                                .tag(TAG)
+                                                .description("토큰 재발급")
+                                                .responseFields(
+                                                        fieldWithPath("success").type(BOOLEAN).description("응답 성공 여부"),
+                                                        fieldWithPath("message").type(STRING).description("응답 메시지"),
+                                                        fieldWithPath("data").type(OBJECT).description("응답 데이터"),
+                                                        fieldWithPath("data.accessToken").type(STRING).description("Access Token")
+                                                )
+                                                .build())))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     @DisplayName("로그아웃 성공")
     void success_signOut() throws Exception {
         // given
-        ResponseEntity<Response> result = ResponseEntity.ok(Response.success(SUCCESS_SIGN_OUT.getMessage(), null));
+        ResponseEntity<Response> result = ResponseEntity.ok(success(SUCCESS_SIGN_OUT.getMessage(), null));
 
         // when
         when(controller.signOut(principal)).thenReturn(result);
@@ -130,7 +172,7 @@ class AuthControllerTest extends BaseControllerTest {
     @DisplayName("회원탈퇴 성공")
     void success_withdrawal() throws Exception {
         // given
-        ResponseEntity<Response> result = ResponseEntity.ok(Response.success(SUCCESS_WITHDRAWAL.getMessage()));
+        ResponseEntity<Response> result = ResponseEntity.ok(success(SUCCESS_WITHDRAWAL.getMessage()));
 
         // when
         when(controller.withdrawal(principal)).thenReturn(result);
