@@ -1,12 +1,14 @@
 package com.soptie.server.member.entity;
 
 import static com.soptie.server.common.util.Constant.*;
+import static com.soptie.server.doll.message.ErrorCode.*;
 import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.ErrorCode.*;
 
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberDoll.entity.MemberDoll;
+import com.soptie.server.memberDoll.exception.MemberDollException;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
@@ -85,7 +87,10 @@ public class Member extends BaseTime {
 	}
 
 	public int subtractAndGetCotton(CottonType type) {
-		return cottonInfo.subtractAndGetCotton(type);
+		if (Objects.isNull(this.memberDoll)) {
+			throw new MemberDollException(NOT_EXIST_MEMBER_DOLL);
+		}
+		return cottonInfo.subtractAndGetCotton(type, this.memberDoll);
 	}
 
 	public void checkMemberDollExist() {
