@@ -85,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
 
     private Member getMember(String socialAccessToken, SignInRequest request) {
         val socialType = request.socialType();
-        val socialId = "숫자가안되다니"; // getSocialId(socialAccessToken, socialType);
+        val socialId = getSocialId(socialAccessToken, socialType);
         return signUp(socialType, socialId);
     }
 
