@@ -10,10 +10,7 @@ import com.soptie.server.member.entity.SocialType;
 public interface MemberService {
 
     void createMemberProfile(long memberId, MemberProfileRequest request);
-    Member findBySocialTypeAndSocialId(SocialType socialType, String socialId);
-    Member findMemberById(long memberId);
     CottonCountResponse giveCotton(long memberId, CottonType cottonType);
     MemberHomeInfoResponse getMemberHomeInfo(long memberId);
-    Member findMemberByRefreshToken(String refreshToken);
     void deleteMember(Member member);
 }

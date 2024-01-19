@@ -38,6 +38,7 @@ import static com.soptie.server.member.message.ErrorCode.INVALID_MEMBER;
 public class AuthServiceImpl implements AuthService {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final MemberRepository memberRepository;
     private final KakaoService kakaoService;
     private final AppleService appleService;
     private final MemberService memberService;
@@ -58,7 +59,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenResponse reissueToken(String refreshToken) {
-        val member = memberService.findMemberByRefreshToken(refreshToken.replaceFirst(BEARER_HEADER, BLANK));
+        val member = memberRepository.findByRefreshToken(refreshToken.replaceFirst(BEARER_HEADER, BLANK))
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
         val token = generateAccessToken(new UserAuthentication(member.getId(), null, null));
         return TokenResponse.of(token);
     }
@@ -95,7 +97,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private Member signUp(SocialType socialType, String socialId) {
-        return memberService.findBySocialTypeAndSocialId(socialType, socialId);
+        return memberRepository.findBySocialTypeAndSocialId(socialType, socialId)
+                .orElseGet(() -> saveMember(socialType, socialId));
+    }
+
+    private Member saveMember(SocialType socialType, String socialId) {
+        val member = Member.builder()
+                .socialType(socialType)
+                .socialId(socialId)
+                .build();
+        return memberRepository.save(member);
     }
 
     private Token getToken(Member member) {
@@ -112,7 +123,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private Member findMember(long id) {
-        return memberService.findMemberById(id);
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
     private String generateAccessToken(Authentication authentication) {

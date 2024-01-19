@@ -41,26 +41,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member findBySocialTypeAndSocialId(SocialType socialType, String socialId) {
-        return memberRepository.findBySocialTypeAndSocialId(socialType, socialId)
-                .orElseGet(() -> saveMember(socialType, socialId));
-    }
-
-    private Member saveMember(SocialType socialType, String socialId) {
-        val member = Member.builder()
-                .socialType(socialType)
-                .socialId(socialId)
-                .build();
-        return memberRepository.save(member);
-    }
-
-    @Override
-    public Member findMemberById(long memberId) {
-        return memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
-    }
-
-    @Override
     @Transactional
     public CottonCountResponse giveCotton(long memberId, CottonType cottonType) {
         val member = findMember(memberId);
@@ -74,12 +54,6 @@ public class MemberServiceImpl implements MemberService {
         member.checkMemberDollExist();
         val conversations = getConversations();
         return MemberHomeInfoResponse.of(member, conversations);
-    }
-
-    @Override
-    public Member findMemberByRefreshToken(String refreshToken) {
-        return memberRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
     @Override
