@@ -25,7 +25,7 @@ import static com.soptie.server.doll.message.ErrorCode.*;
 @Getter
 public class MemberDoll extends BaseTime {
 
-	private static final String MEMBER_DOLL_CONDITION = "^[가-힣a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]{1,10}$";
+	private static final String MEMBER_DOLL_CONDITION = "^[가-힣a-zA-Zㄱ-ㅎㅏ-ㅣ]{1,10}$";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
