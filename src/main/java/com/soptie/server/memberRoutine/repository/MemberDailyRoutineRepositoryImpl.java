@@ -31,6 +31,7 @@ public class MemberDailyRoutineRepositoryImpl implements MemberDailyRoutineCusto
 			.leftJoin(memberDailyRoutine.routine, dailyRoutine).fetchJoin()
 			.leftJoin(dailyRoutine.theme, dailyTheme).fetchJoin()
 			.orderBy(
+				memberDailyRoutine.isAchieve.asc(),
 				memberDailyRoutine.achieveCount.desc(),
 				contentInKRExpression.asc()
 			)
