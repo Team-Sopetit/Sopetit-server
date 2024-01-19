@@ -2,7 +2,6 @@ package com.soptie.server.memberDoll.entity;
 
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.doll.entity.Doll;
-import com.soptie.server.doll.message.ErrorCode;
 import com.soptie.server.member.entity.Member;
 
 import com.soptie.server.memberDoll.exception.MemberDollException;

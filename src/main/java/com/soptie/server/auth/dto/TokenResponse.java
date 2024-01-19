@@ -1,6 +1,5 @@
 package com.soptie.server.auth.dto;
 
-import com.soptie.server.auth.vo.Token;
 import lombok.Builder;
 import lombok.NonNull;
 

@@ -32,8 +32,6 @@ import static com.soptie.server.auth.message.ErrorCode.*;
 public class AppleServiceImpl implements AppleService {
 
     private static final String TOKEN_VALUE_DELIMITER = "\\.";
-    private static final String BEARER_HEADER = "Bearer ";
-    private static final String BLANK = "";
     private static final String MODULUS = "n";
     private static final String EXPONENT = "e";
     private static final String KID_HEADER_KEY = "kid";

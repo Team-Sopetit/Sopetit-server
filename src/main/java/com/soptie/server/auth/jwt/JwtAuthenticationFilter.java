@@ -1,7 +1,6 @@
 package com.soptie.server.auth.jwt;
 
 import com.soptie.server.auth.exception.AuthException;
-import com.soptie.server.auth.message.ErrorCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
