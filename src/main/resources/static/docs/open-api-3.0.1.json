@@ -202,6 +202,31 @@
         }
       }
     },
+    "/api/v1/auth/token" : {
+      "post" : {
+        "tags" : [ "AUTH" ],
+        "summary" : "토큰 재발급",
+        "description" : "토큰 재발급",
+        "operationId" : "post-recreate-token-docs",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-auth-token-831815960"
+                },
+                "examples" : {
+                  "post-recreate-token-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"토큰 재발급 성공\",\n  \"data\" : {\n    \"accessToken\" : \"accessToken\"\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/members/{cottonType}" : {
       "patch" : {
         "tags" : [ "MEMBER" ],
@@ -560,6 +585,31 @@
         }
       }
     },
+    "/api/v1/versions/client/app" : {
+      "get" : {
+        "tags" : [ "VERSION" ],
+        "summary" : "앱 버전 정보 조회",
+        "description" : "앱 버전 정보 조회",
+        "operationId" : "get-client-app-version-docs",
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-versions-client-app-914728397"
+                },
+                "examples" : {
+                  "get-client-app-version-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"버전 조회 성공\",\n  \"data\" : {\n    \"iosVersion\" : {\n      \"appVersion\" : \"1.0.0\",\n      \"forceUpdateVersion\" : \"1.0.0\"\n    },\n    \"androidVersion\" : {\n      \"appVersion\" : \"1.0.0\",\n      \"forceUpdateVersion\" : \"1.0.0\"\n    },\n    \"notificationContent\" : \"업데이트가 필요합니다.\"\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/routines/daily/theme/{themeId}" : {
       "get" : {
         "tags" : [ "DAILY ROUTINE" ],
@@ -785,6 +835,29 @@
           }
         }
       },
+      "api-v1-auth-token-831815960" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "accessToken" : {
+                "type" : "string",
+                "description" : "Access Token"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
       "api-v1-routines-daily-54531209" : {
         "type" : "object",
         "properties" : {
@@ -807,6 +880,57 @@
                     }
                   }
                 }
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-versions-client-app-914728397" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "androidVersion" : {
+                "type" : "object",
+                "properties" : {
+                  "appVersion" : {
+                    "type" : "string",
+                    "description" : "안드로이드 앱 버전"
+                  },
+                  "forceUpdateVersion" : {
+                    "type" : "string",
+                    "description" : "안드로이드 강제 업데이트 버전"
+                  }
+                },
+                "description" : "안드로이드 버전 정보"
+              },
+              "iosVersion" : {
+                "type" : "object",
+                "properties" : {
+                  "appVersion" : {
+                    "type" : "string",
+                    "description" : "iOS 앱 버전"
+                  },
+                  "forceUpdateVersion" : {
+                    "type" : "string",
+                    "description" : "iOS 강제 업데이트 버전"
+                  }
+                },
+                "description" : "iOS 버전 정보"
+              },
+              "notificationContent" : {
+                "type" : "string",
+                "description" : "업데이트 알림 내용"
               }
             },
             "description" : "응답 데이터"
