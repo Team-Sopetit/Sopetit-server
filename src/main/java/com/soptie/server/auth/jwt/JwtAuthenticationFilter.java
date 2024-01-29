@@ -1,6 +1,8 @@
 package com.soptie.server.auth.jwt;
 
 import com.soptie.server.auth.exception.AuthException;
+import com.soptie.server.common.config.ValueConfig;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,8 +20,6 @@ import java.io.IOException;
 
 import static com.soptie.server.auth.jwt.JwtValidationType.VALID_JWT;
 import static com.soptie.server.auth.message.ErrorCode.EXPIRED_TOKEN;
-import static com.soptie.server.common.util.Constant.BEARER_HEADER;
-import static com.soptie.server.common.util.Constant.BLANK;
 import static io.jsonwebtoken.lang.Strings.hasText;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -29,6 +29,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final ValueConfig valueConfig;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -58,10 +59,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isContainsAccessToken(HttpServletRequest request) {
         val authorization = request.getHeader(AUTHORIZATION);
-        return authorization != null && authorization.startsWith(BEARER_HEADER);
+        return authorization != null && authorization.startsWith(valueConfig.getBEARER_HEADER());
     }
 
     private String getAuthorizationAccessToken(HttpServletRequest request) {
-        return request.getHeader(AUTHORIZATION).replaceFirst(BEARER_HEADER, BLANK);
+        return getBearerToken(request.getHeader(AUTHORIZATION));
+    }
+
+    private String getBearerToken(String token) {
+        return token.replaceFirst(valueConfig.getBEARER_HEADER(), valueConfig.getBLANK());
     }
 }

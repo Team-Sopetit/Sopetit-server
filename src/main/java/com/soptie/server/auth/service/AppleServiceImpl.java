@@ -25,7 +25,6 @@ import java.util.Base64;
 import java.util.Objects;
 
 import static com.soptie.server.auth.message.ErrorCode.*;
-import static com.soptie.server.common.util.Constant.*;
 
 @Service
 @RequiredArgsConstructor
@@ -42,18 +41,18 @@ public class AppleServiceImpl implements AppleService {
         val userInfo = Jwts.parserBuilder()
                 .setSigningKey(publicKey)
                 .build()
-                .parseClaimsJws(socialAccessToken.replaceFirst(BEARER_HEADER, BLANK))
+                .parseClaimsJws(getBearerToken(socialAccessToken))
                 .getBody();
 
         val userInfoObject = (JsonObject) JsonParser.parseString(new Gson().toJson(userInfo));
-        return userInfoObject.get(ID).getAsString();
+        return userInfoObject.get(valueConfig.getID()).getAsString();
     }
 
     private JsonArray getApplePublicKeys() {
         val connection = sendHttpRequest();
         val result = getHttpResponse(connection);
         val keys = (JsonObject) JsonParser.parseString(result.toString());
-        return (JsonArray) keys.get(KEY);
+        return (JsonArray) keys.get(valueConfig.getKEY());
     }
 
     private HttpURLConnection sendHttpRequest() {
@@ -93,11 +92,11 @@ public class AppleServiceImpl implements AppleService {
     }
 
     private PublicKey makePublicKey(String accessToken, JsonArray publicKeyList) {
-        val decodeArray = accessToken.split(TOKEN_VALUE_DELIMITER);
-        val header = new String(Base64.getDecoder().decode(decodeArray[0].replaceFirst(BEARER_HEADER, BLANK)));
+        val decodeArray = accessToken.split(valueConfig.getTOKEN_VALUE_DELIMITER());
+        val header = new String(Base64.getDecoder().decode(getBearerToken(decodeArray[0])));
 
-        val kid = ((JsonObject) JsonParser.parseString(header)).get(KID_HEADER_KEY);
-        val alg = ((JsonObject) JsonParser.parseString(header)).get(ALG_HEADER_KEY);
+        val kid = ((JsonObject) JsonParser.parseString(header)).get(valueConfig.getKID_HEADER_KEY());
+        val alg = ((JsonObject) JsonParser.parseString(header)).get(valueConfig.getALG_HEADER_KEY());
         val matchingPublicKey = findMatchingPublicKey(publicKeyList, kid, alg);
 
         if (Objects.isNull(matchingPublicKey)) {
@@ -107,11 +106,15 @@ public class AppleServiceImpl implements AppleService {
         return getPublicKey(matchingPublicKey);
     }
 
+    private String getBearerToken(String token) {
+        return token.replaceFirst(valueConfig.getBEARER_HEADER(), valueConfig.getBLANK());
+    }
+
     private JsonObject findMatchingPublicKey(JsonArray publicKeyList, JsonElement kid, JsonElement alg) {
         for (JsonElement publicKey : publicKeyList) {
             val publicKeyObject = publicKey.getAsJsonObject();
-            val publicKid = publicKeyObject.get(KID_HEADER_KEY);
-            val publicAlg = publicKeyObject.get(ALG_HEADER_KEY);
+            val publicKid = publicKeyObject.get(valueConfig.getKID_HEADER_KEY());
+            val publicAlg = publicKeyObject.get(valueConfig.getALG_HEADER_KEY());
 
             if (Objects.equals(kid, publicKid) && Objects.equals(alg, publicAlg)) {
                 return publicKeyObject;
@@ -123,17 +126,19 @@ public class AppleServiceImpl implements AppleService {
 
     private PublicKey getPublicKey(JsonObject object) {
         try {
-            val modulus = object.get(MODULUS).toString();
-            val exponent = object.get(EXPONENT).toString();
+            val modulus = object.get(valueConfig.getMODULUS()).toString();
+            val exponent = object.get(valueConfig.getEXPONENT()).toString();
 
-            val modulusBytes = Base64.getUrlDecoder().decode(modulus.substring(QUOTES, modulus.length() - QUOTES));
-            val exponentBytes = Base64.getUrlDecoder().decode(exponent.substring(QUOTES, exponent.length() - QUOTES));
+            val quotes = valueConfig.getQUOTES();
+            val modulusBytes = Base64.getUrlDecoder().decode(modulus.substring(quotes, modulus.length() - quotes));
+            val exponentBytes = Base64.getUrlDecoder().decode(exponent.substring(quotes, exponent.length() - quotes));
 
-            val modulusValue = new BigInteger(POSITIVE_NUMBER, modulusBytes);
-            val exponentValue = new BigInteger(POSITIVE_NUMBER, exponentBytes);
+            val positiveNumber = valueConfig.getPOSITIVE_NUMBER();
+            val modulusValue = new BigInteger(positiveNumber, modulusBytes);
+            val exponentValue = new BigInteger(positiveNumber, exponentBytes);
 
             val publicKeySpec = new RSAPublicKeySpec(modulusValue, exponentValue);
-            val keyFactory = KeyFactory.getInstance(RSA);
+            val keyFactory = KeyFactory.getInstance(valueConfig.getRSA());
 
             return keyFactory.generatePublic(publicKeySpec);
         } catch (InvalidKeySpecException | NoSuchAlgorithmException exception) {
