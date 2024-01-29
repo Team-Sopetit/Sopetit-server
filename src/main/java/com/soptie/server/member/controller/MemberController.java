@@ -41,7 +41,7 @@ public class MemberController {
                 .toUri();
     }
 
-    @PatchMapping("/{cottonType}")
+    @PatchMapping("/cotton/{cottonType}")
     public ResponseEntity<Response> giveCotton(Principal principal, @PathVariable CottonType cottonType) {
         val memberId = Long.parseLong(principal.getName());
         val response = memberService.giveCotton(memberId, cottonType);

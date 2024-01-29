@@ -149,7 +149,7 @@ class MemberControllerTest extends BaseControllerTest {
             // then
             mockMvc
                     .perform(
-                            patch(DEFAULT_URL + "/{cottonType}", DAILY)
+                            patch(DEFAULT_URL + "/cotton/{cottonType}", DAILY)
                                     .contentType(MediaType.APPLICATION_JSON)
                                     .accept(MediaType.APPLICATION_JSON)
                                     .principal(principal))
