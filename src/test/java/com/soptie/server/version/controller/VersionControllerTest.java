@@ -20,6 +20,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
+import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.version.dto.AppVersionResponse;
 
@@ -30,6 +31,8 @@ class VersionControllerTest extends BaseControllerTest {
 	VersionController controller;
 	@MockBean
 	Principal principal;
+	@MockBean
+	ValueConfig valueConfig;
 
 	private final String DEFAULT_URL = "/api/v1/versions";
 	private final String TAG = "VERSION";

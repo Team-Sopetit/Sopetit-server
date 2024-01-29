@@ -2,6 +2,7 @@ package com.soptie.server.member.controller;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
+import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.member.dto.CottonCountResponse;
 import com.soptie.server.member.dto.MemberProfileRequest;
@@ -43,6 +44,8 @@ class MemberControllerTest extends BaseControllerTest {
     MemberController controller;
     @MockBean
     Principal principal;
+    @MockBean
+    ValueConfig valueConfig;
 
     private final String DEFAULT_URL = "/api/v1/members";
     private final String TAG = "MEMBER";

@@ -19,6 +19,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
+import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.doll.dto.DollImageResponse;
 import com.soptie.server.doll.entity.DollType;
@@ -29,6 +30,8 @@ class DollControllerTest extends BaseControllerTest {
 
 	@MockBean
 	DollController controller;
+	@MockBean
+	ValueConfig valueConfig;
 
 	private final String DEFAULT_URL = "/api/v1/dolls";
 	private final String TAG = "DOLL";
