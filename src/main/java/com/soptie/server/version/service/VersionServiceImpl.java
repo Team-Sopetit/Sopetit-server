@@ -22,6 +22,7 @@ public class VersionServiceImpl implements VersionService {
 				valueConfig.getIOS_FORCE_UPDATE_VERSION(),
 				valueConfig.getANDROID_APP_VERSION(),
 				valueConfig.getANDROID_FORCE_UPDATE_VERSION(),
+				valueConfig.getNOTIFICATION_TITLE(),
 				valueConfig.getNOTIFICATION_CONTENT());
 	}
 }
