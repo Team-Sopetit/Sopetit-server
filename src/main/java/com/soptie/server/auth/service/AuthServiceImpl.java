@@ -57,13 +57,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenResponse reissueToken(String refreshToken) {
-        val member = memberRepository.findByRefreshToken(getBearerToken(refreshToken))
+        val member = memberRepository.findByRefreshToken(getTokenFromBearerString(refreshToken))
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));
         val token = generateAccessToken(new UserAuthentication(member.getId(), null, null));
         return TokenResponse.of(token);
     }
 
-    private String getBearerToken(String token) {
+    private String getTokenFromBearerString(String token) {
         return token.replaceFirst(valueConfig.getBEARER_HEADER(), valueConfig.getBLANK());
     }
 

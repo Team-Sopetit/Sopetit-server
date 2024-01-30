@@ -41,7 +41,7 @@ public class AppleServiceImpl implements AppleService {
         val userInfo = Jwts.parserBuilder()
                 .setSigningKey(publicKey)
                 .build()
-                .parseClaimsJws(getBearerToken(socialAccessToken))
+                .parseClaimsJws(getTokenFromBearerString(socialAccessToken))
                 .getBody();
 
         val userInfoObject = (JsonObject) JsonParser.parseString(new Gson().toJson(userInfo));
@@ -93,7 +93,7 @@ public class AppleServiceImpl implements AppleService {
 
     private PublicKey makePublicKey(String accessToken, JsonArray publicKeyList) {
         val decodeArray = accessToken.split(valueConfig.getTOKEN_VALUE_DELIMITER());
-        val header = new String(Base64.getDecoder().decode(getBearerToken(decodeArray[0])));
+        val header = new String(Base64.getDecoder().decode(getTokenFromBearerString(decodeArray[0])));
 
         val kid = ((JsonObject) JsonParser.parseString(header)).get(valueConfig.getKID_HEADER_KEY());
         val alg = ((JsonObject) JsonParser.parseString(header)).get(valueConfig.getALG_HEADER_KEY());
@@ -106,7 +106,7 @@ public class AppleServiceImpl implements AppleService {
         return getPublicKey(matchingPublicKey);
     }
 
-    private String getBearerToken(String token) {
+    private String getTokenFromBearerString(String token) {
         return token.replaceFirst(valueConfig.getBEARER_HEADER(), valueConfig.getBLANK());
     }
 
