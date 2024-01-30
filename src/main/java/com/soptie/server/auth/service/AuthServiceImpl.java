@@ -28,8 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.soptie.server.common.util.Constant.BEARER_HEADER;
-import static com.soptie.server.common.util.Constant.BLANK;
 import static com.soptie.server.member.message.ErrorCode.INVALID_MEMBER;
 
 @Service
@@ -59,10 +57,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenResponse reissueToken(String refreshToken) {
-        val member = memberRepository.findByRefreshToken(refreshToken.replaceFirst(BEARER_HEADER, BLANK))
+        val member = memberRepository.findByRefreshToken(getTokenFromBearerString(refreshToken))
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));
         val token = generateAccessToken(new UserAuthentication(member.getId(), null, null));
         return TokenResponse.of(token);
+    }
+
+    private String getTokenFromBearerString(String token) {
+        return token.replaceFirst(valueConfig.getBEARER_HEADER(), valueConfig.getBLANK());
     }
 
     @Override

@@ -16,12 +16,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
+import com.soptie.server.common.config.ValueConfig;
 
 @WebMvcTest(TestController.class)
 public class TestControllerTest extends BaseControllerTest {
 
 	@MockBean
 	TestController testController;
+	@MockBean
+	ValueConfig valueConfig;
 
 	private final String DEFAULT_URL = "/api/v1/test";
 	private final String TAG = "TEST";

@@ -20,6 +20,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
+import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.version.dto.AppVersionResponse;
 
@@ -30,6 +31,8 @@ class VersionControllerTest extends BaseControllerTest {
 	VersionController controller;
 	@MockBean
 	Principal principal;
+	@MockBean
+	ValueConfig valueConfig;
 
 	private final String DEFAULT_URL = "/api/v1/versions";
 	private final String TAG = "VERSION";
@@ -43,6 +46,7 @@ class VersionControllerTest extends BaseControllerTest {
 				"1.0.0",
 				"1.0.0",
 				"1.0.0",
+				"업데이트 안내",
 				"업데이트가 필요합니다.");
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("버전 조회 성공", versionInfo));
 
@@ -75,6 +79,7 @@ class VersionControllerTest extends BaseControllerTest {
 														fieldWithPath("data.androidVersion").type(OBJECT).description("안드로이드 버전 정보"),
 														fieldWithPath("data.androidVersion.appVersion").type(STRING).description("안드로이드 앱 버전"),
 														fieldWithPath("data.androidVersion.forceUpdateVersion").type(STRING).description("안드로이드 강제 업데이트 버전"),
+														fieldWithPath("data.notificationTitle").type(STRING).description("업데이트 알림 제목"),
 														fieldWithPath("data.notificationContent").type(STRING).description("업데이트 알림 내용")
 												)
 												.build())))

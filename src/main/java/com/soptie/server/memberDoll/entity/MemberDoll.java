@@ -17,7 +17,7 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static com.soptie.server.common.util.Constant.MEMBER_DOLL_CONDITION;
+import static com.soptie.server.common.config.ValueConfig.*;
 import static com.soptie.server.doll.message.ErrorCode.*;
 
 @Entity

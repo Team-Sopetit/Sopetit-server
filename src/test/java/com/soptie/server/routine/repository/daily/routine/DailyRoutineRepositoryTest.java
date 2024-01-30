@@ -8,8 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.soptie.server.base.BaseRepositoryTest;
+import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.entity.daily.RoutineImage;
@@ -24,6 +26,9 @@ class DailyRoutineRepositoryTest extends BaseRepositoryTest {
 	private DailyRoutineRepository dailyRoutineRepository;
 	@Autowired
 	private DailyThemeRepository dailyThemeRepository;
+
+	@MockBean
+	ValueConfig valueConfig;
 
 	private final String ROUTINE_CONTENT = "오늘의 음악 선곡하기";
 	private final DailyTheme THEME = getTheme();

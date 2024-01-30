@@ -2,6 +2,7 @@ package com.soptie.server.memberRoutine.controller;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
+import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
@@ -39,6 +40,8 @@ class MemberHappinessRoutineControllerTest extends BaseControllerTest {
 	MemberHappinessRoutineController controller;
 	@MockBean
 	Principal principal;
+	@MockBean
+	ValueConfig valueConfig;
 
 	private final String DEFAULT_URL = "/api/v1/routines/happiness/member";
 	private final String TAG = "MEMBER HAPPINESS ROUTINE";
