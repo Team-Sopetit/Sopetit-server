@@ -6,6 +6,7 @@ import com.soptie.server.auth.dto.SignInResponse;
 import com.soptie.server.auth.dto.TokenResponse;
 import com.soptie.server.auth.vo.Token;
 import com.soptie.server.base.BaseControllerTest;
+import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.member.entity.SocialType;
 import org.junit.jupiter.api.DisplayName;
@@ -39,6 +40,8 @@ class AuthControllerTest extends BaseControllerTest {
     AuthController controller;
     @MockBean
     Principal principal;
+    @MockBean
+    ValueConfig valueConfig;
 
     private final String DEFAULT_URL = "/api/v1/auth";
     private final String TAG = "AUTH";

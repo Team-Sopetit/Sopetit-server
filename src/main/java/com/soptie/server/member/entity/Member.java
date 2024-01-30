@@ -1,6 +1,6 @@
 package com.soptie.server.member.entity;
 
-import static com.soptie.server.common.util.Constant.*;
+import static com.soptie.server.common.config.ValueConfig.*;
 import static com.soptie.server.doll.message.ErrorCode.*;
 import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.ErrorCode.*;

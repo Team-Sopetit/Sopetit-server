@@ -24,6 +24,7 @@ import org.springframework.util.MultiValueMap;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
+import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.common.dto.Response;
 import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
 import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
@@ -37,6 +38,8 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 	DailyRoutineController controller;
 	@MockBean
 	Principal principal;
+	@MockBean
+	ValueConfig valueConfig;
 
 	private final String DEFAULT_URL = "/api/v1/routines/daily";
 	private final String TAG = "DAILY ROUTINE";
