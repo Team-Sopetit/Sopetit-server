@@ -227,40 +227,6 @@
         }
       }
     },
-    "/api/v1/members/{cottonType}" : {
-      "patch" : {
-        "tags" : [ "MEMBER" ],
-        "summary" : "솜뭉치 주기",
-        "description" : "솜뭉치 주기",
-        "operationId" : "give-cotton-docs",
-        "parameters" : [ {
-          "name" : "cottonType",
-          "in" : "path",
-          "description" : "솜뭉치 종류",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "200",
-            "content" : {
-              "application/json;charset=UTF-8" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-members-cottonType-1561973557"
-                },
-                "examples" : {
-                  "give-cotton-docs" : {
-                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"솜뭉치 주기 성공\",\n  \"data\" : {\n    \"cottonCount\" : 0\n  }\n}"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/routines/daily" : {
       "get" : {
         "tags" : [ "DAILY ROUTINE" ],
@@ -355,6 +321,40 @@
                 "examples" : {
                   "get-doll-image-docs" : {
                     "value" : "{\n  \"success\" : true,\n  \"message\" : \"인형 이미지 조회 성공\",\n  \"data\" : {\n    \"faceImageUrl\" : \"face-image-url\"\n  }\n}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/members/cotton/{cottonType}" : {
+      "patch" : {
+        "tags" : [ "MEMBER" ],
+        "summary" : "솜뭉치 주기",
+        "description" : "솜뭉치 주기",
+        "operationId" : "give-cotton-docs",
+        "parameters" : [ {
+          "name" : "cottonType",
+          "in" : "path",
+          "description" : "솜뭉치 종류",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/api-v1-members-cotton-cottonType-1561973557"
+                },
+                "examples" : {
+                  "give-cotton-docs" : {
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"솜뭉치 주기 성공\",\n  \"data\" : {\n    \"cottonCount\" : 0\n  }\n}"
                   }
                 }
               }
@@ -597,11 +597,11 @@
             "content" : {
               "application/json;charset=UTF-8" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/api-v1-versions-client-app-914728397"
+                  "$ref" : "#/components/schemas/api-v1-versions-client-app2103188655"
                 },
                 "examples" : {
                   "get-client-app-version-docs" : {
-                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"버전 조회 성공\",\n  \"data\" : {\n    \"iosVersion\" : {\n      \"appVersion\" : \"1.0.0\",\n      \"forceUpdateVersion\" : \"1.0.0\"\n    },\n    \"androidVersion\" : {\n      \"appVersion\" : \"1.0.0\",\n      \"forceUpdateVersion\" : \"1.0.0\"\n    },\n    \"notificationContent\" : \"업데이트가 필요합니다.\"\n  }\n}"
+                    "value" : "{\n  \"success\" : true,\n  \"message\" : \"버전 조회 성공\",\n  \"data\" : {\n    \"iosVersion\" : {\n      \"appVersion\" : \"1.0.0\",\n      \"forceUpdateVersion\" : \"1.0.0\"\n    },\n    \"androidVersion\" : {\n      \"appVersion\" : \"1.0.0\",\n      \"forceUpdateVersion\" : \"1.0.0\"\n    },\n    \"notificationTitle\" : \"업데이트 안내\",\n    \"notificationContent\" : \"업데이트가 필요합니다.\"\n  }\n}"
                   }
                 }
               }
@@ -894,57 +894,6 @@
           }
         }
       },
-      "api-v1-versions-client-app-914728397" : {
-        "type" : "object",
-        "properties" : {
-          "data" : {
-            "type" : "object",
-            "properties" : {
-              "androidVersion" : {
-                "type" : "object",
-                "properties" : {
-                  "appVersion" : {
-                    "type" : "string",
-                    "description" : "안드로이드 앱 버전"
-                  },
-                  "forceUpdateVersion" : {
-                    "type" : "string",
-                    "description" : "안드로이드 강제 업데이트 버전"
-                  }
-                },
-                "description" : "안드로이드 버전 정보"
-              },
-              "iosVersion" : {
-                "type" : "object",
-                "properties" : {
-                  "appVersion" : {
-                    "type" : "string",
-                    "description" : "iOS 앱 버전"
-                  },
-                  "forceUpdateVersion" : {
-                    "type" : "string",
-                    "description" : "iOS 강제 업데이트 버전"
-                  }
-                },
-                "description" : "iOS 버전 정보"
-              },
-              "notificationContent" : {
-                "type" : "string",
-                "description" : "업데이트 알림 내용"
-              }
-            },
-            "description" : "응답 데이터"
-          },
-          "success" : {
-            "type" : "boolean",
-            "description" : "응답 성공 여부"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "응답 메시지"
-          }
-        }
-      },
       "api-v1-routines-daily-member1721287602" : {
         "type" : "object",
         "properties" : {
@@ -1087,7 +1036,7 @@
           }
         }
       },
-      "api-v1-members-cottonType-1561973557" : {
+      "api-v1-members-cotton-cottonType-1561973557" : {
         "type" : "object",
         "properties" : {
           "data" : {
@@ -1258,6 +1207,61 @@
               "title" : {
                 "type" : "string",
                 "description" : "행복 루틴 주제"
+              }
+            },
+            "description" : "응답 데이터"
+          },
+          "success" : {
+            "type" : "boolean",
+            "description" : "응답 성공 여부"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "응답 메시지"
+          }
+        }
+      },
+      "api-v1-versions-client-app2103188655" : {
+        "type" : "object",
+        "properties" : {
+          "data" : {
+            "type" : "object",
+            "properties" : {
+              "notificationTitle" : {
+                "type" : "string",
+                "description" : "업데이트 알림 제목"
+              },
+              "androidVersion" : {
+                "type" : "object",
+                "properties" : {
+                  "appVersion" : {
+                    "type" : "string",
+                    "description" : "안드로이드 앱 버전"
+                  },
+                  "forceUpdateVersion" : {
+                    "type" : "string",
+                    "description" : "안드로이드 강제 업데이트 버전"
+                  }
+                },
+                "description" : "안드로이드 버전 정보"
+              },
+              "iosVersion" : {
+                "type" : "object",
+                "properties" : {
+                  "appVersion" : {
+                    "type" : "string",
+                    "description" : "iOS 앱 버전"
+                  },
+                  "forceUpdateVersion" : {
+                    "type" : "string",
+                    "description" : "iOS 강제 업데이트 버전"
+                  }
+                },
+                "description" : "iOS 버전 정보"
+              },
+              "notificationContent" : {
+                "type" : "string",
+                "description" : "업데이트 알림 내용"
               }
             },
             "description" : "응답 데이터"

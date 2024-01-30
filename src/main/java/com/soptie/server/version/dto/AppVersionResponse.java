@@ -7,14 +7,16 @@ import lombok.Builder;
 public record AppVersionResponse(
 		VersionResponse iosVersion,
 		VersionResponse androidVersion,
+		String notificationTitle,
 		String notificationContent
 ) {
 
-	public static AppVersionResponse of(String iOSAppVersion, String iosForceUpdateVersion,
-			String androidAppVersion, String androidForceUpdateVersion, String notificationContent) {
+	public static AppVersionResponse of(String iOSAppVersion, String iosForceUpdateVersion, String androidAppVersion,
+			String androidForceUpdateVersion, String notificationTitle, String notificationContent) {
 		return AppVersionResponse.builder()
 				.iosVersion(new VersionResponse(iOSAppVersion, iosForceUpdateVersion))
 				.androidVersion(new VersionResponse(androidAppVersion, androidForceUpdateVersion))
+				.notificationTitle(notificationTitle)
 				.notificationContent(notificationContent)
 				.build();
 	}
