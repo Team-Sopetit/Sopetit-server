@@ -127,6 +127,13 @@
 - P3: 웬만하면 반영해 주세요 (Comment)
 - P4: 반영해도 좋고 넘어가도 좋습니다 (Approve)
 - P5: 그냥 사소한 의견입니다 (Approve)
+  
+### 🚀 Test Code Convention
+
+1. given, when, then을 사용한다.
+2. 테스트 메서드명은 다음과 같이 작성한다. -> 메서드명_테스트하고자하는상태_예상되는결과 (ex. giveCotton_CottonCountIs0_NotEnoughCotton)
+3. 설마 이런 거까지 생각해야하나싶은 거까지 작성한다. (ex. 솜뭉치를 여러 개 줄 수 있다.)
+4. 다수의 값을 다룰 때는 @ParameterizedTest를 활용한다.
 
 ### 👩‍👧‍👧 Our Team
 
