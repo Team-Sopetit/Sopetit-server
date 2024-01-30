@@ -39,9 +39,9 @@ public class ValueConfig {
     @Value("${jwt.REFRESH_TOKEN_EXPIRED}")
     private Long refreshTokenExpired;
 
-    private final String IOS_FORCE_UPDATE_VERSION = "1.0.0";
+    private final String IOS_FORCE_UPDATE_VERSION = "0.0.9";
     private final String IOS_APP_VERSION = "1.0.0";
-    private final String ANDROID_FORCE_UPDATE_VERSION = "1.0.0";
+    private final String ANDROID_FORCE_UPDATE_VERSION = "0.0.9";
     private final String ANDROID_APP_VERSION = "1.0.0";
     private final String NOTIFICATION_TITLE = "새로운 버전이 업데이트 되었어요!";
     private final String NOTIFICATION_CONTENT = "안정적인 서비스 사용을 위해\n최신버전으로 업데이트 해주세요.";
