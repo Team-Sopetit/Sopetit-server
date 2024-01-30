@@ -19,7 +19,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 import static com.soptie.server.auth.jwt.JwtValidationType.VALID_JWT;
-import static com.soptie.server.auth.message.ErrorCode.EXPIRED_TOKEN;
 import static io.jsonwebtoken.lang.Strings.hasText;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
