@@ -17,4 +17,13 @@ else
 fi
 
 echo "> $JAR_PATH 배포"
-nohup java -jar -Dspring.profiles.active=dev /home/ubuntu/build/build/libs/server-0.0.1-SNAPSHOT.jar > /dev/null 2> /dev/null < /dev/null &
+
+if [ "$DEPLOYMENT_GROUP_NAME" == "sopetit-group" ]
+then
+   nohup java -jar -Dspring.profiles.active=dev /home/ubuntu/build/build/libs/server-0.0.1-SNAPSHOT.jar > /dev/null 2> /dev/null < /dev/null &
+fi
+
+if [ "$DEPLOYMENT_GROUP_NAME" == "prod-group" ]
+then
+   nohup java -jar -Dspring.profiles.active=prod /home/ubuntu/build/build/libs/server-0.0.1-SNAPSHOT.jar > /dev/null 2> /dev/null < /dev/null &
+fi

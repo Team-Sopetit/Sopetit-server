@@ -2,12 +2,12 @@ spring:
   config:
     import: application-secret.yml
     activate:
-      on-profile: dev
+      on-profile: prod
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DATABASE.ENDPOINT_URL.dev}:5432/postgres?currentSchema=${DATABASE.NAME.dev}
-    username: ${DATABASE.USERNAME.dev}
-    password: ${DATABASE.PASSWORD.dev}
+    url: jdbc:postgresql://${DATABASE.ENDPOINT_URL.prod}:5432/postgres?currentSchema=${DATABASE.NAME.prod}
+    username: ${DATABASE.USERNAME.prod}
+    password: ${DATABASE.PASSWORD.prod}
   jpa:
     hibernate:
       ddl-auto: none
@@ -39,7 +39,7 @@ logging:
   level:
     org.hibernate.SQL: debug
   slack:
-    webhook_url: ${SLACK.WEBHOOK_URL.dev}
+    webhook_url: ${SLACK.WEBHOOK_URL.prod}
     config: classpath:logback-spring.xml
 
 jwt:
@@ -48,13 +48,6 @@ jwt:
   APPLE_URL: https://appleid.apple.com/auth/keys
   ACCESS_TOKEN_EXPIRED: 7200000
   REFRESH_TOKEN_EXPIRED: 1209600000
-
-springdoc:
-  default-consumes-media-type: application/json;charset=UTF-8
-  default-produces-media-type: application/json;charset=UTF-8
-  swagger-ui:
-    url: /docs/open-api-3.0.1.json
-    path: /swagger
 
 softie:
   cron:
