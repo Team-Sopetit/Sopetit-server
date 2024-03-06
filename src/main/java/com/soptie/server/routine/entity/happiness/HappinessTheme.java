@@ -27,4 +27,9 @@ public class HappinessTheme {
 
 	@Embedded
 	private RoutineImage imageInfo;
+
+	public HappinessTheme(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 }
