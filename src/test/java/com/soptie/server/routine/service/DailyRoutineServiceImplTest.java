@@ -21,6 +21,7 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.routine.dto.DailyRoutineResponse;
 import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
+import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
 import com.soptie.server.routine.dto.DailyThemesResponse;
 import com.soptie.server.routine.dto.DailyThemesResponse.DailyThemeResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
@@ -63,6 +64,27 @@ class DailyRoutineServiceImplTest {
 		// then
 		List<Long> themeIds = actual.themes().stream().map(DailyThemeResponse::themeId).toList();
 		assertThat(themeIds).containsExactlyInAnyOrder(1L, 2L);
+	}
+
+	@DisplayName("테마 리스트별 데일리 루틴 조회")
+	@Test
+	void getDailyRoutinesByThemes() {
+		// given
+		List<Long> themeIds = List.of(1L, 2L);
+		DailyTheme theme1 = DailyThemeFixture.dailyTheme().id(1L).imageUrl("https://www...").build();
+		DailyTheme theme2 = DailyThemeFixture.dailyTheme().id(2L).imageUrl("https://www...").build();
+		List<DailyRoutine> routines = List.of(
+				DailyRoutineFixture.dailyRoutine().id(1L).content("routine1").theme(theme1).build(),
+				DailyRoutineFixture.dailyRoutine().id(2L).content("routine2").theme(theme2).build()
+		);
+		doReturn(routines).when(dailyRoutineRepository).findAllByThemes(themeIds);
+
+		// when
+		final DailyRoutinesByThemesResponse actual = dailyRoutineService.getRoutinesByThemes(themeIds);
+
+		// then
+		List<Long> routineIds = actual.routines().stream().map(DailyRoutineResponse::routineId).toList();
+		assertThat(routineIds).containsExactlyInAnyOrder(1L, 2L);
 	}
 
 	@DisplayName("존재하지 않는 회원이면 예외")

@@ -23,6 +23,31 @@ class DailyRoutineRepositoryTest {
 	@Autowired
 	DailyThemeRepository dailyThemeRepository;
 
+	@DisplayName("테마 리스트별 데일리 루틴 조회")
+	@Test
+	void findAllByThemes() {
+		// given
+		List<Long> themeIds = List.of(1L, 2L);
+		DailyTheme theme1 = DailyThemeFixture.dailyTheme().id(themeIds.get(0)).name("daily theme").build();
+		DailyTheme theme2 = DailyThemeFixture.dailyTheme().id(themeIds.get(1)).name("daily theme").build();
+		DailyTheme theme3 = DailyThemeFixture.dailyTheme().id(3L).name("daily theme").build();
+		dailyThemeRepository.save(theme1);
+		dailyThemeRepository.save(theme2);
+		dailyThemeRepository.save(theme3);
+
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(1L).content("하하").theme(theme1).build());
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(2L).content("가").theme(theme2).build());
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(3L).content("미포함 루틴").theme(theme3).build());
+
+		// when
+		List<DailyRoutine> actual = dailyRoutineRepository.findAllByThemes(themeIds);
+
+		// then
+		assertThat(actual).hasSize(2);
+		assertThat(actual.get(0).getContent()).isEqualTo("가");
+		assertThat(actual.get(1).getContent()).isEqualTo("하하");
+	}
+
 	@DisplayName("테마별 데일리 루틴 전체 조회")
 	@Test
 	void findAllByTheme() {
