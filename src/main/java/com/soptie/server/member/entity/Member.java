@@ -58,6 +58,10 @@ public class Member extends BaseTime {
 		this.cottonInfo = new Cotton(0, 0);
 	}
 
+	public Member(Long id) {
+		this.id = id;
+	}
+
 	public void setMemberDoll(MemberDoll memberDoll) {
 		this.memberDoll = memberDoll;
 	}

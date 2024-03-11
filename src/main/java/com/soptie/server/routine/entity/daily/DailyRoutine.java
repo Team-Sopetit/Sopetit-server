@@ -25,4 +25,10 @@ public class DailyRoutine {
 		this.content = content;
 		this.theme = theme;
 	}
+
+	public DailyRoutine(Long id, String content, DailyTheme theme) {
+		this.id = id;
+		this.content = content;
+		this.theme = theme;
+	}
 }
