@@ -24,4 +24,10 @@ public class DailyTheme {
 		this.name = name;
 		this.imageInfo = imageInfo;
 	}
+
+	public DailyTheme(Long id, String name, String iconImageUrl, String backgroundImageUrl) {
+		this.id = id;
+		this.name = name;
+		this.imageInfo = new RoutineImage(iconImageUrl, backgroundImageUrl);
+	}
 }
