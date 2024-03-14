@@ -23,9 +23,8 @@ class DailyRoutineRepositoryTest {
 	@Autowired
 	DailyThemeRepository dailyThemeRepository;
 
-	@DisplayName("테마 리스트별 데일리 루틴 조회")
 	@Test
-	void findAllByThemes() {
+	void 테마_리스트로_조회하면_테마_리스트에_포함된_모든_루틴들을_조회한다() {
 		// given
 		List<Long> themeIds = List.of(1L, 2L);
 		DailyTheme theme1 = DailyThemeFixture.dailyTheme().id(themeIds.get(0)).name("daily theme").build();
@@ -48,9 +47,8 @@ class DailyRoutineRepositoryTest {
 		assertThat(actual.get(1).getContent()).isEqualTo("하하");
 	}
 
-	@DisplayName("테마별 데일리 루틴 전체 조회")
 	@Test
-	void findAllByTheme() {
+	void 테마로_조회하면_테마에_포함된_모든_데일리루틴이_조회된다() {
 		// given
 		DailyTheme theme = DailyThemeFixture.dailyTheme().id(1L).name("daily theme").build();
 		dailyThemeRepository.save(theme);

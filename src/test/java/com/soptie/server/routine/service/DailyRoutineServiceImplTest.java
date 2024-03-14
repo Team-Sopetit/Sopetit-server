@@ -47,9 +47,8 @@ class DailyRoutineServiceImplTest {
 	@Mock
 	private MemberRepository memberRepository;
 
-	@DisplayName("데일리 루틴 테마 목록 조회 성공")
 	@Test
-	void getAllThemes_success() {
+	void 모든_데일리루틴의_테마정보를_조회한다() {
 		// given
 		String imageUrl = "https://www...";
 		List<DailyTheme> dailyThemes = List.of(
@@ -66,9 +65,8 @@ class DailyRoutineServiceImplTest {
 		assertThat(themeIds).containsExactlyInAnyOrder(1L, 2L);
 	}
 
-	@DisplayName("테마 리스트별 데일리 루틴 조회")
 	@Test
-	void getDailyRoutinesByThemes() {
+	void 테마_리스트로_조회하면_테마_리스트에_포함된_모든_데일리루틴_정보를_조회한다() {
 		// given
 		List<Long> themeIds = List.of(1L, 2L);
 		DailyTheme theme1 = DailyThemeFixture.dailyTheme().id(1L).imageUrl("https://www...").build();
@@ -87,9 +85,8 @@ class DailyRoutineServiceImplTest {
 		assertThat(routineIds).containsExactlyInAnyOrder(1L, 2L);
 	}
 
-	@DisplayName("존재하지 않는 회원이면 예외")
 	@Test
-	void check_invalidMember() {
+	void 존재하지_않는_회원이면_예외가_발생한다() {
 		// given
 		doReturn(Optional.empty()).when(memberRepository).findById(anyLong());
 
@@ -99,9 +96,8 @@ class DailyRoutineServiceImplTest {
 				.hasMessage("[MemberException] : " + INVALID_MEMBER.getMessage());
 	}
 
-	@DisplayName("존재하지 않는 테마이면 예외")
 	@Test
-	void check_invalidTheme() {
+	void 존재하지_않는_테마이면_예외가_발생한다() {
 		// given
 		member(1L);
 		doReturn(Optional.empty()).when(dailyThemeRepository).findById(anyLong());
@@ -114,7 +110,7 @@ class DailyRoutineServiceImplTest {
 
 	@DisplayName("테마별 데일리 루틴 조회 (회원에게 없는 루틴만 조회)")
 	@Test
-	void getDailyRoutinesByTheme_notInMember() {
+	void 테마로_조회하면_테마에_포함되고_회원이_추가하지_않은_데일리루틴들을_조회한다() {
 		// given
 		long memberId = 2L;
 		Member member = member(memberId);
