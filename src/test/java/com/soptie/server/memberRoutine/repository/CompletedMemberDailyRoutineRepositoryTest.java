@@ -4,8 +4,10 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
@@ -22,6 +24,7 @@ import com.soptie.server.support.MemberFixture;
 import com.soptie.server.support.RepositoryTest;
 
 @RepositoryTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class CompletedMemberDailyRoutineRepositoryTest {
 
 	@Autowired
