@@ -1,4 +1,4 @@
-package com.soptie.server.routine.repository.daily.theme;
+package com.soptie.server.memberRoutine.repository;
 
 import static org.assertj.core.api.Assertions.*;
 
