@@ -18,7 +18,7 @@ class DailyThemeRepositoryTest {
 	DailyThemeRepository dailyThemeRepository;
 
 	@Test
-	void findAllThemes_success() {
+	void 모든_데일리루틴의_테마를_조회한다() {
 		// given
 		String imageUrl = "https://www...";
 		dailyThemeRepository.save(DailyThemeFixture.dailyTheme().id(1L).name("소현 서버").imageUrl(imageUrl).build());

@@ -1,109 +1,69 @@
 package com.soptie.server.routine.repository.daily.routine;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
+import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.soptie.server.base.BaseRepositoryTest;
-import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
-import com.soptie.server.routine.entity.daily.RoutineImage;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
+import com.soptie.server.support.DailyRoutineFixture;
+import com.soptie.server.support.DailyThemeFixture;
+import com.soptie.server.support.RepositoryTest;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.CoreMatchers.*;
-
-class DailyRoutineRepositoryTest extends BaseRepositoryTest {
+@RepositoryTest
+class DailyRoutineRepositoryTest {
 
 	@Autowired
-	private DailyRoutineRepository dailyRoutineRepository;
+	DailyRoutineRepository dailyRoutineRepository;
 	@Autowired
-	private DailyThemeRepository dailyThemeRepository;
+	DailyThemeRepository dailyThemeRepository;
 
-	@MockBean
-	ValueConfig valueConfig;
-
-	private final String ROUTINE_CONTENT = "오늘의 음악 선곡하기";
-	private final DailyTheme THEME = getTheme();
-
-	@BeforeEach
-	void init() {
-		dailyThemeRepository.save(THEME);
-	}
-
-	@DisplayName("데일리 루틴 저장")
 	@Test
-	void success_createRoutine() {
+	void 테마_리스트로_조회하면_테마_리스트에_포함된_모든_루틴들을_조회한다() {
 		// given
-		int i = 0;
-		DailyRoutine routine = getRoutine(i);
+		List<Long> themeIds = List.of(1L, 2L);
+		DailyTheme theme1 = DailyThemeFixture.dailyTheme().id(themeIds.get(0)).name("daily theme").build();
+		DailyTheme theme2 = DailyThemeFixture.dailyTheme().id(themeIds.get(1)).name("daily theme").build();
+		DailyTheme theme3 = DailyThemeFixture.dailyTheme().id(3L).name("daily theme").build();
+		dailyThemeRepository.save(theme1);
+		dailyThemeRepository.save(theme2);
+		dailyThemeRepository.save(theme3);
+
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(1L).content("하하").theme(theme1).build());
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(2L).content("가").theme(theme2).build());
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(3L).content("미포함 루틴").theme(theme3).build());
 
 		// when
-		DailyRoutine savedRoutine = dailyRoutineRepository.save(routine);
+		List<DailyRoutine> actual = dailyRoutineRepository.findAllByThemes(themeIds);
 
 		// then
-		assertThat(savedRoutine.getContent(), is(equalTo(ROUTINE_CONTENT + i)));
-		assertThat(savedRoutine.getTheme(), is(equalTo(THEME)));
+		assertThat(actual).hasSize(2);
+		assertThat(actual.get(0).getContent()).isEqualTo("가");
+		assertThat(actual.get(1).getContent()).isEqualTo("하하");
 	}
 
-	@DisplayName("데일리 루틴 조회")
 	@Test
-	void success_getRoutine() {
+	void 테마로_조회하면_테마에_포함된_모든_데일리루틴이_조회된다() {
 		// given
-		int i = 0;
-		DailyRoutine savedRoutine = dailyRoutineRepository.save(getRoutine(i));
+		DailyTheme theme = DailyThemeFixture.dailyTheme().id(1L).name("daily theme").build();
+		dailyThemeRepository.save(theme);
+
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(1L).content("찬").theme(theme).build());
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(2L).content("소현").theme(theme).build());
+		dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(3L).content("승빈").theme(theme).build());
 
 		// when
-		Optional<DailyRoutine> routine = dailyRoutineRepository.findById(savedRoutine.getId());
+		List<DailyRoutine> actual = dailyRoutineRepository.findAllByTheme(theme);
 
 		// then
-		assertThat(routine.isPresent(), is(equalTo(true)));
-		assertThat(routine.get(), is(equalTo(savedRoutine)));
-		assertThat(routine.get().getId(), is(equalTo(savedRoutine.getId())));
-		assertThat(routine.get().getContent(), is(equalTo(savedRoutine.getContent())));
-		assertThat(routine.get().getTheme(), is(equalTo(savedRoutine.getTheme())));
-	}
-
-	@DisplayName("테마별 데일리 루틴 목록 조회")
-	@Test
-	void success_getRoutinesByTheme() {
-		// given
-		int size = 5;
-		Stream.iterate(1, i -> i + 1).limit(size)
-				.forEach(i -> dailyRoutineRepository.save(getRoutine(i)));
-
-		// when
-		List<DailyRoutine> result = dailyRoutineRepository.findAllByTheme(THEME);
-
-		// then
-		assertThat(result.size(), is(equalTo(size)));
-	}
-
-	private DailyRoutine getRoutine(int i) {
-		return DailyRoutine.builder()
-				.content(ROUTINE_CONTENT + i)
-				.theme(THEME)
-				.build();
-	}
-
-	private DailyTheme getTheme() {
-		return DailyTheme.builder()
-				.name("소중한 나")
-				.imageInfo(getImageInfo())
-				.build();
-	}
-
-	private RoutineImage getImageInfo() {
-		return RoutineImage.builder()
-				.iconImageUrl("https://...")
-				.backgroundImageUrl("https://...")
-				.build();
+		assertThat(actual).hasSize(3);
+		assertThat(actual.get(0).getContent()).isEqualTo("소현");
+		assertThat(actual.get(1).getContent()).isEqualTo("승빈");
+		assertThat(actual.get(2).getContent()).isEqualTo("찬");
 	}
 }
