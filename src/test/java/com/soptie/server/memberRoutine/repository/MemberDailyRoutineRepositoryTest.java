@@ -26,7 +26,7 @@ import com.soptie.server.support.RepositoryTest;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
 @RepositoryTest
-class MemberDailyRoutineCustomRepositoryTest {
+class MemberDailyRoutineRepositoryTest {
 
 	@Autowired
 	MemberDailyRoutineRepository memberDailyRoutineRepository;
@@ -49,7 +49,7 @@ class MemberDailyRoutineCustomRepositoryTest {
 	void 회원으로_조회한_데일리_루틴_리스트를_미달성부터_달성개수_내림차순_내용_오름차순으로_조회한다() {
 		// given
 		Member savedMember = memberRepository.save(MemberFixture.member().build());
-		DailyTheme savedTheme = dailyThemeRepository.save(DailyThemeFixture.dailyTheme().name("테마").imageUrl("url").build());
+		DailyTheme savedTheme = dailyThemeRepository.save(DailyThemeFixture.dailyTheme().name("테마").build());
 
 		DailyRoutine savedRoutine1 = savedRoutine("가나다", savedTheme);
 		DailyRoutine savedRoutine2 = savedRoutine("나다", savedTheme);
