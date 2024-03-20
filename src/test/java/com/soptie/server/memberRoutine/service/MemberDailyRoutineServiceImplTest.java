@@ -4,8 +4,11 @@ import static com.soptie.server.routine.message.ErrorCode.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,16 +19,21 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
+import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 import com.soptie.server.support.DailyRoutineFixture;
+import com.soptie.server.support.DailyThemeFixture;
 import com.soptie.server.support.MemberDailyRoutineFixture;
 import com.soptie.server.support.MemberFixture;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@SuppressWarnings("NonAsciiCharacters")
 @ExtendWith(MockitoExtension.class)
 class MemberDailyRoutineServiceImplTest {
 
@@ -101,6 +109,34 @@ class MemberDailyRoutineServiceImplTest {
 		assertThatThrownBy(() -> memberDailyRoutineService.createMemberDailyRoutine(memberId, request))
 				.isInstanceOf(RoutineException.class)
 				.hasMessage("[RoutineException] : " + CANNOT_ADD_MEMBER_ROUTINE.getMessage());
+	}
+
+	@Test
+	void 회원이_추가한_전체_데일리_루틴을_조회한다() {
+		// given
+		long memberId = 1L;
+		Member member = member(memberId);
+
+		DailyTheme theme = DailyThemeFixture.dailyTheme().id(100L).name("테마").imageUrl("url").build();
+
+		DailyRoutine routine1 = DailyRoutineFixture.dailyRoutine().id(10L).theme(theme).content("루틴1").build();
+		DailyRoutine routine2 = DailyRoutineFixture.dailyRoutine().id(20L).theme(theme).content("루틴2").build();
+		DailyRoutine routine3 = DailyRoutineFixture.dailyRoutine().id(30L).theme(theme).content("루틴3").build();
+
+		List<MemberDailyRoutine> memberRoutines = List.of(
+				MemberDailyRoutineFixture.memberRoutine().id(1L).member(member).routine(routine1).build(),
+				MemberDailyRoutineFixture.memberRoutine().id(2L).member(member).routine(routine2).build(),
+				MemberDailyRoutineFixture.memberRoutine().id(3L).member(member).routine(routine3).build()
+		);
+
+		doReturn(memberRoutines).when(memberDailyRoutineRepository).findAllByMember(member);
+
+		// when
+		final MemberDailyRoutinesResponse actual = memberDailyRoutineService.getMemberDailyRoutines(memberId);
+
+		// then
+		List<Long> memberRoutineIds = actual.routines().stream().map(MemberDailyRoutinesResponse.MemberDailyRoutineResponse::routineId).toList();
+		assertThat(memberRoutineIds).containsExactlyInAnyOrder(1L, 2L, 3L);
 	}
 
 	private Member member(long memberId) {
