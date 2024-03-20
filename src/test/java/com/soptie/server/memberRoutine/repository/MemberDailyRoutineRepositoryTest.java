@@ -75,15 +75,19 @@ class MemberDailyRoutineRepositoryTest {
 		assertThat(actual.get(5)).isEqualTo(savedDailyRoutine4);
 	}
 
-	private MemberDailyRoutine savedMemberRoutine(Member member, boolean isAchieve, int achieveCount, DailyRoutine routine) {
-		return memberDailyRoutineRepository.save(
-				MemberDailyRoutineFixture
-						.memberRoutine()
-						.member(member)
-						.isAchieve(isAchieve)
-						.achieveCount(achieveCount)
-						.routine(routine)
-						.build());
+	private MemberDailyRoutine savedMemberRoutine(
+			Member member,
+			boolean isAchieve,
+			int achieveCount,
+			DailyRoutine routine
+	) {
+		return memberDailyRoutineRepository.save(MemberDailyRoutineFixture
+				.memberRoutine()
+				.member(member)
+				.isAchieve(isAchieve)
+				.achieveCount(achieveCount)
+				.routine(routine)
+				.build());
 	}
 
 	private DailyRoutine savedRoutine(String content, DailyTheme theme) {

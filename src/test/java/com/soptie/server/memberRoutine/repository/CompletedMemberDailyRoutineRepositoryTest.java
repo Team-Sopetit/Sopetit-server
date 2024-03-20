@@ -29,7 +29,7 @@ import com.soptie.server.support.RepositoryTest;
 class CompletedMemberDailyRoutineRepositoryTest {
 
 	@Autowired
-	CompletedMemberDailyRoutineRepository completedMemberDailyRoutineRepository;
+	CompletedMemberDailyRoutineRepository completedMemberRoutineRepository;
 	@Autowired
 	MemberRepository memberRepository;
 	@Autowired
@@ -39,7 +39,7 @@ class CompletedMemberDailyRoutineRepositoryTest {
 
 	@AfterEach
 	void afterEach() {
-		completedMemberDailyRoutineRepository.deleteAllInBatch();
+		completedMemberRoutineRepository.deleteAllInBatch();
 		memberRepository.deleteAllInBatch();
 		dailyRoutineRepository.deleteAllInBatch();
 		dailyThemeRepository.deleteAllInBatch();
@@ -49,20 +49,12 @@ class CompletedMemberDailyRoutineRepositoryTest {
 	void 루틴과_회원으로_삭제된_데일리_루틴을_조회한다() {
 		// given
 		Member savedMember = memberRepository.save(MemberFixture.member().build());
-		DailyTheme savedTheme = dailyThemeRepository
-				.save(DailyThemeFixture.dailyTheme().name("테마").imageUrl("url").build());
-		DailyRoutine savedRoutine = dailyRoutineRepository
-				.save(DailyRoutineFixture.dailyRoutine().content("루틴").theme(savedTheme).build());
-
-		completedMemberDailyRoutineRepository.save(CompletedMemberDailyRoutineFixture
-				.completedMemberDailyRoutine()
-				.member(savedMember)
-				.routine(savedRoutine)
-				.build()
-		);
+		DailyTheme savedTheme = dailyThemeRepository.save(DailyThemeFixture.dailyTheme().name("테마").build());
+		DailyRoutine savedRoutine = savedRoutine("루틴", savedTheme);
+		savedCompletedMemberDailyRoutine(savedMember, savedRoutine);
 
 		// when
-		Optional<CompletedMemberDailyRoutine> actual = completedMemberDailyRoutineRepository
+		Optional<CompletedMemberDailyRoutine> actual = completedMemberRoutineRepository
 				.findByMemberAndRoutine(savedMember, savedRoutine);
 
 		// then
@@ -71,5 +63,17 @@ class CompletedMemberDailyRoutineRepositoryTest {
 		CompletedMemberDailyRoutine found = actual.get();
 		assertThat(found.getMember().getId()).isEqualTo(savedMember.getId());
 		assertThat(found.getRoutine().getId()).isEqualTo(savedRoutine.getId());
+	}
+
+	private DailyRoutine savedRoutine(String content, DailyTheme theme) {
+		return dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().content(content).theme(theme).build());
+	}
+
+	private CompletedMemberDailyRoutine savedCompletedMemberDailyRoutine(Member member, DailyRoutine routine) {
+		return completedMemberRoutineRepository.save(CompletedMemberDailyRoutineFixture
+				.completedMemberDailyRoutine()
+				.member(member)
+				.routine(routine)
+				.build());
 	}
 }
