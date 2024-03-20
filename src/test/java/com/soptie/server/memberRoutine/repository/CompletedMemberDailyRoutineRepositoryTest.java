@@ -5,14 +5,14 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.entity.daily.CompletedMemberDailyRoutine;
-import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
@@ -23,8 +23,9 @@ import com.soptie.server.support.DailyThemeFixture;
 import com.soptie.server.support.MemberFixture;
 import com.soptie.server.support.RepositoryTest;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@SuppressWarnings("NonAsciiCharacters")
 @RepositoryTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class CompletedMemberDailyRoutineRepositoryTest {
 
 	@Autowired
@@ -36,26 +37,39 @@ class CompletedMemberDailyRoutineRepositoryTest {
 	@Autowired
 	DailyThemeRepository dailyThemeRepository;
 
-	@Test
-	void 루틴과_회원으로_조회할_수_있다() {
-		// given
-		Member member = memberRepository.save(MemberFixture.member().build());
-		DailyTheme theme = dailyThemeRepository.save(DailyThemeFixture.dailyTheme().id(1L).name("테마").imageUrl("https://www...").build());
-		DailyRoutine dailyRoutine = dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(1L).content("루틴").theme(theme).build());
+	@AfterEach
+	void afterEach() {
+		completedMemberDailyRoutineRepository.deleteAllInBatch();
+		memberRepository.deleteAllInBatch();
+		dailyRoutineRepository.deleteAllInBatch();
+		dailyThemeRepository.deleteAllInBatch();
+	}
 
-		CompletedMemberDailyRoutine completedMemberDailyRoutine = CompletedMemberDailyRoutineFixture
-				.completedMemberDailyRoutine().member(member).routine(dailyRoutine).build();
-		completedMemberDailyRoutineRepository.save(completedMemberDailyRoutine);
+	@Test
+	void 루틴과_회원으로_삭제된_데일리_루틴을_조회한다() {
+		// given
+		Member savedMember = memberRepository.save(MemberFixture.member().build());
+		DailyTheme savedTheme = dailyThemeRepository
+				.save(DailyThemeFixture.dailyTheme().name("테마").imageUrl("url").build());
+		DailyRoutine savedRoutine = dailyRoutineRepository
+				.save(DailyRoutineFixture.dailyRoutine().content("루틴").theme(savedTheme).build());
+
+		completedMemberDailyRoutineRepository.save(CompletedMemberDailyRoutineFixture
+				.completedMemberDailyRoutine()
+				.member(savedMember)
+				.routine(savedRoutine)
+				.build()
+		);
 
 		// when
 		Optional<CompletedMemberDailyRoutine> actual = completedMemberDailyRoutineRepository
-				.findByMemberAndRoutine(member, dailyRoutine);
+				.findByMemberAndRoutine(savedMember, savedRoutine);
 
 		// then
 		assertThat(actual).isNotEmpty();
 
 		CompletedMemberDailyRoutine found = actual.get();
-		assertThat(found.getMember().getId()).isEqualTo(member.getId());
-		assertThat(found.getRoutine().getId()).isEqualTo(dailyRoutine.getId());
+		assertThat(found.getMember().getId()).isEqualTo(savedMember.getId());
+		assertThat(found.getRoutine().getId()).isEqualTo(savedRoutine.getId());
 	}
 }
