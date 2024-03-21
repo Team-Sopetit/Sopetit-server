@@ -53,6 +53,13 @@ public class CompletedMemberDailyRoutine {
 		this.routine = routine.getRoutine();
 	}
 
+	public CompletedMemberDailyRoutine(Long id, Member member, DailyRoutine dailyRoutine, int achieveCount) {
+		this.id = id;
+		this.member = member;
+		this.routine = dailyRoutine;
+		this.achieveCount = achieveCount;
+	}
+
 	private void setMember(MemberDailyRoutine routine) {
 		routine.getMember().getDailyRoutines().remove(routine);
 		this.member = routine.getMember();

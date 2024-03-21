@@ -7,6 +7,8 @@ import com.soptie.server.routine.entity.daily.DailyRoutine;
 public class MemberDailyRoutineFixture {
 
 	private Long id;
+	private boolean isAchieve = false;
+	private int achieveCount = 0;
 	private Member member = MemberFixture.member().build();
 	private DailyRoutine routine = DailyRoutineFixture.dailyRoutine().build();
 
@@ -22,6 +24,16 @@ public class MemberDailyRoutineFixture {
 		return this;
 	}
 
+	public MemberDailyRoutineFixture isAchieve(boolean isAchieve) {
+		this.isAchieve = isAchieve;
+		return this;
+	}
+
+	public MemberDailyRoutineFixture achieveCount(int achieveCount) {
+		this.achieveCount = achieveCount;
+		return this;
+	}
+
 	public MemberDailyRoutineFixture member(Member member) {
 		this.member = member;
 		return this;
@@ -33,6 +45,6 @@ public class MemberDailyRoutineFixture {
 	}
 
 	public MemberDailyRoutine build() {
-		return new MemberDailyRoutine(id, member, routine);
+		return new MemberDailyRoutine(id, member, routine, isAchieve, achieveCount);
 	}
 }

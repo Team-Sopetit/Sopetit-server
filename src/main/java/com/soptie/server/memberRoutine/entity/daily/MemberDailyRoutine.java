@@ -45,10 +45,12 @@ public class MemberDailyRoutine {
 		this.routine = routine;
 	}
 
-	public MemberDailyRoutine(Long id, Member member, DailyRoutine routine) {
+	public MemberDailyRoutine(Long id, Member member, DailyRoutine routine, boolean isAchieve, int achieveCount) {
 		this.id = id;
 		this.member = member;
 		this.routine = routine;
+		this.isAchieve = isAchieve;
+		this.achieveCount = achieveCount;
 	}
 
 	public MemberDailyRoutine(Member member, DailyRoutine routine, int achieveCount) {
