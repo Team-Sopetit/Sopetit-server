@@ -55,24 +55,24 @@ class MemberDailyRoutineRepositoryTest {
 		DailyRoutine savedRoutine2 = savedRoutine("나다", savedTheme);
 		DailyRoutine savedRoutine3 = savedRoutine("다", savedTheme);
 
-		MemberDailyRoutine savedDailyRoutine1 = savedMemberRoutine(savedMember, false, 5, savedRoutine3);
-		MemberDailyRoutine savedDailyRoutine2 = savedMemberRoutine(savedMember, false, 5, savedRoutine2);
-		MemberDailyRoutine savedDailyRoutine3 = savedMemberRoutine(savedMember, false, 3, savedRoutine1);
-		MemberDailyRoutine savedDailyRoutine4 = savedMemberRoutine(savedMember, true, 1, savedRoutine1);
-		MemberDailyRoutine savedDailyRoutine5 = savedMemberRoutine(savedMember, true, 3, savedRoutine2);
-		MemberDailyRoutine savedDailyRoutine6 = savedMemberRoutine(savedMember, true, 5, savedRoutine3);
+		MemberDailyRoutine secondDailyRoutine1 = savedMemberRoutine(savedMember, false, 5, savedRoutine3);
+		MemberDailyRoutine firstDailyRoutine = savedMemberRoutine(savedMember, false, 5, savedRoutine2);
+		MemberDailyRoutine thirdDailyRoutine3 = savedMemberRoutine(savedMember, false, 3, savedRoutine1);
+		MemberDailyRoutine sixthDailyRoutine4 = savedMemberRoutine(savedMember, true, 1, savedRoutine1);
+		MemberDailyRoutine fifthDailyRoutine5 = savedMemberRoutine(savedMember, true, 3, savedRoutine2);
+		MemberDailyRoutine fourthDailyRoutine6 = savedMemberRoutine(savedMember, true, 5, savedRoutine3);
 
 		// when
 		List<MemberDailyRoutine> actual = memberDailyRoutineRepository.findAllByMember(savedMember);
 
 		// then
 		assertThat(actual).hasSize(6);
-		assertThat(actual.get(0)).isEqualTo(savedDailyRoutine2);
-		assertThat(actual.get(1)).isEqualTo(savedDailyRoutine1);
-		assertThat(actual.get(2)).isEqualTo(savedDailyRoutine3);
-		assertThat(actual.get(3)).isEqualTo(savedDailyRoutine6);
-		assertThat(actual.get(4)).isEqualTo(savedDailyRoutine5);
-		assertThat(actual.get(5)).isEqualTo(savedDailyRoutine4);
+		assertThat(actual.get(0)).isEqualTo(firstDailyRoutine);
+		assertThat(actual.get(1)).isEqualTo(secondDailyRoutine1);
+		assertThat(actual.get(2)).isEqualTo(thirdDailyRoutine3);
+		assertThat(actual.get(3)).isEqualTo(fourthDailyRoutine6);
+		assertThat(actual.get(4)).isEqualTo(fifthDailyRoutine5);
+		assertThat(actual.get(5)).isEqualTo(sixthDailyRoutine4);
 	}
 
 	private MemberDailyRoutine savedMemberRoutine(
