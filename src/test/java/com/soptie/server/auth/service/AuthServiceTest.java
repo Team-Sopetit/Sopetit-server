@@ -5,15 +5,14 @@ import com.soptie.server.auth.jwt.JwtTokenProvider;
 import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.member.fixture.MemberFixture;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.support.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.Authentication;
 
 import java.util.Optional;
 
@@ -36,11 +35,12 @@ class AuthServiceTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @Test
-    @DisplayName("회원 탈퇴를 하면 리프레시 토큰 값이 null이 된다.")
-    void 회원_탈퇴를_하면_리프레시_토큰을_비울_수_있다() {
+    @DisplayName("로그아웃을 하면 리프레시 토큰 값이 null이 된다.")
+    void 로그아웃을_하면_리프레시_토큰이_비워진다() {
         // given
-        Member member = getMember().get();
-        doReturn(Optional.of(member)).when(memberRepository).findById(1L);
+        long memberId = 1L;
+        Member member = member(memberId);
+        doReturn(Optional.of(member)).when(memberRepository).findById(memberId);
         member.updateRefreshToken("refreshToken");
 
         // when
@@ -51,28 +51,28 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("파러미터로 받은 리프레시 토큰을 가지고 있는 멤버가 있다면 액세스 토큰과 리프레시 토큰을 재발급 해준다.")
-    void 리프레시_토큰을_가지고_있는_멤버가_있다면_토큰_세트를_재발급_해줄_수_있다() {
+    @DisplayName("파러미터로 받은 리프레시 토큰을 가지고 있는 멤버가 있다면 액세스 토큰을 재발급 해준다.")
+    void 리프레시_토큰을_가지고_있는_멤버가_있다면_액세스_토큰을_재발급_해줄_수_있다() {
         // given
-        Member member = getMember().get();
-        doReturn(Optional.of(member)).when(memberRepository).findByRefreshToken("refreshToken");
+        long memberId = 1L;
+        Member member = member(memberId);
+        String token = "refreshToken";
+        doReturn(Optional.of(member)).when(memberRepository).findByRefreshToken(token);
         doReturn("Bearer ").when(valueConfig).getBEARER_HEADER();
         doReturn("").when(valueConfig).getBLANK();
         doReturn(60000L).when(valueConfig).getAccessTokenExpired();
-        doReturn("token").when(jwtTokenProvider)
+        doReturn(token).when(jwtTokenProvider)
                 .generateToken(new UserAuthentication(member.getId(), null, null), 60000L);
 
         // when
-        TokenResponse result = authService.reissueToken("Bearer refreshToken");
+        TokenResponse result = authService.reissueToken("Bearer " + token);
 
         // then
-        assertThat(result).isEqualTo(TokenResponse.of("token"));
+        assertThat(result).isEqualTo(TokenResponse.of(token));
     }
 
-
-
-    Optional<Member> getMember() {
-        Member member = MemberFixture.getMember();
-        return Optional.of(member);
+    private Member member(long memberId) {
+        Member member = MemberFixture.member().id(memberId).build();
+        return member;
     }
 }
