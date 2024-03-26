@@ -48,6 +48,10 @@ public class MemberDoll extends BaseTime {
 		setName(name);
 	}
 
+	public MemberDoll(Long id) {
+		this.id = id;
+	}
+
 	private void setMember(Member member) {
 		this.member = member;
 		member.setMemberDoll(this);
