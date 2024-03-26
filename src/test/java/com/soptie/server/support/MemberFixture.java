@@ -1,10 +1,14 @@
 package com.soptie.server.support;
 
+import com.soptie.server.member.entity.Cotton;
 import com.soptie.server.member.entity.Member;
+import com.soptie.server.memberDoll.entity.MemberDoll;
 
 public class MemberFixture {
 
 	private Long id;
+	private MemberDoll memberDoll;
+	private int dailyCottonCount;
 
 	private MemberFixture() {
 	}
@@ -18,7 +22,17 @@ public class MemberFixture {
 		return this;
 	}
 
+	public MemberFixture dailyCotton(int dailyCottonCount) {
+		this.dailyCottonCount = dailyCottonCount;
+		return this;
+	}
+
+	public MemberFixture memberDoll(MemberDoll memberDoll) {
+		this.memberDoll = memberDoll;
+		return this;
+	}
+
 	public Member build() {
-		return new Member(id);
+		return new Member(id, memberDoll, dailyCottonCount);
 	}
 }

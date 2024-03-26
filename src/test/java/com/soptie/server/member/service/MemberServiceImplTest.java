@@ -1,13 +1,12 @@
 package com.soptie.server.member.service;
 
-import com.soptie.server.doll.entity.Doll;
+import com.soptie.server.member.entity.Cotton;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
-import com.soptie.server.member.fixture.MemberFixture;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.entity.MemberDoll;
-import org.junit.jupiter.api.BeforeAll;
+import com.soptie.server.support.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,30 +34,41 @@ class MemberServiceImplTest {
     @DisplayName("솜뭉치 개수가 양수일 때 솜뭉치를 줄 수 있다.")
     void canGiveCottonWhenCottonCountIsPositive() {
         // given
-        Member member = getMember().get();
-        doReturn(Optional.of(member)).when(memberRepository).findById(1L);
-        member.addDailyCotton();
+        long memberId = 1L;
+        MemberDoll memberDoll = new MemberDoll(1L);
+        Member member = member(memberId, memberDoll, 1);
+        int beforeCotton = member.getCottonInfo().getDailyCottonCount();
 
         // when
         memberService.giveCotton(member.getId(), CottonType.DAILY);
 
         // then
-        assertThat(member.getCottonInfo().getDailyCottonCount()).isZero();
+        assertThat(member.getCottonInfo().getDailyCottonCount()).isEqualTo(beforeCotton - 1);
     }
 
     @Test
     @DisplayName("솜뭉치 개수가 0일 때 솜뭉치를 주려 하면 예외가 발생한다.")
     void occurExceptionGiveCottonWhenCottonCountIsZero() {
+        // given
+        long memberId = 1L;
+        MemberDoll memberDoll = new MemberDoll(1L);
+        Member member = member(memberId, memberDoll);
+
         // when, then
-        Member member = getMember().get();
-        doReturn(Optional.of(member)).when(memberRepository).findById(1L);
         assertThatThrownBy(() -> memberService.giveCotton(member.getId(), CottonType.DAILY))
                 .isInstanceOf(MemberException.class)
                 .hasMessage("[MemberException] : " + NOT_ENOUGH_COTTON.getMessage());
     }
 
-    Optional<Member> getMember() {
-        Member member = MemberFixture.getMember();
-        return Optional.of(member);
+    private Member member(long memberId, MemberDoll memberDoll) {
+        Member member = MemberFixture.member().id(memberId).memberDoll(memberDoll).build();
+        doReturn(Optional.of(member)).when(memberRepository).findById(1L);
+        return member;
+    }
+
+    private Member member(long memberId, MemberDoll memberDoll, int dailyCottonCount) {
+        Member member = MemberFixture.member().id(memberId).memberDoll(memberDoll).dailyCotton(dailyCottonCount).build();
+        doReturn(Optional.of(member)).when(memberRepository).findById(1L);
+        return member;
     }
 }
