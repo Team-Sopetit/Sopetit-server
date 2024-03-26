@@ -20,4 +20,11 @@ public class HappinessRoutine {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theme_id")
 	private HappinessTheme theme;
+
+
+	public HappinessRoutine(Long id, String title, HappinessTheme theme) {
+		this.id = id;
+		this.title = title;
+		this.theme = theme;
+	}
 }

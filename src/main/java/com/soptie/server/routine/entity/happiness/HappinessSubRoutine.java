@@ -27,4 +27,13 @@ public class HappinessSubRoutine {
 	@ManyToOne
 	@JoinColumn(name = "routine_id")
 	private HappinessRoutine routine;
+
+	public HappinessSubRoutine(Long id, String content, String detailContent, String timeTaken, String place, HappinessRoutine routine) {
+		this.id = id;
+		this.content = content;
+		this.detailContent = detailContent;
+		this.timeTaken = timeTaken;
+		this.place = place;
+		this.routine = routine;
+	}
 }
