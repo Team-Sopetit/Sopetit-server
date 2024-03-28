@@ -4,12 +4,11 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 
-
 public class MemberHappinessRoutineFixture {
 
     private Long id;
     private Member member = MemberFixture.member().build();
-    private HappinessRoutine routine = HappinessSubRoutineFixture.happinessRoutine().build().getRoutine();
+    private HappinessRoutine routine = HappinessRoutineFixture.happinessRoutine().build();
 
     private MemberHappinessRoutineFixture() {
     }
@@ -34,6 +33,6 @@ public class MemberHappinessRoutineFixture {
     }
 
     public MemberHappinessRoutine build() {
-        return new MemberHappinessRoutine(id, member);
+        return new MemberHappinessRoutine(id, member, routine);
     }
 }

@@ -1,6 +1,7 @@
 package com.soptie.server.routine.entity.happiness;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +28,14 @@ public class HappinessSubRoutine {
 	@ManyToOne
 	@JoinColumn(name = "routine_id")
 	private HappinessRoutine routine;
+	@Builder
+	public HappinessSubRoutine(String content, String detailContent, String timeTaken, String place, HappinessRoutine routine) {
+		this.content = content;
+		this.detailContent = detailContent;
+		this.timeTaken = timeTaken;
+		this.place = place;
+		this.routine = routine;
+	}
 
 	public HappinessSubRoutine(Long id, String content, String detailContent, String timeTaken, String place, HappinessRoutine routine) {
 		this.id = id;
