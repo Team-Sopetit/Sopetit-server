@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
@@ -139,16 +140,58 @@ class MemberDailyRoutineServiceImplTest {
 		assertThat(memberRoutineIds).containsExactlyInAnyOrder(1L, 2L, 3L);
 	}
 
-	private Member member(long memberId) {
-		Member member = MemberFixture.member().id(memberId).build();
-		doReturn(Optional.of(member)).when(memberRepository).findById(memberId);
+	@Test
+	void 회원이_데일리_루틴을_달성하면_회원의_루틴_달성_정보가_업데이트된다() {
+		// given
+		long memberId = 1L;
+		int dailyCottonCount = 0;
+		Member member = member(memberId, dailyCottonCount);
+
+		DailyRoutine routine = DailyRoutineFixture.dailyRoutine().id(2L).build();
+
+		long memberRoutineId = 3L;
+		int achieveCount = 0;
+		MemberDailyRoutine memberDailyRoutine = memberDailyRoutine(memberRoutineId, achieveCount, member, routine);
+		member.getDailyRoutines().add(memberDailyRoutine);
+
+		// when
+		final AchievedMemberDailyRoutineResponse actual = memberDailyRoutineService
+				.achieveMemberDailyRoutine(memberId, memberRoutineId);
+
+		// then
+		MemberDailyRoutine memberRoutine = member.getDailyRoutines().get(0);
+		assertThat(memberRoutine.isAchieve()).isTrue();
+		assertThat(memberRoutine.getAchieveCount()).isEqualTo(achieveCount + 1);
+		assertThat(member.getCottonInfo().getDailyCottonCount()).isEqualTo(dailyCottonCount + 1);
+
+		assertThat(actual.routineId()).isEqualTo(memberRoutineId);
+		assertThat(actual.isAchieve()).isTrue();
+		assertThat(actual.achieveCount()).isEqualTo(achieveCount + 1);
+	}
+
+	private Member member(long id) {
+		Member member = MemberFixture.member().id(id).build();
+		doReturn(Optional.of(member)).when(memberRepository).findById(id);
 		return member;
 	}
 
-	private DailyRoutine dailyRoutine(long routineId) {
-		DailyRoutine dailyRoutine = DailyRoutineFixture.dailyRoutine().id(routineId).build();
-		doReturn(Optional.of(dailyRoutine)).when(dailyRoutineRepository).findById(routineId);
+	private Member member(long id, int dailyCottonCount) {
+		Member member = MemberFixture.member().id(id).dailyCotton(dailyCottonCount).build();
+		doReturn(Optional.of(member)).when(memberRepository).findById(id);
+		return member;
+	}
+
+	private DailyRoutine dailyRoutine(long id) {
+		DailyRoutine dailyRoutine = DailyRoutineFixture.dailyRoutine().id(id).build();
+		doReturn(Optional.of(dailyRoutine)).when(dailyRoutineRepository).findById(id);
 		return dailyRoutine;
+	}
+
+	private MemberDailyRoutine memberDailyRoutine(long id, int achieveCount, Member member, DailyRoutine routine) {
+		MemberDailyRoutine memberRoutine = MemberDailyRoutineFixture.memberRoutine()
+				.id(id).member(member).routine(routine).achieveCount(achieveCount).build();
+		doReturn(Optional.of(memberRoutine)).when(memberDailyRoutineRepository).findById(id);
+		return memberRoutine;
 	}
 
 }

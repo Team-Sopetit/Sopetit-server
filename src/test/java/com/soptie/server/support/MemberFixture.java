@@ -1,6 +1,5 @@
 package com.soptie.server.support;
 
-import com.soptie.server.member.entity.Cotton;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 
@@ -8,7 +7,7 @@ public class MemberFixture {
 
 	private Long id;
 	private MemberDoll memberDoll;
-	private int dailyCottonCount;
+	private int dailyCottonCount = 0;
 
 	private MemberFixture() {
 	}
