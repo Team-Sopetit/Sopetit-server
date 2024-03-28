@@ -2,13 +2,13 @@ package com.soptie.server.support;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
-import com.soptie.server.routine.entity.happiness.HappinessRoutine;
+import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 
 public class MemberHappinessRoutineFixture {
 
     private Long id;
-    private Member member = MemberFixture.member().build();
-    private HappinessRoutine routine = HappinessRoutineFixture.happinessRoutine().build();
+    private Member member;
+    private HappinessSubRoutine routine;
 
     private MemberHappinessRoutineFixture() {
     }
@@ -27,7 +27,7 @@ public class MemberHappinessRoutineFixture {
         return this;
     }
 
-    public MemberHappinessRoutineFixture routine(HappinessRoutine routine) {
+    public MemberHappinessRoutineFixture routine(HappinessSubRoutine routine) {
         this.routine = routine;
         return this;
     }

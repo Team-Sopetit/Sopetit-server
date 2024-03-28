@@ -6,10 +6,10 @@ import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
-import com.soptie.server.routine.entity.happiness.HappinessRoutine;
+import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
+import com.soptie.server.routine.repository.happiness.routine.HappinessSubRoutineRepository;
 import com.soptie.server.support.MemberFixture;
-import com.soptie.server.support.HappinessRoutineFixture;
 import com.soptie.server.support.MemberHappinessRoutineFixture;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -23,6 +23,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -39,6 +40,9 @@ public class MemberHappinessRoutineServiceImplTest {
     @Mock
     private HappinessRoutineRepository happinessRoutineRepository;
 
+    @Mock
+    private HappinessSubRoutineRepository happinessSubRoutineRepository;
+
 
     @Test
     void 회원이_행복루틴을_추가하면_회원의_행복루틴이_생성된다() {
@@ -47,12 +51,13 @@ public class MemberHappinessRoutineServiceImplTest {
         Member member = member(memberId);
 
         long routineId = 2L;
-        HappinessRoutine happinessRoutine = happinessRoutine(routineId);
+        HappinessSubRoutine happinessSubRoutine = new HappinessSubRoutine();
 
         MemberHappinessRoutine memberHappinessRoutine = MemberHappinessRoutineFixture.memberHappinessRoutine()
-                .id(3L).member(member).routine(happinessRoutine).build();
+                .id(3L).member(member).routine(happinessSubRoutine).build();
 
         doReturn(memberHappinessRoutine).when(memberHappinessRoutineRepository).save(any(MemberHappinessRoutine.class));
+        doReturn(Optional.of(happinessSubRoutine)).when(happinessSubRoutineRepository).findById(anyLong());
 
         // when
         final MemberHappinessRoutineRequest request = new MemberHappinessRoutineRequest(routineId);
@@ -66,12 +71,6 @@ public class MemberHappinessRoutineServiceImplTest {
         Member member = MemberFixture.member().id(memberId).build();
         doReturn(Optional.of(member)).when(memberRepository).findById(memberId);
         return member;
-    }
-
-    private HappinessRoutine happinessRoutine(long routineId) {
-        HappinessRoutine happinessRoutine = HappinessRoutineFixture.happinessRoutine().id(routineId).build();
-        doReturn(Optional.of(happinessRoutine)).when(happinessRoutineRepository).findById(routineId);
-        return happinessRoutine;
     }
 
 }

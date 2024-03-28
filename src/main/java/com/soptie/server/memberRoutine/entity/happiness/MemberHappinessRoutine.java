@@ -1,7 +1,7 @@
 package com.soptie.server.memberRoutine.entity.happiness;
 
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.routine.entity.happiness.HappinessRoutine;
+import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,11 +23,11 @@ public class MemberHappinessRoutine {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "routine_id")
-	private HappinessRoutine routine;
+	private HappinessSubRoutine routine;
 
-	public MemberHappinessRoutine(Long id, Member member, HappinessRoutine routine) {
+	public MemberHappinessRoutine(Long id, Member member, HappinessSubRoutine routine) {
 		this.id = id;
-		setMember(member);
+		this.member = member;
 		this.routine = routine;
 	}
 
@@ -36,7 +36,7 @@ public class MemberHappinessRoutine {
 		this.id = id;
 	}
 
-	public MemberHappinessRoutine(Member member, HappinessRoutine routine) {
+	public MemberHappinessRoutine(Member member, HappinessSubRoutine routine) {
 		setMember(member);
 		this.routine = routine;
 	}
