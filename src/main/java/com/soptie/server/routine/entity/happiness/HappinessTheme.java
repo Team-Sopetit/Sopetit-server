@@ -1,13 +1,7 @@
 package com.soptie.server.routine.entity.happiness;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
@@ -28,8 +22,16 @@ public class HappinessTheme {
 	@Embedded
 	private RoutineImage imageInfo;
 
-	public HappinessTheme(Long id, String name) {
+	@Builder
+	public HappinessTheme(String name, String nameColor, RoutineImage imageInfo) {
+		this.name = name;
+		this.nameColor = nameColor;
+		this.imageInfo = imageInfo;
+	}
+	public HappinessTheme(Long id, String name, String nameColor, String iconImageUrl, String contentImageUrl, String twinkleIconImageUrl) {
 		this.id = id;
 		this.name = name;
+		this.nameColor = nameColor;
+		this.imageInfo = new RoutineImage(iconImageUrl, contentImageUrl, twinkleIconImageUrl);
 	}
 }

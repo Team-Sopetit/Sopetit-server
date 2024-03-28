@@ -14,6 +14,7 @@ public class HappinessRoutineFixture {
 	private static final String ICON_IMAGE_URL = "icon_image_url";
 
 
+
 	public static HappinessThemesResponse createHappinessThemesResponseDTO() {
 		List<HappinessThemesResponse.HappinessThemeResponse> routines = createHappinessThemeResponses();
 		return new HappinessThemesResponse(routines);
