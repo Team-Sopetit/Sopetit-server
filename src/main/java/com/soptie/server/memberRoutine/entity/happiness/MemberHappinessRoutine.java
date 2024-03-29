@@ -32,7 +32,7 @@ public class MemberHappinessRoutine {
 	}
 
 	public MemberHappinessRoutine(Long id, Member member) {
-		setMember(member);
+		this.member = member;
 		this.id = id;
 	}
 

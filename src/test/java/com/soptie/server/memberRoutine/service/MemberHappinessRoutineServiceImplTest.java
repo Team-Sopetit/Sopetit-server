@@ -7,7 +7,6 @@ import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
-import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
 import com.soptie.server.routine.repository.happiness.routine.HappinessSubRoutineRepository;
 import com.soptie.server.support.MemberFixture;
 import com.soptie.server.support.MemberHappinessRoutineFixture;
@@ -37,8 +36,6 @@ public class MemberHappinessRoutineServiceImplTest {
     private MemberHappinessRoutineRepository memberHappinessRoutineRepository;
     @Mock
     private MemberRepository memberRepository;
-    @Mock
-    private HappinessRoutineRepository happinessRoutineRepository;
 
     @Mock
     private HappinessSubRoutineRepository happinessSubRoutineRepository;

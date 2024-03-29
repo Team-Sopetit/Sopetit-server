@@ -38,7 +38,6 @@ public class HappinessThemeFixture {
         return this;
     }
 
-
     public HappinessTheme build() {
         return new HappinessTheme(id, name, nameColor, iconImageUrl, contentImageUrl, twinkleIconImageUrl);
     }

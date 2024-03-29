@@ -22,7 +22,6 @@ public class HappinessRoutine {
 	@JoinColumn(name = "theme_id")
 	private HappinessTheme theme;
 
-
 	@Builder
 	public HappinessRoutine(String title, HappinessTheme theme) {
 		this.title = title;
@@ -34,6 +33,5 @@ public class HappinessRoutine {
 		this.title = title;
 		this.theme = theme;
 	}
-
 
 }

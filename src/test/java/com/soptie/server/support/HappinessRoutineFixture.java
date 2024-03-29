@@ -15,6 +15,7 @@ public class HappinessRoutineFixture {
     public static HappinessRoutineFixture happinessRoutine() {
         return new HappinessRoutineFixture();
     }
+
     public HappinessRoutineFixture id(Long id) {
         this.id = id;
         return this;

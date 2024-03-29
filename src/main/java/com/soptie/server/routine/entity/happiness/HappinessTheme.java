@@ -28,6 +28,7 @@ public class HappinessTheme {
 		this.nameColor = nameColor;
 		this.imageInfo = imageInfo;
 	}
+
 	public HappinessTheme(Long id, String name, String nameColor, String iconImageUrl, String contentImageUrl, String twinkleIconImageUrl) {
 		this.id = id;
 		this.name = name;
