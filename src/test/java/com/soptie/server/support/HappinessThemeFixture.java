@@ -6,6 +6,10 @@ public class HappinessThemeFixture {
     private Long id;
 
     private String name;
+    private String nameColor;
+    private String iconImageUrl;
+    private String contentImageUrl;
+    private String twinkleIconImageUrl;
 
     private HappinessThemeFixture() {
     }
@@ -22,8 +26,19 @@ public class HappinessThemeFixture {
         return this;
     }
 
+    public HappinessThemeFixture nameColor(String nameColor) {
+        this.nameColor = nameColor;
+        return this;
+    }
+
+    public HappinessThemeFixture imageUrl(String imageUrl) {
+        this.iconImageUrl = imageUrl;
+        this.contentImageUrl = imageUrl;
+        this.twinkleIconImageUrl = imageUrl;
+        return this;
+    }
 
     public HappinessTheme build() {
-        return new HappinessTheme(id, name);
+        return new HappinessTheme(id, name, nameColor, iconImageUrl, contentImageUrl, twinkleIconImageUrl);
     }
 }

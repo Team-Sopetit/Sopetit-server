@@ -1,21 +1,12 @@
 package com.soptie.server.memberRoutine.entity.happiness;
 
-import java.util.Objects;
-
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -33,6 +24,17 @@ public class MemberHappinessRoutine {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "routine_id")
 	private HappinessSubRoutine routine;
+
+	public MemberHappinessRoutine(Long id, Member member, HappinessSubRoutine routine) {
+		this.id = id;
+		this.member = member;
+		this.routine = routine;
+	}
+
+	public MemberHappinessRoutine(Long id, Member member) {
+		this.member = member;
+		this.id = id;
+	}
 
 	public MemberHappinessRoutine(Member member, HappinessSubRoutine routine) {
 		setMember(member);
