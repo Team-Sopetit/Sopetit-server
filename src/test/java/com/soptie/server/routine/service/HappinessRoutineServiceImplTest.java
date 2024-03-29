@@ -45,7 +45,6 @@ class HappinessRoutineServiceImplTest {
         // then
         List<Long> themeIds = actual.themes().stream().map(HappinessThemesResponse.HappinessThemeResponse::themeId).toList();
         assertThat(themeIds).containsExactly(1L, 2L);
-
     }
 
     @Test
