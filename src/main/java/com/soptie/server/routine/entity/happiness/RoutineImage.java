@@ -5,7 +5,7 @@ import lombok.*;
 
 @Embeddable
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Builder
 @Getter
 public class RoutineImage {
