@@ -52,6 +52,13 @@ public class MemberDoll extends BaseTime {
 		this.id = id;
 	}
 
+	public MemberDoll(Long id, String name, int happinessCottonCount, Doll doll) {
+		this.id = id;
+		this.name = name;
+		this.happinessCottonCount = happinessCottonCount;
+		this.doll = doll;
+	}
+
 	private void setMember(Member member) {
 		this.member = member;
 		member.setMemberDoll(this);
