@@ -4,6 +4,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
+import com.soptie.server.memberRoutine.dto.MemberHappinessRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
@@ -24,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -62,6 +64,20 @@ public class MemberHappinessRoutineServiceImplTest {
 
         // then
         assertThat(actual.routineId()).isEqualTo(memberHappinessRoutine.getId());
+    }
+
+    @Test
+    void 회원이_추가한_행복_루틴이_없는_경우_조회한다() {
+        // given
+        long memberId = 1L;
+        Member member = member(memberId);
+
+        // when
+        when(memberRepository.findById(memberId)).thenReturn(Optional.of(member));
+        Optional<MemberHappinessRoutinesResponse> result = memberHappinessRoutineService.getMemberHappinessRoutine(memberId);
+
+        // then
+        assertThat(result).isEmpty();
     }
 
     private Member member(long memberId) {
