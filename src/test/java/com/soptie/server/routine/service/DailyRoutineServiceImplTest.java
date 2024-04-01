@@ -19,11 +19,10 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
-import com.soptie.server.routine.dto.DailyRoutineResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
-import com.soptie.server.routine.dto.DailyThemesResponse;
-import com.soptie.server.routine.dto.DailyThemesResponse.DailyThemeResponse;
+import com.soptie.server.routine.dto.daily.DailyRoutinesByThemeGetResponse;
+import com.soptie.server.routine.dto.daily.DailyRoutinesByThemesGetResponse;
+import com.soptie.server.routine.dto.daily.DailyThemesGetResponse;
+import com.soptie.server.routine.dto.daily.DailyThemesGetResponse.DailyThemeResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.exception.RoutineException;
@@ -58,7 +57,7 @@ class DailyRoutineServiceImplTest {
 		doReturn(dailyThemes).when(dailyThemeRepository).findAllOrderByNameAsc();
 
 		// when
-		final DailyThemesResponse actual = dailyRoutineService.getThemes();
+		final DailyThemesGetResponse actual = dailyRoutineService.getThemes();
 
 		// then
 		List<Long> themeIds = actual.themes().stream().map(DailyThemeResponse::themeId).toList();
@@ -78,10 +77,10 @@ class DailyRoutineServiceImplTest {
 		doReturn(routines).when(dailyRoutineRepository).findAllByThemes(themeIds);
 
 		// when
-		final DailyRoutinesByThemesResponse actual = dailyRoutineService.getRoutinesByThemes(themeIds);
+		final DailyRoutinesByThemesGetResponse actual = dailyRoutineService.getRoutinesByThemes(themeIds);
 
 		// then
-		List<Long> routineIds = actual.routines().stream().map(DailyRoutineResponse::routineId).toList();
+		List<Long> routineIds = actual.routines().stream().map(DailyRoutinesByThemesGetResponse.DailyRoutineResponse::routineId).toList();
 		assertThat(routineIds).containsExactlyInAnyOrder(1L, 2L);
 	}
 
@@ -129,10 +128,10 @@ class DailyRoutineServiceImplTest {
 		member.getDailyRoutines().add(memberRoutine);
 
 		// when
-		final DailyRoutinesByThemeResponse actual = dailyRoutineService.getRoutinesByTheme(memberId, themeId);
+		final DailyRoutinesByThemeGetResponse actual = dailyRoutineService.getRoutinesByTheme(memberId, themeId);
 
 		// then
-		List<Long> routineIds = actual.routines().stream().map(DailyRoutineResponse::routineId).toList();
+		List<Long> routineIds = actual.routines().stream().map(DailyRoutinesByThemeGetResponse.DailyRoutineResponse::routineId).toList();
 		assertThat(routineIds).containsExactlyInAnyOrder(2L);
 	}
 

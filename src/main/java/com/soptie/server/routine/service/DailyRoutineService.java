@@ -2,13 +2,13 @@ package com.soptie.server.routine.service;
 
 import java.util.List;
 
-import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
-import com.soptie.server.routine.dto.DailyThemesResponse;
+import com.soptie.server.routine.dto.daily.DailyRoutinesByThemeGetResponse;
+import com.soptie.server.routine.dto.daily.DailyRoutinesByThemesGetResponse;
+import com.soptie.server.routine.dto.daily.DailyThemesGetResponse;
 
 public interface DailyRoutineService {
 
-	DailyThemesResponse getThemes();
-	DailyRoutinesByThemesResponse getRoutinesByThemes(List<Long> themeIds);
-	DailyRoutinesByThemeResponse getRoutinesByTheme(long memberId, long themeId);
+	DailyThemesGetResponse getThemes();
+	DailyRoutinesByThemesGetResponse getRoutinesByThemes(List<Long> themeIds);
+	DailyRoutinesByThemeGetResponse getRoutinesByTheme(long memberId, long themeId);
 }

@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
-import com.soptie.server.routine.dto.DailyThemesResponse;
+import com.soptie.server.routine.dto.daily.DailyRoutinesByThemeGetResponse;
+import com.soptie.server.routine.dto.daily.DailyRoutinesByThemesGetResponse;
+import com.soptie.server.routine.dto.daily.DailyThemesGetResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.exception.RoutineException;
@@ -32,23 +32,23 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 	private final MemberRepository memberRepository;
 
 	@Override
-	public DailyThemesResponse getThemes() {
+	public DailyThemesGetResponse getThemes() {
 		val themes = dailyThemeRepository.findAllOrderByNameAsc();
-		return DailyThemesResponse.of(themes);
+		return DailyThemesGetResponse.of(themes);
 	}
 
 	@Override
-	public DailyRoutinesByThemesResponse getRoutinesByThemes(List<Long> themeIds) {
+	public DailyRoutinesByThemesGetResponse getRoutinesByThemes(List<Long> themeIds) {
 		val routines = dailyRoutineRepository.findAllByThemes(themeIds);
-		return DailyRoutinesByThemesResponse.of(routines);
+		return DailyRoutinesByThemesGetResponse.of(routines);
 	}
 
 	@Override
-	public DailyRoutinesByThemeResponse getRoutinesByTheme(long memberId, long themeId) {
+	public DailyRoutinesByThemeGetResponse getRoutinesByTheme(long memberId, long themeId) {
 		val member = findMember(memberId);
 		val theme = findTheme(themeId);
 		val routines = getRoutines(member, theme);
-		return DailyRoutinesByThemeResponse.of(theme, routines);
+		return DailyRoutinesByThemeGetResponse.of(theme, routines);
 	}
 
 	private Member findMember(long id) {

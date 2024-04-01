@@ -1,4 +1,4 @@
-package com.soptie.server.routine.dto;
+package com.soptie.server.routine.dto.daily;
 
 import java.util.List;
 
@@ -7,12 +7,12 @@ import com.soptie.server.routine.entity.daily.DailyTheme;
 import lombok.Builder;
 import lombok.NonNull;
 
-public record DailyThemesResponse(
+public record DailyThemesGetResponse(
 	@NonNull List<DailyThemeResponse> themes
 ) {
 
-	public static DailyThemesResponse of(List<DailyTheme> themes) {
-		return new DailyThemesResponse(themes.stream().map(DailyThemeResponse::of).toList());
+	public static DailyThemesGetResponse of(List<DailyTheme> themes) {
+		return new DailyThemesGetResponse(themes.stream().map(DailyThemeResponse::of).toList());
 	}
 
 	@Builder

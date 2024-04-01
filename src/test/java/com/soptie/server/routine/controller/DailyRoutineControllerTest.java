@@ -26,9 +26,9 @@ import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.soptie.server.base.BaseControllerTest;
 import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.common.dto.Response;
-import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
-import com.soptie.server.routine.dto.DailyThemesResponse;
+import com.soptie.server.routine.dto.daily.DailyRoutinesByThemeGetResponse;
+import com.soptie.server.routine.dto.daily.DailyRoutinesByThemesGetResponse;
+import com.soptie.server.routine.dto.daily.DailyThemesGetResponse;
 import com.soptie.server.routine.fixture.DailyRoutineFixture;
 
 @WebMvcTest(DailyRoutineController.class)
@@ -48,7 +48,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 	@DisplayName("데일리 루틴 테마 리스트 조회 성공")
 	void success_getDailyThemes() throws Exception {
 		// given
-		DailyThemesResponse themes = DailyRoutineFixture.createDailyThemesResponseDTO();
+		DailyThemesGetResponse themes = DailyRoutineFixture.createDailyThemesResponseDTO();
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("테마 조회 성공", themes));
 
 		// when
@@ -88,7 +88,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 	@DisplayName("테마 리스트 별 데일리 루틴 리스트 조회 성공")
 	void success_getDailyRoutinesByThemes() throws Exception {
 		// given
-		DailyRoutinesByThemesResponse routines = DailyRoutineFixture.createDailyRoutinesByThemesResponseDTO();
+		DailyRoutinesByThemesGetResponse routines = DailyRoutineFixture.createDailyRoutinesByThemesResponseDTO();
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
 
 		MultiValueMap<String, String> queries = new LinkedMultiValueMap<>();
@@ -135,7 +135,7 @@ class DailyRoutineControllerTest extends BaseControllerTest {
 	void success_getDailyRoutinesByTheme() throws Exception {
 		// given
 		long themeId = 1L;
-		DailyRoutinesByThemeResponse routines = DailyRoutineFixture.createDailyRoutinesByThemeResponseDTO();
+		DailyRoutinesByThemeGetResponse routines = DailyRoutineFixture.createDailyRoutinesByThemeResponseDTO();
 		ResponseEntity<Response> response = ResponseEntity.ok(Response.success("루틴 조회 성공", routines));
 
 		// when
