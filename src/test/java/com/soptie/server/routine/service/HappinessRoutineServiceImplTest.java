@@ -4,9 +4,9 @@ import com.soptie.server.routine.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessThemesResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
-import com.soptie.server.routine.entity.happiness.RoutineImage;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
 import com.soptie.server.routine.repository.happiness.theme.HappinessThemeRepository;
+import com.soptie.server.support.HappinessRoutineFixture;
 import com.soptie.server.support.HappinessThemeFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,11 +51,11 @@ class HappinessRoutineServiceImplTest {
     void 주어진_테마에_속하는_행복_루틴_목록을_조회합니다() {
         // given
         long themeId = 1L;
-        RoutineImage imageInfo = new RoutineImage("http://example.com/icon.jpg", "http://example.com/content.jpg", "http://example.com/twinkle.jpg");
-        HappinessTheme theme = new HappinessTheme("사랑", "빨간색", imageInfo);
+        HappinessTheme theme = HappinessThemeFixture.happinessTheme().name("사랑").nameColor("빨간색").imageUrl("imageInfo").build();
 
-        HappinessRoutine routine1 = new HappinessRoutine(1L, "루틴1", theme);
-        HappinessRoutine routine2 = new HappinessRoutine(2L, "루틴2", theme);
+
+        HappinessRoutine routine1 = HappinessRoutineFixture.happinessRoutine().id(1L).title("루틴1").theme(theme).build();
+        HappinessRoutine routine2 = HappinessRoutineFixture.happinessRoutine().id(2L).title("루틴2").theme(theme).build();
         List<HappinessRoutine> routines = Arrays.asList(routine1, routine2);
 
         doReturn(routines).when(happinessRoutineRepository).findAllByThemeId(themeId);
@@ -69,7 +69,6 @@ class HappinessRoutineServiceImplTest {
         assertThat(response.routines().get(0).routineId()).isEqualTo(1L);
         assertThat(response.routines().get(1).routineId()).isEqualTo(2L);
     }
-
 
     private List<HappinessTheme> happinessThemes() {
         return List.of(
