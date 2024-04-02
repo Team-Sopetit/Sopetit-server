@@ -14,6 +14,7 @@ import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollServiceImpl;
 import com.soptie.server.memberRoutine.service.MemberDailyRoutineServiceImpl;
 import com.soptie.server.support.ConversationFixture;
+import com.soptie.server.support.DollFixture;
 import com.soptie.server.support.MemberDollFixture;
 import com.soptie.server.support.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
@@ -106,7 +107,7 @@ class MemberServiceImplTest {
     void 멤버_프로필_정보를_가져온다() {
         // given
         long dollId = 1L;
-        Doll doll = new Doll(dollId, BROWN, "faceImageUrl");
+        Doll doll = doll(dollId, BROWN, "faceImageUrl");
         long memberDollId = 2L;
         MemberDoll memberDoll = memberDoll(memberDollId, "memberDoll", 0, doll);
         long memberId = 3L;
@@ -144,6 +145,11 @@ class MemberServiceImplTest {
         MemberDoll memberDoll = MemberDollFixture.memberDoll().id(memberDollId).name(name)
                 .happinessCottonCount(happinessCottonCount).doll(doll).build();
         return memberDoll;
+    }
+
+    private Doll doll(Long id, DollType dollType, String faceImageUrl) {
+        Doll doll = DollFixture.doll().id(id).dollType(dollType).faceImageUrl(faceImageUrl).build();
+        return doll;
     }
 
     private List<Conversation> conversations(List<Long> conversationIds) {

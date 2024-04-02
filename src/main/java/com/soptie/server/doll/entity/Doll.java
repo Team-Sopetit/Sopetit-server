@@ -34,11 +34,6 @@ public class Doll {
 		this.imageInfo = imageInfo;
 	}
 
-	public Doll(Long id, String faceImageUrl) {
-		this.id = id;
-		this.imageInfo = new DollImage(faceImageUrl, "", "");
-	}
-
 	public Doll(Long id, DollType dollType, String faceImageUrl) {
 		this.id = id;
 		this.dollType = dollType;
