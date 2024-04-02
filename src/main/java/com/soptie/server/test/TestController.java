@@ -15,6 +15,6 @@ public class TestController implements TestApi {
 
 	@GetMapping
 	public ResponseEntity<BaseResponse> test() {
-		return ResponseEntity.ok(success("Success to server connect."));
+		return ResponseEntity.ok(of("Success to server connect."));
 	}
 }
