@@ -25,13 +25,38 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface MemberApi {
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "멤버 프로필 생성",
+            description = "멤버 프로필을 생성한다.",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "성공",
                             content = @Content(schema = @Schema(implementation = SuccessResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "유효하지 않은 인형 타입",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "조건에 맞지 않는 이름",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "유효하지 않은 회원",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "409",
+                            description = "이미 존재하는 프로필",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
                     ),
                     @ApiResponse(
                             responseCode = "500",
@@ -46,10 +71,30 @@ public interface MemberApi {
     );
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "솜뭉치 주기",
+            description = "솜뭉치를 준다.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "성공"),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "솜뭉치 부족",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "유효하지 않은 회원",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "인형을 가지고 있지 않은 회원",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
                     @ApiResponse(
                             responseCode = "500",
                             description = "서버 내부 오류",
@@ -63,10 +108,25 @@ public interface MemberApi {
     );
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "홈 화면 불러오기",
+            description = "홈 화면을 불러온다.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "성공"),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "유효하지 않은 회원",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "인형을 가지고 있지 않은 회원",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
                     @ApiResponse(
                             responseCode = "500",
                             description = "서버 내부 오류",
