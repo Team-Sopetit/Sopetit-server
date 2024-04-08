@@ -54,7 +54,7 @@ public interface HappinessRoutineApi {
             @Parameter(
                     name = "themeId",
                     description = "조회할 행복 루틴 테마 id",
-                    in = ParameterIn.PATH,
+                    in = ParameterIn.QUERY,
                     example = "1"
             ) @RequestParam(required = false) Long themeId
     );
