@@ -1,5 +1,7 @@
 package com.soptie.server.doll.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -18,10 +20,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface DollApi {
 
 	@Operation(
-			summary = "",
-			description = "",
+			summary = "인형 이미지 불러오기",
+			description = "인형 이미지를 불러온다.",
 			responses = {
 					@ApiResponse(responseCode = "200", description = "성공"),
+					@ApiResponse(
+							responseCode = "400",
+							description = "유효하지 않은 인형 타입",
+							content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+					),
+					@ApiResponse(
+							responseCode = "4xx",
+							description = "클라이언트(요청) 오류",
+							content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+					),
 					@ApiResponse(
 							responseCode = "500",
 							description = "서버 내부 오류",
@@ -30,6 +42,11 @@ public interface DollApi {
 			}
 	)
 	ResponseEntity<SuccessResponse<DollImageResponse>> getDollImages(
-			@PathVariable DollType type
+			@Parameter(
+					name = "type",
+					description = "인형 타입",
+					in = ParameterIn.PATH,
+					example = "BROWN"
+			) @PathVariable DollType type
 	);
 }
