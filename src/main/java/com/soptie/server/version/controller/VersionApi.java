@@ -16,8 +16,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface VersionApi {
 
 	@Operation(
-			summary = "",
-			description = "",
+			summary = "모바일 앱 버전 조회",
+			description = "모바일 앱(클라이언트) 버전 정보를 조회합니다.",
 			responses = {
 					@ApiResponse(responseCode = "200", description = "성공"),
 					@ApiResponse(
