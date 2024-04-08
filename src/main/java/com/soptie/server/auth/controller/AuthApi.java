@@ -24,10 +24,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface AuthApi {
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "소셜 로그인",
+            description = "소셜 로그인을 진행한다.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "성공"),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
                     @ApiResponse(
                             responseCode = "500",
                             description = "서버 내부 오류",
@@ -41,10 +46,25 @@ public interface AuthApi {
     );
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "토큰 재발급",
+            description = "리프레시 토큰을 이용해 액세스 토큰을 재발급 받는다.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "성공"),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "유효하지 않은 회원",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
                     @ApiResponse(
                             responseCode = "500",
                             description = "서버 내부 오류",
@@ -57,13 +77,23 @@ public interface AuthApi {
     );
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "로그 아웃",
+            description = "로그 아웃을 한다.",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "성공",
                             content = @Content(schema = @Schema(implementation = SuccessResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "유효하지 않은 회원",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
                     ),
                     @ApiResponse(
                             responseCode = "500",
@@ -75,13 +105,23 @@ public interface AuthApi {
     ResponseEntity<BaseResponse> signOut(@Parameter(hidden = true) Principal principal);
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "회원 탈퇴",
+            description = "회원 탈퇴를 진행한다.",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "성공",
                             content = @Content(schema = @Schema(implementation = SuccessResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "유효하지 않은 회원",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
+                    @ApiResponse(
+                    responseCode = "4xx",
+                    description = "클라이언트(요청) 오류",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))
                     ),
                     @ApiResponse(
                             responseCode = "500",
