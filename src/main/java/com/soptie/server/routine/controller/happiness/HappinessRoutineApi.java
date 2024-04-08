@@ -20,8 +20,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface HappinessRoutineApi {
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "행복 루틴 테마 목록 조회",
+            description = "행복 루틴 테마 전체를 조회한다.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "성공"),
                     @ApiResponse(
@@ -34,10 +34,15 @@ public interface HappinessRoutineApi {
     ResponseEntity<SuccessResponse<HappinessThemesResponse>> getHappinessThemes();
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "테마 목록별 행복 루틴 목록 조회",
+            description = "테마 목록 중 해당되는 행복 루틴 목록을 조회한다.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "성공"),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
                     @ApiResponse(
                             responseCode = "500",
                             description = "서버 내부 오류",
@@ -50,10 +55,15 @@ public interface HappinessRoutineApi {
     );
 
     @Operation(
-            summary = "",
-            description = "",
+            summary = "루틴 별 행복 서브 루틴 내용 조회",
+            description = "루틴에 해당되는 행복 서브 루틴 내용을 조회한다.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "성공"),
+                    @ApiResponse(
+                            responseCode = "4xx",
+                            description = "클라이언트(요청) 오류",
+                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+                    ),
                     @ApiResponse(
                             responseCode = "500",
                             description = "서버 내부 오류",
