@@ -1,6 +1,6 @@
-package com.soptie.server.memberRoutine.controller;
+package com.soptie.server.memberRoutine.controller.daily;
 
-import static com.soptie.server.common.dto.Response.*;
+import static com.soptie.server.common.dto.SuccessResponse.*;
 import static com.soptie.server.memberRoutine.message.SuccessMessage.*;
 
 import java.net.URI;
@@ -19,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.soptie.server.common.dto.Response;
+import com.soptie.server.common.dto.BaseResponse;
+import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
 
@@ -29,18 +33,18 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/routines/daily/member")
-public class MemberDailyRoutineController {
+public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 
 	private final MemberDailyRoutineService memberDailyRoutineService;
 
 	@PostMapping
-	public ResponseEntity<Response> createMemberDailyRoutine(
-		Principal principal, @RequestBody MemberDailyRoutineRequest request) {
+	public ResponseEntity<SuccessResponse<MemberDailyRoutineResponse>> createMemberDailyRoutine(
+			Principal principal,
+			@RequestBody MemberDailyRoutineRequest request
+	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memberDailyRoutineService.createMemberDailyRoutine(memberId, request);
-		return ResponseEntity
-			.created(getURI())
-			.body(success(SUCCESS_CREATE_ROUTINE.getMessage(), response));
+		return ResponseEntity.created(getURI()).body(of(SUCCESS_CREATE_ROUTINE.getMessage(), response));
 	}
 
 	private URI getURI() {
@@ -52,23 +56,29 @@ public class MemberDailyRoutineController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Response> deleteMemberDailyRoutines(Principal principal, @RequestParam List<Long> routines) {
+	public ResponseEntity<BaseResponse> deleteMemberDailyRoutines(
+			Principal principal,
+			@RequestParam List<Long> routines
+	) {
 		val memberId = Long.parseLong(principal.getName());
 		memberDailyRoutineService.deleteMemberDailyRoutines(memberId, routines);
-		return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
+		return ResponseEntity.ok(of(SUCCESS_DELETE_ROUTINE.getMessage()));
 	}
 
 	@PatchMapping("/routine/{routineId}")
-	public ResponseEntity<Response> achieveMemberDailyRoutine(Principal principal, @PathVariable Long routineId) {
+	public ResponseEntity<SuccessResponse<AchievedMemberDailyRoutineResponse>> achieveMemberDailyRoutine(
+			Principal principal,
+			@PathVariable Long routineId
+	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memberDailyRoutineService.achieveMemberDailyRoutine(memberId, routineId);
-		return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
+		return ResponseEntity.ok(of(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
 	}
 
 	@GetMapping
-	public ResponseEntity<Response> getMemberDailyRoutines(Principal principal) {
+	public ResponseEntity<SuccessResponse<MemberDailyRoutinesResponse>> getMemberDailyRoutines(Principal principal) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memberDailyRoutineService.getMemberDailyRoutines(memberId);
-		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
+		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }
