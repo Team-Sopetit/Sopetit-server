@@ -1,20 +1,20 @@
 package com.soptie.server.routine.controller.happiness;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.routine.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessThemesResponse;
-
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "happiness routines", description = "행복 루틴 API")
 public interface HappinessRoutineApi {
@@ -51,7 +51,12 @@ public interface HappinessRoutineApi {
             }
     )
     ResponseEntity<SuccessResponse<HappinessRoutinesResponse>> getHappinessRoutinesByThemes(
-            @RequestParam(required = false) Long themeId
+            @Parameter(
+                    name = "themeId",
+                    description = "조회할 행복 루틴 테마 id",
+                    in = ParameterIn.PATH,
+                    example = "1"
+            ) @RequestParam(required = false) Long themeId
     );
 
     @Operation(
@@ -72,6 +77,11 @@ public interface HappinessRoutineApi {
             }
     )
     ResponseEntity<SuccessResponse<HappinessSubRoutinesResponse>> getHappinessSubRoutinesByRoutineOfTheme(
-            @PathVariable long routineId
+            @Parameter(
+                    name = "routineId",
+                    description = "조회할 서브 행복 루틴 id",
+                    in = ParameterIn.PATH,
+                    example = "1"
+            ) @PathVariable long routineId
     );
 }
