@@ -2,6 +2,7 @@ package com.soptie.server.member.controller;
 
 import java.security.Principal;
 
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -104,7 +105,12 @@ public interface MemberApi {
     )
     ResponseEntity<SuccessResponse<CottonCountResponse>> giveCotton(
             @Parameter(hidden = true) Principal principal,
-            @PathVariable CottonType cottonType
+            @Parameter(
+                    name = "cottonType",
+                    description = "솜뭉치 타입",
+                    in = ParameterIn.PATH,
+                    example = "DAILY"
+            ) @PathVariable CottonType cottonType
     );
 
     @Operation(
