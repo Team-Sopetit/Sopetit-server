@@ -7,6 +7,7 @@ import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -107,6 +108,12 @@ public interface MemberHappinessRoutineApi {
     )
     ResponseEntity<BaseResponse> deleteMemberHappinessRoutine(
             @Parameter(hidden = true) Principal principal,
+            @Parameter(
+                    name = "routineId",
+                    description = "삭제할 회원의 행복 루틴 id",
+                    in = ParameterIn.PATH,
+                    example = "1"
+            )
             @PathVariable Long routineId
     );
 
@@ -138,6 +145,12 @@ public interface MemberHappinessRoutineApi {
     )
     ResponseEntity<BaseResponse> achieveMemberHappinessRoutine(
             @Parameter(hidden = true) Principal principal,
+            @Parameter(
+                    name = "routineId",
+                    description = "달성한 회원의 행복 루틴 id",
+                    in = ParameterIn.PATH,
+                    example = "1"
+            )
             @PathVariable Long routineId
     );
 }
