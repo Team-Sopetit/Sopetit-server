@@ -10,7 +10,7 @@ import org.springframework.test.context.TestExecutionListeners;
 
 @SpringBootTest
 @TestExecutionListeners(
-		value = {DatabaseClearListener.class, RestMockListener.class},
+		value = DatabaseClearListener.class,
 		mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
 )
 @Retention(RetentionPolicy.RUNTIME)
