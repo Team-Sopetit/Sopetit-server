@@ -4,7 +4,7 @@ import com.soptie.server.doll.entity.Doll;
 import com.soptie.server.doll.repository.DollRepository;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberDoll.repository.MemberDollRepository;
-import com.soptie.server.support.MemberFixture;
+import com.soptie.server.support.fixture.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

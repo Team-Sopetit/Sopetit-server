@@ -17,10 +17,10 @@ import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
-import com.soptie.server.support.DailyRoutineFixture;
-import com.soptie.server.support.DailyThemeFixture;
-import com.soptie.server.support.MemberDailyRoutineFixture;
-import com.soptie.server.support.MemberFixture;
+import com.soptie.server.support.fixture.DailyRoutineFixture;
+import com.soptie.server.support.fixture.DailyThemeFixture;
+import com.soptie.server.support.fixture.MemberDailyRoutineFixture;
+import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.RepositoryTest;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)

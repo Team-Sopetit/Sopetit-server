@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
-import com.soptie.server.support.DailyRoutineFixture;
-import com.soptie.server.support.DailyThemeFixture;
+import com.soptie.server.support.fixture.DailyRoutineFixture;
+import com.soptie.server.support.fixture.DailyThemeFixture;
 import com.soptie.server.support.RepositoryTest;
 
 @DisplayNameGeneration(ReplaceUnderscores.class)
