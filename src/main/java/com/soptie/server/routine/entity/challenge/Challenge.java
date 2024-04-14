@@ -22,7 +22,7 @@ public class Challenge {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "routine_id")
+	@Column(name = "challenge_id")
 	private Long id;
 
 	@NotNull
