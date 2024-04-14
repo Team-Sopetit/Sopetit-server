@@ -57,14 +57,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenResponse reissueToken(String refreshToken) {
-        val member = memberRepository.findByRefreshToken(getTokenFromBearerString(refreshToken))
-                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
-        val token = generateAccessToken(new UserAuthentication(member.getId(), null, null));
+        val member = findMember(refreshToken);
+        val token = generateAccessToken(member.getId());
         return TokenResponse.of(token);
-    }
-
-    private String getTokenFromBearerString(String token) {
-        return token.replaceFirst(valueConfig.getBEARER_HEADER(), valueConfig.getBLANK());
     }
 
     @Override
@@ -129,7 +124,17 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new MemberException(INVALID_MEMBER));
     }
 
-    private String generateAccessToken(Authentication authentication) {
+    private Member findMember(String refreshToken) {
+        return memberRepository.findByRefreshToken(getTokenFromBearerString(refreshToken))
+                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
+    }
+
+    private String getTokenFromBearerString(String token) {
+        return token.replaceFirst(valueConfig.getBEARER_HEADER(), valueConfig.getBLANK());
+    }
+
+    private String generateAccessToken(long memberId) {
+        val authentication = new UserAuthentication(memberId, null, null);
         return jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired());
     }
 

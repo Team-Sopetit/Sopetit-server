@@ -46,7 +46,7 @@ class DollServiceImplTest {
     }
 
     private Doll doll(Long id, DollType dollType, String faceImageUrl) {
-        Doll doll = DollFixture.doll().id(id).faceImageUrl(faceImageUrl).build();
+        Doll doll = DollFixture.doll().id(id).dollType(dollType).faceImageUrl(faceImageUrl).build();
         doReturn(Optional.of(doll)).when(dollRepository).findByDollType(dollType);
         return doll;
     }
