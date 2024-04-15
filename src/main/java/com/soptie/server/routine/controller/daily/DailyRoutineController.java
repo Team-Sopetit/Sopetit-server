@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
-import com.soptie.server.routine.dto.DailyThemesResponse;
-import com.soptie.server.routine.service.DailyRoutineService;
+import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemeGetResponse;
+import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemesGetResponse;
+import com.soptie.server.routine.controller.daily.dto.DailyThemeListGetResponse;
+import com.soptie.server.routine.service.daily.DailyRoutineService;
 
 import lombok.*;
 
@@ -29,26 +29,26 @@ public class DailyRoutineController implements DailyRoutineApi {
 	private final DailyRoutineService dailyRoutineService;
 
 	@GetMapping("/themes")
-	public ResponseEntity<SuccessResponse<DailyThemesResponse>> getThemes() {
-		val response = dailyRoutineService.getThemes();
+	public ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes() {
+		val response = DailyThemeListGetResponse.of(dailyRoutineService.getThemes());
 		return ResponseEntity.ok(of(SUCCESS_GET_THEME.getMessage(), response));
 	}
 
 	@GetMapping
-	public ResponseEntity<SuccessResponse<DailyRoutinesByThemesResponse>> getRoutinesByThemes(
+	public ResponseEntity<SuccessResponse<DailyRoutineListByThemesGetResponse>> getRoutinesByThemes(
 			@RequestParam List<Long> themes
 	) {
-		val response = dailyRoutineService.getRoutinesByThemes(themes);
+		val response = DailyRoutineListByThemesGetResponse.of(dailyRoutineService.getRoutinesByThemes(themes));
 		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 
 	@GetMapping("/theme/{themeId}")
-	public ResponseEntity<SuccessResponse<DailyRoutinesByThemeResponse>> getRoutinesByTheme(
+	public ResponseEntity<SuccessResponse<DailyRoutineListByThemeGetResponse>> getRoutinesByTheme(
 			Principal principal,
 			@PathVariable long themeId
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = dailyRoutineService.getRoutinesByTheme(memberId, themeId);
+		val response = DailyRoutineListByThemeGetResponse.of(dailyRoutineService.getRoutinesByTheme(memberId, themeId));
 		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }
