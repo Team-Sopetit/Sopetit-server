@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemeResponse;
-import com.soptie.server.routine.dto.DailyRoutinesByThemesResponse;
-import com.soptie.server.routine.dto.DailyThemesResponse;
+import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemeGetResponse;
+import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemesGetResponse;
+import com.soptie.server.routine.controller.daily.dto.DailyThemeListGetResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -41,7 +41,7 @@ public interface DailyRoutineApi {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<DailyThemesResponse>> getThemes();
+	ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes();
 
 	@Operation(
 			summary = "테마 목록별 데일리 루틴 목록 조회",
@@ -60,7 +60,7 @@ public interface DailyRoutineApi {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<DailyRoutinesByThemesResponse>> getRoutinesByThemes(
+	ResponseEntity<SuccessResponse<DailyRoutineListByThemesGetResponse>> getRoutinesByThemes(
 			@Parameter(
 					name = "themes",
 					description = "조회할 데일리 루틴 테마 id 목록",
@@ -86,7 +86,7 @@ public interface DailyRoutineApi {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<DailyRoutinesByThemeResponse>> getRoutinesByTheme(
+	ResponseEntity<SuccessResponse<DailyRoutineListByThemeGetResponse>> getRoutinesByTheme(
 			@Parameter(hidden = true) Principal principal,
 			@Parameter(
 					name = "themeId",
