@@ -1,4 +1,4 @@
-package com.soptie.server.support;
+package com.soptie.server.support.fixture;
 
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;

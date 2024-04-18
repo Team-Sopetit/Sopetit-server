@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.soptie.server.routine.entity.daily.DailyTheme;
-import com.soptie.server.support.DailyThemeFixture;
+import com.soptie.server.support.fixture.DailyThemeFixture;
 import com.soptie.server.support.RepositoryTest;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)

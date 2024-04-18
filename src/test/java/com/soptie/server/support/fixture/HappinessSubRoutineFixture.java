@@ -1,4 +1,4 @@
-package com.soptie.server.support;
+package com.soptie.server.support.fixture;
 
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;

@@ -6,7 +6,7 @@ import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.common.config.ValueConfig;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.support.MemberFixture;
+import com.soptie.server.support.fixture.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

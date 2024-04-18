@@ -1,4 +1,4 @@
-package com.soptie.server.support;
+package com.soptie.server.support.fixture;
 
 import com.soptie.server.doll.entity.Doll;
 import com.soptie.server.memberDoll.entity.MemberDoll;

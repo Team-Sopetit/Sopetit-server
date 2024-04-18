@@ -29,10 +29,10 @@ import com.soptie.server.routine.service.daily.dto.DailyRoutineListGetServiceRes
 import com.soptie.server.routine.service.daily.dto.DailyRoutineListGetServiceResponse.DailyRoutineServiceResponse;
 import com.soptie.server.routine.service.daily.dto.DailyThemeListGetServiceResponse;
 import com.soptie.server.routine.service.daily.dto.DailyThemeListGetServiceResponse.DailyThemeServiceResponse;
-import com.soptie.server.support.DailyRoutineFixture;
-import com.soptie.server.support.DailyThemeFixture;
-import com.soptie.server.support.MemberDailyRoutineFixture;
-import com.soptie.server.support.MemberFixture;
+import com.soptie.server.support.fixture.DailyRoutineFixture;
+import com.soptie.server.support.fixture.DailyThemeFixture;
+import com.soptie.server.support.fixture.MemberDailyRoutineFixture;
+import com.soptie.server.support.fixture.MemberFixture;
 
 @ExtendWith(MockitoExtension.class)
 class DailyRoutineServiceImplTest {
