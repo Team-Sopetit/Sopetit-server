@@ -2,9 +2,9 @@ package com.soptie.server.routine.controller.happiness;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessThemesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutineByThemesGetResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutineListGetResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessThemeListGetResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -31,7 +31,7 @@ public interface HappinessRoutineApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<HappinessThemesResponse>> getHappinessThemes();
+    ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessThemes();
 
     @Operation(
             summary = "테마 목록별 행복 루틴 목록 조회",
@@ -50,7 +50,7 @@ public interface HappinessRoutineApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<HappinessRoutinesResponse>> getHappinessRoutinesByThemes(
+    ResponseEntity<SuccessResponse<HappinessRoutineByThemesGetResponse>> getHappinessRoutinesByThemes(
             @Parameter(
                     name = "themeId",
                     description = "조회할 행복 루틴 테마 id",
@@ -76,7 +76,7 @@ public interface HappinessRoutineApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<HappinessSubRoutinesResponse>> getHappinessSubRoutinesByRoutineOfTheme(
+    ResponseEntity<SuccessResponse<HappinessSubRoutineListGetResponse>> getHappinessSubRoutinesByRoutineOfTheme(
             @Parameter(
                     name = "routineId",
                     description = "조회할 서브 행복 루틴 id",

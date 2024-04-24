@@ -1,4 +1,4 @@
-package com.soptie.server.routine.dto;
+package com.soptie.server.routine.controller.happiness.dto;
 
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
@@ -8,7 +8,7 @@ import lombok.NonNull;
 import java.util.List;
 
 @Builder
-public record HappinessSubRoutinesResponse(
+public record HappinessSubRoutineListGetResponse(
         @NonNull String title,
         @NonNull String name,
         @NonNull String nameColor,
@@ -17,8 +17,8 @@ public record HappinessSubRoutinesResponse(
         @NonNull List<HappinessSubRoutineResponse> subRoutines
 ) {
 
-    public static HappinessSubRoutinesResponse of(HappinessRoutine routine, List<HappinessSubRoutine> subRoutines) {
-        return HappinessSubRoutinesResponse.builder()
+    public static HappinessSubRoutineListGetResponse of(HappinessRoutine routine, List<HappinessSubRoutine> subRoutines) {
+        return HappinessSubRoutineListGetResponse.builder()
                 .title(routine.getTitle())
                 .name(routine.getTheme().getName())
                 .nameColor(routine.getTheme().getNameColor())
@@ -37,7 +37,7 @@ public record HappinessSubRoutinesResponse(
             @NonNull String place
     ) {
 
-        private static HappinessSubRoutinesResponse.HappinessSubRoutineResponse of(HappinessSubRoutine subRoutine) {
+        private static HappinessSubRoutineListGetResponse.HappinessSubRoutineResponse of(HappinessSubRoutine subRoutine) {
             return HappinessSubRoutineResponse.builder()
                     .subRoutineId(subRoutine.getId())
                     .content(subRoutine.getContent())

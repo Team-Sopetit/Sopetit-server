@@ -1,4 +1,4 @@
-package com.soptie.server.routine.dto;
+package com.soptie.server.routine.controller.happiness.dto;
 
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import lombok.Builder;
@@ -6,11 +6,11 @@ import lombok.NonNull;
 
 import java.util.List;
 
-public record HappinessThemesResponse(
+public record HappinessThemeListGetResponse(
         @NonNull List<HappinessThemeResponse> themes
 ) {
-    public static HappinessThemesResponse of(List<HappinessTheme> themes) {
-        return new HappinessThemesResponse(themes.stream().map(HappinessThemeResponse::of).toList());
+    public static HappinessThemeListGetResponse of(List<HappinessTheme> themes) {
+        return new HappinessThemeListGetResponse(themes.stream().map(HappinessThemeResponse::of).toList());
     }
 
     @Builder
