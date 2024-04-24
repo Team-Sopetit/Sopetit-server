@@ -4,6 +4,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.*;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.soptie.server.routine.controller.happiness.dto.HappinessThemeListGetResponse;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NonNull;
@@ -15,7 +16,7 @@ public record SuccessResponse<T>(
 	@JsonInclude(value = NON_NULL) T data
 ) implements BaseResponse {
 
-	public static <T> SuccessResponse<T> of(String message, T data) {
+	public static <T> SuccessResponse<HappinessThemeListGetResponse> of(String message, T data) {
 		return SuccessResponse.<T>builder()
 				.success(true)
 				.message(message)
