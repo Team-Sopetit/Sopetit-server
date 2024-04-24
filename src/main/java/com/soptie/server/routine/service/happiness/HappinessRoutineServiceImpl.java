@@ -1,8 +1,8 @@
 package com.soptie.server.routine.service.happiness;
 
-import com.soptie.server.routine.controller.happiness.dto.HappinessRoutineByThemesGetResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutineListGetResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessThemeListGetResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessRoutineByThemesGetServiceResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessSubRoutineListGetServiceResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessThemeListGetServiceResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
@@ -24,22 +24,22 @@ public class HappinessRoutineServiceImpl implements HappinessRoutineService {
     private final HappinessSubRoutineService happinessSubRoutineService;
 
     @Override
-    public HappinessThemeListGetResponse getHappinessThemes() {
+    public HappinessThemeListGetServiceResponse getHappinessThemes() {
         val themes = happinessThemeRepository.findAllOrderByNameAsc();
-        return HappinessThemeListGetResponse.of(themes);
+        return HappinessThemeListGetServiceResponse.of(themes);
     }
 
     @Override
-    public HappinessRoutineByThemesGetResponse getHappinessRoutinesByTheme(Long themeId) {
+    public HappinessRoutineByThemesGetServiceResponse getHappinessRoutinesByTheme(Long themeId) {
         val routines = happinessRoutineRepository.findAllByThemeId(themeId);
-        return HappinessRoutineByThemesGetResponse.of(routines);
+        return HappinessRoutineByThemesGetServiceResponse.of(routines);
     }
 
     @Override
-    public HappinessSubRoutineListGetResponse getHappinessSubRoutines(long routineId) {
+    public HappinessSubRoutineListGetServiceResponse getHappinessSubRoutines(long routineId) {
         val routine = findRoutine(routineId);
         val happinessSubRoutines = happinessSubRoutineService.getHappinessSubRoutines(routine);
-        return HappinessSubRoutineListGetResponse.of(routine, happinessSubRoutines);
+        return HappinessSubRoutineListGetServiceResponse.of(routine, happinessSubRoutines);
     }
 
     private HappinessRoutine findRoutine(long id) {

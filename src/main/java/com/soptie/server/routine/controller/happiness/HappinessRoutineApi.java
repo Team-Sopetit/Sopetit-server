@@ -2,8 +2,6 @@ package com.soptie.server.routine.controller.happiness;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessRoutineByThemesGetResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutineListGetResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessThemeListGetResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -50,7 +48,7 @@ public interface HappinessRoutineApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<HappinessRoutineByThemesGetResponse>> getHappinessRoutinesByThemes(
+    ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessRoutinesByThemes(
             @Parameter(
                     name = "themeId",
                     description = "조회할 행복 루틴 테마 id",
@@ -76,7 +74,7 @@ public interface HappinessRoutineApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<HappinessSubRoutineListGetResponse>> getHappinessSubRoutinesByRoutineOfTheme(
+    ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessSubRoutinesByRoutineOfTheme(
             @Parameter(
                     name = "routineId",
                     description = "조회할 서브 행복 루틴 id",
