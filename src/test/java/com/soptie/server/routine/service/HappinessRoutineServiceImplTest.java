@@ -1,11 +1,12 @@
 package com.soptie.server.routine.service;
 
-import com.soptie.server.routine.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessThemesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutineByThemesGetResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessThemeListGetResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
 import com.soptie.server.routine.repository.happiness.theme.HappinessThemeRepository;
+import com.soptie.server.routine.service.happiness.HappinessRoutineServiceImpl;
 import com.soptie.server.support.fixture.HappinessRoutineFixture;
 import com.soptie.server.support.fixture.HappinessThemeFixture;
 import org.junit.jupiter.api.DisplayName;
@@ -40,10 +41,10 @@ class HappinessRoutineServiceImplTest {
         doReturn(happinessThemes()).when(happinessThemeRepository).findAllOrderByNameAsc();
 
         // when
-        final HappinessThemesResponse actual = happinessRoutineService.getHappinessThemes();
+        final HappinessThemeListGetResponse actual = happinessRoutineService.getHappinessThemes();
 
         // then
-        List<Long> themeIds = actual.themes().stream().map(HappinessThemesResponse.HappinessThemeResponse::themeId).toList();
+        List<Long> themeIds = actual.themes().stream().map(HappinessThemeListGetResponse.HappinessThemeResponse::themeId).toList();
         assertThat(themeIds).containsExactly(1L, 2L);
     }
 
@@ -61,7 +62,7 @@ class HappinessRoutineServiceImplTest {
         doReturn(routines).when(happinessRoutineRepository).findAllByThemeId(themeId);
 
         // when
-        HappinessRoutinesResponse response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
+        HappinessRoutineByThemesGetResponse response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
 
         // then
         assertThat(response).isNotNull();
