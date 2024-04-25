@@ -1,17 +1,17 @@
-package com.soptie.server.memberRoutine.service;
+package com.soptie.server.memberRoutine.service.daily;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
 
 import java.util.List;
 
 public interface MemberDailyRoutineService {
 
-	MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request);
+	MemberDailyRoutineCreateServiceResponse createMemberDailyRoutine(MemberDailyRoutineCreateServiceRequest request);
 	void createMemberDailyRoutines(Member member, List<Long> routines);
 	void deleteMemberDailyRoutines(long memberId, List<Long> routineIds);
 	AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(long memberId, Long routineId);

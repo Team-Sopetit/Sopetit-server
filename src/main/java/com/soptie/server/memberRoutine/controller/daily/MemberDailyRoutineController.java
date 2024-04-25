@@ -22,10 +22,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineCreateResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
-import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
+import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineService;
+import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -38,21 +39,14 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	private final MemberDailyRoutineService memberDailyRoutineService;
 
 	@PostMapping
-	public ResponseEntity<SuccessResponse<MemberDailyRoutineResponse>> createMemberDailyRoutine(
+	public ResponseEntity<SuccessResponse<MemberDailyRoutineCreateResponse>> createMemberDailyRoutine(
 			Principal principal,
-			@RequestBody MemberDailyRoutineRequest request
+			@RequestBody MemberDailyRoutineCreateRequest request
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = memberDailyRoutineService.createMemberDailyRoutine(memberId, request);
+		val response = MemberDailyRoutineCreateResponse.of(memberDailyRoutineService
+				.createMemberDailyRoutine(MemberDailyRoutineCreateServiceRequest.of(memberId, request)));
 		return ResponseEntity.created(getURI()).body(of(SUCCESS_CREATE_ROUTINE.getMessage(), response));
-	}
-
-	private URI getURI() {
-		return ServletUriComponentsBuilder
-			.fromCurrentRequest()
-			.path("/")
-			.buildAndExpand()
-			.toUri();
 	}
 
 	@DeleteMapping
@@ -80,5 +74,13 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memberDailyRoutineService.getMemberDailyRoutines(memberId);
 		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
+	}
+
+	private URI getURI() {
+		return ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/")
+				.buildAndExpand()
+				.toUri();
 	}
 }

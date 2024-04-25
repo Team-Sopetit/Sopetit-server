@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.service;
+package com.soptie.server.memberRoutine.service.daily;
 
 import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.ErrorCode.*;
@@ -10,13 +10,13 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutineRequest;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.CompletedMemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
@@ -38,12 +38,12 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	@Override
 	@Transactional
-	public MemberDailyRoutineResponse createMemberDailyRoutine(long memberId, MemberDailyRoutineRequest request) {
-		val member = findMember(memberId);
+	public MemberDailyRoutineCreateServiceResponse createMemberDailyRoutine(MemberDailyRoutineCreateServiceRequest request) {
+		val member = findMember(request.memberId());
 		member.checkDailyRoutineAddition();
 		val routine = findRoutine(request.routineId());
 		val savedMemberRoutine = getMemberDailyRoutine(member, routine);
-		return MemberDailyRoutineResponse.of(savedMemberRoutine);
+		return MemberDailyRoutineCreateServiceResponse.of(savedMemberRoutine);
 	}
 
 	private MemberDailyRoutine getMemberDailyRoutine(Member member, DailyRoutine routine) {

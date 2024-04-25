@@ -10,7 +10,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.service.MemberDollService;
-import com.soptie.server.memberRoutine.service.MemberDailyRoutineService;
+import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
