@@ -1,22 +1,20 @@
 package com.soptie.server.common.dto;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.*;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import com.soptie.server.routine.controller.happiness.dto.HappinessThemeListGetResponse;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NonNull;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 @Builder(access = AccessLevel.PRIVATE)
 public record SuccessResponse<T>(
-	boolean success,
-	@NonNull String message,
-	@JsonInclude(value = NON_NULL) T data
+		boolean success,
+		@NonNull String message,
+		@JsonInclude(value = NON_NULL) T data
 ) implements BaseResponse {
 
-	public static <T> SuccessResponse<HappinessThemeListGetResponse> of(String message, T data) {
+	public static <T> SuccessResponse<T> of(String message, T data) {
 		return SuccessResponse.<T>builder()
 				.success(true)
 				.message(message)
