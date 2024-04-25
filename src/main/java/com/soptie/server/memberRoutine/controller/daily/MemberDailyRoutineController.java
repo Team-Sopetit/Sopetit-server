@@ -23,12 +23,13 @@ import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineCreateResponse;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
+import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineListGetResponse;
 import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineService;
 import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineListGetServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -74,9 +75,10 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	}
 
 	@GetMapping
-	public ResponseEntity<SuccessResponse<MemberDailyRoutinesResponse>> getMemberDailyRoutines(Principal principal) {
+	public ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponse>> getMemberDailyRoutines(Principal principal) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = memberDailyRoutineService.getMemberDailyRoutines(memberId);
+		val response = MemberDailyRoutineListGetResponse.of(memberDailyRoutineService
+				.getMemberDailyRoutines(MemberDailyRoutineListGetServiceRequest.of(memberId)));
 		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 

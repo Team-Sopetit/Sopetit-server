@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.CompletedMemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
@@ -18,8 +16,10 @@ import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineListGetServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineAchieveServiceResponse;
 import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineListGetServiceResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
@@ -140,10 +140,10 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	}
 
 	@Override
-	public MemberDailyRoutinesResponse getMemberDailyRoutines(long memberId) {
-		val member = findMember(memberId);
+	public MemberDailyRoutineListGetServiceResponse getMemberDailyRoutines(MemberDailyRoutineListGetServiceRequest request) {
+		val member = findMember(request.memberId());
 		val routines = memberDailyRoutineRepository.findAllByMember(member);
-		return MemberDailyRoutinesResponse.of(routines);
+		return MemberDailyRoutineListGetServiceResponse.of(routines);
 	}
 
 	private Member findMember(long id) {

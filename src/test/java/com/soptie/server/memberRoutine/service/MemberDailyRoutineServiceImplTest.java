@@ -17,16 +17,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
-import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineServiceImpl;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineListGetServiceRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineAchieveServiceResponse;
 import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.exception.RoutineException;
@@ -139,10 +141,11 @@ class MemberDailyRoutineServiceImplTest {
 		doReturn(memberRoutines).when(memberDailyRoutineRepository).findAllByMember(member);
 
 		// when
-		final MemberDailyRoutinesResponse actual = memberDailyRoutineService.getMemberDailyRoutines(memberId);
+		final MemberDailyRoutineListGetServiceResponse actual = memberDailyRoutineService
+				.getMemberDailyRoutines(MemberDailyRoutineListGetServiceRequest.of(memberId));
 
 		// then
-		List<Long> memberRoutineIds = actual.routines().stream().map(MemberDailyRoutinesResponse.MemberDailyRoutineResponse::routineId).toList();
+		List<Long> memberRoutineIds = actual.routines().stream().map(MemberDailyRoutineServiceResponse::routineId).toList();
 		assertThat(memberRoutineIds).containsExactlyInAnyOrder(1L, 2L, 3L);
 	}
 
@@ -161,7 +164,7 @@ class MemberDailyRoutineServiceImplTest {
 		member.getDailyRoutines().add(memberDailyRoutine);
 
 		// when
-		final MemberDailyRoutineAchieveResponse actual = memberDailyRoutineService
+		final MemberDailyRoutineAchieveServiceResponse actual = memberDailyRoutineService
 				.achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest.of(memberId, memberRoutineId));
 
 		// then
