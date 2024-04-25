@@ -15,6 +15,7 @@ import com.soptie.server.memberRoutine.entity.daily.CompletedMemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineDeleteServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
@@ -124,9 +125,9 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	@Override
 	@Transactional
-	public AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(long memberId, Long routineId) {
-		val member = findMember(memberId);
-		val routine = findMemberRoutine(routineId);
+	public AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest request) {
+		val member = findMember(request.memberRoutineId());
+		val routine = findMemberRoutine(request.memberRoutineId());
 		member.checkDailyRoutineForMember(routine);
 		routine.achieveRoutine();
 		return AchievedMemberDailyRoutineResponse.of(routine);

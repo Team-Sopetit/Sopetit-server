@@ -26,6 +26,7 @@ import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDaily
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineService;
 import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineDeleteServiceRequest;
 
@@ -64,10 +65,11 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	@PatchMapping("/routine/{routineId}")
 	public ResponseEntity<SuccessResponse<AchievedMemberDailyRoutineResponse>> achieveMemberDailyRoutine(
 			Principal principal,
-			@PathVariable Long routineId
+			@PathVariable long routineId
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = memberDailyRoutineService.achieveMemberDailyRoutine(memberId, routineId);
+		val response = memberDailyRoutineService
+				.achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest.of(memberId, routineId));
 		return ResponseEntity.ok(of(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
 	}
 

@@ -4,6 +4,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineDeleteServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
@@ -15,7 +16,7 @@ public interface MemberDailyRoutineService {
 	MemberDailyRoutineCreateServiceResponse createMemberDailyRoutine(MemberDailyRoutineCreateServiceRequest request);
 	void createMemberDailyRoutines(Member member, List<Long> routines);
 	void deleteMemberDailyRoutines(MemberDailyRoutineDeleteServiceRequest request);
-	AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(long memberId, Long routineId);
+	AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest request);
 	MemberDailyRoutinesResponse getMemberDailyRoutines(long memberId);
 	void initMemberDailyRoutines();
 	void deleteMemberDailyRoutine(MemberDailyRoutine routine);

@@ -24,6 +24,7 @@ import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineServiceImpl;
+import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
@@ -161,7 +162,7 @@ class MemberDailyRoutineServiceImplTest {
 
 		// when
 		final AchievedMemberDailyRoutineResponse actual = memberDailyRoutineService
-				.achieveMemberDailyRoutine(memberId, memberRoutineId);
+				.achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest.of(memberId, memberRoutineId));
 
 		// then
 		MemberDailyRoutine memberRoutine = member.getDailyRoutines().get(0);

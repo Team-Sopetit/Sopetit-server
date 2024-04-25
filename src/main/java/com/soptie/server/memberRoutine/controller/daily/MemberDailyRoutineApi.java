@@ -119,7 +119,7 @@ public interface MemberDailyRoutineApi {
 					description = "달성한 회원의 데일리 루틴 id",
 					in = ParameterIn.PATH,
 					example = "1"
-			) @PathVariable Long routineId
+			) @PathVariable long routineId
 	);
 
 	@Operation(
