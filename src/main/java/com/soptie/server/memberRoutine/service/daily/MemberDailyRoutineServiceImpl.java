@@ -127,7 +127,7 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 	@Override
 	@Transactional
 	public MemberDailyRoutineAchieveServiceResponse achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest request) {
-		val member = findMember(request.memberRoutineId());
+		val member = findMember(request.memberId());
 		val routine = findMemberRoutine(request.memberRoutineId());
 		member.checkDailyRoutineForMember(routine);
 		routine.achieveRoutine();
