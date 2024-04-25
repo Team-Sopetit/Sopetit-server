@@ -26,7 +26,6 @@ public class Theme {
 	@Column(name = "theme_id")
 	private Long id;
 
-	@NotNull
 	private String name;
 
 	@Embedded

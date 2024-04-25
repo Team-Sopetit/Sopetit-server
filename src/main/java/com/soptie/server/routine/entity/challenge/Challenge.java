@@ -25,7 +25,6 @@ public class Challenge {
 	@Column(name = "challenge_id")
 	private Long id;
 
-	@NotNull
 	private String content;
 
 	private String description;
