@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
 import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineCreateResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
@@ -112,7 +112,7 @@ public interface MemberDailyRoutineApi {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<AchievedMemberDailyRoutineResponse>> achieveMemberDailyRoutine(
+	ResponseEntity<SuccessResponse<MemberDailyRoutineAchieveResponse>> achieveMemberDailyRoutine(
 			@Parameter(hidden = true) Principal principal,
 			@Parameter(
 					name = "routineId",

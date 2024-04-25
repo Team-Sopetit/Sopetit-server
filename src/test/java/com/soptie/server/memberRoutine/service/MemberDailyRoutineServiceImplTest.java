@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
@@ -161,7 +161,7 @@ class MemberDailyRoutineServiceImplTest {
 		member.getDailyRoutines().add(memberDailyRoutine);
 
 		// when
-		final AchievedMemberDailyRoutineResponse actual = memberDailyRoutineService
+		final MemberDailyRoutineAchieveResponse actual = memberDailyRoutineService
 				.achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest.of(memberId, memberRoutineId));
 
 		// then

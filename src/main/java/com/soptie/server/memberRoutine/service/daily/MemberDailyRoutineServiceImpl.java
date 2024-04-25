@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.daily.CompletedMemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
@@ -18,6 +18,7 @@ import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineAchieveServiceResponse;
 import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.exception.RoutineException;
@@ -125,12 +126,12 @@ public class MemberDailyRoutineServiceImpl implements MemberDailyRoutineService 
 
 	@Override
 	@Transactional
-	public AchievedMemberDailyRoutineResponse achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest request) {
+	public MemberDailyRoutineAchieveServiceResponse achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest request) {
 		val member = findMember(request.memberRoutineId());
 		val routine = findMemberRoutine(request.memberRoutineId());
 		member.checkDailyRoutineForMember(routine);
 		routine.achieveRoutine();
-		return AchievedMemberDailyRoutineResponse.of(routine);
+		return MemberDailyRoutineAchieveServiceResponse.of(routine);
 	}
 
 	private MemberDailyRoutine findMemberRoutine(long id) {

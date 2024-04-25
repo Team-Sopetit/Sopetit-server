@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.memberRoutine.dto.AchievedMemberDailyRoutineResponse;
+import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineCreateResponse;
 import com.soptie.server.memberRoutine.dto.MemberDailyRoutinesResponse;
 import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineService;
@@ -63,13 +63,13 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	}
 
 	@PatchMapping("/routine/{routineId}")
-	public ResponseEntity<SuccessResponse<AchievedMemberDailyRoutineResponse>> achieveMemberDailyRoutine(
+	public ResponseEntity<SuccessResponse<MemberDailyRoutineAchieveResponse>> achieveMemberDailyRoutine(
 			Principal principal,
 			@PathVariable long routineId
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = memberDailyRoutineService
-				.achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest.of(memberId, routineId));
+		val response = MemberDailyRoutineAchieveResponse.of(memberDailyRoutineService
+				.achieveMemberDailyRoutine(MemberDailyRoutineAchieveServiceRequest.of(memberId, routineId)));
 		return ResponseEntity.ok(of(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
 	}
 
