@@ -12,7 +12,7 @@ import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollServiceImpl;
-import com.soptie.server.memberRoutine.service.MemberDailyRoutineServiceImpl;
+import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineServiceImpl;
 import com.soptie.server.support.fixture.ConversationFixture;
 import com.soptie.server.support.fixture.DollFixture;
 import com.soptie.server.support.fixture.MemberDollFixture;
