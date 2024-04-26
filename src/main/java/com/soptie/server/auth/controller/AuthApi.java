@@ -2,13 +2,14 @@ package com.soptie.server.auth.controller;
 
 import java.security.Principal;
 
+import com.soptie.server.auth.controller.dto.response.SignInResponse;
+import com.soptie.server.auth.controller.dto.response.TokenGetResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import com.soptie.server.auth.dto.SignInRequest;
-import com.soptie.server.auth.dto.SignInResponse;
-import com.soptie.server.auth.dto.TokenResponse;
+import com.soptie.server.auth.controller.dto.request.SignInRequest;
+import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
@@ -72,7 +73,7 @@ public interface AuthApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<TokenResponse>> reissueToken(
+    ResponseEntity<SuccessResponse<TokenGetResponse>> reissueToken(
             @RequestHeader("Authorization") String refreshToken
     );
 

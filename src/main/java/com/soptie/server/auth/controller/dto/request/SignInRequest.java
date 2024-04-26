@@ -1,4 +1,4 @@
-package com.soptie.server.auth.dto;
+package com.soptie.server.auth.controller.dto.request;
 
 import com.soptie.server.member.entity.SocialType;
 
