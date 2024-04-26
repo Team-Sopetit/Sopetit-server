@@ -13,7 +13,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.repository.MemberDailyRoutineRepository;
-import com.soptie.server.memberRoutine.service.MemberDailyRoutineServiceImpl;
+import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineServiceImpl;
 import com.soptie.server.support.IntegrationTest;
 import com.soptie.server.support.fixture.MemberDailyRoutineFixture;
 import com.soptie.server.support.fixture.MemberFixture;

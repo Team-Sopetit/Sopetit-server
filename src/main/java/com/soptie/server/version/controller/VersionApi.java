@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.version.dto.AppVersionResponse;
+import com.soptie.server.version.controller.dto.response.AppVersionGetResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,5 +27,5 @@ public interface VersionApi {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<AppVersionResponse>> getClientAppVersion();
+	ResponseEntity<SuccessResponse<AppVersionGetResponse>> getClientAppVersion();
 }

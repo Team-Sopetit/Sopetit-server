@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.service;
+package com.soptie.server.memberRoutine.service.daily;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.repository.CompletedMemberDailyRoutineRepository;
