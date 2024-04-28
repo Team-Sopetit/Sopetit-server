@@ -5,7 +5,6 @@ import com.soptie.server.auth.controller.dto.response.SignInResponse;
 import com.soptie.server.auth.controller.dto.response.TokenGetResponse;
 import com.soptie.server.auth.service.dto.request.SignInServiceRequest;
 import com.soptie.server.auth.service.dto.request.TokenGetServiceRequest;
-import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
 import com.soptie.server.auth.service.AuthService;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
