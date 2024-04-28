@@ -2,9 +2,11 @@ package com.soptie.server.member.service;
 
 import com.soptie.server.conversation.entity.Conversation;
 import com.soptie.server.conversation.repository.ConversationRepository;
-import com.soptie.server.member.dto.CottonCountResponse;
-import com.soptie.server.member.dto.MemberHomeInfoResponse;
-import com.soptie.server.member.dto.MemberProfileRequest;
+import com.soptie.server.member.service.dto.request.CottonGiveServiceRequest;
+import com.soptie.server.member.service.dto.request.MemberHomeInfoGetServiceRequest;
+import com.soptie.server.member.service.dto.response.CottonCountGetServiceResponse;
+import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
+import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
@@ -32,8 +34,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void createMemberProfile(long memberId, MemberProfileRequest request) {
-        val member = findMember(memberId);
+    public void createMemberProfile(MemberProfileCreateServiceRequest request) {
+        val member = findMember(request.memberId());
         member.checkMemberDollNonExist();
         memberDailyRoutineService.createMemberDailyRoutines(member, request.routines());
         memberDollService.createMemberDoll(member, request.dollType(), request.name());
@@ -41,18 +43,18 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public CottonCountResponse giveCotton(long memberId, CottonType cottonType) {
-        val member = findMember(memberId);
-        val cottonCount = member.subtractAndGetCotton(cottonType);
-        return CottonCountResponse.of(cottonCount);
+    public CottonCountGetServiceResponse giveCotton(CottonGiveServiceRequest request) {
+        val member = findMember(request.memberId());
+        val cottonCount = member.subtractAndGetCotton(request.cottonType());
+        return CottonCountGetServiceResponse.of(cottonCount);
     }
 
     @Override
-    public MemberHomeInfoResponse getMemberHomeInfo(long memberId) {
-        val member = findMember(memberId);
+    public MemberHomeInfoGetServiceResponse getMemberHomeInfo(MemberHomeInfoGetServiceRequest request) {
+        val member = findMember(request.memberId());
         member.checkMemberDollExist();
         val conversations = getConversations();
-        return MemberHomeInfoResponse.of(member, conversations);
+        return MemberHomeInfoGetServiceResponse.of(member, conversations);
     }
 
     @Override

@@ -2,6 +2,9 @@ package com.soptie.server.member.controller;
 
 import java.security.Principal;
 
+import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
+import com.soptie.server.member.controller.dto.response.CottonCountGetResponse;
+import com.soptie.server.member.controller.dto.response.MemberHomeInfoGetResponse;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.member.dto.CottonCountResponse;
-import com.soptie.server.member.dto.MemberHomeInfoResponse;
-import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.CottonType;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,7 +68,7 @@ public interface MemberApi {
     )
     ResponseEntity<BaseResponse> createMemberProfile(
             @Parameter(hidden = true) Principal principal,
-            @RequestBody MemberProfileRequest request
+            @RequestBody MemberProfileCreateRequest request
     );
 
     @Operation(
@@ -103,7 +103,7 @@ public interface MemberApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<CottonCountResponse>> giveCotton(
+    ResponseEntity<SuccessResponse<CottonCountGetResponse>> giveCotton(
             @Parameter(hidden = true) Principal principal,
             @Parameter(
                     name = "cottonType",
@@ -140,7 +140,7 @@ public interface MemberApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<MemberHomeInfoResponse>> getMemberHomeInfo(
+    ResponseEntity<SuccessResponse<MemberHomeInfoGetResponse>> getMemberHomeInfo(
             @Parameter(hidden = true) Principal principal
     );
 }
