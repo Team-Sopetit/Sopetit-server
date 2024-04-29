@@ -2,13 +2,13 @@ package com.soptie.server.member.service.integration;
 
 import static org.assertj.core.api.Assertions.*;
 
-import com.soptie.server.doll.entity.Doll;
 import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.doll.repository.DollRepository;
 import com.soptie.server.member.dto.MemberProfileRequest;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.member.service.MemberServiceImpl;
+import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
@@ -50,20 +50,16 @@ public class MemberServiceIntegrationTest {
     @Nested
     class createMember {
 
-        long memberId = 1L;
-        long dailyRoutineId = 1L;
         Member member;
         DollType dollType = BROWN;
+        DailyRoutine dailyRoutine;
 
         @BeforeEach
         void setUp() {
-            member = memberRepository.save(MemberFixture.member().id(memberId).build());
-            String content = "content";
-            DailyTheme dailyTheme = DailyThemeFixture.dailyTheme().name("dailyTheme").build();
-            Doll doll = DollFixture.doll().dollType(BROWN).build();
-            dailyThemeRepository.save(dailyTheme);
-            dollRepository.save(doll);
-            dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().id(dailyRoutineId).content(content).theme(dailyTheme).build());
+            member = memberRepository.save(MemberFixture.member().build());
+            DailyTheme dailyTheme = dailyThemeRepository.save(DailyThemeFixture.dailyTheme().name("dailyTheme").build());
+            dollRepository.save(DollFixture.doll().dollType(dollType).build());
+            dailyRoutine = dailyRoutineRepository.save(DailyRoutineFixture.dailyRoutine().content("content").theme(dailyTheme).build());
         }
 
         @Test
@@ -71,18 +67,18 @@ public class MemberServiceIntegrationTest {
         void CreateMemberProfile() {
             // given
             String name = "doll";
-            List<Long> routines = List.of(dailyRoutineId);
+            List<Long> routines = List.of(dailyRoutine.getId());
             MemberProfileRequest request = new MemberProfileRequest(dollType, name, routines);
 
             // when
-            memberService.createMemberProfile(memberId, request);
+            memberService.createMemberProfile(member.getId(), request);
 
             // then
-            Member findMember = memberRepository.findById(memberId).get();
-            assertThat(findMember.getMemberDoll().getDoll().getDollType()).isEqualTo(dollType);
-            assertThat(findMember.getMemberDoll().getName()).isEqualTo(name);
-            assertThat(findMember.getDailyRoutines().size()).isEqualTo(routines.size());
-            assertThat(findMember.getDailyRoutines().get(0).getId()).isEqualTo(dailyRoutineId);
+            Member foundMember = memberRepository.findById(member.getId()).get();
+            assertThat(foundMember.getMemberDoll().getDoll().getDollType()).isEqualTo(dollType);
+            assertThat(foundMember.getMemberDoll().getName()).isEqualTo(name);
+            assertThat(foundMember.getDailyRoutines().size()).isEqualTo(routines.size());
+            assertThat(foundMember.getDailyRoutines().get(0).getId()).isEqualTo(dailyRoutine.getId());
         }
     }
 }
