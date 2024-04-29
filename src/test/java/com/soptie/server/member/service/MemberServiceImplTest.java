@@ -4,8 +4,11 @@ import com.soptie.server.conversation.entity.Conversation;
 import com.soptie.server.conversation.repository.ConversationRepository;
 import com.soptie.server.doll.entity.Doll;
 import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.member.dto.MemberHomeInfoResponse;
-import com.soptie.server.member.dto.MemberProfileRequest;
+import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
+import com.soptie.server.member.service.dto.request.CottonGiveServiceRequest;
+import com.soptie.server.member.service.dto.request.MemberHomeInfoGetServiceRequest;
+import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
+import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
@@ -60,12 +63,12 @@ class MemberServiceImplTest {
         DollType dollType = BROWN;
         String name = "memberDoll";
         List<Long> routines = List.of(2L, 3L, 4L);
-        MemberProfileRequest request = new MemberProfileRequest(dollType, name, routines);
+        MemberProfileCreateRequest request = new MemberProfileCreateRequest(dollType, name, routines);
         doNothing().when(memberDailyRoutineService).createMemberDailyRoutines(member, List.of(2L, 3L, 4L));
         doNothing().when(memberDollService).createMemberDoll(member, dollType, name);
 
         // when
-        memberService.createMemberProfile(memberId, request);
+        memberService.createMemberProfile(MemberProfileCreateServiceRequest.of(memberId, request));
 
         // then
         verify(memberDailyRoutineService).createMemberDailyRoutines(member, routines);
@@ -82,7 +85,7 @@ class MemberServiceImplTest {
         int beforeCotton = member.getCottonInfo().getDailyCottonCount();
 
         // when
-        memberService.giveCotton(member.getId(), CottonType.DAILY);
+        memberService.giveCotton(CottonGiveServiceRequest.of(member.getId(), CottonType.DAILY));
 
         // then
         assertThat(member.getCottonInfo().getDailyCottonCount()).isEqualTo(beforeCotton - 1);
@@ -97,7 +100,7 @@ class MemberServiceImplTest {
         Member member = member(memberId, memberDoll);
 
         // when, then
-        assertThatThrownBy(() -> memberService.giveCotton(member.getId(), CottonType.DAILY))
+        assertThatThrownBy(() -> memberService.giveCotton(CottonGiveServiceRequest.of(member.getId(), CottonType.DAILY)))
                 .isInstanceOf(MemberException.class)
                 .hasMessage("[MemberException] : " + NOT_ENOUGH_COTTON.getMessage());
     }
@@ -116,10 +119,10 @@ class MemberServiceImplTest {
         List<Conversation> conversations = conversations(conversationIds);
 
         // when
-        MemberHomeInfoResponse result = memberService.getMemberHomeInfo(memberId);
+        MemberHomeInfoGetServiceResponse result = memberService.getMemberHomeInfo(MemberHomeInfoGetServiceRequest.of(memberId));
 
         // then
-        assertThat(MemberHomeInfoResponse.of(member, conversations.stream().map(Conversation::getContent).toList())).isEqualTo(result);
+        assertThat(MemberHomeInfoGetServiceResponse.of(member, conversations.stream().map(Conversation::getContent).toList())).isEqualTo(result);
     }
 
 

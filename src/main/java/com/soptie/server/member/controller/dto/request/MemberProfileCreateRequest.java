@@ -1,12 +1,11 @@
-package com.soptie.server.member.dto;
+package com.soptie.server.member.controller.dto.request;
 
 import com.soptie.server.doll.entity.DollType;
+import lombok.NonNull;
 
 import java.util.List;
 
-import lombok.NonNull;
-
-public record MemberProfileRequest(
+public record MemberProfileCreateRequest(
         @NonNull DollType dollType,
         @NonNull String name,
         @NonNull List<Long> routines

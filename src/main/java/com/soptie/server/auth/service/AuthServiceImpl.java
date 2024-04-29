@@ -1,8 +1,9 @@
 package com.soptie.server.auth.service;
 
-import com.soptie.server.auth.dto.SignInRequest;
-import com.soptie.server.auth.dto.SignInResponse;
-import com.soptie.server.auth.dto.TokenResponse;
+import com.soptie.server.auth.service.dto.request.SignInServiceRequest;
+import com.soptie.server.auth.service.dto.request.TokenGetServiceRequest;
+import com.soptie.server.auth.service.dto.response.SignInServiceResponse;
+import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
 import com.soptie.server.auth.jwt.JwtTokenProvider;
 import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.auth.vo.Token;
@@ -48,18 +49,18 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
-        val member = getMember(socialAccessToken, request);
+    public SignInServiceResponse signIn(SignInServiceRequest request) {
+        val member = getMember(request.socialAccessToken(), request.socialType());
         val token = getToken(member);
         val isMemberDollExist = member.isMemberDollExist();
-        return SignInResponse.of(token, isMemberDollExist);
+        return SignInServiceResponse.of(token, isMemberDollExist);
     }
 
     @Override
-    public TokenResponse reissueToken(String refreshToken) {
-        val member = findMember(refreshToken);
+    public TokenGetServiceResponse reissueToken(TokenGetServiceRequest request) {
+        val member = findMember(request.refreshToken());
         val token = generateAccessToken(member.getId());
-        return TokenResponse.of(token);
+        return TokenGetServiceResponse.of(token);
     }
 
     @Override
@@ -80,8 +81,7 @@ public class AuthServiceImpl implements AuthService {
         deleteMember(member);
     }
 
-    private Member getMember(String socialAccessToken, SignInRequest request) {
-        val socialType = request.socialType();
+    private Member getMember(String socialAccessToken, SocialType socialType) {
         val socialId = getSocialId(socialAccessToken, socialType);
         return signUp(socialType, socialId);
     }

@@ -1,4 +1,4 @@
-package com.soptie.server.member.dto;
+package com.soptie.server.member.service.dto.response;
 
 import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.member.entity.Member;
@@ -7,8 +7,10 @@ import lombok.NonNull;
 
 import java.util.List;
 
-@Builder
-public record MemberHomeInfoResponse(
+import static lombok.AccessLevel.PRIVATE;
+
+@Builder(access = PRIVATE)
+public record MemberHomeInfoGetServiceResponse(
         @NonNull String name,
         @NonNull DollType dollType,
         @NonNull String frameImageUrl,
@@ -17,8 +19,8 @@ public record MemberHomeInfoResponse(
         @NonNull List<String> conversations
 ) {
 
-    public static MemberHomeInfoResponse of(Member member, List<String> conversations) {
-        return MemberHomeInfoResponse.builder()
+    public static MemberHomeInfoGetServiceResponse of(Member member, List<String> conversations) {
+        return MemberHomeInfoGetServiceResponse.builder()
                 .name(member.getMemberDoll().getName())
                 .dollType(member.getMemberDoll().getDoll().getDollType())
                 .frameImageUrl(member.getMemberDoll().getDoll().getImageInfo().getFrameImageUrl())
