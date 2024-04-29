@@ -1,4 +1,4 @@
-package com.soptie.server.routine.dto;
+package com.soptie.server.routine.controller.happiness.dto;
 
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import lombok.Builder;

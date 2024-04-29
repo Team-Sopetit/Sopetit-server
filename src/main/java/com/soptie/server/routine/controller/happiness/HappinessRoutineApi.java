@@ -2,9 +2,9 @@ package com.soptie.server.routine.controller.happiness;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessThemesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessThemesResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

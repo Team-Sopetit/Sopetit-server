@@ -1,10 +1,8 @@
 package com.soptie.server.routine.service;
 
-import static com.soptie.server.routine.message.ErrorCode.*;
-
-import com.soptie.server.routine.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessThemesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessThemesResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
@@ -13,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.soptie.server.routine.message.ErrorCode.INVALID_ROUTINE;
 
 @Service
 @Transactional(readOnly = true)

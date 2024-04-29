@@ -1,9 +1,9 @@
 package com.soptie.server.routine.controller.happiness;
 
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessThemesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessThemesResponse;
 import com.soptie.server.routine.service.HappinessRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
