@@ -1,8 +1,8 @@
 package com.soptie.server.routine.service.happiness;
 
-import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessThemesResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessRoutinesServiceResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessSubRoutinesServiceResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessThemesServiceResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
@@ -24,22 +24,22 @@ public class HappinessRoutineServiceImpl implements HappinessRoutineService {
     private final HappinessSubRoutineService happinessSubRoutineService;
 
     @Override
-    public HappinessThemesResponse getHappinessThemes() {
+    public HappinessThemesServiceResponse getHappinessThemes() {
         val themes = happinessThemeRepository.findAllOrderByNameAsc();
-        return HappinessThemesResponse.of(themes);
+        return HappinessThemesServiceResponse.of(themes);
     }
 
     @Override
-    public HappinessRoutinesResponse getHappinessRoutinesByTheme(Long themeId) {
+    public HappinessRoutinesServiceResponse getHappinessRoutinesByTheme(Long themeId) {
         val routines = happinessRoutineRepository.findAllByThemeId(themeId);
-        return HappinessRoutinesResponse.of(routines);
+        return HappinessRoutinesServiceResponse.of(routines);
     }
 
     @Override
-    public HappinessSubRoutinesResponse getHappinessSubRoutines(long routineId) {
+    public HappinessSubRoutinesServiceResponse getHappinessSubRoutines(long routineId) {
         val routine = findRoutine(routineId);
         val happinessSubRoutines = happinessSubRoutineService.getHappinessSubRoutines(routine);
-        return HappinessSubRoutinesResponse.of(routine, happinessSubRoutines);
+        return HappinessSubRoutinesServiceResponse.of(routine, happinessSubRoutines);
     }
 
     private HappinessRoutine findRoutine(long id) {

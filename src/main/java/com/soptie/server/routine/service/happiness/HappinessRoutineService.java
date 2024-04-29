@@ -1,11 +1,11 @@
 package com.soptie.server.routine.service.happiness;
 
-import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessThemesResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessRoutinesServiceResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessSubRoutinesServiceResponse;
+import com.soptie.server.routine.service.happiness.dto.HappinessThemesServiceResponse;
 
 public interface HappinessRoutineService {
-    HappinessThemesResponse getHappinessThemes();
-    HappinessRoutinesResponse getHappinessRoutinesByTheme(Long themeId);
-    HappinessSubRoutinesResponse getHappinessSubRoutines(long routineId);
+    HappinessThemesServiceResponse getHappinessThemes();
+    HappinessRoutinesServiceResponse getHappinessRoutinesByTheme(Long themeId);
+    HappinessSubRoutinesServiceResponse getHappinessSubRoutines(long routineId);
 }
