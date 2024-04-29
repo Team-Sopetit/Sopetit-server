@@ -6,6 +6,7 @@ import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
 import com.soptie.server.routine.repository.happiness.theme.HappinessThemeRepository;
+import com.soptie.server.routine.service.happiness.HappinessRoutineServiceImpl;
 import com.soptie.server.support.fixture.HappinessRoutineFixture;
 import com.soptie.server.support.fixture.HappinessThemeFixture;
 import org.junit.jupiter.api.DisplayName;

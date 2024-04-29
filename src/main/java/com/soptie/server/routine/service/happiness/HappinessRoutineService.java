@@ -1,4 +1,4 @@
-package com.soptie.server.routine.service;
+package com.soptie.server.routine.service.happiness;
 
 import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;

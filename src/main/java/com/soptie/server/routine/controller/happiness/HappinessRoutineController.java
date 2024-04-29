@@ -4,7 +4,7 @@ import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessThemesResponse;
-import com.soptie.server.routine.service.HappinessRoutineService;
+import com.soptie.server.routine.service.happiness.HappinessRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
