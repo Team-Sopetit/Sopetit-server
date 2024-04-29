@@ -4,10 +4,9 @@ import com.soptie.server.conversation.entity.Conversation;
 import com.soptie.server.conversation.repository.ConversationRepository;
 import com.soptie.server.member.service.dto.request.CottonGiveServiceRequest;
 import com.soptie.server.member.service.dto.request.MemberHomeInfoGetServiceRequest;
-import com.soptie.server.member.service.dto.response.CottonCountGetServiceResponse;
+import com.soptie.server.member.service.dto.response.MemberCottonCountGetServiceResponse;
 import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
 import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
-import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
@@ -43,10 +42,10 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public CottonCountGetServiceResponse giveCotton(CottonGiveServiceRequest request) {
+    public MemberCottonCountGetServiceResponse giveCotton(CottonGiveServiceRequest request) {
         val member = findMember(request.memberId());
         val cottonCount = member.subtractAndGetCotton(request.cottonType());
-        return CottonCountGetServiceResponse.of(cottonCount);
+        return MemberCottonCountGetServiceResponse.of(cottonCount);
     }
 
     @Override

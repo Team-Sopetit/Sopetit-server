@@ -10,5 +10,5 @@ public interface AuthService {
     SignInServiceResponse signIn(SignInServiceRequest request);
     void signOut(long memberId);
     void withdraw(long memberId);
-    TokenGetServiceResponse reissueToken(TokenGetServiceRequest refreshToken);
+    TokenGetServiceResponse reissueToken(TokenGetServiceRequest request);
 }

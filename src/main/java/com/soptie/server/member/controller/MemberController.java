@@ -3,12 +3,10 @@ package com.soptie.server.member.controller;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
-import com.soptie.server.member.controller.dto.response.CottonCountGetResponse;
+import com.soptie.server.member.controller.dto.response.MemberCottonCountGetResponse;
 import com.soptie.server.member.controller.dto.response.MemberHomeInfoGetResponse;
 import com.soptie.server.member.service.dto.request.CottonGiveServiceRequest;
 import com.soptie.server.member.service.dto.request.MemberHomeInfoGetServiceRequest;
-import com.soptie.server.member.service.dto.response.CottonCountGetServiceResponse;
-import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
 import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.service.MemberService;
@@ -52,12 +50,12 @@ public class MemberController implements MemberApi {
     }
 
     @PatchMapping("/cotton/{cottonType}")
-    public ResponseEntity<SuccessResponse<CottonCountGetResponse>> giveCotton(
+    public ResponseEntity<SuccessResponse<MemberCottonCountGetResponse>> giveCotton(
             Principal principal,
             @PathVariable CottonType cottonType
     ) {
         val memberId = Long.parseLong(principal.getName());
-        val response = CottonCountGetResponse.of(
+        val response = MemberCottonCountGetResponse.of(
                 memberService.giveCotton(CottonGiveServiceRequest.of(memberId, cottonType)));
         return ResponseEntity.ok(of(SUCCESS_GIVE_COTTON.getMessage(), response));
     }

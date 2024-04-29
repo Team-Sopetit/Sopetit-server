@@ -3,7 +3,7 @@ package com.soptie.server.member.controller;
 import java.security.Principal;
 
 import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
-import com.soptie.server.member.controller.dto.response.CottonCountGetResponse;
+import com.soptie.server.member.controller.dto.response.MemberCottonCountGetResponse;
 import com.soptie.server.member.controller.dto.response.MemberHomeInfoGetResponse;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.http.ResponseEntity;
@@ -103,7 +103,7 @@ public interface MemberApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<CottonCountGetResponse>> giveCotton(
+    ResponseEntity<SuccessResponse<MemberCottonCountGetResponse>> giveCotton(
             @Parameter(hidden = true) Principal principal,
             @Parameter(
                     name = "cottonType",

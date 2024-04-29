@@ -5,12 +5,12 @@ import lombok.Builder;
 import static lombok.AccessLevel.PRIVATE;
 
 @Builder(access = PRIVATE)
-public record CottonCountGetServiceResponse(
+public record MemberCottonCountGetServiceResponse(
         int cottonCount
 ) {
 
-    public static CottonCountGetServiceResponse of(int cottonCount) {
-        return CottonCountGetServiceResponse.builder()
+    public static MemberCottonCountGetServiceResponse of(int cottonCount) {
+        return MemberCottonCountGetServiceResponse.builder()
                 .cottonCount(cottonCount)
                 .build();
     }
