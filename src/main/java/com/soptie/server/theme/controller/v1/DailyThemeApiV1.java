@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.theme.controller.v1.dto.response.DailyThemeListGetResponse;
+import com.soptie.server.theme.controller.v1.dto.response.ThemeListGetResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -32,5 +32,5 @@ public interface DailyThemeApiV1 {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes();
+	ResponseEntity<SuccessResponse<ThemeListGetResponse>> getThemes();
 }
