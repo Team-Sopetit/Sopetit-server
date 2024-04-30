@@ -12,12 +12,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "themes V1", description = "테마 API Version1")
+@Tag(name = "daily themes V1", description = "데일리 테마 API Version1")
 public interface DailyThemeApiV1 {
 
 	@Operation(
 			summary = "데일리 루틴 테마 목록 조회",
-			description = "데일리 루틴 테마 전체를 이름 오름차순으로 조회한다.",
+			description = "데일리 루틴 테마 전체를 조회한다.",
 			responses = {
 					@ApiResponse(responseCode = "200", description = "성공"),
 					@ApiResponse(
