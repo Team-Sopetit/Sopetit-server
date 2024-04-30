@@ -1,11 +1,11 @@
 package com.soptie.server.routine.controller.happiness.dto;
 
-import com.soptie.server.routine.entity.happiness.HappinessRoutine;
-import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;
+import com.soptie.server.routine.service.happiness.dto.HappinessSubRoutinesServiceResponse;
 import lombok.Builder;
 import lombok.NonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 public record HappinessSubRoutinesResponse(
@@ -17,14 +17,16 @@ public record HappinessSubRoutinesResponse(
         @NonNull List<HappinessSubRoutineResponse> subRoutines
 ) {
 
-    public static HappinessSubRoutinesResponse of(HappinessRoutine routine, List<HappinessSubRoutine> subRoutines) {
+    public static HappinessSubRoutinesResponse of(HappinessSubRoutinesServiceResponse subRoutines) {
         return HappinessSubRoutinesResponse.builder()
-                .title(routine.getTitle())
-                .name(routine.getTheme().getName())
-                .nameColor(routine.getTheme().getNameColor())
-                .iconImageUrl(routine.getTheme().getImageInfo().getTwinkleIconImageUrl())
-                .contentImageUrl(routine.getTheme().getImageInfo().getContentImageUrl())
-                .subRoutines(subRoutines.stream().map(HappinessSubRoutineResponse::of).toList())
+                .title(subRoutines.title())
+                .name(subRoutines.name())
+                .nameColor(subRoutines.nameColor())
+                .iconImageUrl(subRoutines.iconImageUrl())
+                .contentImageUrl(subRoutines.contentImageUrl())
+                .subRoutines(subRoutines.subRoutines().stream()
+                        .map(HappinessSubRoutineResponse::of)
+                        .collect(Collectors.toList()))
                 .build();
     }
 
@@ -37,14 +39,14 @@ public record HappinessSubRoutinesResponse(
             @NonNull String place
     ) {
 
-        private static HappinessSubRoutinesResponse.HappinessSubRoutineResponse of(HappinessSubRoutine subRoutine) {
-            return HappinessSubRoutineResponse.builder()
-                    .subRoutineId(subRoutine.getId())
-                    .content(subRoutine.getContent())
-                    .detailContent(subRoutine.getDetailContent())
-                    .timeTaken(subRoutine.getTimeTaken())
-                    .place(subRoutine.getPlace())
-                    .build();
+        public static HappinessSubRoutineResponse of(HappinessSubRoutinesServiceResponse.HappinessSubRoutineResponse subRoutine) {
+            return new HappinessSubRoutineResponse(
+                    subRoutine.subRoutineId(),
+                    subRoutine.content(),
+                    subRoutine.detailContent(),
+                    subRoutine.timeTaken(),
+                    subRoutine.place()
+            );
         }
     }
 }

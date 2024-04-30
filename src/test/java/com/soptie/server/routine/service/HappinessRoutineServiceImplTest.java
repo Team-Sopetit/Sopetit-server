@@ -1,10 +1,10 @@
 package com.soptie.server.routine.service;
 
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
 import com.soptie.server.routine.service.happiness.HappinessRoutineServiceImpl;
-import com.soptie.server.routine.service.happiness.dto.HappinessRoutinesServiceResponse;
 import com.soptie.server.support.fixture.HappinessRoutineFixture;
 import com.soptie.server.support.fixture.HappinessThemeFixture;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,8 @@ class HappinessRoutineServiceImplTest {
         doReturn(routines).when(happinessRoutineRepository).findAllByThemeId(themeId);
 
         // when
-        HappinessRoutinesServiceResponse response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
+
+        HappinessRoutinesResponse response = HappinessRoutinesResponse.of(happinessRoutineService.getHappinessRoutinesByTheme(themeId));
 
         // then
         assertThat(response).isNotNull();
