@@ -11,26 +11,26 @@ import lombok.Builder;
 import lombok.NonNull;
 
 @Builder(access = PRIVATE)
-public record ThemeListGetResponse(
-	@NonNull List<ThemeResponse> themes
+public record DailyThemeListGetResponse(
+	@NonNull List<DailyThemeResponse> themes
 ) {
 
-	public static ThemeListGetResponse of(ThemeListGetServiceResponse response) {
-		return ThemeListGetResponse.builder()
-				.themes(response.themes().stream().map(ThemeResponse::of).toList())
+	public static DailyThemeListGetResponse of(ThemeListGetServiceResponse response) {
+		return DailyThemeListGetResponse.builder()
+				.themes(response.themes().stream().map(DailyThemeResponse::of).toList())
 				.build();
 	}
 
 	@Builder(access = PRIVATE)
-	public record ThemeResponse(
+	public record DailyThemeResponse(
 		long themeId,
 		@NonNull String name,
 		@NonNull String iconImageUrl,
 		@NonNull String backgroundImageUrl
 	) {
 
-		private static ThemeResponse of(ThemeServiceResponse response) {
-			return ThemeResponse.builder()
+		private static DailyThemeResponse of(ThemeServiceResponse response) {
+			return DailyThemeResponse.builder()
 				.themeId(response.themeId())
 				.name(response.name())
 				.iconImageUrl(response.iconImageUrl())
