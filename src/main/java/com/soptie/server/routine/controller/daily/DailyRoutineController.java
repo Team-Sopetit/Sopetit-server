@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemeGetResponse;
 import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemesGetResponse;
-import com.soptie.server.routine.controller.daily.dto.DailyThemeListGetResponse;
 import com.soptie.server.routine.service.daily.DailyRoutineService;
 
 import lombok.*;
@@ -27,12 +26,6 @@ import lombok.*;
 public class DailyRoutineController implements DailyRoutineApi {
 
 	private final DailyRoutineService dailyRoutineService;
-
-	@GetMapping("/themes")
-	public ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes() {
-		val response = DailyThemeListGetResponse.of(dailyRoutineService.getThemes());
-		return ResponseEntity.ok(of(SUCCESS_GET_THEME.getMessage(), response));
-	}
 
 	@GetMapping
 	public ResponseEntity<SuccessResponse<DailyRoutineListByThemesGetResponse>> getRoutinesByThemes(

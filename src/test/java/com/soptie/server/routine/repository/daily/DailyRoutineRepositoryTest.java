@@ -1,4 +1,4 @@
-package com.soptie.server.routine.repository.daily.routine;
+package com.soptie.server.routine.repository.daily;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.entity.daily.DailyTheme;
+import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
 import com.soptie.server.support.fixture.DailyRoutineFixture;
 import com.soptie.server.support.fixture.DailyThemeFixture;

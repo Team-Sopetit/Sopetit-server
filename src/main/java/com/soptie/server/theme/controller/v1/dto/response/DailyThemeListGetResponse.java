@@ -1,11 +1,11 @@
-package com.soptie.server.routine.controller.daily.dto;
+package com.soptie.server.theme.controller.v1.dto.response;
 
 import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import com.soptie.server.routine.service.daily.dto.DailyThemeListGetServiceResponse;
-import com.soptie.server.routine.service.daily.dto.DailyThemeListGetServiceResponse.DailyThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -15,7 +15,7 @@ public record DailyThemeListGetResponse(
 	@NonNull List<DailyThemeResponse> themes
 ) {
 
-	public static DailyThemeListGetResponse of(DailyThemeListGetServiceResponse response) {
+	public static DailyThemeListGetResponse of(ThemeListGetServiceResponse response) {
 		return DailyThemeListGetResponse.builder()
 				.themes(response.themes().stream().map(DailyThemeResponse::of).toList())
 				.build();
@@ -29,7 +29,7 @@ public record DailyThemeListGetResponse(
 		@NonNull String backgroundImageUrl
 	) {
 
-		private static DailyThemeResponse of(DailyThemeServiceResponse response) {
+		private static DailyThemeResponse of(ThemeServiceResponse response) {
 			return DailyThemeResponse.builder()
 				.themeId(response.themeId())
 				.name(response.name())

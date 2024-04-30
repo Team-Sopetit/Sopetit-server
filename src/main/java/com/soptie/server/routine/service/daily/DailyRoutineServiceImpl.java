@@ -17,7 +17,6 @@ import com.soptie.server.routine.entity.daily.DailyTheme;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.daily.routine.DailyRoutineRepository;
 import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
-import com.soptie.server.routine.service.daily.dto.DailyThemeListGetServiceResponse;
 
 import lombok.*;
 
@@ -29,12 +28,6 @@ public class DailyRoutineServiceImpl implements DailyRoutineService {
 	private final DailyThemeRepository dailyThemeRepository;
 	private final DailyRoutineRepository dailyRoutineRepository;
 	private final MemberRepository memberRepository;
-
-	@Override
-	public DailyThemeListGetServiceResponse getThemes() {
-		val themes = dailyThemeRepository.findAllOrderByNameAsc();
-		return DailyThemeListGetServiceResponse.of(themes);
-	}
 
 	@Override
 	public DailyRoutineListGetServiceResponse getRoutinesByThemes(List<Long> themeIds) {
