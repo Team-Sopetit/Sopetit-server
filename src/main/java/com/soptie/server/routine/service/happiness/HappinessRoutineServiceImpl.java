@@ -2,11 +2,9 @@ package com.soptie.server.routine.service.happiness;
 
 import com.soptie.server.routine.service.happiness.dto.HappinessRoutinesServiceResponse;
 import com.soptie.server.routine.service.happiness.dto.HappinessSubRoutinesServiceResponse;
-import com.soptie.server.routine.service.happiness.dto.HappinessThemesServiceResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
-import com.soptie.server.routine.repository.happiness.theme.HappinessThemeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -20,14 +18,7 @@ import static com.soptie.server.routine.message.ErrorCode.INVALID_ROUTINE;
 public class HappinessRoutineServiceImpl implements HappinessRoutineService {
 
     private final HappinessRoutineRepository happinessRoutineRepository;
-    private final HappinessThemeRepository happinessThemeRepository;
     private final HappinessSubRoutineService happinessSubRoutineService;
-
-    @Override
-    public HappinessThemesServiceResponse getHappinessThemes() {
-        val themes = happinessThemeRepository.findAllOrderByNameAsc();
-        return HappinessThemesServiceResponse.of(themes);
-    }
 
     @Override
     public HappinessRoutinesServiceResponse getHappinessRoutinesByTheme(Long themeId) {

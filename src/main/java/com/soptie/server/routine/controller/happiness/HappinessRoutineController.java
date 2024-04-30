@@ -3,7 +3,6 @@ package com.soptie.server.routine.controller.happiness;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessThemesResponse;
 import com.soptie.server.routine.service.happiness.HappinessRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -19,12 +18,6 @@ import static com.soptie.server.routine.message.SuccessMessage.*;
 public class HappinessRoutineController implements HappinessRoutineApi {
 
     private final HappinessRoutineService happinessRoutineService;
-
-    @GetMapping("/themes")
-    public ResponseEntity<SuccessResponse<HappinessThemesResponse>> getHappinessThemes() {
-        val response = HappinessThemesResponse.of(happinessRoutineService.getHappinessThemes());
-        return ResponseEntity.ok(of(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
-    }
 
     @GetMapping
     public ResponseEntity<SuccessResponse<HappinessRoutinesResponse>> getHappinessRoutinesByThemes(@RequestParam(required = false) Long themeId) {
