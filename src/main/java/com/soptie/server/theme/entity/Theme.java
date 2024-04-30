@@ -40,7 +40,6 @@ public class Theme {
 	@JoinColumn(name = "expert_id")
 	private Expert expert;
 
-	@Builder
 	public Theme(Long id, String name, ThemeImageInfo imageInfo) {
 		this.id = id;
 		this.name = name;

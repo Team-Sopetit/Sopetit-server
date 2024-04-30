@@ -27,10 +27,6 @@ public class ThemeFixture {
 	}
 
 	public Theme build() {
-		return Theme.builder()
-				.id(this.id)
-				.name(this.name)
-				.imageInfo(this.imageInfo)
-				.build();
+		return new Theme(id, name, imageInfo);
 	}
 }
