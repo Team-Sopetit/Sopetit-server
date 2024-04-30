@@ -27,8 +27,6 @@ import com.soptie.server.routine.repository.daily.theme.DailyThemeRepository;
 import com.soptie.server.routine.service.daily.DailyRoutineServiceImpl;
 import com.soptie.server.routine.service.daily.dto.DailyRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.daily.dto.DailyRoutineListGetServiceResponse.DailyRoutineServiceResponse;
-import com.soptie.server.routine.service.daily.dto.DailyThemeListGetServiceResponse;
-import com.soptie.server.routine.service.daily.dto.DailyThemeListGetServiceResponse.DailyThemeServiceResponse;
 import com.soptie.server.support.fixture.DailyRoutineFixture;
 import com.soptie.server.support.fixture.DailyThemeFixture;
 import com.soptie.server.support.fixture.MemberDailyRoutineFixture;
@@ -46,24 +44,6 @@ class DailyRoutineServiceImplTest {
 	private DailyRoutineRepository dailyRoutineRepository;
 	@Mock
 	private MemberRepository memberRepository;
-
-	@Test
-	void 모든_데일리루틴의_테마정보를_조회한다() {
-		// given
-		String imageUrl = "https://www...";
-		List<DailyTheme> dailyThemes = List.of(
-				DailyThemeFixture.dailyTheme().id(1L).name("theme1").imageUrl(imageUrl).build(),
-				DailyThemeFixture.dailyTheme().id(2L).name("theme2").imageUrl(imageUrl).build()
-		);
-		doReturn(dailyThemes).when(dailyThemeRepository).findAllOrderByNameAsc();
-
-		// when
-		final DailyThemeListGetServiceResponse actual = dailyRoutineService.getThemes();
-
-		// then
-		List<Long> themeIds = actual.themes().stream().map(DailyThemeServiceResponse::themeId).toList();
-		assertThat(themeIds).containsExactlyInAnyOrder(1L, 2L);
-	}
 
 	@Test
 	void 테마_리스트로_조회하면_테마_리스트에_포함된_모든_데일리루틴_정보를_조회한다() {
