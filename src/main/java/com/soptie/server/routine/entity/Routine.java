@@ -36,4 +36,11 @@ public class Routine {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "theme_id")
 	private Theme theme;
+
+	public Routine(Long id, String content, RoutineType type, Theme theme) {
+		this.id = id;
+		this.content = content;
+		this.type = type;
+		this.theme = theme;
+	}
 }

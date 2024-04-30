@@ -39,4 +39,13 @@ public class MemberRoutine {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
+
+	public MemberRoutine(Long id, boolean isAchieve, int achieveCount, RoutineType type, long routineId, Member member) {
+		this.id = id;
+		this.isAchieve = isAchieve;
+		this.achieveCount = achieveCount;
+		this.type = type;
+		this.routineId = routineId;
+		this.member = member;
+	}
 }

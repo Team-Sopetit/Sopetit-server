@@ -15,7 +15,6 @@ public enum ErrorCode {
 	CANNOT_ADD_MEMBER_ROUTINE(BAD_REQUEST, "더 이상 루틴을 추가할 수 없는 회원입니다."),
 
 	/* 404 NOT_FOUND : 자원을 찾을 수 없음 */
-	INVALID_THEME(NOT_FOUND, "유효하지 않은 테마입니다."),
 	INVALID_ROUTINE(NOT_FOUND, "유효하지 않은 루틴입니다."),
 
 	/* 409 CONFLICT : 중복된 데이터 존재 */

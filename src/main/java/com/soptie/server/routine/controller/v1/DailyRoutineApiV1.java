@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemeGetResponse;
-import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemesGetResponse;
+import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemeGetResponse;
+import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemesGetResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,8 +20,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "daily routines", description = "데일리 루틴 API")
-public interface DailyRoutineApi {
+@Tag(name = "daily routines V1", description = "데일리 루틴 API Version1")
+public interface DailyRoutineApiV1 {
 
 	@Operation(
 			summary = "테마 목록별 데일리 루틴 목록 조회",
