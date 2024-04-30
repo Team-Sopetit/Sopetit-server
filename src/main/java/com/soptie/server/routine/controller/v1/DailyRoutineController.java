@@ -1,4 +1,4 @@
-package com.soptie.server.routine.controller.daily;
+package com.soptie.server.routine.controller.v1;
 
 import static com.soptie.server.common.dto.SuccessResponse.*;
 import static com.soptie.server.routine.message.SuccessMessage.*;

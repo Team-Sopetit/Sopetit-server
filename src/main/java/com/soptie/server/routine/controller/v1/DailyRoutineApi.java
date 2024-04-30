@@ -1,4 +1,4 @@
-package com.soptie.server.routine.controller.daily;
+package com.soptie.server.routine.controller.v1;
 
 import java.security.Principal;
 import java.util.List;
