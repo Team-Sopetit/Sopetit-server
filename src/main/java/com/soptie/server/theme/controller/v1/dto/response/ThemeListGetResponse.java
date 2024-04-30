@@ -5,32 +5,32 @@ import static lombok.AccessLevel.*;
 import java.util.List;
 
 import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.DailyThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
 
 @Builder(access = PRIVATE)
-public record DailyThemeListGetResponse(
-	@NonNull List<DailyThemeResponse> themes
+public record ThemeListGetResponse(
+	@NonNull List<ThemeResponse> themes
 ) {
 
-	public static DailyThemeListGetResponse of(ThemeListGetServiceResponse response) {
-		return DailyThemeListGetResponse.builder()
-				.themes(response.themes().stream().map(DailyThemeResponse::of).toList())
+	public static ThemeListGetResponse of(ThemeListGetServiceResponse response) {
+		return ThemeListGetResponse.builder()
+				.themes(response.themes().stream().map(ThemeResponse::of).toList())
 				.build();
 	}
 
 	@Builder(access = PRIVATE)
-	public record DailyThemeResponse(
+	public record ThemeResponse(
 		long themeId,
 		@NonNull String name,
 		@NonNull String iconImageUrl,
 		@NonNull String backgroundImageUrl
 	) {
 
-		private static DailyThemeResponse of(DailyThemeServiceResponse response) {
-			return DailyThemeResponse.builder()
+		private static ThemeResponse of(ThemeServiceResponse response) {
+			return ThemeResponse.builder()
 				.themeId(response.themeId())
 				.name(response.name())
 				.iconImageUrl(response.iconImageUrl())

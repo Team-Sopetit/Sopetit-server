@@ -10,25 +10,25 @@ import lombok.Builder;
 
 @Builder(access = PRIVATE)
 public record ThemeListGetServiceResponse(
-	List<DailyThemeServiceResponse> themes
+	List<ThemeServiceResponse> themes
 ) {
 
 	public static ThemeListGetServiceResponse of(List<Theme> themes) {
 		return ThemeListGetServiceResponse.builder()
-				.themes(themes.stream().map(DailyThemeServiceResponse::of).toList())
+				.themes(themes.stream().map(ThemeServiceResponse::of).toList())
 				.build();
 	}
 
 	@Builder(access = PRIVATE)
-	public record DailyThemeServiceResponse(
+	public record ThemeServiceResponse(
 		long themeId,
 		String name,
 		String iconImageUrl,
 		String backgroundImageUrl
 	) {
 
-		private static DailyThemeServiceResponse of(Theme theme) {
-			return DailyThemeServiceResponse.builder()
+		private static ThemeServiceResponse of(Theme theme) {
+			return ThemeServiceResponse.builder()
 				.themeId(theme.getId())
 				.name(theme.getName())
 				.iconImageUrl(theme.getImageInfo().getIconImageUrl())
