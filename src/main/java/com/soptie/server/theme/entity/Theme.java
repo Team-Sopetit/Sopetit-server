@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,4 +39,11 @@ public class Theme {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "expert_id")
 	private Expert expert;
+
+	@Builder
+	public Theme(Long id, String name, ThemeImageInfo imageInfo) {
+		this.id = id;
+		this.name = name;
+		this.imageInfo = imageInfo;
+	}
 }
