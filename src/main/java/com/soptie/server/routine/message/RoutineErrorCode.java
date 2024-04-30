@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum ErrorCode {
+public enum RoutineErrorCode {
 
 	/* 400 BAD_REQUEST : 잘못된 요청 */
 	CANNOT_ADD_MEMBER_ROUTINE(BAD_REQUEST, "더 이상 루틴을 추가할 수 없는 회원입니다."),

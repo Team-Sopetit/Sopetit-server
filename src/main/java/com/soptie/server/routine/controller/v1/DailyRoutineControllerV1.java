@@ -1,7 +1,7 @@
 package com.soptie.server.routine.controller.v1;
 
 import static com.soptie.server.common.dto.SuccessResponse.*;
-import static com.soptie.server.routine.message.SuccessMessage.*;
+import static com.soptie.server.routine.message.RoutineSuccessMessage.*;
 
 import java.security.Principal;
 import java.util.List;

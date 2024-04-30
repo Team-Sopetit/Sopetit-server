@@ -1,6 +1,6 @@
 package com.soptie.server.routine.service;
 
-import static com.soptie.server.routine.message.ErrorCode.*;
+import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import com.soptie.server.routine.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;

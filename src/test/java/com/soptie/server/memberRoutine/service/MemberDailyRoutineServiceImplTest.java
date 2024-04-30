@@ -1,6 +1,6 @@
 package com.soptie.server.memberRoutine.service;
 
-import static com.soptie.server.routine.message.ErrorCode.*;
+import static com.soptie.server.routine.message.RoutineErrorCode.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

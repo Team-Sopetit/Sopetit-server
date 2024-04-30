@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static com.soptie.server.member.message.ErrorCode.*;
-import static com.soptie.server.routine.message.ErrorCode.*;
+import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
