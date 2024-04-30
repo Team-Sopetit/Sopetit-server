@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @Getter
-public class ImageInfo {
+public class ThemeImageInfo {
 
 	private String iconImageUrl;
 
