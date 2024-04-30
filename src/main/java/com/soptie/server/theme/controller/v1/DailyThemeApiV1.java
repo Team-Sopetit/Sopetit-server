@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "themes V1", description = "테마 API Version2")
+@Tag(name = "themes V1", description = "테마 API Version1")
 public interface DailyThemeApiV1 {
 
 	@Operation(
