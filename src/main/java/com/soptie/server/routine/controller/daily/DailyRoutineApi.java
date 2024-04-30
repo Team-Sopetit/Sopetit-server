@@ -11,7 +11,6 @@ import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemeGetResponse;
 import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemesGetResponse;
-import com.soptie.server.routine.controller.daily.dto.DailyThemeListGetResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,25 +22,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "daily routines", description = "데일리 루틴 API")
 public interface DailyRoutineApi {
-
-	@Operation(
-			summary = "데일리 루틴 테마 목록 조회",
-			description = "데일리 루틴 테마 전체를 이름 오름차순으로 조회한다.",
-			responses = {
-					@ApiResponse(responseCode = "200", description = "성공"),
-					@ApiResponse(
-							responseCode = "4xx",
-							description = "클라이언트(요청) 오류",
-							content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-					),
-					@ApiResponse(
-							responseCode = "500",
-							description = "서버 내부 오류",
-							content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-					)
-			}
-	)
-	ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes();
 
 	@Operation(
 			summary = "테마 목록별 데일리 루틴 목록 조회",
