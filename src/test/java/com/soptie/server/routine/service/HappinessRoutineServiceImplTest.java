@@ -41,7 +41,7 @@ class HappinessRoutineServiceImplTest {
         doReturn(happinessThemes()).when(happinessThemeRepository).findAllOrderByNameAsc();
 
         // when
-        final HappinessThemesResponse actual = happinessRoutineService.getHappinessThemes();
+        final HappinessThemesResponse actual = HappinessThemesResponse.of(happinessRoutineService.getHappinessThemes());
 
         // then
         List<Long> themeIds = actual.themes().stream().map(HappinessThemesResponse.HappinessThemeResponse::themeId).toList();
@@ -62,7 +62,7 @@ class HappinessRoutineServiceImplTest {
         doReturn(routines).when(happinessRoutineRepository).findAllByThemeId(themeId);
 
         // when
-        HappinessRoutinesResponse response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
+        HappinessRoutinesResponse response = HappinessRoutinesResponse.of(happinessRoutineService.getHappinessRoutinesByTheme(themeId));
 
         // then
         assertThat(response).isNotNull();
