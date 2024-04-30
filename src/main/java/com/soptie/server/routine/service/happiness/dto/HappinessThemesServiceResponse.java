@@ -6,7 +6,8 @@ import lombok.NonNull;
 
 import java.util.List;
 
-public record HappinessThemesServiceResponse(
+public record
+HappinessThemesServiceResponse(
         @NonNull List<HappinessThemeResponse> themes
 ) {
     public static HappinessThemesServiceResponse of(List<HappinessTheme> themes) {

@@ -4,7 +4,6 @@ import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesResponse;
 import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesResponse;
-import com.soptie.server.routine.controller.happiness.dto.HappinessThemesResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -18,20 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "happiness routines", description = "행복 루틴 API")
 public interface HappinessRoutineApi {
-
-    @Operation(
-            summary = "행복 루틴 테마 목록 조회",
-            description = "행복 루틴 테마 전체를 조회한다.",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "성공"),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "서버 내부 오류",
-                            content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-                    )
-            }
-    )
-    ResponseEntity<SuccessResponse<HappinessThemesResponse>> getHappinessThemes();
 
     @Operation(
             summary = "테마 목록별 행복 루틴 목록 조회",
