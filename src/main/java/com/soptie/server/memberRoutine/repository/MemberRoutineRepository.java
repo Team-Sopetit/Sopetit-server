@@ -9,9 +9,10 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.routine.entity.RoutineType;
 
-public interface MemberRoutineRepository extends JpaRepository<MemberRoutine, Long> {
+public interface MemberRoutineRepository extends JpaRepository<MemberRoutine, Long>, MemberRoutineCustomRepository {
 	boolean existsByMemberAndTypeAndRoutineId(Member member, RoutineType type, long routineId);
 	Optional<MemberRoutine> findByMemberAndTypeAndRoutineId(Member member, RoutineType type, long routineId);
-	List<MemberRoutine> findByAchieveIsTrue();
+	@SuppressWarnings("SpringDataMethodInconsistencyInspection")
+	List<MemberRoutine> findByIsAchieve(boolean isAchieve);
 	void deleteByMember(Member member);
 }
