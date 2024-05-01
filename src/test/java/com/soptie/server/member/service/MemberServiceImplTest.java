@@ -15,6 +15,7 @@ import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollServiceImpl;
+import com.soptie.server.memberRoutine.service.MemberRoutineService;
 import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineServiceImpl;
 import com.soptie.server.support.fixture.ConversationFixture;
 import com.soptie.server.support.fixture.DollFixture;
@@ -43,7 +44,7 @@ class MemberServiceImplTest {
     private MemberServiceImpl memberService;
 
     @Mock
-    private MemberDailyRoutineServiceImpl memberDailyRoutineService;
+    private MemberRoutineService memberRoutineService;
 
     @Mock
     private MemberDollServiceImpl memberDollService;
@@ -64,14 +65,14 @@ class MemberServiceImplTest {
         String name = "memberDoll";
         List<Long> routines = List.of(2L, 3L, 4L);
         MemberProfileCreateRequest request = new MemberProfileCreateRequest(dollType, name, routines);
-        doNothing().when(memberDailyRoutineService).createMemberDailyRoutines(member, List.of(2L, 3L, 4L));
+        doNothing().when(memberRoutineService).createDailyRoutines(member, List.of(2L, 3L, 4L));
         doNothing().when(memberDollService).createMemberDoll(member, dollType, name);
 
         // when
         memberService.createMemberProfile(MemberProfileCreateServiceRequest.of(memberId, request));
 
         // then
-        verify(memberDailyRoutineService).createMemberDailyRoutines(member, routines);
+        verify(memberRoutineService).createDailyRoutines(member, routines);
         verify(memberDollService).createMemberDoll(member, dollType, name);
     }
 
