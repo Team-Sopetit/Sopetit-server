@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.dto;
+package com.soptie.server.memberRoutine.controller.v1.dto.response;
 
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 

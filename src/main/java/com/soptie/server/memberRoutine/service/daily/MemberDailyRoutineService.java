@@ -2,13 +2,13 @@ package com.soptie.server.memberRoutine.service.daily;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
-import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
-import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineDeleteServiceRequest;
-import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineListGetServiceRequest;
-import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineAchieveServiceResponse;
-import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
-import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineAchieveServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineAchieveServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
 
 import java.util.List;
 

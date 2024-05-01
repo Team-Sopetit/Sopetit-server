@@ -1,8 +1,8 @@
-package com.soptie.server.memberRoutine.controller.daily.dto.response;
+package com.soptie.server.memberRoutine.controller.v1.dto.response;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.memberRoutine.service.daily.dto.response.MemberDailyRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineCreateServiceResponse;
 
 import lombok.Builder;
 

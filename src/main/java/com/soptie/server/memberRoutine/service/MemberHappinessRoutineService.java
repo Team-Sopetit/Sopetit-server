@@ -2,7 +2,9 @@ package com.soptie.server.memberRoutine.service;
 
 import java.util.Optional;
 
-import com.soptie.server.memberRoutine.dto.*;
+import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 
 public interface MemberHappinessRoutineService {

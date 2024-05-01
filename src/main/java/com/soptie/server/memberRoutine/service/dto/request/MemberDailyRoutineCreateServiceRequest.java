@@ -1,8 +1,8 @@
-package com.soptie.server.memberRoutine.service.daily.dto.request;
+package com.soptie.server.memberRoutine.service.dto.request;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
 
 import lombok.Builder;
 

@@ -2,8 +2,8 @@ package com.soptie.server.memberRoutine.controller.happiness;
 
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
-import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineResponse;
 import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
 
 import lombok.NonNull;

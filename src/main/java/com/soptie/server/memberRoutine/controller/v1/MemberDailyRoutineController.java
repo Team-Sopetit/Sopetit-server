@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.controller.daily;
+package com.soptie.server.memberRoutine.controller.v1;
 
 import static com.soptie.server.common.dto.SuccessResponse.*;
 import static com.soptie.server.memberRoutine.message.SuccessMessage.*;
@@ -21,15 +21,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
-import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineCreateResponse;
-import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineListGetResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListGetResponse;
+import com.soptie.server.memberRoutine.service.MemberRoutineService;
 import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineService;
-import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
-import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineAchieveServiceRequest;
-import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineDeleteServiceRequest;
-import com.soptie.server.memberRoutine.service.daily.dto.request.MemberDailyRoutineListGetServiceRequest;
+import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineAchieveServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -40,6 +41,7 @@ import lombok.val;
 public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 
 	private final MemberDailyRoutineService memberDailyRoutineService;
+	private final MemberRoutineService memberRoutineService;
 
 	@PostMapping
 	public ResponseEntity<SuccessResponse<MemberDailyRoutineCreateResponse>> createMemberDailyRoutine(

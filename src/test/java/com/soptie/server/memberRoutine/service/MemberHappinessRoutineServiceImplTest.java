@@ -2,9 +2,9 @@ package com.soptie.server.memberRoutine.service;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineRequest;
-import com.soptie.server.memberRoutine.dto.MemberHappinessRoutineResponse;
-import com.soptie.server.memberRoutine.dto.MemberHappinessRoutinesResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutinesResponse;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.repository.MemberHappinessRoutineRepository;
 import com.soptie.server.routine.entity.happiness.HappinessSubRoutine;

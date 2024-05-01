@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.controller.daily;
+package com.soptie.server.memberRoutine.controller.v1;
 
 import java.security.Principal;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineAchieveResponse;
-import com.soptie.server.memberRoutine.controller.daily.dto.request.MemberDailyRoutineCreateRequest;
-import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineCreateResponse;
-import com.soptie.server.memberRoutine.controller.daily.dto.response.MemberDailyRoutineListGetResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListGetResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
