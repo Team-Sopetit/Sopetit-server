@@ -1,6 +1,5 @@
 package com.soptie.server.member.entity;
 
-import static com.soptie.server.common.config.ValueConfig.*;
 import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
@@ -9,7 +8,6 @@ import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
-import com.soptie.server.routine.entity.daily.DailyRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 
 import jakarta.persistence.*;
@@ -117,26 +115,10 @@ public class Member extends BaseTime {
 		return Objects.nonNull(this.getMemberDoll());
 	}
 
-	public void checkDailyRoutineAddition() {
-		if (this.getDailyRoutines().size() >= DAILY_ROUTINE_MAX_COUNT) {
-			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
-		}
-	}
-
 	public void checkHappinessRoutineAddition() {
 		if (Objects.nonNull(this.getHappinessRoutine())) {
 			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
 		}
-	}
-
-	public void checkDailyRoutineForMember(MemberDailyRoutine routine) {
-		if (!isDailyRoutineForMember(routine)) {
-			throw new MemberException(INACCESSIBLE_ROUTINE);
-		}
-	}
-
-	public boolean isDailyRoutineForMember(MemberDailyRoutine routine) {
-		return this.getDailyRoutines().contains(routine);
 	}
 
 	public void checkHappinessRoutineForMember(MemberHappinessRoutine routine) {
@@ -145,8 +127,4 @@ public class Member extends BaseTime {
 		}
 	}
 
-	public boolean isNotExistRoutine(DailyRoutine routine) {
-		return this.getDailyRoutines().stream()
-				.noneMatch(memberRoutine -> memberRoutine.getRoutine().equals(routine));
-	}
 }
