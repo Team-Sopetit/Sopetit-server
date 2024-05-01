@@ -17,7 +17,8 @@ import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemeGetResponse;
 import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemesGetResponse;
 import com.soptie.server.routine.service.RoutineService;
-import com.soptie.server.routine.service.dto.request.DailyRoutineListGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 
 import lombok.*;
 
@@ -32,7 +33,8 @@ public class DailyRoutineControllerV1 implements DailyRoutineApiV1 {
 	public ResponseEntity<SuccessResponse<DailyRoutineListByThemesGetResponse>> getRoutinesByThemes(
 			@RequestParam List<Long> themes
 	) {
-		val response = DailyRoutineListByThemesGetResponse.of(routineService.getRoutinesByThemes(themes));
+		val response = DailyRoutineListByThemesGetResponse
+				.of(routineService.getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest.of(themes)));
 		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 
@@ -43,7 +45,7 @@ public class DailyRoutineControllerV1 implements DailyRoutineApiV1 {
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = DailyRoutineListByThemeGetResponse
-				.of(routineService.getRoutinesByTheme(DailyRoutineListGetServiceRequest.of(memberId, themeId)));
+				.of(routineService.getRoutinesByTheme(DailyRoutineListByThemeGetServiceRequest.of(memberId, themeId)));
 		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }

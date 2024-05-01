@@ -17,7 +17,8 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.repository.RoutineRepository;
-import com.soptie.server.routine.service.dto.request.DailyRoutineListGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse.DailyRoutineServiceResponse;
 import com.soptie.server.support.IntegrationTest;
@@ -69,9 +70,10 @@ public class RoutineServiceIntegrationTest {
 		void getDailyRoutinesByThemeIds() {
 			// given
 			List<Long> themeIds = List.of(theme1.getId(), theme2.getId());
+			DailyRoutineListByThemesGetServiceRequest request = DailyRoutineListByThemesGetServiceRequest.of(themeIds);
 
 			// when
-			final DailyRoutineListGetServiceResponse actual = routineService.getRoutinesByThemes(themeIds);
+			final DailyRoutineListGetServiceResponse actual = routineService.getRoutinesByThemes(request);
 
 			// then
 			assertThat(actual.routines()).hasSize(2);
@@ -106,7 +108,7 @@ public class RoutineServiceIntegrationTest {
 		@DisplayName("[성공] 회원에게 없으면서, 주어진 테마에 속하는 데일리 루틴 목록을 조회한다.")
 		void getDailyRoutinesByThemeMemberNotHas() {
 			// given
-			DailyRoutineListGetServiceRequest request = DailyRoutineListGetServiceRequest.of(member.getId(), theme.getId());
+			DailyRoutineListByThemeGetServiceRequest request = DailyRoutineListByThemeGetServiceRequest.of(member.getId(), theme.getId());
 
 			// when
 			final DailyRoutineListGetServiceResponse actual = routineService.getRoutinesByTheme(request);

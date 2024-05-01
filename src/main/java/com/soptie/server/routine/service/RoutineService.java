@@ -7,7 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
-import com.soptie.server.routine.service.dto.request.DailyRoutineListGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse;
 import com.soptie.server.theme.adapter.ThemeFinder;
 
@@ -23,12 +24,12 @@ public class RoutineService {
 	private final ThemeFinder themeFinder;
 	private final MemberFinder memberFinder;
 
-	public DailyRoutineListGetServiceResponse getRoutinesByThemes(List<Long> themeIds) {
-		val routines = routineFinder.findDailyRoutinesByThemeIds(themeIds);
+	public DailyRoutineListGetServiceResponse getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest request) {
+		val routines = routineFinder.findDailyRoutinesByThemeIds(request.themeIds());
 		return DailyRoutineListGetServiceResponse.of(routines);
 	}
 
-	public DailyRoutineListGetServiceResponse getRoutinesByTheme(DailyRoutineListGetServiceRequest request) {
+	public DailyRoutineListGetServiceResponse getRoutinesByTheme(DailyRoutineListByThemeGetServiceRequest request) {
 		val theme = themeFinder.findById(request.themeId());
 		val member = memberFinder.findById(request.memberId());
 		val routines = routineFinder.findDailyRoutinesByThemeAndNotMember(theme, member);
