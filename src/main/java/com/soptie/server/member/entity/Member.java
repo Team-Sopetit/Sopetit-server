@@ -7,6 +7,7 @@ import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
+import com.soptie.server.routine.entity.RoutineType;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -82,12 +83,11 @@ public class Member extends BaseTime {
 		this.refreshToken = null;
 	}
 
-	public void addDailyCotton() {
-		this.cottonInfo.addDailyCotton();
-	}
-
-	public void addHappinessCotton() {
-		this.cottonInfo.addHappinessCotton();
+	public void addCottonCount(RoutineType type) {
+		switch (type) {
+			case DAILY -> this.cottonInfo.addDailyCotton();
+			case CHALLENGE -> this.cottonInfo.addHappinessCotton();
+		}
 	}
 
 	public int subtractAndGetCotton(CottonType type) {
@@ -111,12 +111,6 @@ public class Member extends BaseTime {
 
 	public boolean isMemberDollExist() {
 		return Objects.nonNull(this.getMemberDoll());
-	}
-
-	public void checkHappinessRoutineForMember(MemberHappinessRoutine routine) {
-		if (!this.getHappinessRoutine().equals(routine)) {
-			throw new MemberException(INACCESSIBLE_ROUTINE);
-		}
 	}
 
 }

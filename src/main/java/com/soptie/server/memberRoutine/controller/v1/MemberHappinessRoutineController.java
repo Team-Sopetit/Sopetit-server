@@ -7,10 +7,10 @@ import com.soptie.server.memberRoutine.controller.v1.api.MemberHappinessRoutineA
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineCreateResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineGetResponse;
-import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
 import com.soptie.server.memberRoutine.service.MemberRoutineService;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineDeleteServiceRequest;
 
 import lombok.NonNull;
@@ -63,7 +63,7 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineA
     @PatchMapping("/routine/{routineId}")
     public ResponseEntity<BaseResponse> achieveMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
         val memberId = Long.parseLong(principal.getName());
-        memberHappinessRoutineService.achieveMemberHappinessRoutine(memberId, routineId);
+        memberRoutineService.achieveMemberRoutine(MemberRoutineAchieveServiceRequest.of(memberId, routineId));
         return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage()));
     }
 }

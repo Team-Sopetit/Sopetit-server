@@ -16,8 +16,7 @@ import com.soptie.server.member.service.MemberService;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
-import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
-import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.security.core.Authentication;
@@ -38,7 +37,6 @@ public class AuthServiceImpl implements AuthService {
     private final KakaoService kakaoService;
     private final AppleService appleService;
     private final MemberService memberService;
-    private final MemberHappinessRoutineService memberHappinessRoutineService;
     private final MemberDollService memberDollService;
     private final ValueConfig valueConfig;
 
@@ -73,7 +71,6 @@ public class AuthServiceImpl implements AuthService {
         val member = findMember(memberId);
         deleteMemberDoll(member.getMemberDoll());
         memberRoutineDeleter.deleteByMember(member);
-        deleteMemberHappinessRoutine(member.getHappinessRoutine());
         deleteMember(member);
     }
 
@@ -137,12 +134,6 @@ public class AuthServiceImpl implements AuthService {
     private void deleteMemberDoll(MemberDoll memberDoll) {
         if (Objects.nonNull(memberDoll)) {
             memberDollService.deleteMemberDoll(memberDoll);
-        }
-    }
-
-    private void deleteMemberHappinessRoutine(MemberHappinessRoutine memberHappinessRoutine) {
-        if (Objects.nonNull(memberHappinessRoutine)) {
-            memberHappinessRoutineService.deleteMemberHappinessRoutine(memberHappinessRoutine);
         }
     }
 

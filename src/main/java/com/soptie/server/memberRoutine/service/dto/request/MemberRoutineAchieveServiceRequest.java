@@ -5,13 +5,13 @@ import static lombok.AccessLevel.*;
 import lombok.Builder;
 
 @Builder(access = PRIVATE)
-public record MemberDailyRoutineAchieveServiceRequest(
+public record MemberRoutineAchieveServiceRequest(
 		long memberId,
 		long memberRoutineId
 ) {
 
-	public static MemberDailyRoutineAchieveServiceRequest of(long memberId, long memberRoutineId) {
-		return MemberDailyRoutineAchieveServiceRequest.builder()
+	public static MemberRoutineAchieveServiceRequest of(long memberId, long memberRoutineId) {
+		return MemberRoutineAchieveServiceRequest.builder()
 				.memberId(memberId)
 				.memberRoutineId(memberRoutineId)
 				.build();

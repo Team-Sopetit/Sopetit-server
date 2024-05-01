@@ -4,6 +4,7 @@ import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +16,19 @@ import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineSaver;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineAchieveServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineAchieveServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.response.MemberRoutineAchieveServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineCreateServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
+import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
 import com.soptie.server.routine.exception.RoutineException;
 
@@ -38,6 +45,7 @@ public class MemberRoutineService {
 	private final MemberRoutineDeleter memberRoutineDeleter;
 	private final MemberFinder memberFinder;
 	private final RoutineFinder routineFinder;
+	private final ChallengeFinder challengeFinder;
 
 	@Transactional
 	public MemberDailyRoutineCreateServiceResponse createDailyRoutine(MemberDailyRoutineCreateServiceRequest request) {
@@ -58,14 +66,14 @@ public class MemberRoutineService {
 	}
 
 	@Transactional
-	public void deleteDailyRoutines(MemberDailyRoutineDeleteServiceRequest request) {
+	public void deleteMemberRoutines(MemberRoutinesDeleteServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val routines = filterMemberRoutines(member, request.routineIds());
 		routines.forEach(memberRoutineDeleter::softDelete);
 	}
 
 	@Transactional
-	public MemberDailyRoutineAchieveServiceResponse achieveDailyRoutine(MemberDailyRoutineAchieveServiceRequest request) {
+	public MemberRoutineAchieveServiceResponse achieveMemberRoutine(MemberRoutineAchieveServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val memberRoutine = memberRoutineFinder.findById(request.memberRoutineId());
 
@@ -74,9 +82,9 @@ public class MemberRoutineService {
 		}
 
 		memberRoutine.achieve();
-		member.addDailyCotton();
+		member.addCottonCount(memberRoutine.getType());
 
-		return MemberDailyRoutineAchieveServiceResponse.of(memberRoutine);
+		return MemberRoutineAchieveServiceResponse.of(memberRoutine);
 	}
 
 	public MemberDailyRoutineListGetServiceResponse getDailyRoutines(MemberDailyRoutineListGetServiceRequest request) {
@@ -86,9 +94,45 @@ public class MemberRoutineService {
 	}
 
 	@Transactional
-	public void initDailyRoutines() { //TODO: 스케줄러 테스트 필요
+	public void initDailyRoutines() {
 		val routines = memberRoutineFinder.findAchieved();
 		routines.forEach(MemberRoutine::initAchieve);
+	}
+
+	@Transactional
+	public MemberHappinessRoutineCreateServiceResponse createHappinessRoutine(MemberHappinessRoutineCreateServiceRequest request) {
+		val member = memberFinder.findById(request.memberId());
+		if (memberRoutineFinder.existMemberChallenge(member)) {
+			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
+		}
+
+		val challenge = challengeFinder.findById(request.challengeId());
+		if (memberRoutineFinder.isExist(member, challenge)) {
+			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
+		}
+
+		val savedMemberRoutine = memberRoutineSaver.checkHasDeletedAndSave(member, challenge);
+		return MemberHappinessRoutineCreateServiceResponse.of(savedMemberRoutine);
+	}
+
+	public Optional<MemberHappinessRoutineGetServiceResponse> getHappinessRoutine(
+			MemberHappinessRoutineGetServiceRequest request
+	) {
+		val member = memberFinder.findById(request.memberId());
+		val memberRoutine = memberRoutineFinder.findChallengeByMember(member);
+		return memberRoutine.map(MemberHappinessRoutineGetServiceResponse::of);
+	}
+
+	@Transactional
+	public void deleteMemberRoutine(MemberRoutineDeleteServiceRequest request) {
+		val member = memberFinder.findById(request.memberId());
+		val memberRoutine = memberRoutineFinder.findById(request.routineId());
+
+		if (!memberRoutine.getMember().equals(member)) {
+			throw new MemberException(INACCESSIBLE_ROUTINE);
+		}
+
+		memberRoutineDeleter.softDelete(memberRoutine);
 	}
 
 	private List<MemberRoutine> filterMemberRoutines(Member member, List<Long> routineIds) {

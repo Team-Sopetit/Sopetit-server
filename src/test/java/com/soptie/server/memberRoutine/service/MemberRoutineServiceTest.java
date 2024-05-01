@@ -18,7 +18,7 @@ import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineAchieveServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 
@@ -36,7 +36,7 @@ class MemberRoutineServiceTest {
 	private MemberRoutineFinder memberRoutineFinder;
 
 	@Test
-	@DisplayName("[성공] 데일리 루틴을 달성하면 달성 횟수와 데일리 솜 뭉치 개수가 1만큼 증가한다.")
+	@DisplayName("[성공] 루틴을 달성하면 달성 횟수와 데일리 솜 뭉치 개수가 1만큼 증가한다.")
 	void shouldUpdateAchieveCountAndCottonCountWhenAchieveDailyRoutine() {
 		// given
 		int beforeCottonCount = 0;
@@ -53,18 +53,24 @@ class MemberRoutineServiceTest {
 		doReturn(member).when(memberFinder).findById(member.getId());
 		doReturn(memberRoutine).when(memberRoutineFinder).findById(memberRoutine.getId());
 
-		MemberDailyRoutineAchieveServiceRequest request = MemberDailyRoutineAchieveServiceRequest.of(
+		MemberRoutineAchieveServiceRequest request = MemberRoutineAchieveServiceRequest.of(
 				member.getId(),
 				memberRoutine.getId()
 		);
 
 		// when
-		memberRoutineService.achieveDailyRoutine(request);
+		memberRoutineService.achieveMemberRoutine(request);
 
 		// then
 		assertThat(memberRoutine.isAchieve()).isTrue();
 		assertThat(memberRoutine.getAchieveCount()).isEqualTo(beforeAchieveCount + 1);
-		assertThat(member.getCottonInfo().getDailyCottonCount()).isEqualTo(beforeCottonCount + 1);
+
+		switch (memberRoutine.getType()) {
+			case DAILY -> assertThat(member.getCottonInfo().getDailyCottonCount())
+					.isEqualTo(beforeCottonCount + 1);
+			case CHALLENGE -> assertThat(member.getCottonInfo().getHappinessCottonCount())
+					.isEqualTo(beforeCottonCount + 1);
+		}
 	}
 
 	@Test

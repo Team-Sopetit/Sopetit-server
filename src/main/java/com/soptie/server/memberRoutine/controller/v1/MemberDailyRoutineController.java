@@ -26,9 +26,9 @@ import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRou
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListGetResponse;
 import com.soptie.server.memberRoutine.service.MemberRoutineService;
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineAchieveServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -60,7 +60,7 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 			@RequestParam List<Long> routines
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		memberRoutineService.deleteDailyRoutines(MemberDailyRoutineDeleteServiceRequest.of(memberId, routines));
+		memberRoutineService.deleteMemberRoutines(MemberRoutinesDeleteServiceRequest.of(memberId, routines));
 		return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
 	}
 
@@ -71,7 +71,7 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = MemberDailyRoutineAchieveResponse
-				.of(memberRoutineService.achieveDailyRoutine(MemberDailyRoutineAchieveServiceRequest.of(memberId, routineId)));
+				.of(memberRoutineService.achieveMemberRoutine(MemberRoutineAchieveServiceRequest.of(memberId, routineId)));
 		return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
 	}
 
