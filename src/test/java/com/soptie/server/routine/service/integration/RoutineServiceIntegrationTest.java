@@ -1,4 +1,4 @@
-package com.soptie.server.routine.service;
+package com.soptie.server.routine.service.integration;
 
 import static com.soptie.server.routine.entity.RoutineType.*;
 import static org.assertj.core.api.Assertions.*;
@@ -17,6 +17,7 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.repository.RoutineRepository;
+import com.soptie.server.routine.service.RoutineService;
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse;
