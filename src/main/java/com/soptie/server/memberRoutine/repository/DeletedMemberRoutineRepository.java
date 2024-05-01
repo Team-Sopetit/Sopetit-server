@@ -5,10 +5,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.memberRoutine.entity.MemberRoutine;
+import com.soptie.server.memberRoutine.entity.DeletedMemberRoutine;
 import com.soptie.server.routine.entity.RoutineType;
 
-public interface MemberRoutineRepository extends JpaRepository<MemberRoutine, Long> {
+public interface DeletedMemberRoutineRepository extends JpaRepository<DeletedMemberRoutine, Long> {
+	Optional<DeletedMemberRoutine> findByMemberAndTypeAndRoutineId(Member member, RoutineType type, long routineId);
 	boolean existsByMemberAndTypeAndRoutineId(Member member, RoutineType type, long routineId);
-	Optional<MemberRoutine> findByMemberAndTypeAndRoutineId(Member member, RoutineType type, long routineId);
 }
