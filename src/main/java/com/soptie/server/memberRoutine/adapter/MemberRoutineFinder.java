@@ -1,5 +1,6 @@
 package com.soptie.server.memberRoutine.adapter;
 
+import static com.soptie.server.routine.entity.RoutineType.*;
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
+import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.exception.RoutineException;
 
@@ -29,6 +31,10 @@ public class MemberRoutineFinder {
 	}
 
 	public List<MemberRoutine> findAchieved() {
-		return memberRoutineRepository.findByAchieveIsTrue();
+		return memberRoutineRepository.findByIsAchieve(true);
+	}
+
+	public List<MemberRoutineResponse> findDailyRoutinesByMember(Member member) {
+		return memberRoutineRepository.findByTypeAndMember(DAILY, member);
 	}
 }
