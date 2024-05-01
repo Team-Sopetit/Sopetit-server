@@ -2,8 +2,8 @@ package com.soptie.server.routine.service;
 
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
-import com.soptie.server.routine.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesGetResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesGetResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
@@ -21,16 +21,16 @@ public class HappinessRoutineServiceImpl implements HappinessRoutineService {
     private final HappinessSubRoutineService happinessSubRoutineService;
 
     @Override
-    public HappinessRoutinesResponse getHappinessRoutinesByTheme(Long themeId) {
+    public HappinessRoutinesGetResponse getHappinessRoutinesByTheme(Long themeId) {
         val routines = happinessRoutineRepository.findAllByThemeId(themeId);
-        return HappinessRoutinesResponse.of(routines);
+        return HappinessRoutinesGetResponse.of(routines);
     }
 
     @Override
-    public HappinessSubRoutinesResponse getHappinessSubRoutines(long routineId) {
+    public HappinessSubRoutinesGetResponse getHappinessSubRoutines(long routineId) {
         val routine = findRoutine(routineId);
         val happinessSubRoutines = happinessSubRoutineService.getHappinessSubRoutines(routine);
-        return HappinessSubRoutinesResponse.of(routine, happinessSubRoutines);
+        return HappinessSubRoutinesGetResponse.of(routine, happinessSubRoutines);
     }
 
     private HappinessRoutine findRoutine(long id) {

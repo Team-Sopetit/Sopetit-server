@@ -1,6 +1,6 @@
 package com.soptie.server.routine.service;
 
-import com.soptie.server.routine.dto.HappinessRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesGetResponse;
 import com.soptie.server.routine.entity.happiness.HappinessRoutine;
 import com.soptie.server.routine.entity.happiness.HappinessTheme;
 import com.soptie.server.routine.repository.happiness.routine.HappinessRoutineRepository;
@@ -41,7 +41,7 @@ class HappinessRoutineServiceImplTest {
         doReturn(routines).when(happinessRoutineRepository).findAllByThemeId(themeId);
 
         // when
-        HappinessRoutinesResponse response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
+        HappinessRoutinesGetResponse response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
 
         // then
         assertThat(response).isNotNull();

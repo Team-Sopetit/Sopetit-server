@@ -1,8 +1,8 @@
 package com.soptie.server.routine.controller.happiness;
 
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.dto.HappinessRoutinesResponse;
-import com.soptie.server.routine.dto.HappinessSubRoutinesResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessRoutinesGetResponse;
+import com.soptie.server.routine.controller.happiness.dto.HappinessSubRoutinesGetResponse;
 import com.soptie.server.routine.service.HappinessRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -20,13 +20,13 @@ public class HappinessRoutineController implements HappinessRoutineApi {
     private final HappinessRoutineService happinessRoutineService;
 
     @GetMapping
-    public ResponseEntity<SuccessResponse<HappinessRoutinesResponse>> getHappinessRoutinesByThemes(@RequestParam(required = false) Long themeId) {
+    public ResponseEntity<SuccessResponse<HappinessRoutinesGetResponse>> getHappinessRoutinesByThemes(@RequestParam(required = false) Long themeId) {
         val response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
         return ResponseEntity.ok(of(SUCCESS_GET_HAPPINESS_ROUTINE.getMessage(), response));
     }
 
     @GetMapping("/routine/{routineId}")
-    public ResponseEntity<SuccessResponse<HappinessSubRoutinesResponse>> getHappinessSubRoutinesByRoutineOfTheme(@PathVariable long routineId) {
+    public ResponseEntity<SuccessResponse<HappinessSubRoutinesGetResponse>> getHappinessSubRoutinesByRoutineOfTheme(@PathVariable long routineId) {
         val response = happinessRoutineService.getHappinessSubRoutines(routineId);
         return ResponseEntity.ok(of(SUCCESS_GET_HAPPINESS_SUB_ROUTINES.getMessage(), response));
     }
