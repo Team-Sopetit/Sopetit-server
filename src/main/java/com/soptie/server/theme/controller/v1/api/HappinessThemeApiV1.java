@@ -1,4 +1,4 @@
-package com.soptie.server.theme.controller.v1;
+package com.soptie.server.theme.controller.v1.api;
 
 import org.springframework.http.ResponseEntity;
 

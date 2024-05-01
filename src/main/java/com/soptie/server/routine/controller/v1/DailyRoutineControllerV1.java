@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.routine.controller.v1.api.DailyRoutineApiV1;
 import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemeGetResponse;
 import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemesGetResponse;
 import com.soptie.server.routine.service.RoutineService;

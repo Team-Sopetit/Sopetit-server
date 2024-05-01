@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.theme.controller.v1.api.DailyThemeApiV1;
 import com.soptie.server.theme.controller.v1.dto.response.DailyThemeListGetResponse;
 import com.soptie.server.theme.service.ThemeService;
 
