@@ -1,6 +1,6 @@
 package com.soptie.server.routine.controller.happiness.dto;
 
-import com.soptie.server.routine.entity.happiness.HappinessRoutine;
+import com.soptie.server.routine.service.dto.response.HappinessRoutinesGetServiceResponse;
 import lombok.Builder;
 import lombok.NonNull;
 
@@ -10,8 +10,11 @@ public record HappinessRoutinesGetResponse(
     @NonNull List<HappinessRoutineResponse> routines
 ) {
 
-    public static HappinessRoutinesGetResponse of(List<HappinessRoutine> routines) {
-        return new HappinessRoutinesGetResponse(routines.stream().map(HappinessRoutineResponse::of).toList());
+    public static HappinessRoutinesGetResponse of(HappinessRoutinesGetServiceResponse response) {
+        List<HappinessRoutineResponse> routineResponses = response.routines().stream()
+                .map(HappinessRoutineResponse::of)
+                .toList();
+        return new HappinessRoutinesGetResponse(routineResponses);
     }
 
     @Builder
@@ -23,14 +26,14 @@ public record HappinessRoutinesGetResponse(
             @NonNull String iconImageUrl
     ) {
 
-        private static HappinessRoutineResponse of(HappinessRoutine routine) {
-            return HappinessRoutineResponse.builder()
-                    .routineId(routine.getId())
-                    .name(routine.getTheme().getName())
-                    .nameColor(routine.getTheme().getNameColor())
-                    .title(routine.getTitle())
-                    .iconImageUrl(routine.getTheme().getImageInfo().getIconImageUrl())
-                    .build();
+        public static HappinessRoutineResponse of(HappinessRoutinesGetServiceResponse.HappinessRoutineResponse response) {
+            return new HappinessRoutineResponse(
+                    response.routineId(),
+                    response.name(),
+                    response.nameColor(),
+                    response.title(),
+                    response.iconImageUrl()
+            );
         }
     }
 }

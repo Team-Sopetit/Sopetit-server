@@ -21,13 +21,13 @@ public class HappinessRoutineController implements HappinessRoutineApi {
 
     @GetMapping
     public ResponseEntity<SuccessResponse<HappinessRoutinesGetResponse>> getHappinessRoutinesByThemes(@RequestParam(required = false) Long themeId) {
-        val response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
+        val response = HappinessRoutinesGetResponse.of(happinessRoutineService.getHappinessRoutinesByTheme(themeId));
         return ResponseEntity.ok(of(SUCCESS_GET_HAPPINESS_ROUTINE.getMessage(), response));
     }
 
     @GetMapping("/routine/{routineId}")
     public ResponseEntity<SuccessResponse<HappinessSubRoutinesGetResponse>> getHappinessSubRoutinesByRoutineOfTheme(@PathVariable long routineId) {
-        val response = happinessRoutineService.getHappinessSubRoutines(routineId);
+        val response = HappinessSubRoutinesGetResponse.of(happinessRoutineService.getHappinessSubRoutines(routineId));
         return ResponseEntity.ok(of(SUCCESS_GET_HAPPINESS_SUB_ROUTINES.getMessage(), response));
     }
 }

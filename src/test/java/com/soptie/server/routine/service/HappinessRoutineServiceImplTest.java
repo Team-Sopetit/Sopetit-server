@@ -41,7 +41,7 @@ class HappinessRoutineServiceImplTest {
         doReturn(routines).when(happinessRoutineRepository).findAllByThemeId(themeId);
 
         // when
-        HappinessRoutinesGetResponse response = happinessRoutineService.getHappinessRoutinesByTheme(themeId);
+        HappinessRoutinesGetResponse response = HappinessRoutinesGetResponse.of(happinessRoutineService.getHappinessRoutinesByTheme(themeId));
 
         // then
         assertThat(response).isNotNull();
