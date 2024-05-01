@@ -5,6 +5,7 @@ import static com.soptie.server.routine.message.RoutineErrorCode.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,8 +27,10 @@ import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCre
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineDeleteServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.challenge.Challenge;
 import com.soptie.server.routine.exception.RoutineException;
@@ -329,6 +332,54 @@ public class MemberRoutineServiceIntegrationTest {
 
 			List<Long> memberRoutineIds = actual.routines().stream().map(MemberDailyRoutineServiceResponse::routineId).toList();
 			assertThat(memberRoutineIds).containsExactlyInAnyOrder(memberRoutine1.getRoutineId(), memberRoutine2.getId());
+		}
+	}
+
+	@Nested
+	class getHappinessRoutine {
+
+		Member member;
+
+		@BeforeEach
+		void setUp() {
+			member = memberRepository.save(MemberFixture.member().build());
+		}
+
+		@Test
+		@DisplayName("[성공] 회원이 가진 행복 루틴을 조회할 수 있다.")
+		void getMemberHappinessRoutine() {
+			// given
+			Challenge challenge = challengeRepository.save(ChallengeFixture
+					.challenge().content("무한~ 도전~").description("무한으로 즐겨요").build());
+			memberRoutineRepository.save(MemberRoutineFixture
+					.memberRoutine().member(member).type(CHALLENGE).routineId(challenge.getId()).build());
+
+			MemberHappinessRoutineGetServiceRequest request = MemberHappinessRoutineGetServiceRequest.of(member.getId());
+
+			// when
+			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineService
+					.getMemberHappinessRoutine(request);
+
+			// then
+			assertThat(actual).isPresent();
+
+			final MemberHappinessRoutineGetServiceResponse response = actual.get();
+			assertThat(response.content()).isEqualTo(challenge.getContent());
+			assertThat(response.description()).isEqualTo(challenge.getDescription());
+		}
+
+		@Test
+		@DisplayName("[성공] 회원이 가진 행복 루틴이 없으면 빈 값으로 조회된다.")
+		void getEmptyWhenMemberHasNotHappinessRoutine() {
+			// given
+			MemberHappinessRoutineGetServiceRequest request = MemberHappinessRoutineGetServiceRequest.of(member.getId());
+
+			// when
+			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineService
+					.getMemberHappinessRoutine(request);
+
+			// then
+			assertThat(actual).isEmpty();
 		}
 	}
 }
