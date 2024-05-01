@@ -1,5 +1,6 @@
 package com.soptie.server.memberRoutine.entity;
 
+import static com.soptie.server.routine.entity.RoutineType.*;
 import static jakarta.persistence.EnumType.*;
 import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.RoutineType;
+import com.soptie.server.routine.entity.challenge.Challenge;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,6 +50,14 @@ public class MemberRoutine {
 		this.achieveCount = 0;
 		this.type = routine.getType();
 		this.routineId = routine.getId();
+		this.member = member;
+	}
+
+	public MemberRoutine(Member member, Challenge challenge) {
+		this.isAchieve = false;
+		this.achieveCount = 0;
+		this.type = CHALLENGE;
+		this.routineId = challenge.getId();
 		this.member = member;
 	}
 

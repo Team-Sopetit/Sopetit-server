@@ -15,4 +15,5 @@ public interface MemberRoutineRepository extends JpaRepository<MemberRoutine, Lo
 	@SuppressWarnings("SpringDataMethodInconsistencyInspection")
 	List<MemberRoutine> findByIsAchieve(boolean isAchieve);
 	void deleteByMember(Member member);
+	boolean existsByMemberAndType(Member member, RoutineType type);
 }

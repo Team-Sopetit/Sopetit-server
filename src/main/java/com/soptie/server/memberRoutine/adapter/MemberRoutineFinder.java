@@ -11,6 +11,7 @@ import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.entity.challenge.Challenge;
 import com.soptie.server.routine.exception.RoutineException;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,10 @@ public class MemberRoutineFinder {
 		return memberRoutineRepository.existsByMemberAndTypeAndRoutineId(member, routine.getType(), routine.getId());
 	}
 
+	public boolean isExist(Member member, Challenge challenge) {
+		return memberRoutineRepository.existsByMemberAndTypeAndRoutineId(member, CHALLENGE, challenge.getId());
+	}
+
 	public MemberRoutine findById(long id) {
 		return memberRoutineRepository.findById(id)
 				.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
@@ -36,5 +41,9 @@ public class MemberRoutineFinder {
 
 	public List<MemberRoutineResponse> findDailyRoutinesByMember(Member member) {
 		return memberRoutineRepository.findByTypeAndMember(DAILY, member);
+	}
+
+	public boolean existMemberChallenge(Member member) {
+		return memberRoutineRepository.existsByMemberAndType(member, CHALLENGE);
 	}
 }

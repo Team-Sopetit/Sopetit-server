@@ -1,5 +1,8 @@
 package com.soptie.server.memberRoutine.adapter;
 
+import static com.soptie.server.routine.entity.QRoutine.*;
+import static com.soptie.server.routine.entity.RoutineType.*;
+
 import java.util.Optional;
 
 import com.soptie.server.common.support.RepositoryAdapter;
@@ -9,6 +12,8 @@ import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.repository.DeletedMemberRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.entity.RoutineType;
+import com.soptie.server.routine.entity.challenge.Challenge;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -26,6 +31,12 @@ public class MemberRoutineSaver {
 				.orElseGet(() -> save(new MemberRoutine(member, routine)));
 	}
 
+	public MemberRoutine checkHasDeletedAndSave(Member member, Challenge challenge) {
+		return findDeleted(member, challenge)
+				.map(this::deleteHistoryAndSave)
+				.orElseGet(() -> save(new MemberRoutine(member, challenge)));
+	}
+
 	private MemberRoutine save(MemberRoutine memberRoutine) {
 		return memberRoutineRepository.save(memberRoutine);
 	}
@@ -33,6 +44,11 @@ public class MemberRoutineSaver {
 	private Optional<DeletedMemberRoutine> findDeleted(Member member, Routine routine) {
 		return deletedMemberRoutineRepository
 				.findByMemberAndTypeAndRoutineId(member, routine.getType(), routine.getId());
+	}
+
+	private Optional<DeletedMemberRoutine> findDeleted(Member member, Challenge challenge) {
+		return deletedMemberRoutineRepository
+				.findByMemberAndTypeAndRoutineId(member, CHALLENGE, challenge.getId());
 	}
 
 	private MemberRoutine deleteHistoryAndSave(DeletedMemberRoutine deletedMemberRoutine) {

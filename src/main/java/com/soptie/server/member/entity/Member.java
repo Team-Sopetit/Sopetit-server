@@ -1,14 +1,12 @@
 package com.soptie.server.member.entity;
 
 import static com.soptie.server.member.message.ErrorCode.*;
-import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
-import com.soptie.server.routine.exception.RoutineException;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -113,12 +111,6 @@ public class Member extends BaseTime {
 
 	public boolean isMemberDollExist() {
 		return Objects.nonNull(this.getMemberDoll());
-	}
-
-	public void checkHappinessRoutineAddition() {
-		if (Objects.nonNull(this.getHappinessRoutine())) {
-			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
-		}
 	}
 
 	public void checkHappinessRoutineForMember(MemberHappinessRoutine routine) {

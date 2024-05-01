@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.common.support.UrlGenerator;
+import com.soptie.server.common.support.UriGenerator;
 import com.soptie.server.memberRoutine.controller.v1.api.MemberDailyRoutineApi;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
@@ -50,7 +50,7 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 		val response = MemberDailyRoutineCreateResponse
 				.of(memberRoutineService.createDailyRoutine(MemberDailyRoutineCreateServiceRequest.of(memberId, request)));
 		return ResponseEntity
-				.created(UrlGenerator.getURI("/api/v1/routines/daily/member/", response.routineId()))
+				.created(UriGenerator.getURI("/api/v1/routines/daily/member/", response.routineId()))
 				.body(success(SUCCESS_CREATE_ROUTINE.getMessage(), response));
 	}
 

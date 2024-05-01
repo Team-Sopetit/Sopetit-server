@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Component
-public class UrlGenerator {
+public class UriGenerator {
 
 	public static URI getURI(String path, long id) {
 		return ServletUriComponentsBuilder
