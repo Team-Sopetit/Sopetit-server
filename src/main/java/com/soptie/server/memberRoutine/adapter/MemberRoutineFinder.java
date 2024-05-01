@@ -28,7 +28,7 @@ public class MemberRoutineFinder {
 				.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
-	public List<MemberRoutine> findByAchievedIsTrue() {
+	public List<MemberRoutine> findAchieved() {
 		return memberRoutineRepository.findByAchieveIsTrue();
 	}
 }
