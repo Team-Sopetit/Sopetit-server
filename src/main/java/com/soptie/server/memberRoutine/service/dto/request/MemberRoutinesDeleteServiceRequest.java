@@ -7,13 +7,13 @@ import java.util.List;
 import lombok.Builder;
 
 @Builder(access = PRIVATE)
-public record MemberDailyRoutineDeleteServiceRequest(
+public record MemberRoutinesDeleteServiceRequest(
 		long memberId,
 		List<Long> routineIds
 ) {
 
-	public static MemberDailyRoutineDeleteServiceRequest of(long memberId, List<Long> routineIds) {
-		return MemberDailyRoutineDeleteServiceRequest.builder()
+	public static MemberRoutinesDeleteServiceRequest of(long memberId, List<Long> routineIds) {
+		return MemberRoutinesDeleteServiceRequest.builder()
 				.memberId(memberId)
 				.routineIds(routineIds)
 				.build();

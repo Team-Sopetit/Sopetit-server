@@ -24,7 +24,7 @@ import com.soptie.server.memberRoutine.repository.DeletedMemberRoutineRepository
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.memberRoutine.service.MemberRoutineService;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
@@ -276,13 +276,13 @@ public class MemberRoutineServiceIntegrationTest {
 		@DisplayName("[성공] 회원이 가진 데일리 루틴을 삭제한다.")
 		void deleteMemberDailyRoutines() {
 			// given
-			MemberDailyRoutineDeleteServiceRequest request = MemberDailyRoutineDeleteServiceRequest.of(
+			MemberRoutinesDeleteServiceRequest request = MemberRoutinesDeleteServiceRequest.of(
 					member.getId(),
 					List.of(memberRoutine.getId())
 			);
 
 			// when
-			memberRoutineService.deleteDailyRoutines(request);
+			memberRoutineService.deleteMemberRoutines(request);
 
 			// then
 			assertThat(memberRoutineRepository.existsByMemberAndTypeAndRoutineId(member, routine.getType(), routine.getId())).isFalse();
@@ -358,7 +358,7 @@ public class MemberRoutineServiceIntegrationTest {
 
 			// when
 			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineService
-					.getMemberHappinessRoutine(request);
+					.getHappinessRoutine(request);
 
 			// then
 			assertThat(actual).isPresent();
@@ -376,7 +376,7 @@ public class MemberRoutineServiceIntegrationTest {
 
 			// when
 			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineService
-					.getMemberHappinessRoutine(request);
+					.getHappinessRoutine(request);
 
 			// then
 			assertThat(actual).isEmpty();
