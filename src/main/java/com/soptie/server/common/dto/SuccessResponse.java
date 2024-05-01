@@ -15,7 +15,7 @@ public record SuccessResponse<T>(
 	@JsonInclude(value = NON_NULL) T data
 ) implements BaseResponse {
 
-	public static <T> SuccessResponse<T> of(String message, T data) {
+	public static <T> SuccessResponse<T> success(String message, T data) {
 		return SuccessResponse.<T>builder()
 				.success(true)
 				.message(message)
@@ -23,7 +23,7 @@ public record SuccessResponse<T>(
 				.build();
 	}
 
-	public static SuccessResponse<?> of(String message) {
+	public static SuccessResponse<?> success(String message) {
 		return SuccessResponse.builder()
 				.success(true)
 				.message(message)

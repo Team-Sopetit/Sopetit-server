@@ -35,7 +35,7 @@ public class DailyRoutineControllerV1 implements DailyRoutineApiV1 {
 	) {
 		val response = DailyRoutineListByThemesGetResponse
 				.of(routineService.getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest.of(themes)));
-		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
+		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 
 	@GetMapping("/theme/{themeId}")
@@ -46,6 +46,6 @@ public class DailyRoutineControllerV1 implements DailyRoutineApiV1 {
 		val memberId = Long.parseLong(principal.getName());
 		val response = DailyRoutineListByThemeGetResponse
 				.of(routineService.getRoutinesByTheme(DailyRoutineListByThemeGetServiceRequest.of(memberId, themeId)));
-		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
+		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }

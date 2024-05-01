@@ -25,6 +25,6 @@ public class HappinessThemeControllerV1 implements HappinessThemeApiV1 {
     @GetMapping
     public ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessThemes() {
         val response = HappinessThemeListGetResponse.of(themeService.getThemes());
-        return ResponseEntity.ok(of(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
+        return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
     }
 }

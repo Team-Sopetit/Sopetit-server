@@ -32,7 +32,7 @@ public class AuthController implements AuthApi {
             @RequestBody SignInRequest request
     ) {
         val response = SignInResponse.of(authService.signIn(SignInServiceRequest.of(socialAccessToken, request)));
-        return ResponseEntity.ok(of(SUCCESS_SIGN_IN.getMessage(), response));
+        return ResponseEntity.ok(success(SUCCESS_SIGN_IN.getMessage(), response));
     }
 
     @PostMapping("/token")
@@ -40,20 +40,20 @@ public class AuthController implements AuthApi {
             @RequestHeader("Authorization") String refreshToken
     ) {
         val response = TokenGetResponse.of(authService.reissueToken(TokenGetServiceRequest.of(refreshToken)));
-        return ResponseEntity.ok(of(SUCCESS_RECREATE_TOKEN.getMessage(), response));
+        return ResponseEntity.ok(success(SUCCESS_RECREATE_TOKEN.getMessage(), response));
     }
 
     @PostMapping("/logout")
     public ResponseEntity<BaseResponse> signOut(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
         authService.signOut(memberId);
-        return ResponseEntity.ok(of(SUCCESS_SIGN_OUT.getMessage()));
+        return ResponseEntity.ok(success(SUCCESS_SIGN_OUT.getMessage()));
     }
 
     @DeleteMapping
     public ResponseEntity<BaseResponse> withdrawal(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
         authService.withdraw(memberId);
-        return ResponseEntity.ok(of(SUCCESS_WITHDRAWAL.getMessage()));
+        return ResponseEntity.ok(success(SUCCESS_WITHDRAWAL.getMessage()));
     }
 }

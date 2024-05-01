@@ -26,6 +26,6 @@ public class DollController implements DollApi {
 	@GetMapping("/image/{type}")
 	public ResponseEntity<SuccessResponse<DollImageResponse>> getDollImages(@PathVariable DollType type) {
 		val response = dollService.getDollImage(type);
-		return ResponseEntity.ok(of(SUCCESS_GET_IMAGE.getMessage(), response));
+		return ResponseEntity.ok(success(SUCCESS_GET_IMAGE.getMessage(), response));
 	}
 }

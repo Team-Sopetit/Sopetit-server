@@ -25,6 +25,6 @@ public class DailyThemeControllerV1 implements DailyThemeApiV1 {
 	@GetMapping
 	public ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes() {
 		val response = DailyThemeListGetResponse.of(themeService.getThemes());
-		return ResponseEntity.ok(of(SUCCESS_GET_THEME.getMessage(), response));
+		return ResponseEntity.ok(success(SUCCESS_GET_THEME.getMessage(), response));
 	}
 }

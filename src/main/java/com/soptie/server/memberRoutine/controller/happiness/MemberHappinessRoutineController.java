@@ -32,7 +32,7 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineA
             Principal principal, @RequestBody MemberHappinessRoutineRequest request) {
         val memberId = Long.parseLong(principal.getName());
         val response = memberHappinessRoutineService.createMemberHappinessRoutine(memberId, request);
-        return ResponseEntity.created(getURI()).body(of(SUCCESS_CREATE_ROUTINE.getMessage(), response));
+        return ResponseEntity.created(getURI()).body(success(SUCCESS_CREATE_ROUTINE.getMessage(), response));
     }
 
     private URI getURI() {
@@ -48,7 +48,7 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineA
         val memberId = Long.parseLong(principal.getName());
         val response = memberHappinessRoutineService.getMemberHappinessRoutine(memberId);
 		return response
-                .map(result -> ResponseEntity.ok(SuccessResponse.of(SUCCESS_GET_ROUTINE.getMessage(), result)))
+                .map(result -> ResponseEntity.ok(SuccessResponse.success(SUCCESS_GET_ROUTINE.getMessage(), result)))
 				.orElseGet(() -> ResponseEntity.noContent().build());
 	}
 
@@ -56,13 +56,13 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineA
     public ResponseEntity<BaseResponse> deleteMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
         val memberId = Long.parseLong(principal.getName());
         memberHappinessRoutineService.deleteMemberHappinessRoutine(memberId, routineId);
-        return ResponseEntity.ok(of(SUCCESS_DELETE_ROUTINE.getMessage()));
+        return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
     }
 
     @PatchMapping("/routine/{routineId}")
     public ResponseEntity<BaseResponse> achieveMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
         val memberId = Long.parseLong(principal.getName());
         memberHappinessRoutineService.achieveMemberHappinessRoutine(memberId, routineId);
-        return ResponseEntity.ok(of(SUCCESS_ACHIEVE_ROUTINE.getMessage()));
+        return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage()));
     }
 }
