@@ -2,6 +2,8 @@ package com.soptie.server.memberRoutine.adapter;
 
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
+import java.util.List;
+
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
@@ -24,5 +26,9 @@ public class MemberRoutineFinder {
 	public MemberRoutine findById(long id) {
 		return memberRoutineRepository.findById(id)
 				.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
+	}
+
+	public List<MemberRoutine> findByAchievedIsTrue() {
+		return memberRoutineRepository.findByAchieveIsTrue();
 	}
 }

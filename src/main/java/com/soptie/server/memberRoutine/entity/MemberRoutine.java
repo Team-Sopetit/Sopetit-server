@@ -72,6 +72,10 @@ public class MemberRoutine {
 		this.isAchieve = true;
 	}
 
+	public void initAchieve() {
+		this.isAchieve = false;
+	}
+
 	private boolean isAchievedToday(DeletedMemberRoutine deletedMemberRoutine) {
 		return deletedMemberRoutine.isAchieve() && deletedMemberRoutine.getCreatedAt().equals(LocalDate.now());
 	}
