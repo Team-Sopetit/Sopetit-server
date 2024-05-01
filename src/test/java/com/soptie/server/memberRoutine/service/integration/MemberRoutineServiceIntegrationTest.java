@@ -215,24 +215,6 @@ public class MemberRoutineServiceIntegrationTest {
 		}
 
 		@Test
-		@DisplayName("[예외] 가지고 있는 행복 루틴은 추가할 수 없다.")
-		void cannotCreateDailyRoutineIfAlreadyHave() {
-			// given
-			memberRoutineRepository.save(MemberRoutineFixture
-					.memberRoutine().type(CHALLENGE).routineId(challenge.getId()).member(member).build());
-
-			MemberHappinessRoutineCreateServiceRequest request = MemberHappinessRoutineCreateServiceRequest.of(
-					member.getId(),
-					new MemberHappinessRoutineRequest(challenge.getId())
-			);
-
-			// when & then
-			assertThatThrownBy(() -> memberRoutineService.createHappinessRoutine(request))
-					.isInstanceOf(RoutineException.class)
-					.hasMessage("[RoutineException] : " + DUPLICATED_ROUTINE.getMessage());
-		}
-
-		@Test
 		@DisplayName("[예외] 도전 루틴은 최대 1개까지 가질 수 있다.")
 		void cannotCreateChallengeRoutineIfAlreadyHaveOne() {
 			// given
@@ -339,10 +321,14 @@ public class MemberRoutineServiceIntegrationTest {
 	class getHappinessRoutine {
 
 		Member member;
+		Theme theme;
+		Routine routine;
 
 		@BeforeEach
 		void setUp() {
 			member = memberRepository.save(MemberFixture.member().build());
+			theme = themeRepository.save(ThemeFixture.theme().build());
+			routine = routineRepository.save(RoutineFixture.routine().type(CHALLENGE).theme(theme).build());
 		}
 
 		@Test
@@ -350,7 +336,7 @@ public class MemberRoutineServiceIntegrationTest {
 		void getMemberHappinessRoutine() {
 			// given
 			Challenge challenge = challengeRepository.save(ChallengeFixture
-					.challenge().content("무한~ 도전~").description("무한으로 즐겨요").build());
+					.challenge().content("무한~ 도전~").description("무한으로 즐겨요").routine(routine).build());
 			memberRoutineRepository.save(MemberRoutineFixture
 					.memberRoutine().member(member).type(CHALLENGE).routineId(challenge.getId()).build());
 

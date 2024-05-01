@@ -1,5 +1,6 @@
 package com.soptie.server.memberRoutine.service;
 
+import static com.soptie.server.routine.entity.RoutineType.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -36,7 +37,7 @@ class MemberRoutineServiceTest {
 	private MemberRoutineFinder memberRoutineFinder;
 
 	@Test
-	@DisplayName("[성공] 루틴을 달성하면 달성 횟수와 데일리 솜 뭉치 개수가 1만큼 증가한다.")
+	@DisplayName("[성공] 데일리 루틴을 달성하면 달성 횟수와 데일리 솜 뭉치 개수가 1만큼 증가한다.")
 	void shouldUpdateAchieveCountAndCottonCountWhenAchieveDailyRoutine() {
 		// given
 		int beforeCottonCount = 0;
@@ -45,6 +46,7 @@ class MemberRoutineServiceTest {
 		Member member = MemberFixture.member().id(1L).dailyCotton(beforeCottonCount).build();
 		MemberRoutine memberRoutine = MemberRoutineFixture.memberRoutine()
 				.id(3L)
+				.type(DAILY)
 				.isAchieve(false)
 				.achieveCount(beforeAchieveCount)
 				.member(member)
@@ -64,13 +66,40 @@ class MemberRoutineServiceTest {
 		// then
 		assertThat(memberRoutine.isAchieve()).isTrue();
 		assertThat(memberRoutine.getAchieveCount()).isEqualTo(beforeAchieveCount + 1);
+		assertThat(member.getCottonInfo().getDailyCottonCount()).isEqualTo(beforeCottonCount + 1);
+	}
 
-		switch (memberRoutine.getType()) {
-			case DAILY -> assertThat(member.getCottonInfo().getDailyCottonCount())
-					.isEqualTo(beforeCottonCount + 1);
-			case CHALLENGE -> assertThat(member.getCottonInfo().getHappinessCottonCount())
-					.isEqualTo(beforeCottonCount + 1);
-		}
+	@Test
+	@DisplayName("[성공] 행복 루틴을 달성하면 달성 횟수와 행복 솜 뭉치 개수가 1만큼 증가한다.")
+	void shouldUpdateAchieveCountAndCottonCountWhenAchieveHappinessRoutine() {
+		// given
+		int beforeCottonCount = 0;
+		int beforeAchieveCount = 0;
+
+		Member member = MemberFixture.member().id(1L).dailyCotton(beforeCottonCount).build();
+		MemberRoutine memberRoutine = MemberRoutineFixture.memberRoutine()
+				.id(3L)
+				.type(CHALLENGE)
+				.isAchieve(false)
+				.achieveCount(beforeAchieveCount)
+				.member(member)
+				.build();
+
+		doReturn(member).when(memberFinder).findById(member.getId());
+		doReturn(memberRoutine).when(memberRoutineFinder).findById(memberRoutine.getId());
+
+		MemberRoutineAchieveServiceRequest request = MemberRoutineAchieveServiceRequest.of(
+				member.getId(),
+				memberRoutine.getId()
+		);
+
+		// when
+		memberRoutineService.achieveMemberRoutine(request);
+
+		// then
+		assertThat(memberRoutine.isAchieve()).isTrue();
+		assertThat(memberRoutine.getAchieveCount()).isEqualTo(beforeAchieveCount + 1);
+		assertThat(member.getCottonInfo().getHappinessCottonCount()).isEqualTo(beforeCottonCount + 1);
 	}
 
 	@Test

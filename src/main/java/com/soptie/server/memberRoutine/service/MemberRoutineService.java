@@ -107,11 +107,8 @@ public class MemberRoutineService {
 		}
 
 		val challenge = challengeFinder.findById(request.challengeId());
-		if (memberRoutineFinder.isExist(member, challenge)) {
-			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
-		}
-
 		val savedMemberRoutine = memberRoutineSaver.checkHasDeletedAndSave(member, challenge);
+
 		return MemberHappinessRoutineCreateServiceResponse.of(savedMemberRoutine);
 	}
 

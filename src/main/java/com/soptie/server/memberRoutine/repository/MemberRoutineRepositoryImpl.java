@@ -49,10 +49,11 @@ public class MemberRoutineRepositoryImpl implements MemberRoutineCustomRepositor
 
 	@Override
 	public Optional<MemberChallengeResponse> findChallengeByMember(Member member) {
-		return Optional.of(queryFactory
+		return Optional.ofNullable(queryFactory
 				.select(new QMemberChallengeResponse(challenge, theme))
 				.from(memberRoutine)
 				.leftJoin(challenge).on(memberRoutine.routineId.eq(challenge.id))
+				.leftJoin(challenge.routine, routine).fetchJoin()
 				.leftJoin(challenge.routine.theme, theme).fetchJoin()
 				.where(
 						memberRoutine.type.eq(CHALLENGE),
