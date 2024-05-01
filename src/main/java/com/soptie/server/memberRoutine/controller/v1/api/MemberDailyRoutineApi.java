@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "member daily routines", description = "회원의 데일리 루틴 API")
+@Tag(name = "member daily routines V1", description = "회원의 데일리 루틴 API Version1")
 public interface MemberDailyRoutineApi {
 
 	@Operation(

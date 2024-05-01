@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 
-@Tag(name = "member happiness routines", description = "회원의 행복 루틴 API")
+@Tag(name = "member happiness routines V1", description = "회원의 행복 루틴 API Version1")
 public interface MemberHappinessRoutineApi {
 
     @Operation(
