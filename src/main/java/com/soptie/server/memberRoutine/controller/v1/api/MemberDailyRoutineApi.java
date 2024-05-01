@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.controller.v1;
+package com.soptie.server.memberRoutine.controller.v1.api;
 
 import java.security.Principal;
 import java.util.List;

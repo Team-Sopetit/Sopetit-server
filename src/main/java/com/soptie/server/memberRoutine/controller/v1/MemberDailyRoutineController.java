@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.common.support.UrlGenerator;
+import com.soptie.server.memberRoutine.controller.v1.api.MemberDailyRoutineApi;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListGetResponse;

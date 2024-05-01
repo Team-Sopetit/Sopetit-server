@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.controller.happiness;
+package com.soptie.server.memberRoutine.controller.v1.api;
 
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
