@@ -4,11 +4,13 @@ import static com.soptie.server.routine.entity.RoutineType.*;
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
+import com.soptie.server.memberRoutine.repository.dto.MemberChallengeResponse;
 import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.challenge.Challenge;
@@ -45,5 +47,9 @@ public class MemberRoutineFinder {
 
 	public boolean existMemberChallenge(Member member) {
 		return memberRoutineRepository.existsByMemberAndType(member, CHALLENGE);
+	}
+
+	public Optional<MemberChallengeResponse> findChallengeByMember(Member member) {
+		return memberRoutineRepository.findChallengeByMember(member);
 	}
 }

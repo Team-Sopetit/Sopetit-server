@@ -7,12 +7,12 @@ import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRouti
 import lombok.Builder;
 
 @Builder(access = PRIVATE)
-public record MemberHappinessRoutineResponse(
+public record MemberHappinessRoutineCreateResponse(
         long routineId
 ) {
 
-    public static MemberHappinessRoutineResponse of(MemberHappinessRoutineCreateServiceResponse response) {
-        return MemberHappinessRoutineResponse.builder()
+    public static MemberHappinessRoutineCreateResponse of(MemberHappinessRoutineCreateServiceResponse response) {
+        return MemberHappinessRoutineCreateResponse.builder()
                 .routineId(response.routineId())
                 .build();
     }

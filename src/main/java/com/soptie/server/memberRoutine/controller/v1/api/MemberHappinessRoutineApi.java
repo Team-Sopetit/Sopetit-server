@@ -4,7 +4,7 @@ import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
-import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineCreateResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -43,7 +43,7 @@ public interface MemberHappinessRoutineApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<MemberHappinessRoutineResponse>> createMemberHappinessRoutine(
+    ResponseEntity<SuccessResponse<MemberHappinessRoutineCreateResponse>> createMemberHappinessRoutine(
             @Parameter(hidden = true) Principal principal,
             @RequestBody MemberHappinessRoutineRequest request
     );
