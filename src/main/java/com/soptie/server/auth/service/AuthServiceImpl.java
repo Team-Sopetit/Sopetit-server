@@ -15,10 +15,9 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.member.service.MemberService;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
-import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.memberRoutine.service.daily.CompletedMemberDailyRoutineService;
-import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineService;
 import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -26,7 +25,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Objects;
 
 import static com.soptie.server.member.message.ErrorCode.INVALID_MEMBER;
@@ -41,11 +39,12 @@ public class AuthServiceImpl implements AuthService {
     private final KakaoService kakaoService;
     private final AppleService appleService;
     private final MemberService memberService;
-    private final MemberDailyRoutineService memberDailyRoutineService;
     private final MemberHappinessRoutineService memberHappinessRoutineService;
     private final MemberDollService memberDollService;
     private final CompletedMemberDailyRoutineService completedMemberDailyRoutineService;
     private final ValueConfig valueConfig;
+
+    private final MemberRoutineDeleter memberRoutineDeleter;
 
     @Override
     @Transactional
@@ -75,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
     public void withdraw(long memberId) {
         val member = findMember(memberId);
         deleteMemberDoll(member.getMemberDoll());
-        deleteMemberDailyRoutines(member.getDailyRoutines());
+        memberRoutineDeleter.deleteByMember(member);
         deleteMemberHappinessRoutine(member.getHappinessRoutine());
         deleteCompletedMemberDailyRoutines(member);
         deleteMember(member);
@@ -142,11 +141,6 @@ public class AuthServiceImpl implements AuthService {
         if (Objects.nonNull(memberDoll)) {
             memberDollService.deleteMemberDoll(memberDoll);
         }
-    }
-
-    private void deleteMemberDailyRoutines(List<MemberDailyRoutine> memberDailyRoutines) {
-        memberDailyRoutines
-                .forEach(memberDailyRoutineService::deleteMemberDailyRoutine);
     }
 
     private void deleteMemberHappinessRoutine(MemberHappinessRoutine memberHappinessRoutine) {
