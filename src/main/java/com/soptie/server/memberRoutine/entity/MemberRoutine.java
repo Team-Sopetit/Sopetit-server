@@ -70,6 +70,7 @@ public class MemberRoutine {
 
 	public void achieve() {
 		this.isAchieve = true;
+		this.achieveCount++;
 	}
 
 	public void initAchieve() {
