@@ -1,7 +1,7 @@
 package com.soptie.server.memberRoutine.service.daily;
 
 import static com.soptie.server.member.message.ErrorCode.*;
-import static com.soptie.server.routine.message.ErrorCode.*;
+import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

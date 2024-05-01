@@ -1,11 +1,11 @@
-package com.soptie.server.routine.controller.daily.dto;
+package com.soptie.server.routine.controller.v1.dto.response;
 
 import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import com.soptie.server.routine.service.daily.dto.DailyRoutineListGetServiceResponse;
-import com.soptie.server.routine.service.daily.dto.DailyRoutineListGetServiceResponse.DailyRoutineServiceResponse;
+import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse;
+import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse.DailyRoutineServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;

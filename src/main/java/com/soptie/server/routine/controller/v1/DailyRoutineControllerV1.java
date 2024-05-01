@@ -1,7 +1,7 @@
-package com.soptie.server.routine.controller.daily;
+package com.soptie.server.routine.controller.v1;
 
 import static com.soptie.server.common.dto.SuccessResponse.*;
-import static com.soptie.server.routine.message.SuccessMessage.*;
+import static com.soptie.server.routine.message.RoutineSuccessMessage.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -14,24 +14,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemeGetResponse;
-import com.soptie.server.routine.controller.daily.dto.DailyRoutineListByThemesGetResponse;
-import com.soptie.server.routine.service.daily.DailyRoutineService;
+import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemeGetResponse;
+import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemesGetResponse;
+import com.soptie.server.routine.service.RoutineService;
+import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 
 import lombok.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/routines/daily")
-public class DailyRoutineController implements DailyRoutineApi {
+public class DailyRoutineControllerV1 implements DailyRoutineApiV1 {
 
-	private final DailyRoutineService dailyRoutineService;
+	private final RoutineService routineService;
 
 	@GetMapping
 	public ResponseEntity<SuccessResponse<DailyRoutineListByThemesGetResponse>> getRoutinesByThemes(
 			@RequestParam List<Long> themes
 	) {
-		val response = DailyRoutineListByThemesGetResponse.of(dailyRoutineService.getRoutinesByThemes(themes));
+		val response = DailyRoutineListByThemesGetResponse
+				.of(routineService.getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest.of(themes)));
 		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 
@@ -41,7 +44,8 @@ public class DailyRoutineController implements DailyRoutineApi {
 			@PathVariable long themeId
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = DailyRoutineListByThemeGetResponse.of(dailyRoutineService.getRoutinesByTheme(memberId, themeId));
+		val response = DailyRoutineListByThemeGetResponse
+				.of(routineService.getRoutinesByTheme(DailyRoutineListByThemeGetServiceRequest.of(memberId, themeId)));
 		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }
