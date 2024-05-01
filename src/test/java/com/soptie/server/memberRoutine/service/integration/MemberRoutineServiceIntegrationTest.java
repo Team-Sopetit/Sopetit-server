@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.entity.DeletedMemberRoutine;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.repository.DeletedMemberRoutineRepository;
@@ -24,12 +25,16 @@ import com.soptie.server.memberRoutine.service.MemberRoutineService;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineDeleteServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
 import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.entity.challenge.Challenge;
 import com.soptie.server.routine.exception.RoutineException;
+import com.soptie.server.routine.repository.ChallengeRepository;
 import com.soptie.server.routine.repository.RoutineRepository;
 import com.soptie.server.support.IntegrationTest;
+import com.soptie.server.support.fixture.ChallengeFixture;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 import com.soptie.server.support.fixture.RoutineFixture;
@@ -59,6 +64,9 @@ public class MemberRoutineServiceIntegrationTest {
 	@Autowired
 	ThemeRepository themeRepository;
 
+	@Autowired
+	ChallengeRepository challengeRepository;
+
 	@Nested
 	class createDailyRoutine {
 		Member member;
@@ -71,8 +79,8 @@ public class MemberRoutineServiceIntegrationTest {
 		}
 
 		@Test
-		@DisplayName("[성공] 삭제한 적 없는 루틴을 추가한다.")
-		void createHasNotDeleted() {
+		@DisplayName("[성공] 삭제한 적 없는 데일리 루틴을 추가한다.")
+		void createHasNotDeletedDailyRoutine() {
 			// given
 			MemberDailyRoutineCreateServiceRequest request = MemberDailyRoutineCreateServiceRequest.of(
 					member.getId(),
@@ -88,8 +96,8 @@ public class MemberRoutineServiceIntegrationTest {
 		}
 
 		@Test
-		@DisplayName("[성공] 삭제한 적 있는 루틴을 추가한디.")
-		void createHasDeleted() {
+		@DisplayName("[성공] 삭제한 적 있는 데일리 루틴을 추가한디.")
+		void createHasDeletedDailyRoutine() {
 			// given
 			MemberRoutine memberRoutine = MemberRoutineFixture.memberRoutine()
 					.isAchieve(true)
@@ -119,8 +127,8 @@ public class MemberRoutineServiceIntegrationTest {
 		}
 
 		@Test
-		@DisplayName("[예외] 가지고 있는 루틴은 추가할 수 없다.")
-		void cannotCreateIfAlreadyHave() {
+		@DisplayName("[예외] 가지고 있는 데일리 루틴은 추가할 수 없다.")
+		void cannotCreateDailyRoutineIfAlreadyHave() {
 			// given
 			memberRoutineRepository.save(MemberRoutineFixture
 					.memberRoutine().type(routine.getType()).routineId(routine.getId()).member(member).build());
@@ -134,6 +142,110 @@ public class MemberRoutineServiceIntegrationTest {
 			assertThatThrownBy(() -> memberRoutineService.createDailyRoutine(request))
 					.isInstanceOf(RoutineException.class)
 					.hasMessage("[RoutineException] : " + DUPLICATED_ROUTINE.getMessage());
+		}
+
+		private void saveAndDelete(MemberRoutine memberRoutine) {
+			MemberRoutine savedMemberRoutine = memberRoutineRepository.save(memberRoutine);
+			deletedMemberRoutineRepository.save(new DeletedMemberRoutine(savedMemberRoutine));
+			memberRoutineRepository.delete(savedMemberRoutine);
+		}
+
+	}
+
+	@Nested
+	class createChallengeRoutine {
+		Member member;
+		Challenge challenge;
+
+		@BeforeEach
+		void setUp() {
+			member = memberRepository.save(MemberFixture.member().build());
+			challenge = challengeRepository.save(ChallengeFixture.challenge().build());
+		}
+
+		@Test
+		@DisplayName("[성공] 삭제한 적 없는 행복 루틴을 추가한다.")
+		void createHasNotDeletedHappinessRoutine() {
+			// given
+			MemberHappinessRoutineCreateServiceRequest request = MemberHappinessRoutineCreateServiceRequest.of(
+					member.getId(),
+					new MemberHappinessRoutineRequest(challenge.getId())
+			);
+
+			// when
+			memberRoutineService.createHappinessRoutine(request);
+
+			// then
+			assertThat(memberRoutineRepository
+					.existsByMemberAndTypeAndRoutineId(member, CHALLENGE, challenge.getId())).isTrue();
+		}
+
+		@Test
+		@DisplayName("[성공] 삭제한 적 있는 행복 루틴을 추가한디.")
+		void createHasDeletedDailyRoutine() {
+			// given
+			MemberRoutine memberRoutine = MemberRoutineFixture.memberRoutine()
+					.isAchieve(true)
+					.achieveCount(5)
+					.type(CHALLENGE)
+					.routineId(challenge.getId())
+					.member(member)
+					.build();
+
+			saveAndDelete(memberRoutine);
+
+			MemberHappinessRoutineCreateServiceRequest request = MemberHappinessRoutineCreateServiceRequest.of(
+					member.getId(),
+					new MemberHappinessRoutineRequest(challenge.getId())
+			);
+
+			// when
+			memberRoutineService.createHappinessRoutine(request);
+
+			// then
+			final MemberRoutine found = memberRoutineRepository
+					.findByMemberAndTypeAndRoutineId(member, CHALLENGE, challenge.getId())
+					.orElseThrow(RuntimeException::new);
+
+			assertThat(found.isAchieve()).isTrue();
+			assertThat(found.getAchieveCount()).isEqualTo(memberRoutine.getAchieveCount());
+		}
+
+		@Test
+		@DisplayName("[예외] 가지고 있는 행복 루틴은 추가할 수 없다.")
+		void cannotCreateDailyRoutineIfAlreadyHave() {
+			// given
+			memberRoutineRepository.save(MemberRoutineFixture
+					.memberRoutine().type(CHALLENGE).routineId(challenge.getId()).member(member).build());
+
+			MemberHappinessRoutineCreateServiceRequest request = MemberHappinessRoutineCreateServiceRequest.of(
+					member.getId(),
+					new MemberHappinessRoutineRequest(challenge.getId())
+			);
+
+			// when & then
+			assertThatThrownBy(() -> memberRoutineService.createHappinessRoutine(request))
+					.isInstanceOf(RoutineException.class)
+					.hasMessage("[RoutineException] : " + DUPLICATED_ROUTINE.getMessage());
+		}
+
+		@Test
+		@DisplayName("[예외] 도전 루틴은 최대 1개까지 가질 수 있다.")
+		void cannotCreateChallengeRoutineIfAlreadyHaveOne() {
+			// given
+			Challenge challenge2 = challengeRepository.save(ChallengeFixture.challenge().build());
+			memberRoutineRepository.save(MemberRoutineFixture
+					.memberRoutine().type(CHALLENGE).routineId(challenge2.getId()).member(member).build());
+
+			MemberHappinessRoutineCreateServiceRequest request = MemberHappinessRoutineCreateServiceRequest.of(
+					member.getId(),
+					new MemberHappinessRoutineRequest(challenge.getId())
+			);
+
+			// when & then
+			assertThatThrownBy(() -> memberRoutineService.createHappinessRoutine(request))
+					.isInstanceOf(RoutineException.class)
+					.hasMessage("[RoutineException] : " + CANNOT_ADD_MEMBER_ROUTINE.getMessage());
 		}
 
 		private void saveAndDelete(MemberRoutine memberRoutine) {
