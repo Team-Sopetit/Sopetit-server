@@ -4,7 +4,7 @@ import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
+import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -14,7 +14,7 @@ public record MemberDailyRoutineListGetServiceResponse(
 	@NonNull List<MemberDailyRoutineServiceResponse> routines
 ) {
 
-	public static MemberDailyRoutineListGetServiceResponse of(List<MemberDailyRoutine> routines) {
+	public static MemberDailyRoutineListGetServiceResponse of(List<MemberRoutineResponse> routines) {
 		return MemberDailyRoutineListGetServiceResponse.builder()
 				.routines(routines.stream().map(MemberDailyRoutineServiceResponse::of).toList())
 				.build();
@@ -29,12 +29,12 @@ public record MemberDailyRoutineListGetServiceResponse(
 		boolean isAchieve
 	) {
 
-		private static MemberDailyRoutineServiceResponse of(MemberDailyRoutine routine) {
+		private static MemberDailyRoutineServiceResponse of(MemberRoutineResponse routine) {
 			return MemberDailyRoutineServiceResponse.builder()
-				.routineId(routine.getId())
-				.content(routine.getRoutine().getContent())
-				.iconImageUrl(routine.getRoutine().getTheme().getImageInfo().getIconImageUrl())
-				.achieveCount(routine.getAchieveCount())
+				.routineId(routine.id())
+				.content(routine.content())
+				.iconImageUrl(routine.iconImageUrl())
+				.achieveCount(routine.achieveCount())
 				.isAchieve(routine.isAchieve())
 				.build();
 		}
