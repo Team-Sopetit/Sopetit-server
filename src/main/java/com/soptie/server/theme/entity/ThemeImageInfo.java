@@ -13,8 +13,11 @@ public class ThemeImageInfo {
 
 	private String backgroundImageUrl;
 
-	public ThemeImageInfo(String iconImageUrl, String backgroundImageUrl) {
+	private String dailyBackgroundImageUrl;
+
+	public ThemeImageInfo(String iconImageUrl, String backgroundImageUrl, String dailyBackgroundImageUrl) {
 		this.iconImageUrl = iconImageUrl;
 		this.backgroundImageUrl = backgroundImageUrl;
+		this.dailyBackgroundImageUrl = dailyBackgroundImageUrl;
 	}
 }
