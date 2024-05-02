@@ -38,7 +38,7 @@ public class MemberController implements MemberApi {
     ) {
         val memberId = Long.parseLong(principal.getName());
         memberService.createMemberProfile(MemberProfileCreateServiceRequest.of(memberId, request));
-        return ResponseEntity.created(getURI()).body(of(SUCCESS_CREATE_PROFILE.getMessage()));
+        return ResponseEntity.created(getURI()).body(success(SUCCESS_CREATE_PROFILE.getMessage()));
     }
 
     private URI getURI() {
@@ -57,7 +57,7 @@ public class MemberController implements MemberApi {
         val memberId = Long.parseLong(principal.getName());
         val response = MemberCottonCountGetResponse.of(
                 memberService.giveCotton(CottonGiveServiceRequest.of(memberId, cottonType)));
-        return ResponseEntity.ok(of(SUCCESS_GIVE_COTTON.getMessage(), response));
+        return ResponseEntity.ok(success(SUCCESS_GIVE_COTTON.getMessage(), response));
     }
 
     @GetMapping
@@ -65,6 +65,6 @@ public class MemberController implements MemberApi {
         val memberId = Long.parseLong(principal.getName());
         val response = MemberHomeInfoGetResponse.of(
                 memberService.getMemberHomeInfo(MemberHomeInfoGetServiceRequest.of(memberId)));
-        return ResponseEntity.ok(of(SUCCESS_HOME_INFO.getMessage(), response));
+        return ResponseEntity.ok(success(SUCCESS_HOME_INFO.getMessage(), response));
     }
 }

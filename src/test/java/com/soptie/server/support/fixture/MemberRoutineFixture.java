@@ -7,8 +7,8 @@ import com.soptie.server.routine.entity.RoutineType;
 public class MemberRoutineFixture {
 
 	private Long id;
-	private final boolean isAchieve = false;
-	private final int achieveCount = 0;
+	private boolean isAchieve = false;
+	private int achieveCount = 0;
 	private RoutineType type;
 	private long routineId;
 	private Member member;
@@ -22,6 +22,16 @@ public class MemberRoutineFixture {
 
 	public MemberRoutineFixture id(Long id) {
 		this.id = id;
+		return this;
+	}
+
+	public MemberRoutineFixture isAchieve(boolean isAchieve) {
+		this.isAchieve = isAchieve;
+		return this;
+	}
+
+	public MemberRoutineFixture achieveCount(int achieveCount) {
+		this.achieveCount = achieveCount;
 		return this;
 	}
 

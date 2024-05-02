@@ -7,7 +7,7 @@ import com.soptie.server.theme.entity.Theme;
 public class RoutineFixture {
 
 	private Long id;
-	private String content;
+	private String content = "널 방지용 내용 넣기";
 	private RoutineType type;
 	private Theme theme;
 

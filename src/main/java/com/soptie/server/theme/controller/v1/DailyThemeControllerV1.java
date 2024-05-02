@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.theme.controller.v1.api.DailyThemeApiV1;
 import com.soptie.server.theme.controller.v1.dto.response.DailyThemeListGetResponse;
 import com.soptie.server.theme.service.ThemeService;
 
@@ -25,6 +26,6 @@ public class DailyThemeControllerV1 implements DailyThemeApiV1 {
 	@GetMapping
 	public ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes() {
 		val response = DailyThemeListGetResponse.of(themeService.getThemes());
-		return ResponseEntity.ok(of(SUCCESS_GET_THEME.getMessage(), response));
+		return ResponseEntity.ok(success(SUCCESS_GET_THEME.getMessage(), response));
 	}
 }

@@ -36,4 +36,13 @@ public class Challenge {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "routine_id")
 	private Routine routine;
+
+	public Challenge(Long id, String content, String description, String requiredTime, String place, Routine routine) {
+		this.id = id;
+		this.content = content;
+		this.description = description;
+		this.requiredTime = requiredTime;
+		this.place = place;
+		this.routine = routine;
+	}
 }

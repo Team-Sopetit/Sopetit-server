@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.theme.controller.v1.api.HappinessThemeApiV1;
 import com.soptie.server.theme.controller.v1.dto.response.HappinessThemeListGetResponse;
 import com.soptie.server.theme.service.ThemeService;
 
@@ -25,6 +26,6 @@ public class HappinessThemeControllerV1 implements HappinessThemeApiV1 {
     @GetMapping
     public ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessThemes() {
         val response = HappinessThemeListGetResponse.of(themeService.getThemes());
-        return ResponseEntity.ok(of(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
+        return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
     }
 }

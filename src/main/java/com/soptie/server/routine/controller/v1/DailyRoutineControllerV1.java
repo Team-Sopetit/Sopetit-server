@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.routine.controller.v1.api.DailyRoutineApiV1;
 import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemeGetResponse;
 import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemesGetResponse;
 import com.soptie.server.routine.service.RoutineService;
@@ -35,7 +36,7 @@ public class DailyRoutineControllerV1 implements DailyRoutineApiV1 {
 	) {
 		val response = DailyRoutineListByThemesGetResponse
 				.of(routineService.getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest.of(themes)));
-		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
+		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 
 	@GetMapping("/theme/{themeId}")
@@ -46,6 +47,6 @@ public class DailyRoutineControllerV1 implements DailyRoutineApiV1 {
 		val memberId = Long.parseLong(principal.getName());
 		val response = DailyRoutineListByThemeGetResponse
 				.of(routineService.getRoutinesByTheme(DailyRoutineListByThemeGetServiceRequest.of(memberId, themeId)));
-		return ResponseEntity.ok(of(SUCCESS_GET_ROUTINE.getMessage(), response));
+		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }
