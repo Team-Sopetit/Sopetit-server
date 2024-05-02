@@ -1,7 +1,7 @@
 package com.soptie.server.support.fixture;
 
 import com.soptie.server.routine.entity.Routine;
-import com.soptie.server.routine.entity.challenge.Challenge;
+import com.soptie.server.routine.entity.Challenge;
 
 public class ChallengeFixture {
 

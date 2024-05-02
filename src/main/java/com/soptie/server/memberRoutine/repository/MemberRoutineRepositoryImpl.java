@@ -1,9 +1,9 @@
 package com.soptie.server.memberRoutine.repository;
 
 import static com.soptie.server.memberRoutine.entity.QMemberRoutine.*;
+import static com.soptie.server.routine.entity.QChallenge.*;
 import static com.soptie.server.routine.entity.QRoutine.*;
 import static com.soptie.server.routine.entity.RoutineType.*;
-import static com.soptie.server.routine.entity.challenge.QChallenge.*;
 import static com.soptie.server.theme.entity.QTheme.*;
 
 import java.util.List;

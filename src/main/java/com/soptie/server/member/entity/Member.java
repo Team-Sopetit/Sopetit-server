@@ -5,15 +5,11 @@ import static com.soptie.server.member.message.ErrorCode.*;
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberDoll.entity.MemberDoll;
-import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
-import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
 import com.soptie.server.routine.entity.RoutineType;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -39,13 +35,6 @@ public class Member extends BaseTime {
 	@JoinColumn(name = "doll_id")
 	private MemberDoll memberDoll;
 
-	@OneToMany(mappedBy = "member")
-	private final List<MemberDailyRoutine> dailyRoutines = new ArrayList<>();
-
-	@OneToOne
-	@JoinColumn(name = "happiness_routine_id")
-	private MemberHappinessRoutine happinessRoutine;
-
 	@Builder
 	public Member(SocialType socialType, String socialId) {
 		this.socialType = socialType;
@@ -65,14 +54,6 @@ public class Member extends BaseTime {
 
 	public void setMemberDoll(MemberDoll memberDoll) {
 		this.memberDoll = memberDoll;
-	}
-
-	public void resetHappinessRoutine() {
-		this.happinessRoutine = null;
-	}
-
-	public void addHappinessRoutine(MemberHappinessRoutine happinessRoutine) {
-		this.happinessRoutine = happinessRoutine;
 	}
 
 	public void updateRefreshToken(String refreshToken) {

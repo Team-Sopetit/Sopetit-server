@@ -32,7 +32,7 @@ import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineLi
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 import com.soptie.server.routine.entity.Routine;
-import com.soptie.server.routine.entity.challenge.Challenge;
+import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.ChallengeRepository;
 import com.soptie.server.routine.repository.RoutineRepository;

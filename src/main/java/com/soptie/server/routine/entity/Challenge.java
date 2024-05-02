@@ -1,4 +1,4 @@
-package com.soptie.server.routine.entity.challenge;
+package com.soptie.server.routine.entity;
 
 import static jakarta.persistence.FetchType.*;
 import static jakarta.persistence.GenerationType.*;
