@@ -40,9 +40,10 @@ public class Theme {
 	@JoinColumn(name = "expert_id")
 	private Expert expert;
 
-	public Theme(Long id, String name, ThemeImageInfo imageInfo) {
+	public Theme(Long id, String name, String color, ThemeImageInfo imageInfo) {
 		this.id = id;
 		this.name = name;
+		this.color = color;
 		this.imageInfo = imageInfo;
 	}
 }

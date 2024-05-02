@@ -7,6 +7,7 @@ public class ThemeFixture {
 
 	private Long id;
 	private String name;
+	private String color;
 	private final ThemeImageInfo imageInfo = new ThemeImageInfo("https://...", "https://...");
 
 	private ThemeFixture() {
@@ -26,7 +27,12 @@ public class ThemeFixture {
 		return this;
 	}
 
+	public ThemeFixture color(String color) {
+		this.color = color;
+		return this;
+	}
+
 	public Theme build() {
-		return new Theme(id, name, imageInfo);
+		return new Theme(id, name, color, imageInfo);
 	}
 }

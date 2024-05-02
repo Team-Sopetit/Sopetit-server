@@ -50,4 +50,15 @@ public class RoutineRepositoryImpl implements RoutineCustomRepository {
 				.orderBy(ExpressionGenerator.getFirstLetter(routine.content).asc())
 				.fetch();
 	}
+
+	public List<Routine> findByTypeAndTheme(RoutineType type, Theme theme) {
+		return queryFactory
+				.selectFrom(routine)
+				.where(
+						routine.type.eq(type),
+						routine.theme.eq(theme)
+				)
+				.orderBy(ExpressionGenerator.getFirstLetter(routine.content).asc())
+				.fetch();
+	}
 }
