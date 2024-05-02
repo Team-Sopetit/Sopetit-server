@@ -1,5 +1,6 @@
 package com.soptie.server.memberRoutine.entity;
 
+import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.entity.RoutineType.*;
 import static jakarta.persistence.EnumType.*;
 import static jakarta.persistence.FetchType.*;
@@ -8,6 +9,7 @@ import static jakarta.persistence.GenerationType.*;
 import java.time.LocalDate;
 
 import com.soptie.server.member.entity.Member;
+import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.RoutineType;
 import com.soptie.server.routine.entity.challenge.Challenge;
@@ -85,6 +87,12 @@ public class MemberRoutine {
 
 	public void initAchieve() {
 		this.isAchieve = false;
+	}
+
+	public void checkMemberHas(Member member) {
+		if (!this.member.equals(member)) {
+			throw new MemberException(INACCESSIBLE_ROUTINE);
+		}
 	}
 
 	private boolean isAchievedToday(DeletedMemberRoutine deletedMemberRoutine) {

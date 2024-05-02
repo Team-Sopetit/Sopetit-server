@@ -13,7 +13,6 @@ import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutin
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineDeleteServiceRequest;
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -44,7 +43,7 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineA
     }
 
     @GetMapping
-    public ResponseEntity<?> getMemberHappinessRoutine(@NonNull Principal principal) {
+    public ResponseEntity<?> getMemberHappinessRoutine(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
         return memberRoutineService.getHappinessRoutine(MemberHappinessRoutineGetServiceRequest.of(memberId))
                 .map(response -> ResponseEntity.ok(SuccessResponse.success(

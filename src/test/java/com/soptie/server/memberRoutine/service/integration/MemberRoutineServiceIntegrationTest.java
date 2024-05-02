@@ -72,6 +72,7 @@ public class MemberRoutineServiceIntegrationTest {
 
 	@Nested
 	class createDailyRoutine {
+
 		Member member;
 		Routine routine;
 
@@ -157,6 +158,7 @@ public class MemberRoutineServiceIntegrationTest {
 
 	@Nested
 	class createChallengeRoutine {
+
 		Member member;
 		Challenge challenge;
 
@@ -242,6 +244,7 @@ public class MemberRoutineServiceIntegrationTest {
 
 	@Nested
 	class deleteDailyRoutines {
+
 		Member member;
 		Routine routine;
 		MemberRoutine memberRoutine;

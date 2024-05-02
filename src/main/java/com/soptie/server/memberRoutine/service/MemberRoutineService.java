@@ -1,6 +1,5 @@
 package com.soptie.server.memberRoutine.service;
 
-import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineSaver;
@@ -30,6 +28,7 @@ import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRouti
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
+import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.exception.RoutineException;
 
 import lombok.RequiredArgsConstructor;
@@ -51,11 +50,7 @@ public class MemberRoutineService {
 	public MemberDailyRoutineCreateServiceResponse createDailyRoutine(MemberDailyRoutineCreateServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val routine = routineFinder.findById(request.routineId());
-
-		if (memberRoutineFinder.isExist(member, routine)) {
-			throw new RoutineException(DUPLICATED_ROUTINE);
-		}
-
+		checkMemberHasSameRoutineAlready(member, routine);
 		val savedMemberRoutine = memberRoutineSaver.checkHasDeletedAndSave(member, routine);
 		return MemberDailyRoutineCreateServiceResponse.of(savedMemberRoutine);
 	}
@@ -76,14 +71,9 @@ public class MemberRoutineService {
 	public MemberRoutineAchieveServiceResponse achieveMemberRoutine(MemberRoutineAchieveServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val memberRoutine = memberRoutineFinder.findById(request.memberRoutineId());
-
-		if (!memberRoutine.getMember().equals(member)) {
-			throw new MemberException(INACCESSIBLE_ROUTINE);
-		}
-
+		memberRoutine.checkMemberHas(member);
 		memberRoutine.achieve();
 		member.addCottonCount(memberRoutine.getType());
-
 		return MemberRoutineAchieveServiceResponse.of(memberRoutine);
 	}
 
@@ -100,15 +90,13 @@ public class MemberRoutineService {
 	}
 
 	@Transactional
-	public MemberHappinessRoutineCreateServiceResponse createHappinessRoutine(MemberHappinessRoutineCreateServiceRequest request) {
+	public MemberHappinessRoutineCreateServiceResponse createHappinessRoutine(
+			MemberHappinessRoutineCreateServiceRequest request
+	) {
 		val member = memberFinder.findById(request.memberId());
-		if (memberRoutineFinder.existMemberChallenge(member)) {
-			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
-		}
-
+		checkMemberHasChallengeAlready(member);
 		val challenge = challengeFinder.findById(request.challengeId());
 		val savedMemberRoutine = memberRoutineSaver.checkHasDeletedAndSave(member, challenge);
-
 		return MemberHappinessRoutineCreateServiceResponse.of(savedMemberRoutine);
 	}
 
@@ -124,11 +112,7 @@ public class MemberRoutineService {
 	public void deleteMemberRoutine(MemberRoutineDeleteServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val memberRoutine = memberRoutineFinder.findById(request.routineId());
-
-		if (!memberRoutine.getMember().equals(member)) {
-			throw new MemberException(INACCESSIBLE_ROUTINE);
-		}
-
+		memberRoutine.checkMemberHas(member);
 		memberRoutineDeleter.softDelete(memberRoutine);
 	}
 
@@ -137,5 +121,17 @@ public class MemberRoutineService {
 				.map(memberRoutineFinder::findById)
 				.filter(routine -> routine.getMember().equals(member))
 				.toList();
+	}
+
+	private void checkMemberHasSameRoutineAlready(Member member, Routine routine) {
+		if (memberRoutineFinder.isExist(member, routine)) {
+			throw new RoutineException(DUPLICATED_ROUTINE);
+		}
+	}
+
+	public void checkMemberHasChallengeAlready(Member member) {
+		if (memberRoutineFinder.existMemberChallenge(member)) {
+			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
+		}
 	}
 }

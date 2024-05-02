@@ -10,6 +10,7 @@ import lombok.Builder;
 public record MemberHappinessRoutineCreateServiceResponse(
         long routineId
 ) {
+
     public static MemberHappinessRoutineCreateServiceResponse of(MemberRoutine memberRoutine) {
         return MemberHappinessRoutineCreateServiceResponse.builder()
                 .routineId(memberRoutine.getId())

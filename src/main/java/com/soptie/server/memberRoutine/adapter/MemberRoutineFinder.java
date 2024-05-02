@@ -13,7 +13,6 @@ import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.memberRoutine.repository.dto.MemberChallengeResponse;
 import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.routine.entity.Routine;
-import com.soptie.server.routine.entity.challenge.Challenge;
 import com.soptie.server.routine.exception.RoutineException;
 
 import lombok.RequiredArgsConstructor;
@@ -26,10 +25,6 @@ public class MemberRoutineFinder {
 
 	public boolean isExist(Member member, Routine routine) {
 		return memberRoutineRepository.existsByMemberAndTypeAndRoutineId(member, routine.getType(), routine.getId());
-	}
-
-	public boolean isExist(Member member, Challenge challenge) {
-		return memberRoutineRepository.existsByMemberAndTypeAndRoutineId(member, CHALLENGE, challenge.getId());
 	}
 
 	public MemberRoutine findById(long id) {

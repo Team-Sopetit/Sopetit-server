@@ -5,7 +5,7 @@ import com.soptie.server.routine.entity.challenge.Challenge;
 import com.soptie.server.theme.entity.Theme;
 
 public record MemberChallengeResponse(
-		long id,
+		Long id,
 		String routineContent,
 		String content,
 		String description,

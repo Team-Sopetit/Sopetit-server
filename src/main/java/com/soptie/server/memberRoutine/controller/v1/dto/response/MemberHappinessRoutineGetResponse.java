@@ -1,11 +1,13 @@
 package com.soptie.server.memberRoutine.controller.v1.dto.response;
 
+import static lombok.AccessLevel.*;
+
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
 
-@Builder
+@Builder(access = PRIVATE)
 public record MemberHappinessRoutineGetResponse(
 		long routineId,
 		@NonNull String iconImageUrl,
