@@ -24,7 +24,8 @@ public record ThemeListGetServiceResponse(
 		long themeId,
 		String name,
 		String iconImageUrl,
-		String backgroundImageUrl
+		String backgroundImageUrl,
+		String dailyBackgroundImageUrl
 	) {
 
 		private static ThemeServiceResponse of(Theme theme) {
@@ -33,6 +34,7 @@ public record ThemeListGetServiceResponse(
 				.name(theme.getName())
 				.iconImageUrl(theme.getImageInfo().getIconImageUrl())
 				.backgroundImageUrl(theme.getImageInfo().getBackgroundImageUrl())
+				.dailyBackgroundImageUrl(theme.getImageInfo().getDailyBackgroundImageUrl())
 				.build();
 		}
 	}
