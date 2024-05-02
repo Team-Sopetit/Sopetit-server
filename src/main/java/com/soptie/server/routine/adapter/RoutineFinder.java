@@ -32,4 +32,8 @@ public class RoutineFinder {
 		return routineRepository.findById(id)
 				.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
+
+	public List<Routine> findChallengeRoutinesByTheme(Theme theme) {
+		return routineRepository.findByTypeAndTheme(CHALLENGE, theme);
+	}
 }

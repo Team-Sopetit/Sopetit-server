@@ -1,12 +1,11 @@
 package com.soptie.server.common.dto;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.*;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NonNull;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Builder(access = AccessLevel.PRIVATE)
 public record SuccessResponse<T>(

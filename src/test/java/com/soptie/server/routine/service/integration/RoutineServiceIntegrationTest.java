@@ -16,13 +16,22 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.entity.challenge.Challenge;
+import com.soptie.server.routine.repository.ChallengeRepository;
 import com.soptie.server.routine.repository.RoutineRepository;
 import com.soptie.server.routine.service.RoutineService;
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.HappinessRoutineListGetServiceRequest;
+import com.soptie.server.routine.service.dto.request.HappinessSubRoutineListGetServiceRequest;
 import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse.DailyRoutineServiceResponse;
+import com.soptie.server.routine.service.dto.response.HappinessRoutineListGetServiceResponse;
+import com.soptie.server.routine.service.dto.response.HappinessRoutineListGetServiceResponse.HappinessRoutineServiceResponse;
+import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse;
+import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse.HappinessSubRoutineServiceResponse;
 import com.soptie.server.support.IntegrationTest;
+import com.soptie.server.support.fixture.ChallengeFixture;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 import com.soptie.server.support.fixture.RoutineFixture;
@@ -48,6 +57,9 @@ public class RoutineServiceIntegrationTest {
 
 	@Autowired
 	MemberRoutineRepository memberRoutineRepository;
+
+	@Autowired
+	ChallengeRepository challengeRepository;
 
 	@Nested
 	class getDailyRoutinesByTheme {
@@ -117,6 +129,75 @@ public class RoutineServiceIntegrationTest {
 			// then
 			List<Long> routineIds = actual.routines().stream().map(DailyRoutineServiceResponse::routineId).toList();
 			assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
+		}
+	}
+
+	@Nested
+	class getHappinessRoutines {
+
+		Routine routine1, routine2, routine3;
+		Theme theme1, theme2;
+
+		@BeforeEach
+		void setUp() {
+			theme1 = themeRepository.save(ThemeFixture.theme().name("관계 쌓기").color("라일락").build());
+			theme2 = themeRepository.save(ThemeFixture.theme().name("한 걸음 성장").color("민트").build());
+
+			routine1 = routineRepository.save(RoutineFixture.routine().type(CHALLENGE).content("관계쌓는").theme(theme1).build());
+			routine2 = routineRepository.save(RoutineFixture.routine().type(CHALLENGE).content("성장하는").theme(theme1).build());
+			routine3 = routineRepository.save(RoutineFixture.routine().type(CHALLENGE).content("보여주는").theme(theme2).build());
+		}
+
+		@Test
+		@DisplayName("[성공] 테마에 포함된 행복 루틴 목록을 조회한다.")
+		void getHappinessRoutinesByTheme() {
+			// given
+			HappinessRoutineListGetServiceRequest request = HappinessRoutineListGetServiceRequest.of(theme1.getId());
+
+			// when
+			final HappinessRoutineListGetServiceResponse actual = routineService.getHappinessRoutinesByTheme(request);
+
+			// then
+			assertThat(actual.routines()).hasSize(2);
+			List<Long> routineIds = actual.routines().stream().map(HappinessRoutineServiceResponse::routineId).toList();
+			assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
+		}
+	}
+
+	@Nested
+	class getHappinessSubRoutines {
+
+		Challenge challenge1, challenge2, challenge3;
+		Routine routine1, routine2;
+		Theme theme;
+
+		@BeforeEach
+		void setUp() {
+			theme = themeRepository.save(ThemeFixture.theme().name("관계 쌓기").color("라일락").build());
+
+			routine1 = routineRepository.save(RoutineFixture.routine().type(CHALLENGE).content("관계쌓는").theme(theme).build());
+			routine2 = routineRepository.save(RoutineFixture.routine().type(CHALLENGE).content("성장하는").theme(theme).build());
+
+			challenge1 = challengeRepository.save(ChallengeFixture.challenge().routine(routine1).build());
+			challenge2 = challengeRepository.save(ChallengeFixture.challenge().routine(routine1).build());
+			challenge3 = challengeRepository.save(ChallengeFixture.challenge().routine(routine2).build());
+		}
+
+		@Test
+		@DisplayName("[성공] 행복 루틴에 포함된 서브 루틴 목록을 조회한다.")
+		void getHappinessSubRoutinesByRoutine() {
+			// given
+			HappinessSubRoutineListGetServiceRequest request = HappinessSubRoutineListGetServiceRequest.of(routine1.getId());
+
+			// when
+			final HappinessSubRoutineListGetServiceResponse actual = routineService.getHappinessSubRoutines(request);
+
+			// then
+			assertThat(actual.challenges()).hasSize(2);
+
+			List<Long> challengeIds = actual.challenges().stream()
+					.map(HappinessSubRoutineServiceResponse::challengeId).toList();
+			assertThat(challengeIds).containsExactlyInAnyOrder(challenge1.getId(), challenge2.getId());
 		}
 	}
 }
