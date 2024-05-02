@@ -65,6 +65,6 @@ public class RoutineRepositoryImpl implements RoutineCustomRepository {
 	}
 
 	private BooleanExpression themeEq(Long themeId) {
-		return nonNull(themeId) ? routine.theme.id.eq(themeId) : null;
+		return (isNull(themeId) || themeId == 0L) ? null : routine.theme.id.eq(themeId);
 	}
 }
