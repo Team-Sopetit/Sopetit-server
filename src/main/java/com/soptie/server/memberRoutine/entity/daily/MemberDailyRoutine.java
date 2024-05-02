@@ -38,13 +38,6 @@ public class MemberDailyRoutine {
 	@JoinColumn(name = "routine_id")
 	private DailyRoutine routine;
 
-	public MemberDailyRoutine(Member member, DailyRoutine routine) {
-		this.achieveCount = 0;
-		this.isAchieve = false;
-		setMember(member);
-		this.routine = routine;
-	}
-
 	public MemberDailyRoutine(Long id, Member member, DailyRoutine routine, boolean isAchieve, int achieveCount) {
 		this.id = id;
 		this.member = member;
@@ -53,35 +46,11 @@ public class MemberDailyRoutine {
 		this.achieveCount = achieveCount;
 	}
 
-	public MemberDailyRoutine(Member member, DailyRoutine routine, int achieveCount) {
-		this.achieveCount = achieveCount;
-		this.isAchieve = false;
-		setMember(member);
-		this.routine = routine;
-	}
-
-	public MemberDailyRoutine(Member member, DailyRoutine routine, int achieveCount, boolean isAchieve) {
-		this.achieveCount = achieveCount;
-		this.isAchieve = isAchieve;
-		setMember(member);
-		this.routine = routine;
-	}
-
 	private void setMember(Member member) {
 		if (Objects.nonNull(this.member)) {
 			this.member.getDailyRoutines().remove(this);
 		}
 		this.member = member;
 		member.getDailyRoutines().add(this);
-	}
-
-	public void achieveRoutine() {
-		this.isAchieve = true;
-		this.achieveCount++;
-		this.member.addDailyCotton();
-	}
-
-	public void initAchievement() {
-		this.isAchieve = false;
 	}
 }

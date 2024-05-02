@@ -24,6 +24,6 @@ public class VersionController implements VersionApi {
 	@GetMapping("/client/app")
 	public ResponseEntity<SuccessResponse<AppVersionGetResponse>> getClientAppVersion() {
 		val response = AppVersionGetResponse.of(versionService.getClientAppVersion());
-		return ResponseEntity.ok(SuccessResponse.of(SUCCESS_GET_APP_VERSION.getMessage(), response));
+		return ResponseEntity.ok(SuccessResponse.success(SUCCESS_GET_APP_VERSION.getMessage(), response));
 	}
 }

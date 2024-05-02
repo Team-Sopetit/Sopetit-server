@@ -1,16 +1,13 @@
 package com.soptie.server.member.entity;
 
-import static com.soptie.server.common.config.ValueConfig.*;
 import static com.soptie.server.member.message.ErrorCode.*;
-import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
 import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
-import com.soptie.server.routine.entity.daily.DailyRoutine;
-import com.soptie.server.routine.exception.RoutineException;
+import com.soptie.server.routine.entity.RoutineType;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -86,12 +83,11 @@ public class Member extends BaseTime {
 		this.refreshToken = null;
 	}
 
-	public void addDailyCotton() {
-		this.cottonInfo.addDailyCotton();
-	}
-
-	public void addHappinessCotton() {
-		this.cottonInfo.addHappinessCotton();
+	public void addCottonCount(RoutineType type) {
+		switch (type) {
+			case DAILY -> this.cottonInfo.addDailyCotton();
+			case CHALLENGE -> this.cottonInfo.addHappinessCotton();
+		}
 	}
 
 	public int subtractAndGetCotton(CottonType type) {
@@ -117,36 +113,4 @@ public class Member extends BaseTime {
 		return Objects.nonNull(this.getMemberDoll());
 	}
 
-	public void checkDailyRoutineAddition() {
-		if (this.getDailyRoutines().size() >= DAILY_ROUTINE_MAX_COUNT) {
-			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
-		}
-	}
-
-	public void checkHappinessRoutineAddition() {
-		if (Objects.nonNull(this.getHappinessRoutine())) {
-			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
-		}
-	}
-
-	public void checkDailyRoutineForMember(MemberDailyRoutine routine) {
-		if (!isDailyRoutineForMember(routine)) {
-			throw new MemberException(INACCESSIBLE_ROUTINE);
-		}
-	}
-
-	public boolean isDailyRoutineForMember(MemberDailyRoutine routine) {
-		return this.getDailyRoutines().contains(routine);
-	}
-
-	public void checkHappinessRoutineForMember(MemberHappinessRoutine routine) {
-		if (!this.getHappinessRoutine().equals(routine)) {
-			throw new MemberException(INACCESSIBLE_ROUTINE);
-		}
-	}
-
-	public boolean isNotExistRoutine(DailyRoutine routine) {
-		return this.getDailyRoutines().stream()
-				.noneMatch(memberRoutine -> memberRoutine.getRoutine().equals(routine));
-	}
 }
