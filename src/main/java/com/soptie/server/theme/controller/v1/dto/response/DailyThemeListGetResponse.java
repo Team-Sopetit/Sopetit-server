@@ -34,7 +34,7 @@ public record DailyThemeListGetResponse(
 				.themeId(response.themeId())
 				.name(response.name())
 				.iconImageUrl(response.iconImageUrl())
-				.backgroundImageUrl(response.backgroundImageUrl())
+				.backgroundImageUrl(response.dailyBackgroundImageUrl())
 				.build();
 		}
 	}
