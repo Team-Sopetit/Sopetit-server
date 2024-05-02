@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
+import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
@@ -35,6 +36,9 @@ class MemberRoutineServiceTest {
 
 	@Mock
 	private MemberRoutineFinder memberRoutineFinder;
+
+	@Mock
+	private MemberRoutineDeleter memberRoutineDeleter;
 
 	@Test
 	@DisplayName("[성공] 데일리 루틴을 달성하면 달성 횟수와 데일리 솜 뭉치 개수가 1만큼 증가한다.")
@@ -87,6 +91,7 @@ class MemberRoutineServiceTest {
 
 		doReturn(member).when(memberFinder).findById(member.getId());
 		doReturn(memberRoutine).when(memberRoutineFinder).findById(memberRoutine.getId());
+		doNothing().when(memberRoutineDeleter).softDelete(memberRoutine);
 
 		MemberRoutineAchieveServiceRequest request = MemberRoutineAchieveServiceRequest.of(
 				member.getId(),
