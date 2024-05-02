@@ -53,18 +53,18 @@ public class RoutineRepositoryImpl implements RoutineCustomRepository {
 				.fetch();
 	}
 
-	public List<Routine> findByTypeAndTheme(RoutineType type, Theme theme) {
+	public List<Routine> findByTypeAndThemeId(RoutineType type, Long themeId) {
 		return queryFactory
 				.selectFrom(routine)
 				.where(
 						routine.type.eq(type),
-						themeEq(theme)
+						themeEq(themeId)
 				)
 				.orderBy(ExpressionGenerator.getFirstLetter(routine.content).asc())
 				.fetch();
 	}
 
-	private BooleanExpression themeEq(Theme theme) {
-		return nonNull(theme) ? routine.theme.eq(theme) : null;
+	private BooleanExpression themeEq(Long themeId) {
+		return nonNull(themeId) ? routine.theme.id.eq(themeId) : null;
 	}
 }
