@@ -41,8 +41,7 @@ public class RoutineService {
 	}
 
 	public HappinessRoutineListGetServiceResponse getHappinessRoutinesByTheme(HappinessRoutineListGetServiceRequest request) {
-		val theme = themeFinder.findById(request.themeId());
-		val routines = routineFinder.findChallengeRoutinesByTheme(theme);
+		val routines = routineFinder.findChallengeRoutinesByTheme(request.themeId());
 		return HappinessRoutineListGetServiceResponse.of(routines);
 	}
 
