@@ -1,7 +1,7 @@
 package com.soptie.server.memberRoutine.repository.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import com.soptie.server.routine.entity.challenge.Challenge;
+import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.theme.entity.Theme;
 
 public record MemberChallengeResponse(

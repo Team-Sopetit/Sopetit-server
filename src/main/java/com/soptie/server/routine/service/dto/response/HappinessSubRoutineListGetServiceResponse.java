@@ -3,10 +3,9 @@ package com.soptie.server.routine.service.dto.response;
 import static lombok.AccessLevel.*;
 
 import com.soptie.server.routine.entity.Routine;
-import com.soptie.server.routine.entity.challenge.Challenge;
+import com.soptie.server.routine.entity.Challenge;
 
 import lombok.Builder;
-import lombok.NonNull;
 
 import java.util.List;
 

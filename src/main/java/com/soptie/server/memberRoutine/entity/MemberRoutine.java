@@ -12,7 +12,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.RoutineType;
-import com.soptie.server.routine.entity.challenge.Challenge;
+import com.soptie.server.routine.entity.Challenge;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,6 +1,5 @@
 package com.soptie.server.memberRoutine.adapter;
 
-import static com.soptie.server.routine.entity.QRoutine.*;
 import static com.soptie.server.routine.entity.RoutineType.*;
 
 import java.util.Optional;
@@ -12,8 +11,7 @@ import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.repository.DeletedMemberRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.routine.entity.Routine;
-import com.soptie.server.routine.entity.RoutineType;
-import com.soptie.server.routine.entity.challenge.Challenge;
+import com.soptie.server.routine.entity.Challenge;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
