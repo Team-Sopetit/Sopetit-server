@@ -50,7 +50,7 @@ public class MemberRoutineRepositoryImpl implements MemberRoutineCustomRepositor
 	@Override
 	public Optional<MemberChallengeResponse> findChallengeByMember(Member member) {
 		return Optional.ofNullable(queryFactory
-				.select(new QMemberChallengeResponse(challenge, theme))
+				.select(new QMemberChallengeResponse(memberRoutine, challenge, theme))
 				.from(memberRoutine)
 				.leftJoin(challenge).on(memberRoutine.routineId.eq(challenge.id))
 				.leftJoin(challenge.routine, routine).fetchJoin()

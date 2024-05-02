@@ -1,6 +1,7 @@
 package com.soptie.server.memberRoutine.repository.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
+import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.theme.entity.Theme;
 
@@ -15,9 +16,9 @@ public record MemberChallengeResponse(
 ) {
 
 	@QueryProjection
-	public MemberChallengeResponse(Challenge challenge, Theme theme) {
+	public MemberChallengeResponse(MemberRoutine memberRoutine, Challenge challenge, Theme theme) {
 		this(
-				challenge.getId(),
+				memberRoutine.getId(),
 				challenge.getRoutine().getContent(),
 				challenge.getContent(),
 				challenge.getDescription(),

@@ -2,11 +2,13 @@ package com.soptie.server.routine.repository;
 
 import static com.soptie.server.memberRoutine.entity.QMemberRoutine.*;
 import static com.soptie.server.routine.entity.QRoutine.*;
+import static java.util.Objects.*;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.common.support.ExpressionGenerator;
 import com.soptie.server.member.entity.Member;
@@ -56,9 +58,13 @@ public class RoutineRepositoryImpl implements RoutineCustomRepository {
 				.selectFrom(routine)
 				.where(
 						routine.type.eq(type),
-						routine.theme.eq(theme)
+						themeEq(theme)
 				)
 				.orderBy(ExpressionGenerator.getFirstLetter(routine.content).asc())
 				.fetch();
+	}
+
+	private BooleanExpression themeEq(Theme theme) {
+		return nonNull(theme) ? routine.theme.eq(theme) : null;
 	}
 }
