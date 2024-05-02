@@ -1,5 +1,6 @@
 package com.soptie.server.memberRoutine.service;
 
+import static com.soptie.server.routine.entity.RoutineType.*;
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import java.util.List;
@@ -74,6 +75,7 @@ public class MemberRoutineService {
 		memberRoutine.checkMemberHas(member);
 		memberRoutine.achieve();
 		member.addCottonCount(memberRoutine.getType());
+		deleteMemberRoutineIfTypeIsOneTime(memberRoutine);
 		return MemberRoutineAchieveServiceResponse.of(memberRoutine);
 	}
 
@@ -132,6 +134,12 @@ public class MemberRoutineService {
 	public void checkMemberHasChallengeAlready(Member member) {
 		if (memberRoutineFinder.existMemberChallenge(member)) {
 			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
+		}
+	}
+
+	private void deleteMemberRoutineIfTypeIsOneTime(MemberRoutine memberRoutine) {
+		if (memberRoutine.getType().equals(CHALLENGE)) {
+			memberRoutineDeleter.softDelete(memberRoutine);
 		}
 	}
 }
