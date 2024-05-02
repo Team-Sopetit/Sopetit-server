@@ -8,6 +8,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,5 +32,11 @@ public class Doll {
 	public Doll(DollType dollType, DollImage imageInfo) {
 		this.dollType = dollType;
 		this.imageInfo = imageInfo;
+	}
+
+	public Doll(Long id, DollType dollType, String faceImageUrl) {
+		this.id = id;
+		this.dollType = dollType;
+		this.imageInfo = new DollImage(faceImageUrl, "", "");
 	}
 }

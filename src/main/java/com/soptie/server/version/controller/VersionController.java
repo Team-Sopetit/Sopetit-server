@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soptie.server.common.dto.Response;
+import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.version.controller.dto.response.AppVersionGetResponse;
 import com.soptie.server.version.service.VersionService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,13 +17,13 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/versions")
-public class VersionController {
+public class VersionController implements VersionApi {
 
 	private final VersionService versionService;
 
 	@GetMapping("/client/app")
-	public ResponseEntity<Response> getClientAppVersion() {
-		val response = versionService.getClientAppVersion();
-		return ResponseEntity.ok(Response.success(SUCCESS_GET_APP_VERSION.getMessage(), response));
+	public ResponseEntity<SuccessResponse<AppVersionGetResponse>> getClientAppVersion() {
+		val response = AppVersionGetResponse.of(versionService.getClientAppVersion());
+		return ResponseEntity.ok(SuccessResponse.success(SUCCESS_GET_APP_VERSION.getMessage(), response));
 	}
 }

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.common.config.ValueConfig;
-import com.soptie.server.version.dto.AppVersionResponse;
+import com.soptie.server.version.service.dto.response.AppVersionGetServiceResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,8 +16,8 @@ public class VersionServiceImpl implements VersionService {
 	private final ValueConfig valueConfig;
 
 	@Override
-	public AppVersionResponse getClientAppVersion() {
-		return AppVersionResponse.of(
+	public AppVersionGetServiceResponse getClientAppVersion() {
+		return AppVersionGetServiceResponse.of(
 				valueConfig.getIOS_APP_VERSION(),
 				valueConfig.getIOS_FORCE_UPDATE_VERSION(),
 				valueConfig.getANDROID_APP_VERSION(),

@@ -1,13 +1,14 @@
 package com.soptie.server.auth.service;
 
-import com.soptie.server.auth.dto.SignInRequest;
-import com.soptie.server.auth.dto.SignInResponse;
-import com.soptie.server.auth.dto.TokenResponse;
+import com.soptie.server.auth.service.dto.request.SignInServiceRequest;
+import com.soptie.server.auth.service.dto.request.TokenGetServiceRequest;
+import com.soptie.server.auth.service.dto.response.SignInServiceResponse;
+import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
 
 public interface AuthService {
 
-    SignInResponse signIn(String socialAccessToken, SignInRequest request);
+    SignInServiceResponse signIn(SignInServiceRequest request);
     void signOut(long memberId);
     void withdraw(long memberId);
-    TokenResponse reissueToken(String refreshToken);
+    TokenGetServiceResponse reissueToken(TokenGetServiceRequest request);
 }

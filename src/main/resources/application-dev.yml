@@ -46,15 +46,8 @@ jwt:
   secret: ${JWT.SECRET}
   KAKAO_URL: https://kapi.kakao.com/v2/user/me
   APPLE_URL: https://appleid.apple.com/auth/keys
-  ACCESS_TOKEN_EXPIRED: 7200000
+  ACCESS_TOKEN_EXPIRED: 60000
   REFRESH_TOKEN_EXPIRED: 1209600000
-
-springdoc:
-  default-consumes-media-type: application/json;charset=UTF-8
-  default-produces-media-type: application/json;charset=UTF-8
-  swagger-ui:
-    url: /docs/open-api-3.0.1.json
-    path: /swagger
 
 softie:
   cron:

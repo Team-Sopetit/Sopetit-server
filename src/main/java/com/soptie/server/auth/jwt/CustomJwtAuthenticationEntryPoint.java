@@ -1,7 +1,7 @@
 package com.soptie.server.auth.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soptie.server.common.dto.Response;
+import com.soptie.server.common.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +30,6 @@ public class CustomJwtAuthenticationEntryPoint implements AuthenticationEntryPoi
         response.setCharacterEncoding("UTF-8");
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setStatus(SC_UNAUTHORIZED);
-        response.getWriter().println(objectMapper.writeValueAsString(Response.fail(INVALID_TOKEN.getMessage())));
+        response.getWriter().println(objectMapper.writeValueAsString(ErrorResponse.of(INVALID_TOKEN.getMessage())));
     }
 }

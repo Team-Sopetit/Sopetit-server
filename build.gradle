@@ -1,19 +1,7 @@
-import org.hidetake.gradle.swagger.generator.GenerateSwaggerUI
-
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.1'
     id 'io.spring.dependency-management' version '1.1.4'
-
-    // restdocs-swagger
-    id 'com.epages.restdocs-api-spec' version '0.18.2'
-    id 'org.hidetake.swagger.generator' version '2.18.2'
-}
-
-swaggerSources {
-    sample {
-        setInputFile(file("${project.buildDir}/api-spec/openapi3.yaml"))
-    }
 }
 
 group = 'com.soptie'
@@ -55,10 +43,8 @@ dependencies {
     // gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    // restdocs-swagger
+    // swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-    testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.18.2'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 
     // queryDSL
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
@@ -72,26 +58,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-tasks.withType(GenerateSwaggerUI).configureEach {
-    dependsOn 'openapi3'
-    copy {
-        from "build/resources/main/static/docs"
-        into "src/main/resources/static/docs/"
-    }
-}
-
-bootJar {
-    dependsOn(':openapi3')
-}
-
-openapi3 {
-    server = "http://localhost:8080"
-    title = "소프티 API"
-    description = "소프티 API 명세서"
-    version = "0.0.1"
-    outputFileNamePrefix = 'open-api-3.0.1'
-    format = 'json'
-    outputDirectory = 'build/resources/main/static/docs'
 }

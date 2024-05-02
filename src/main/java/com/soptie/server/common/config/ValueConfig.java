@@ -60,7 +60,7 @@ public class ValueConfig {
 
     public static final int MIN_COTTON_COUNT = 0;
     public static final int DAILY_ROUTINE_MAX_COUNT = 3;
-    public static final String MEMBER_DOLL_CONDITION = "^[가-힣a-zA-Zㄱ-ㅎㅏ-ㅣ]{1,10}$";
+    public static final String MEMBER_DOLL_CONDITION = "^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]{1,10}$";
 
     @PostConstruct
     protected void init() {
