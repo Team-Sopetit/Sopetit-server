@@ -33,7 +33,7 @@ public record DailyThemeListGetResponse(
 			return DailyThemeResponse.builder()
 				.themeId(response.themeId())
 				.name(response.name())
-				.iconImageUrl(response.iconImageUrl())
+				.iconImageUrl(response.dailyIconImageUrl())
 				.backgroundImageUrl(response.dailyBackgroundImageUrl())
 				.build();
 		}

@@ -8,7 +8,7 @@ public class ThemeFixture {
 	private Long id;
 	private String name;
 	private String color;
-	private final ThemeImageInfo imageInfo = new ThemeImageInfo("https://...", "https://...", "https://...");
+	private final ThemeImageInfo imageInfo = new ThemeImageInfo("https://...", "https://...", "https://...", "https://...");
 
 	private ThemeFixture() {
 	}
