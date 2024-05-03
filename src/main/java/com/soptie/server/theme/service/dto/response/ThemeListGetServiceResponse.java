@@ -35,7 +35,7 @@ public record ThemeListGetServiceResponse(
 				.name(theme.getName())
 				.iconImageUrl(theme.getImageInfo().getIconImageUrl())
 				.backgroundImageUrl(theme.getImageInfo().getBackgroundImageUrl())
-				.dailyBackgroundImageUrl(theme.getImageInfo().getDailyBackgroundImageUrl())
+				.dailyBackgroundImageUrl(theme.getImageInfo().getDailyCardImageUrl())
 				.dailyIconImageUrl(theme.getImageInfo().getDailyIconImageUrl())
 				.build();
 		}

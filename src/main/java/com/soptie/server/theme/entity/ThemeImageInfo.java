@@ -13,14 +13,17 @@ public class ThemeImageInfo {
 
 	private String backgroundImageUrl;
 
-	private String dailyBackgroundImageUrl;
+	private String dailyCardImageUrl;
 
 	private String dailyIconImageUrl;
 
-	public ThemeImageInfo(String iconImageUrl, String backgroundImageUrl, String dailyBackgroundImageUrl, String dailyIconImageUrl) {
+	private String happinessCardImageUrl;
+
+	public ThemeImageInfo(String iconImageUrl, String backgroundImageUrl, String dailyCardImageUrl, String dailyIconImageUrl, String happinessCardImageUrl) {
 		this.iconImageUrl = iconImageUrl;
 		this.backgroundImageUrl = backgroundImageUrl;
-		this.dailyBackgroundImageUrl = dailyBackgroundImageUrl;
+		this.dailyCardImageUrl = dailyCardImageUrl;
 		this.dailyIconImageUrl = dailyIconImageUrl;
+		this.happinessCardImageUrl = happinessCardImageUrl;
 	}
 }
