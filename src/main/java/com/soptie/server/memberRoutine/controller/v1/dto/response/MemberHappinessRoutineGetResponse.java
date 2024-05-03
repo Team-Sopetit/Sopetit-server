@@ -25,7 +25,7 @@ public record MemberHappinessRoutineGetResponse(
 		return MemberHappinessRoutineGetResponse.builder()
 				.routineId(response.routineId())
 				.iconImageUrl(response.theme().iconImageUrl())
-				.contentImageUrl(response.theme().backgroundImageUrl())
+				.contentImageUrl(response.theme().cardImageUrl())
 				.themeName(response.theme().name())
 				.themeNameColor(response.theme().color())
 				.title(response.routineContent())
