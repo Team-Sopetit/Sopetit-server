@@ -8,6 +8,7 @@ public record MemberRoutineResponse(
 		Long id,
 		String content,
 		String iconImageUrl,
+		String dailyIconImageUrl,
 		int achieveCount,
 		boolean isAchieve
 ) {
@@ -18,6 +19,7 @@ public record MemberRoutineResponse(
 				memberRoutine.getId(),
 				routine.getContent(),
 				routine.getTheme().getImageInfo().getIconImageUrl(),
+				routine.getTheme().getImageInfo().getDailyIconImageUrl(),
 				memberRoutine.getAchieveCount(),
 				memberRoutine.isAchieve()
 		);

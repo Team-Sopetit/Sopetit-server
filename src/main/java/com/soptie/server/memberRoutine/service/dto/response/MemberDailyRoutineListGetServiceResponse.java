@@ -33,7 +33,7 @@ public record MemberDailyRoutineListGetServiceResponse(
 			return MemberDailyRoutineServiceResponse.builder()
 				.routineId(routine.id())
 				.content(routine.content())
-				.iconImageUrl(routine.iconImageUrl())
+				.iconImageUrl(routine.dailyIconImageUrl())
 				.achieveCount(routine.achieveCount())
 				.isAchieve(routine.isAchieve())
 				.build();
