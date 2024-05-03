@@ -33,7 +33,7 @@ public record MemberHappinessRoutineGetServiceResponse(
 	@Builder(access = PRIVATE)
 	public record ThemeServiceResponse(
 			String iconImageUrl,
-			String backgroundImageUrl,
+			String cardImageUrl,
 			String name,
 			String color
 	) {
@@ -41,7 +41,7 @@ public record MemberHappinessRoutineGetServiceResponse(
 		private static ThemeServiceResponse of(Theme theme) {
 			return ThemeServiceResponse.builder()
 					.iconImageUrl(theme.getImageInfo().getIconImageUrl())
-					.backgroundImageUrl(theme.getImageInfo().getBackgroundImageUrl())
+					.cardImageUrl(theme.getImageInfo().getHappinessCardImageUrl())
 					.name(theme.getName())
 					.color(theme.getColor())
 					.build();
