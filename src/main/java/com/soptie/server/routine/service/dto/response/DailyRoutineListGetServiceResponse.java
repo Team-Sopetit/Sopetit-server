@@ -24,7 +24,7 @@ public record DailyRoutineListGetServiceResponse(
 	public static DailyRoutineListGetServiceResponse of(List<Routine> routines, Theme theme) {
 		return DailyRoutineListGetServiceResponse.builder()
 				.routines(routines.stream().map(DailyRoutineServiceResponse::of).toList())
-				.backgroundImageUrl(theme.getImageInfo().getDailyBackgroundImageUrl())
+				.backgroundImageUrl(theme.getImageInfo().getDailyCardImageUrl())
 				.build();
 	}
 
