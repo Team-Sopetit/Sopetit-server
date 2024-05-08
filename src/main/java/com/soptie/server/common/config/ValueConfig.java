@@ -15,18 +15,6 @@ public class ValueConfig {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${spring.security.oauth2.client.registration.kakao.client-id")
-    private String clientId;
-
-    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri")
-    private String redirectUri;
-
-    @Value("${spring.security.oauth2.client.registration.kakao.client-secret")
-    private String clientSecret;
-
-    @Value("${spring.security.oauth2.client.provider.kakao.token-uri")
-    private String tokenUri;
-
     @Value("${jwt.KAKAO_URL}")
     private String kakaoUri;
 
