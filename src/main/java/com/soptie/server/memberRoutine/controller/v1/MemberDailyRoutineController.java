@@ -24,6 +24,7 @@ import com.soptie.server.memberRoutine.controller.v1.api.MemberDailyRoutineApi;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListGetResponse;
+import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
 import com.soptie.server.memberRoutine.service.MemberRoutineService;
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
@@ -40,6 +41,7 @@ import lombok.val;
 public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 
 	private final MemberRoutineService memberRoutineService;
+	private final MemberRoutineCreateService memberRoutineCreateService;
 
 	@PostMapping
 	public ResponseEntity<SuccessResponse<MemberDailyRoutineCreateResponse>> createMemberDailyRoutine(
