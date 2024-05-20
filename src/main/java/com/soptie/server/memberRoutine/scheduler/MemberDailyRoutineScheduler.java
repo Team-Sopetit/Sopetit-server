@@ -4,7 +4,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.soptie.server.memberRoutine.service.MemberRoutineService;
+import com.soptie.server.memberRoutine.service.MemberRoutineUpdateService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberDailyRoutineScheduler {
 
-	private final MemberRoutineService memberRoutineService;
+	private final MemberRoutineUpdateService memberRoutineUpdateService;
 
 	@Scheduled(cron = "${softie.cron.init.routine}")
 	public void initMemberDailyRoutines() {
-		memberRoutineService.initDailyRoutines();
+		memberRoutineUpdateService.initDailyRoutines();
 	}
 }

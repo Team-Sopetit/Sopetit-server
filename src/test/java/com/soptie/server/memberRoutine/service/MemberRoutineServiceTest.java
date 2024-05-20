@@ -29,7 +29,7 @@ import com.soptie.server.support.fixture.MemberRoutineFixture;
 class MemberRoutineServiceTest {
 
 	@InjectMocks
-	private MemberRoutineService memberRoutineService;
+	private MemberRoutineUpdateService memberRoutineUpdateService;
 
 	@Mock
 	private MemberFinder memberFinder;
@@ -65,7 +65,7 @@ class MemberRoutineServiceTest {
 		);
 
 		// when
-		memberRoutineService.achieveMemberRoutine(request);
+		memberRoutineUpdateService.achieveMemberRoutine(request);
 
 		// then
 		assertThat(memberRoutine.isAchieve()).isTrue();
@@ -99,7 +99,7 @@ class MemberRoutineServiceTest {
 		);
 
 		// when
-		memberRoutineService.achieveMemberRoutine(request);
+		memberRoutineUpdateService.achieveMemberRoutine(request);
 
 		// then
 		assertThat(memberRoutine.isAchieve()).isTrue();
@@ -119,7 +119,7 @@ class MemberRoutineServiceTest {
 		doReturn(memberRoutines).when(memberRoutineFinder).findAchieved();
 
 		// when
-		memberRoutineService.initDailyRoutines();
+		memberRoutineUpdateService.initDailyRoutines();
 
 		// then
 		assertThat(memberRoutines.get(0).isAchieve()).isFalse();

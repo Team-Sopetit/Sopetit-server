@@ -7,7 +7,10 @@ import com.soptie.server.memberRoutine.controller.v1.api.MemberHappinessRoutineA
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineCreateResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineGetResponse;
-import com.soptie.server.memberRoutine.service.MemberRoutineService;
+import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
+import com.soptie.server.memberRoutine.service.MemberRoutineDeleteService;
+import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
+import com.soptie.server.memberRoutine.service.MemberRoutineUpdateService;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
@@ -29,13 +32,16 @@ import static com.soptie.server.memberRoutine.message.SuccessMessage.*;
 @RequestMapping("/api/v1/routines/happiness/member")
 public class MemberHappinessRoutineController implements MemberHappinessRoutineApi {
 
-    private final MemberRoutineService memberRoutineService;
+    private final MemberRoutineCreateService memberRoutineCreateService;
+    private final MemberRoutineReadService memberRoutineReadService;
+    private final MemberRoutineUpdateService memberRoutineUpdateService;
+    private final MemberRoutineDeleteService memberRoutineDeleteService;
 
     @PostMapping
     public ResponseEntity<SuccessResponse<MemberHappinessRoutineCreateResponse>> createMemberHappinessRoutine(
             Principal principal, @RequestBody MemberHappinessRoutineRequest request) {
         val memberId = Long.parseLong(principal.getName());
-        val response = MemberHappinessRoutineCreateResponse.of(memberRoutineService.createHappinessRoutine(
+        val response = MemberHappinessRoutineCreateResponse.of(memberRoutineCreateService.createHappinessRoutine(
                 MemberHappinessRoutineCreateServiceRequest.of(memberId, request)));
         return ResponseEntity
                 .created(UriGenerator.getURI("/api/v1/routines/happiness/member", response.routineId()))
@@ -45,7 +51,7 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineA
     @GetMapping
     public ResponseEntity<?> getMemberHappinessRoutine(Principal principal) {
         val memberId = Long.parseLong(principal.getName());
-        return memberRoutineService.getHappinessRoutine(MemberHappinessRoutineGetServiceRequest.of(memberId))
+        return memberRoutineReadService.getHappinessRoutine(MemberHappinessRoutineGetServiceRequest.of(memberId))
                 .map(response -> ResponseEntity.ok(SuccessResponse.success(
                         SUCCESS_GET_ROUTINE.getMessage(),
                         MemberHappinessRoutineGetResponse.of(response))))
@@ -55,14 +61,14 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineA
     @DeleteMapping("/routine/{routineId}")
     public ResponseEntity<BaseResponse> deleteMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
         val memberId = Long.parseLong(principal.getName());
-        memberRoutineService.deleteMemberRoutine(MemberRoutineDeleteServiceRequest.of(memberId, routineId));
+        memberRoutineDeleteService.deleteMemberRoutine(MemberRoutineDeleteServiceRequest.of(memberId, routineId));
         return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
     }
 
     @PatchMapping("/routine/{routineId}")
     public ResponseEntity<BaseResponse> achieveMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
         val memberId = Long.parseLong(principal.getName());
-        memberRoutineService.achieveMemberRoutine(MemberRoutineAchieveServiceRequest.of(memberId, routineId));
+        memberRoutineUpdateService.achieveMemberRoutine(MemberRoutineAchieveServiceRequest.of(memberId, routineId));
         return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage()));
     }
 }
