@@ -62,7 +62,7 @@ public class MemberRoutineCreateService {
 		}
 	}
 
-	public void checkMemberHasChallengeAlready(Member member) {
+	private void checkMemberHasChallengeAlready(Member member) {
 		if (memberRoutineFinder.existMemberChallenge(member)) {
 			throw new RoutineException(CANNOT_ADD_MEMBER_ROUTINE);
 		}
