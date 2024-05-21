@@ -22,7 +22,9 @@ import com.soptie.server.memberRoutine.entity.DeletedMemberRoutine;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.repository.DeletedMemberRoutineRepository;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
-import com.soptie.server.memberRoutine.service.MemberRoutineService;
+import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
+import com.soptie.server.memberRoutine.service.MemberRoutineDeleteService;
+import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
@@ -50,7 +52,13 @@ import com.soptie.server.theme.repository.ThemeRepository;
 public class MemberRoutineServiceIntegrationTest {
 
 	@Autowired
-	MemberRoutineService memberRoutineService;
+	MemberRoutineCreateService memberRoutineCreateService;
+
+	@Autowired
+	MemberRoutineReadService memberRoutineReadService;
+
+	@Autowired
+	MemberRoutineDeleteService memberRoutineDeleteService;
 
 	@Autowired
 	MemberRepository memberRepository;
@@ -92,7 +100,7 @@ public class MemberRoutineServiceIntegrationTest {
 			);
 
 			// when
-			memberRoutineService.createDailyRoutine(request);
+			memberRoutineCreateService.createDailyRoutine(request);
 
 			// then
 			assertThat(memberRoutineRepository
@@ -119,7 +127,7 @@ public class MemberRoutineServiceIntegrationTest {
 			);
 
 			// when
-			memberRoutineService.createDailyRoutine(request);
+			memberRoutineCreateService.createDailyRoutine(request);
 
 			// then
 			final MemberRoutine found = memberRoutineRepository
@@ -143,7 +151,7 @@ public class MemberRoutineServiceIntegrationTest {
 			);
 
 			// when & then
-			assertThatThrownBy(() -> memberRoutineService.createDailyRoutine(request))
+			assertThatThrownBy(() -> memberRoutineCreateService.createDailyRoutine(request))
 					.isInstanceOf(RoutineException.class)
 					.hasMessage("[RoutineException] : " + DUPLICATED_ROUTINE.getMessage());
 		}
@@ -178,7 +186,7 @@ public class MemberRoutineServiceIntegrationTest {
 			);
 
 			// when
-			memberRoutineService.createHappinessRoutine(request);
+			memberRoutineCreateService.createHappinessRoutine(request);
 
 			// then
 			assertThat(memberRoutineRepository
@@ -205,7 +213,7 @@ public class MemberRoutineServiceIntegrationTest {
 			);
 
 			// when
-			memberRoutineService.createHappinessRoutine(request);
+			memberRoutineCreateService.createHappinessRoutine(request);
 
 			// then
 			final MemberRoutine found = memberRoutineRepository
@@ -230,7 +238,7 @@ public class MemberRoutineServiceIntegrationTest {
 			);
 
 			// when & then
-			assertThatThrownBy(() -> memberRoutineService.createHappinessRoutine(request))
+			assertThatThrownBy(() -> memberRoutineCreateService.createHappinessRoutine(request))
 					.isInstanceOf(RoutineException.class)
 					.hasMessage("[RoutineException] : " + CANNOT_ADD_MEMBER_ROUTINE.getMessage());
 		}
@@ -267,7 +275,7 @@ public class MemberRoutineServiceIntegrationTest {
 			);
 
 			// when
-			memberRoutineService.deleteMemberRoutines(request);
+			memberRoutineDeleteService.deleteMemberRoutines(request);
 
 			// then
 			assertThat(memberRoutineRepository.existsByMemberAndTypeAndRoutineId(member, routine.getType(), routine.getId())).isFalse();
@@ -308,7 +316,7 @@ public class MemberRoutineServiceIntegrationTest {
 			MemberDailyRoutineListGetServiceRequest request = MemberDailyRoutineListGetServiceRequest.of(member1.getId());
 
 			// when
-			final MemberDailyRoutineListGetServiceResponse actual = memberRoutineService.getDailyRoutines(request);
+			final MemberDailyRoutineListGetServiceResponse actual = memberRoutineReadService.getDailyRoutines(request);
 
 			// then
 			List<String> contents = actual.routines().stream().map(MemberDailyRoutineServiceResponse::content).toList();
@@ -346,7 +354,7 @@ public class MemberRoutineServiceIntegrationTest {
 			MemberHappinessRoutineGetServiceRequest request = MemberHappinessRoutineGetServiceRequest.of(member.getId());
 
 			// when
-			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineService
+			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineReadService
 					.getHappinessRoutine(request);
 
 			// then
@@ -364,7 +372,7 @@ public class MemberRoutineServiceIntegrationTest {
 			MemberHappinessRoutineGetServiceRequest request = MemberHappinessRoutineGetServiceRequest.of(member.getId());
 
 			// when
-			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineService
+			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineReadService
 					.getHappinessRoutine(request);
 
 			// then

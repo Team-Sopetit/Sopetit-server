@@ -11,7 +11,8 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.service.MemberDollService;
-import com.soptie.server.memberRoutine.service.MemberRoutineService;
+import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ import static com.soptie.server.member.message.ErrorCode.*;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberDollService memberDollService;
-    private final MemberRoutineService memberRoutineService;
+    private final MemberRoutineCreateService memberRoutineCreateService;
     private final MemberRepository memberRepository;
     private final ConversationRepository conversationRepository;
 
@@ -36,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
     public void createMemberProfile(MemberProfileCreateServiceRequest request) {
         val member = findMember(request.memberId());
         member.checkMemberDollNonExist();
-        memberRoutineService.createDailyRoutines(member, request.routines());
+        memberRoutineCreateService.createDailyRoutines(member, request.routines());
         memberDollService.createMemberDoll(member, request.dollType(), request.name());
     }
 

@@ -24,8 +24,11 @@ import com.soptie.server.memberRoutine.controller.v1.api.MemberDailyRoutineApi;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListGetResponse;
-import com.soptie.server.memberRoutine.service.MemberRoutineService;
+import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberRoutine.service.MemberRoutineDeleteService;
+import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
+import com.soptie.server.memberRoutine.service.MemberRoutineUpdateService;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
@@ -39,7 +42,10 @@ import lombok.val;
 @RequestMapping("/api/v1/routines/daily/member")
 public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 
-	private final MemberRoutineService memberRoutineService;
+	private final MemberRoutineCreateService memberRoutineCreateService;
+	private final MemberRoutineReadService memberRoutineReadService;
+	private final MemberRoutineUpdateService memberRoutineUpdateService;
+	private final MemberRoutineDeleteService memberRoutineDeleteService;
 
 	@PostMapping
 	public ResponseEntity<SuccessResponse<MemberDailyRoutineCreateResponse>> createMemberDailyRoutine(
@@ -47,8 +53,8 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 			@RequestBody MemberDailyRoutineCreateRequest request
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = MemberDailyRoutineCreateResponse
-				.of(memberRoutineService.createDailyRoutine(MemberDailyRoutineCreateServiceRequest.of(memberId, request)));
+		val response = MemberDailyRoutineCreateResponse.of(memberRoutineCreateService.createDailyRoutine(
+				MemberDailyRoutineCreateServiceRequest.of(memberId, request)));
 		return ResponseEntity
 				.created(UriGenerator.getURI("/api/v1/routines/daily/member/", response.routineId()))
 				.body(success(SUCCESS_CREATE_ROUTINE.getMessage(), response));
@@ -60,7 +66,7 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 			@RequestParam List<Long> routines
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		memberRoutineService.deleteMemberRoutines(MemberRoutinesDeleteServiceRequest.of(memberId, routines));
+		memberRoutineDeleteService.deleteMemberRoutines(MemberRoutinesDeleteServiceRequest.of(memberId, routines));
 		return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
 	}
 
@@ -71,7 +77,8 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = MemberDailyRoutineAchieveResponse
-				.of(memberRoutineService.achieveMemberRoutine(MemberRoutineAchieveServiceRequest.of(memberId, routineId)));
+				.of(memberRoutineUpdateService.achieveMemberRoutine(
+						MemberRoutineAchieveServiceRequest.of(memberId, routineId)));
 		return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
 	}
 
@@ -79,7 +86,7 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	public ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponse>> getMemberDailyRoutines(Principal principal) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = MemberDailyRoutineListGetResponse
-				.of(memberRoutineService.getDailyRoutines(MemberDailyRoutineListGetServiceRequest.of(memberId)));
+				.of(memberRoutineReadService.getDailyRoutines(MemberDailyRoutineListGetServiceRequest.of(memberId)));
 		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }
