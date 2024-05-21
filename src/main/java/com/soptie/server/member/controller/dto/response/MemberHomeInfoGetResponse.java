@@ -1,7 +1,6 @@
 package com.soptie.server.member.controller.dto.response;
 
 import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
 import lombok.Builder;
 import lombok.NonNull;

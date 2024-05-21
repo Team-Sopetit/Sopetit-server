@@ -1,6 +1,6 @@
 package com.soptie.server.theme.service.dto.response;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 

@@ -83,7 +83,9 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	}
 
 	@GetMapping
-	public ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponse>> getMemberDailyRoutines(Principal principal) {
+	public ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponse>> getMemberDailyRoutines(
+			Principal principal
+	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = MemberDailyRoutineListGetResponse
 				.of(memberRoutineReadService.getDailyRoutines(MemberDailyRoutineListGetServiceRequest.of(memberId)));

@@ -45,6 +45,7 @@ public class SecurityConfig {
     }
 
     private void setHttp(HttpSecurity http) throws Exception {
+        authorizeHttpRequests(http);
         http.csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement ->
@@ -52,16 +53,20 @@ public class SecurityConfig {
                 )
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling.authenticationEntryPoint(customJwtAuthenticationEntryPoint))
-                .authorizeHttpRequests(authorizeHttpRequests ->
-                        authorizeHttpRequests
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/auth", "POST")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/test")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily/themes")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/dolls/image/{type}")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/versions/client/app")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
-                                .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    private void authorizeHttpRequests(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorizeHttpRequests ->
+                authorizeHttpRequests
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/auth", "POST")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/test")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily/themes")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/dolls/image/{type}")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/versions/client/app")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
+                        .anyRequest().authenticated()
+        );
     }
 }

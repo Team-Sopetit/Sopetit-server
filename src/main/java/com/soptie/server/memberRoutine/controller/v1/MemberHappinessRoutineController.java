@@ -59,14 +59,20 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineA
     }
 
     @DeleteMapping("/routine/{routineId}")
-    public ResponseEntity<BaseResponse> deleteMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
+    public ResponseEntity<BaseResponse> deleteMemberHappinessRoutine(
+            Principal principal,
+            @PathVariable Long routineId
+    ) {
         val memberId = Long.parseLong(principal.getName());
         memberRoutineDeleteService.deleteMemberRoutine(MemberRoutineDeleteServiceRequest.of(memberId, routineId));
         return ResponseEntity.ok(success(SUCCESS_DELETE_ROUTINE.getMessage()));
     }
 
     @PatchMapping("/routine/{routineId}")
-    public ResponseEntity<BaseResponse> achieveMemberHappinessRoutine(Principal principal, @PathVariable Long routineId) {
+    public ResponseEntity<BaseResponse> achieveMemberHappinessRoutine(
+            Principal principal,
+            @PathVariable Long routineId
+    ) {
         val memberId = Long.parseLong(principal.getName());
         memberRoutineUpdateService.achieveMemberRoutine(MemberRoutineAchieveServiceRequest.of(memberId, routineId));
         return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage()));

@@ -1,6 +1,6 @@
 package com.soptie.server.version.controller.dto.response;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 import com.soptie.server.version.service.dto.response.AppVersionGetServiceResponse;
 import com.soptie.server.version.service.dto.response.AppVersionGetServiceResponse.VersionServiceResponse;
