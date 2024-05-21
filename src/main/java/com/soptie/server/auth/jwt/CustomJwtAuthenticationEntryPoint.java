@@ -22,9 +22,11 @@ public class CustomJwtAuthenticationEntryPoint implements AuthenticationEntryPoi
     private final ObjectMapper objectMapper;
 
     @Override
-    public void commence(HttpServletRequest request,
-                         HttpServletResponse response,
-                         AuthenticationException exception) throws IOException {
+    public void commence(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException exception
+    ) throws IOException {
         setResponse(response);
     }
 

@@ -7,9 +7,11 @@ import java.util.Collection;
 
 public class UserAuthentication extends UsernamePasswordAuthenticationToken {
 
-    public UserAuthentication(Object principal,
-                              Object credentials,
-                              Collection<? extends GrantedAuthority> authorities) {
+    public UserAuthentication(
+            Object principal,
+            Object credentials,
+            Collection<? extends GrantedAuthority> authorities
+    ) {
         super(principal, credentials, authorities);
     }
 }

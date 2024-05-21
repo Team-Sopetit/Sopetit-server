@@ -29,9 +29,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final ValueConfig valueConfig;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws ServletException, IOException {
         try {
             val token = getAccessTokenFromRequest(request);
             if (hasText(token) && jwtTokenProvider.validateToken(token) == VALID_JWT) {
