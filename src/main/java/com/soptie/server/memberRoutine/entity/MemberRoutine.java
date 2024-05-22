@@ -71,7 +71,10 @@ public class MemberRoutine {
 		this.member = deletedMemberRoutine.getMember();
 	}
 
-	public MemberRoutine(Long id, boolean isAchieve, int achieveCount, RoutineType type, long routineId, Member member) {
+	public MemberRoutine(
+			Long id, boolean isAchieve, int achieveCount,
+			RoutineType type, long routineId, Member member
+	) {
 		this.id = id;
 		this.isAchieve = isAchieve;
 		this.achieveCount = achieveCount;

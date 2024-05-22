@@ -1,9 +1,7 @@
 package com.soptie.server.auth.jwt;
 
-import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.common.config.ValueConfig;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +29,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final ValueConfig valueConfig;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws ServletException, IOException {
         try {
             val token = getAccessTokenFromRequest(request);
             if (hasText(token) && jwtTokenProvider.validateToken(token) == VALID_JWT) {

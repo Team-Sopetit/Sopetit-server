@@ -1,6 +1,6 @@
 package com.soptie.server.routine.service.dto.request;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 import lombok.Builder;
 

@@ -93,5 +93,4 @@ public class Member extends BaseTime {
 	public boolean isMemberDollExist() {
 		return Objects.nonNull(this.getMemberDoll());
 	}
-
 }

@@ -1,6 +1,6 @@
 package com.soptie.server.routine.service.dto.response;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.Challenge;
