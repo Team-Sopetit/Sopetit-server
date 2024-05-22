@@ -1,7 +1,12 @@
 package com.soptie.server.member.service;
 
+import com.soptie.server.conversation.adapter.ConversationFinder;
 import com.soptie.server.conversation.entity.Conversation;
 import com.soptie.server.conversation.repository.ConversationRepository;
+import com.soptie.server.doll.adapter.DollFinder;
+import com.soptie.server.doll.entity.DollType;
+import com.soptie.server.member.adapter.MemberDeleter;
+import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.service.dto.request.CottonGiveServiceRequest;
 import com.soptie.server.member.service.dto.request.MemberHomeInfoGetServiceRequest;
 import com.soptie.server.member.service.dto.response.MemberCottonCountGetServiceResponse;
@@ -10,9 +15,13 @@ import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRe
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.memberDoll.adapter.MemberDollSaver;
+import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
+import com.soptie.server.memberRoutine.adapter.MemberRoutineSaver;
 import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
 
+import com.soptie.server.routine.adapter.RoutineFinder;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -27,31 +36,34 @@ import static com.soptie.server.member.message.ErrorCode.*;
 @Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberDollService memberDollService;
-    private final MemberRoutineCreateService memberRoutineCreateService;
-    private final MemberRepository memberRepository;
-    private final ConversationRepository conversationRepository;
+    private final ConversationFinder conversationFinder;
+    private final MemberFinder memberFinder;
+    private final MemberDeleter memberDeleter;
+    private final DollFinder dollFinder;
+    private final RoutineFinder routineFinder;
+    private final MemberDollSaver memberDollSaver;
+    private final MemberRoutineSaver memberRoutineSaver;
 
     @Override
     @Transactional
     public void createMemberProfile(MemberProfileCreateServiceRequest request) {
-        val member = findMember(request.memberId());
+        val member = memberFinder.findById(request.memberId());
         member.checkMemberDollNonExist();
-        memberRoutineCreateService.createDailyRoutines(member, request.routines());
-        memberDollService.createMemberDoll(member, request.dollType(), request.name());
+        createDailyRoutines(member, request.routines());
+        createMemberDoll(member, request.dollType(), request.name());
     }
 
     @Override
     @Transactional
     public MemberCottonCountGetServiceResponse giveCotton(CottonGiveServiceRequest request) {
-        val member = findMember(request.memberId());
+        val member = memberFinder.findById(request.memberId());
         val cottonCount = member.subtractAndGetCotton(request.cottonType());
         return MemberCottonCountGetServiceResponse.of(cottonCount);
     }
 
     @Override
     public MemberHomeInfoGetServiceResponse getMemberHomeInfo(MemberHomeInfoGetServiceRequest request) {
-        val member = findMember(request.memberId());
+        val member = memberFinder.findById(request.memberId());
         member.checkMemberDollExist();
         val conversations = getConversations();
         return MemberHomeInfoGetServiceResponse.of(member, conversations);
@@ -59,16 +71,21 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteMember(Member member) {
-        memberRepository.delete(member);
+        memberDeleter.deleteMember(member);
     }
 
-    private Member findMember(long id) {
-        return memberRepository.findById(id)
-                .orElseThrow(() -> new MemberException(INVALID_MEMBER));
+    private void createDailyRoutines(Member member, List<Long> routineIds) {
+        routineIds.forEach(id -> memberRoutineSaver.checkHasDeletedAndSave(member, routineFinder.findById(id)));
+    }
+
+    private void createMemberDoll(Member member, DollType dollType, String name) {
+        val doll = dollFinder.findByType(dollType);
+        val memberDoll = new MemberDoll(member, doll, name);
+        memberDollSaver.save(memberDoll);
     }
 
     private List<String> getConversations() {
-        return conversationRepository.findAll().stream()
+        return conversationFinder.findAll().stream()
                 .map(Conversation::getContent)
                 .toList();
     }
