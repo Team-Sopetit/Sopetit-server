@@ -11,7 +11,7 @@ public class MemberDeleter {
 
     private final MemberRepository memberRepository;
 
-    public void deleteMember(Member member) {
+    public void delete(Member member) {
         memberRepository.delete(member);
     }
 }

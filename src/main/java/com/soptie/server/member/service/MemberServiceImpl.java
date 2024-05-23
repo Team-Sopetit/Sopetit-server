@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteMember(Member member) {
-        memberDeleter.deleteMember(member);
+        memberDeleter.delete(member);
     }
 
     private void createDailyRoutines(Member member, List<Long> routineIds) {
