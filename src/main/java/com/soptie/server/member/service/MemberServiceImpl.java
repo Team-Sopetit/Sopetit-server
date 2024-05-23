@@ -75,7 +75,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private void createDailyRoutines(Member member, List<Long> routineIds) {
-        routineIds.forEach(id -> memberRoutineSaver.checkHasDeletedAndSave(member, routineFinder.findById(id)));
+        routineIds.forEach(id -> {
+            val routine = routineFinder.findById(id);
+            memberRoutineSaver.checkHasDeletedAndSave(member, routine);
+        });
     }
 
     private void createMemberDoll(Member member, DollType dollType, String name) {
