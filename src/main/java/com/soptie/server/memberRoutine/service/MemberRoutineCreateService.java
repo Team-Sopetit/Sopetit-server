@@ -42,10 +42,6 @@ public class MemberRoutineCreateService {
 		return MemberDailyRoutineCreateServiceResponse.of(savedMemberRoutine);
 	}
 
-	public void createDailyRoutines(Member member, List<Long> routineIds) {
-		routineIds.forEach(id -> memberRoutineSaver.checkHasDeletedAndSave(member, routineFinder.findById(id)));
-	}
-
 	public MemberHappinessRoutineCreateServiceResponse createHappinessRoutine(
 			MemberHappinessRoutineCreateServiceRequest request
 	) {
