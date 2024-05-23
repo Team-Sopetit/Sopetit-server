@@ -15,18 +15,6 @@ public class ValueConfig {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${spring.security.oauth2.client.registration.kakao.client-id")
-    private String clientId;
-
-    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri")
-    private String redirectUri;
-
-    @Value("${spring.security.oauth2.client.registration.kakao.client-secret")
-    private String clientSecret;
-
-    @Value("${spring.security.oauth2.client.provider.kakao.token-uri")
-    private String tokenUri;
-
     @Value("${jwt.KAKAO_URL}")
     private String kakaoUri;
 
@@ -41,8 +29,8 @@ public class ValueConfig {
 
     private final String IOS_FORCE_UPDATE_VERSION = "0.0.9";
     private final String IOS_APP_VERSION = "1.0.0";
-    private final String ANDROID_FORCE_UPDATE_VERSION = "0.0.9";
-    private final String ANDROID_APP_VERSION = "1.0.0";
+    private final String ANDROID_FORCE_UPDATE_VERSION = "1.0.1";
+    private final String ANDROID_APP_VERSION = "1.0.1";
     private final String NOTIFICATION_TITLE = "새로운 버전이 업데이트 되었어요!";
     private final String NOTIFICATION_CONTENT = "안정적인 서비스 사용을 위해\n최신버전으로 업데이트 해주세요.";
     private final String TOKEN_VALUE_DELIMITER = "\\.";

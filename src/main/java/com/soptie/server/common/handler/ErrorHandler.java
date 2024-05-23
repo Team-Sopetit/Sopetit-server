@@ -12,6 +12,7 @@ import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.doll.exception.DollException;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.routine.exception.RoutineException;
+import com.soptie.server.theme.exception.ThemeException;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.*;
@@ -54,6 +55,14 @@ public class ErrorHandler {
 
 	@ExceptionHandler(RoutineException.class)
 	public ResponseEntity<BaseResponse> routineException(RoutineException exception) {
+		log.error(exception.getMessage());
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(of(errorCode.getMessage()));
+	}
+
+	@ExceptionHandler(ThemeException.class)
+	public ResponseEntity<BaseResponse> routineException(ThemeException exception) {
 		log.error(exception.getMessage());
 
 		val errorCode = exception.getErrorCode();

@@ -1,8 +1,9 @@
 package com.soptie.server.auth.service;
 
-import com.soptie.server.auth.dto.SignInRequest;
-import com.soptie.server.auth.dto.SignInResponse;
-import com.soptie.server.auth.dto.TokenResponse;
+import com.soptie.server.auth.service.dto.request.SignInServiceRequest;
+import com.soptie.server.auth.service.dto.request.TokenGetServiceRequest;
+import com.soptie.server.auth.service.dto.response.SignInServiceResponse;
+import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
 import com.soptie.server.auth.jwt.JwtTokenProvider;
 import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.auth.vo.Token;
@@ -14,18 +15,14 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.member.service.MemberService;
 import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.memberDoll.service.MemberDollService;
-import com.soptie.server.memberRoutine.entity.daily.MemberDailyRoutine;
-import com.soptie.server.memberRoutine.entity.happiness.MemberHappinessRoutine;
-import com.soptie.server.memberRoutine.service.daily.CompletedMemberDailyRoutineService;
-import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineService;
-import com.soptie.server.memberRoutine.service.MemberHappinessRoutineService;
+import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
+
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Objects;
 
 import static com.soptie.server.member.message.ErrorCode.INVALID_MEMBER;
@@ -40,26 +37,25 @@ public class AuthServiceImpl implements AuthService {
     private final KakaoService kakaoService;
     private final AppleService appleService;
     private final MemberService memberService;
-    private final MemberDailyRoutineService memberDailyRoutineService;
-    private final MemberHappinessRoutineService memberHappinessRoutineService;
     private final MemberDollService memberDollService;
-    private final CompletedMemberDailyRoutineService completedMemberDailyRoutineService;
     private final ValueConfig valueConfig;
+
+    private final MemberRoutineDeleter memberRoutineDeleter;
 
     @Override
     @Transactional
-    public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
-        val member = getMember(socialAccessToken, request);
+    public SignInServiceResponse signIn(SignInServiceRequest request) {
+        val member = getMember(request.socialAccessToken(), request.socialType());
         val token = getToken(member);
         val isMemberDollExist = member.isMemberDollExist();
-        return SignInResponse.of(token, isMemberDollExist);
+        return SignInServiceResponse.of(token, isMemberDollExist);
     }
 
     @Override
-    public TokenResponse reissueToken(String refreshToken) {
-        val member = findMember(refreshToken);
+    public TokenGetServiceResponse reissueToken(TokenGetServiceRequest request) {
+        val member = findMember(request.refreshToken());
         val token = generateAccessToken(member.getId());
-        return TokenResponse.of(token);
+        return TokenGetServiceResponse.of(token);
     }
 
     @Override
@@ -74,14 +70,11 @@ public class AuthServiceImpl implements AuthService {
     public void withdraw(long memberId) {
         val member = findMember(memberId);
         deleteMemberDoll(member.getMemberDoll());
-        deleteMemberDailyRoutines(member.getDailyRoutines());
-        deleteMemberHappinessRoutine(member.getHappinessRoutine());
-        deleteCompletedMemberDailyRoutines(member);
+        memberRoutineDeleter.deleteByMember(member);
         deleteMember(member);
     }
 
-    private Member getMember(String socialAccessToken, SignInRequest request) {
-        val socialType = request.socialType();
+    private Member getMember(String socialAccessToken, SocialType socialType) {
         val socialId = getSocialId(socialAccessToken, socialType);
         return signUp(socialType, socialId);
     }
@@ -142,21 +135,6 @@ public class AuthServiceImpl implements AuthService {
         if (Objects.nonNull(memberDoll)) {
             memberDollService.deleteMemberDoll(memberDoll);
         }
-    }
-
-    private void deleteMemberDailyRoutines(List<MemberDailyRoutine> memberDailyRoutines) {
-        memberDailyRoutines
-                .forEach(memberDailyRoutineService::deleteMemberDailyRoutine);
-    }
-
-    private void deleteMemberHappinessRoutine(MemberHappinessRoutine memberHappinessRoutine) {
-        if (Objects.nonNull(memberHappinessRoutine)) {
-            memberHappinessRoutineService.deleteMemberHappinessRoutine(memberHappinessRoutine);
-        }
-    }
-
-    private void deleteCompletedMemberDailyRoutines(Member member) {
-        completedMemberDailyRoutineService.deleteCompletedMemberDailyRoutines(member);
     }
 
     private void deleteMember(Member member) {

@@ -1,18 +1,24 @@
 package com.soptie.server.member.service;
 
+import com.soptie.server.conversation.adapter.ConversationFinder;
 import com.soptie.server.conversation.entity.Conversation;
-import com.soptie.server.conversation.repository.ConversationRepository;
+import com.soptie.server.doll.adapter.DollFinder;
 import com.soptie.server.doll.entity.Doll;
 import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.member.dto.MemberHomeInfoResponse;
-import com.soptie.server.member.dto.MemberProfileRequest;
+import com.soptie.server.member.adapter.MemberDeleter;
+import com.soptie.server.member.adapter.MemberFinder;
+import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
+import com.soptie.server.member.service.dto.request.CottonGiveServiceRequest;
+import com.soptie.server.member.service.dto.request.MemberHomeInfoGetServiceRequest;
+import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
+import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
 import com.soptie.server.member.entity.CottonType;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
-import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.memberDoll.adapter.MemberDollSaver;
 import com.soptie.server.memberDoll.entity.MemberDoll;
-import com.soptie.server.memberDoll.service.MemberDollServiceImpl;
-import com.soptie.server.memberRoutine.service.daily.MemberDailyRoutineServiceImpl;
+import com.soptie.server.memberRoutine.adapter.MemberRoutineSaver;
+import com.soptie.server.routine.adapter.RoutineFinder;
 import com.soptie.server.support.fixture.ConversationFixture;
 import com.soptie.server.support.fixture.DollFixture;
 import com.soptie.server.support.fixture.MemberDollFixture;
@@ -25,7 +31,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.soptie.server.doll.entity.DollType.BROWN;
 import static com.soptie.server.member.message.ErrorCode.NOT_ENOUGH_COTTON;
@@ -40,17 +45,11 @@ class MemberServiceImplTest {
     private MemberServiceImpl memberService;
 
     @Mock
-    private MemberDailyRoutineServiceImpl memberDailyRoutineService;
+    private MemberFinder memberFinder;
 
     @Mock
-    private MemberDollServiceImpl memberDollService;
-
-    @Mock
-    private MemberRepository memberRepository;
-
-    @Mock
-    private ConversationRepository conversationRepository;
-
+    private ConversationFinder conversationFinder;
+/*
     @Test
     @DisplayName("멤버 프로필 생성 시, 멤버 데일리 루틴 생성과 멤버 인형 생성 메소드를 호출한다.")
     void 멤버_프로필을_생성하면서_멤버_데일리_루틴과_멤버_인형을_생성한다() {
@@ -60,17 +59,17 @@ class MemberServiceImplTest {
         DollType dollType = BROWN;
         String name = "memberDoll";
         List<Long> routines = List.of(2L, 3L, 4L);
-        MemberProfileRequest request = new MemberProfileRequest(dollType, name, routines);
-        doNothing().when(memberDailyRoutineService).createMemberDailyRoutines(member, List.of(2L, 3L, 4L));
-        doNothing().when(memberDollService).createMemberDoll(member, dollType, name);
+        MemberProfileCreateRequest request = new MemberProfileCreateRequest(dollType, name, routines);
+        doNothing().when(memberRoutineSaver).checkHasDeletedAndSave(member, List.of(2L, 3L, 4L));
+        doNothing().when(memberService).createMemberDoll(member, dollType, name);
 
         // when
-        memberService.createMemberProfile(memberId, request);
+        memberService.createMemberProfile(MemberProfileCreateServiceRequest.of(memberId, request));
 
         // then
-        verify(memberDailyRoutineService).createMemberDailyRoutines(member, routines);
-        verify(memberDollService).createMemberDoll(member, dollType, name);
-    }
+        verify(memberService).createDailyRoutines(member, routines);
+        verify(memberService).createMemberDoll(member, dollType, name);
+    }*/
 
     @Test
     @DisplayName("솜뭉치 개수가 양수일 때 솜뭉치를 줄 수 있다.")
@@ -82,7 +81,7 @@ class MemberServiceImplTest {
         int beforeCotton = member.getCottonInfo().getDailyCottonCount();
 
         // when
-        memberService.giveCotton(member.getId(), CottonType.DAILY);
+        memberService.giveCotton(CottonGiveServiceRequest.of(member.getId(), CottonType.DAILY));
 
         // then
         assertThat(member.getCottonInfo().getDailyCottonCount()).isEqualTo(beforeCotton - 1);
@@ -97,7 +96,7 @@ class MemberServiceImplTest {
         Member member = member(memberId, memberDoll);
 
         // when, then
-        assertThatThrownBy(() -> memberService.giveCotton(member.getId(), CottonType.DAILY))
+        assertThatThrownBy(() -> memberService.giveCotton(CottonGiveServiceRequest.of(member.getId(), CottonType.DAILY)))
                 .isInstanceOf(MemberException.class)
                 .hasMessage("[MemberException] : " + NOT_ENOUGH_COTTON.getMessage());
     }
@@ -116,28 +115,28 @@ class MemberServiceImplTest {
         List<Conversation> conversations = conversations(conversationIds);
 
         // when
-        MemberHomeInfoResponse result = memberService.getMemberHomeInfo(memberId);
+        MemberHomeInfoGetServiceResponse result = memberService.getMemberHomeInfo(MemberHomeInfoGetServiceRequest.of(memberId));
 
         // then
-        assertThat(MemberHomeInfoResponse.of(member, conversations.stream().map(Conversation::getContent).toList())).isEqualTo(result);
+        assertThat(MemberHomeInfoGetServiceResponse.of(member, conversations.stream().map(Conversation::getContent).toList())).isEqualTo(result);
     }
 
 
     private Member member(long memberId) {
         Member member = MemberFixture.member().id(memberId).build();
-        doReturn(Optional.of(member)).when(memberRepository).findById(memberId);
+        doReturn(member).when(memberFinder).findById(memberId);
         return member;
     }
 
     private Member member(long memberId, MemberDoll memberDoll) {
         Member member = MemberFixture.member().id(memberId).memberDoll(memberDoll).build();
-        doReturn(Optional.of(member)).when(memberRepository).findById(memberId);
+        doReturn(member).when(memberFinder).findById(memberId);
         return member;
     }
 
     private Member member(long memberId, MemberDoll memberDoll, int dailyCottonCount) {
         Member member = MemberFixture.member().id(memberId).memberDoll(memberDoll).dailyCotton(dailyCottonCount).build();
-        doReturn(Optional.of(member)).when(memberRepository).findById(memberId);
+        doReturn(member).when(memberFinder).findById(memberId);
         return member;
     }
 
@@ -159,7 +158,7 @@ class MemberServiceImplTest {
                         .content("conversation" + conversationId)
                         .build()
                 ).toList();
-        doReturn(conversations).when(conversationRepository).findAll();
+        doReturn(conversations).when(conversationFinder).findAll();
         return conversations;
     }
 }

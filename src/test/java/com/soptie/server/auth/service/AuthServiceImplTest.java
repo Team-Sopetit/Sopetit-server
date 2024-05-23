@@ -1,6 +1,7 @@
 package com.soptie.server.auth.service;
 
-import com.soptie.server.auth.dto.TokenResponse;
+import com.soptie.server.auth.service.dto.request.TokenGetServiceRequest;
+import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
 import com.soptie.server.auth.jwt.JwtTokenProvider;
 import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.common.config.ValueConfig;
@@ -65,10 +66,10 @@ class AuthServiceImplTest {
                 .generateToken(new UserAuthentication(member.getId(), null, null), 60000L);
 
         // when
-        TokenResponse result = authService.reissueToken("Bearer " + token);
+        TokenGetServiceResponse result = authService.reissueToken(TokenGetServiceRequest.of("Bearer " + token));
 
         // then
-        assertThat(result).isEqualTo(TokenResponse.of(token));
+        assertThat(result).isEqualTo(TokenGetServiceResponse.of(token));
     }
 
     private Member member(long memberId) {

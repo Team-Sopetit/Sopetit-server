@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,7 +28,7 @@ public class Theme {
 	private String name;
 
 	@Embedded
-	private ImageInfo imageInfo;
+	private ThemeImageInfo imageInfo;
 
 	private String color;
 
@@ -39,4 +38,11 @@ public class Theme {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "expert_id")
 	private Expert expert;
+
+	public Theme(Long id, String name, String color, ThemeImageInfo imageInfo) {
+		this.id = id;
+		this.name = name;
+		this.color = color;
+		this.imageInfo = imageInfo;
+	}
 }
