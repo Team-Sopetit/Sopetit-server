@@ -10,14 +10,16 @@ import lombok.Builder;
 public record MemberRoutineAchieveServiceResponse(
 		long routineId,
 		boolean isAchieve,
-		int achieveCount
+		int achieveCount,
+		boolean isAchievedToday
 ) {
 
-	public static MemberRoutineAchieveServiceResponse of(MemberRoutine routine) {
+	public static MemberRoutineAchieveServiceResponse of(MemberRoutine routine, boolean isAchievedToday) {
 		return MemberRoutineAchieveServiceResponse.builder()
 				.routineId(routine.getId())
 				.isAchieve(routine.isAchieve())
 				.achieveCount(routine.getAchieveCount())
+				.isAchievedToday(isAchievedToday)
 				.build();
 	}
 }
