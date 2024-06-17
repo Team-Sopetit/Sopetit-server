@@ -15,6 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.soptie.server.history.achievement.adapter.HistoryAchievedFinder;
+import com.soptie.server.history.achievement.adapter.HistoryAchievedSaver;
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
@@ -40,19 +42,23 @@ class MemberRoutineServiceTest {
 	@Mock
 	private MemberRoutineDeleter memberRoutineDeleter;
 
+	@Mock
+	private HistoryAchievedSaver achievedSaver;
+
+	@Mock
+	private HistoryAchievedFinder achievedFinder;
+
 	@Test
 	@DisplayName("[성공] 데일리 루틴을 달성하면 달성 횟수와 데일리 솜 뭉치 개수가 1만큼 증가한다.")
 	void shouldUpdateAchieveCountAndCottonCountWhenAchieveDailyRoutine() {
 		// given
 		int beforeCottonCount = 0;
-		int beforeAchieveCount = 0;
 
 		Member member = MemberFixture.member().id(1L).dailyCotton(beforeCottonCount).build();
 		MemberRoutine memberRoutine = MemberRoutineFixture.memberRoutine()
 				.id(3L)
 				.type(DAILY)
 				.isAchieve(false)
-				.achieveCount(beforeAchieveCount)
 				.member(member)
 				.build();
 
@@ -69,7 +75,6 @@ class MemberRoutineServiceTest {
 
 		// then
 		assertThat(memberRoutine.isAchieve()).isTrue();
-		assertThat(memberRoutine.getAchieveCount()).isEqualTo(beforeAchieveCount + 1);
 		assertThat(member.getCottonInfo().getDailyCottonCount()).isEqualTo(beforeCottonCount + 1);
 	}
 
@@ -78,14 +83,12 @@ class MemberRoutineServiceTest {
 	void shouldUpdateAchieveCountAndCottonCountWhenAchieveHappinessRoutine() {
 		// given
 		int beforeCottonCount = 0;
-		int beforeAchieveCount = 0;
 
 		Member member = MemberFixture.member().id(1L).dailyCotton(beforeCottonCount).build();
 		MemberRoutine memberRoutine = MemberRoutineFixture.memberRoutine()
 				.id(3L)
 				.type(CHALLENGE)
 				.isAchieve(false)
-				.achieveCount(beforeAchieveCount)
 				.member(member)
 				.build();
 
@@ -103,7 +106,6 @@ class MemberRoutineServiceTest {
 
 		// then
 		assertThat(memberRoutine.isAchieve()).isTrue();
-		assertThat(memberRoutine.getAchieveCount()).isEqualTo(beforeAchieveCount + 1);
 		assertThat(member.getCottonInfo().getHappinessCottonCount()).isEqualTo(beforeCottonCount + 1);
 	}
 
