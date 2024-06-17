@@ -8,6 +8,7 @@ import com.soptie.server.auth.jwt.JwtTokenProvider;
 import com.soptie.server.auth.jwt.UserAuthentication;
 import com.soptie.server.auth.vo.Token;
 import com.soptie.server.common.config.ValueConfig;
+import com.soptie.server.history.achievement.adapter.HistoryAchievedDeleter;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.exception.MemberException;
@@ -41,6 +42,7 @@ public class AuthServiceImpl implements AuthService {
     private final ValueConfig valueConfig;
 
     private final MemberRoutineDeleter memberRoutineDeleter;
+    private final HistoryAchievedDeleter achievedDeleter;
 
     @Override
     @Transactional
@@ -70,6 +72,7 @@ public class AuthServiceImpl implements AuthService {
     public void withdraw(long memberId) {
         val member = findMember(memberId);
         deleteMemberDoll(member.getMemberDoll());
+        achievedDeleter.deleteByMember(member);
         memberRoutineDeleter.deleteByMember(member);
         deleteMember(member);
     }

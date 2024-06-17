@@ -85,11 +85,15 @@ public class MemberRoutine {
 
 	public void achieve() {
 		this.isAchieve = true;
-		this.achieveCount++;
+	}
+
+	public void cancel() {
+		this.isAchieve = false;
 	}
 
 	public void initAchieve() {
 		this.isAchieve = false;
+		this.achieveCount++;
 	}
 
 	public void checkMemberHas(Member member) {
