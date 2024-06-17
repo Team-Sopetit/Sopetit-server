@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.service;
+package com.soptie.server.memberRoutine.service.v1;
 
 import java.util.Optional;
 
@@ -7,10 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
+import com.soptie.server.memberRoutine.service.v1.dto.request.MemberDailyRoutineListGetServiceRequest;
+import com.soptie.server.memberRoutine.service.v1.dto.request.MemberHappinessRoutineGetServiceRequest;
+import com.soptie.server.memberRoutine.service.v1.dto.response.MemberDailyRoutineListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.v1.dto.response.MemberHappinessRoutineGetServiceResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

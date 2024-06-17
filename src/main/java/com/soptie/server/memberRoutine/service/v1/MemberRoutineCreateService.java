@@ -1,27 +1,24 @@
-package com.soptie.server.memberRoutine.service;
-
-import static com.soptie.server.routine.message.RoutineErrorCode.*;
-
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+package com.soptie.server.memberRoutine.service.v1;
 
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineSaver;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineCreateServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.v1.dto.request.MemberDailyRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.v1.dto.request.MemberHappinessRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.v1.dto.response.MemberDailyRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.v1.dto.response.MemberHappinessRoutineCreateServiceResponse;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.exception.RoutineException;
-
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import static com.soptie.server.routine.message.RoutineErrorCode.CANNOT_ADD_MEMBER_ROUTINE;
+import static com.soptie.server.routine.message.RoutineErrorCode.DUPLICATED_ROUTINE;
 
 @Service
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.repository.dto;
+package com.soptie.server.memberRoutine.repository.v1.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;

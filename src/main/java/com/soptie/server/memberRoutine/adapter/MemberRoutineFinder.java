@@ -10,8 +10,8 @@ import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
-import com.soptie.server.memberRoutine.repository.dto.MemberChallengeResponse;
-import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
+import com.soptie.server.memberRoutine.repository.v1.dto.MemberChallengeResponse;
+import com.soptie.server.memberRoutine.repository.v1.dto.MemberRoutineResponse;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.exception.RoutineException;
 

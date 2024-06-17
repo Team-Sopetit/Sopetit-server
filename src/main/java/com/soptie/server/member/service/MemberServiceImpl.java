@@ -2,7 +2,6 @@ package com.soptie.server.member.service;
 
 import com.soptie.server.conversation.adapter.ConversationFinder;
 import com.soptie.server.conversation.entity.Conversation;
-import com.soptie.server.conversation.repository.ConversationRepository;
 import com.soptie.server.doll.adapter.DollFinder;
 import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.member.adapter.MemberDeleter;
@@ -13,13 +12,9 @@ import com.soptie.server.member.service.dto.response.MemberCottonCountGetService
 import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
 import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.member.exception.MemberException;
-import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberDoll.adapter.MemberDollSaver;
 import com.soptie.server.memberDoll.entity.MemberDoll;
-import com.soptie.server.memberDoll.service.MemberDollService;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineSaver;
-import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
 
 import com.soptie.server.routine.adapter.RoutineFinder;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static com.soptie.server.member.message.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor

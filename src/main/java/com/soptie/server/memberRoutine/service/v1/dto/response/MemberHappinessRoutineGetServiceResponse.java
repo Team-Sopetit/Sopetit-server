@@ -1,8 +1,8 @@
-package com.soptie.server.memberRoutine.service.dto.response;
+package com.soptie.server.memberRoutine.service.v1.dto.response;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.memberRoutine.repository.dto.MemberChallengeResponse;
+import com.soptie.server.memberRoutine.repository.v1.dto.MemberChallengeResponse;
 import com.soptie.server.theme.entity.Theme;
 
 import lombok.Builder;

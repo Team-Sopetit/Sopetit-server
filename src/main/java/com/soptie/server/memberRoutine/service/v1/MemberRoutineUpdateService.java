@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.service;
+package com.soptie.server.memberRoutine.service.v1;
 
 import static com.soptie.server.routine.entity.RoutineType.*;
 
@@ -9,8 +9,8 @@ import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
-import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.response.MemberRoutineAchieveServiceResponse;
+import com.soptie.server.memberRoutine.service.v1.dto.request.MemberRoutineAchieveServiceRequest;
+import com.soptie.server.memberRoutine.service.v1.dto.response.MemberRoutineAchieveServiceResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
