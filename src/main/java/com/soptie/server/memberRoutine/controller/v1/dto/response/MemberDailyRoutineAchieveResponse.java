@@ -10,7 +10,8 @@ import lombok.Builder;
 public record MemberDailyRoutineAchieveResponse(
 	long routineId,
 	boolean isAchieve,
-	int achieveCount
+	int achieveCount,
+	boolean isAchievedToday
 ) {
 
 	public static MemberDailyRoutineAchieveResponse of(MemberRoutineAchieveServiceResponse response) {
@@ -18,6 +19,7 @@ public record MemberDailyRoutineAchieveResponse(
 				.routineId(response.routineId())
 				.isAchieve(response.isAchieve())
 				.achieveCount(response.achieveCount())
+				.isAchievedToday(response.isAchievedToday())
 				.build();
 	}
 }
