@@ -1,6 +1,7 @@
 package com.soptie.server.memberRoutine.controller.v2.dto.response;
 
-import com.soptie.server.memberRoutine.service.v2.dto.response.MemberDailyRoutineListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineGetServiceResponseV2;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponseV2;
 import lombok.Builder;
 import lombok.NonNull;
 
@@ -10,28 +11,12 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Builder(access = PRIVATE)
 public record MemberDailyRoutineListGetResponse(
-        @NonNull List<MemberDailyRoutineListGetResponse.MemberDailyRoutineResponse> routines
+        @NonNull List<MemberDailyRoutineGetServiceResponseV2> routines
 ) {
 
-    public static MemberDailyRoutineListGetResponse of(MemberDailyRoutineListGetServiceResponse response) {
+    public static MemberDailyRoutineListGetResponse of(MemberDailyRoutineListGetServiceResponseV2 tempB) {
         return MemberDailyRoutineListGetResponse.builder()
-                .routines(response.routines().stream().map(MemberDailyRoutineListGetResponse.MemberDailyRoutineResponse::of).toList())
+                .routines(tempB.routines())
                 .build();
-    }
-
-    @Builder(access = PRIVATE)
-    private record MemberDailyRoutineResponse(
-            long routineId,
-            @NonNull String content,
-            boolean isAchieve
-    ) {
-
-        private static MemberDailyRoutineResponse of(MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse response) {
-            return MemberDailyRoutineListGetResponse.MemberDailyRoutineResponse.builder()
-                    .routineId(response.routineId())
-                    .content(response.content())
-                    .isAchieve(response.isAchieve())
-                    .build();
-        }
     }
 }

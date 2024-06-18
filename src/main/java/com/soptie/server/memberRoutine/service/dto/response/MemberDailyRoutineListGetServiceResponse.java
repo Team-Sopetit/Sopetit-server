@@ -1,6 +1,6 @@
-package com.soptie.server.memberRoutine.service.v1.dto.response;
+package com.soptie.server.memberRoutine.service.dto.response;
 
-import com.soptie.server.memberRoutine.repository.v1.dto.MemberRoutineResponse;
+import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import lombok.Builder;
 import lombok.NonNull;
 

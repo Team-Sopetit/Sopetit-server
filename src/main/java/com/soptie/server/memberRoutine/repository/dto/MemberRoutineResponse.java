@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.repository.v1.dto;
+package com.soptie.server.memberRoutine.repository.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
@@ -9,6 +9,8 @@ public record MemberRoutineResponse(
 		String content,
 		String iconImageUrl,
 		String dailyIconImageUrl,
+		Long themeId,
+		String themeName,
 		int achieveCount,
 		boolean isAchieve
 ) {
@@ -20,6 +22,8 @@ public record MemberRoutineResponse(
 				routine.getContent(),
 				routine.getTheme().getImageInfo().getIconImageUrl(),
 				routine.getTheme().getImageInfo().getDailyIconImageUrl(),
+				routine.getTheme().getId(),
+				routine.getTheme().getName(),
 				memberRoutine.getAchieveCount(),
 				memberRoutine.isAchieve()
 		);

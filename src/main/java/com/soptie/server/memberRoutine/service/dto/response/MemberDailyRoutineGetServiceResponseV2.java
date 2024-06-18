@@ -1,6 +1,6 @@
-package com.soptie.server.memberRoutine.service.v2.dto.response;
+package com.soptie.server.memberRoutine.service.dto.response;
 
-import com.soptie.server.memberRoutine.repository.v2.dto.MemberRoutineResponse;
+import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import lombok.Builder;
 import lombok.NonNull;
 
@@ -9,12 +9,16 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @Builder(access = PRIVATE)
-public record MemberDailyRoutineListGetServiceResponse(
+public record MemberDailyRoutineGetServiceResponseV2(
+        long themeId,
+        @NonNull String themeName,
         @NonNull List<MemberDailyRoutineServiceResponse> routines
 ) {
 
-    public static MemberDailyRoutineListGetServiceResponse of(List<MemberRoutineResponse> routines) {
-        return MemberDailyRoutineListGetServiceResponse.builder()
+    public static MemberDailyRoutineGetServiceResponseV2 of(List<MemberRoutineResponse> routines) {
+        return MemberDailyRoutineGetServiceResponseV2.builder()
+                .themeId(routines.get(0).themeId())
+                .themeName(routines.get(0).themeName())
                 .routines(routines.stream().map(MemberDailyRoutineServiceResponse::of).toList())
                 .build();
     }
@@ -23,6 +27,7 @@ public record MemberDailyRoutineListGetServiceResponse(
     public record MemberDailyRoutineServiceResponse(
             long routineId,
             @NonNull String content,
+            int achieveCount,
             boolean isAchieve
     ) {
 
@@ -30,9 +35,9 @@ public record MemberDailyRoutineListGetServiceResponse(
             return MemberDailyRoutineServiceResponse.builder()
                     .routineId(routine.id())
                     .content(routine.content())
+                    .achieveCount(routine.achieveCount())
                     .isAchieve(routine.isAchieve())
                     .build();
         }
     }
 }
-

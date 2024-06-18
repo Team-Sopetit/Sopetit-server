@@ -4,7 +4,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.soptie.server.memberRoutine.service.v1.MemberRoutineUpdateService;
+import com.soptie.server.memberRoutine.service.MemberRoutineUpdateService;
 
 import lombok.RequiredArgsConstructor;
 

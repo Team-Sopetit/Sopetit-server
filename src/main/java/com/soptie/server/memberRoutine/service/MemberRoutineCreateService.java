@@ -1,13 +1,13 @@
-package com.soptie.server.memberRoutine.service.v1;
+package com.soptie.server.memberRoutine.service;
 
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineSaver;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberHappinessRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.v1.dto.response.MemberDailyRoutineCreateServiceResponse;
-import com.soptie.server.memberRoutine.service.v1.dto.response.MemberHappinessRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineCreateServiceResponse;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
 import com.soptie.server.routine.entity.Routine;

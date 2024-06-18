@@ -2,7 +2,7 @@ package com.soptie.server.memberRoutine.controller.v1.dto.response;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.memberRoutine.service.v1.dto.response.MemberHappinessRoutineCreateServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineCreateServiceResponse;
 
 import lombok.Builder;
 

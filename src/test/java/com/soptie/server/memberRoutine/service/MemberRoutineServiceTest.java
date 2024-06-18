@@ -6,7 +6,6 @@ import static org.mockito.Mockito.*;
 
 import java.util.List;
 
-import com.soptie.server.memberRoutine.service.v1.MemberRoutineUpdateService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -21,7 +20,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberRoutineAchieveServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 

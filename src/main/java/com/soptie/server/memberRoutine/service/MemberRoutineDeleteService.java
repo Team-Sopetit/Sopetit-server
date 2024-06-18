@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.service.v1;
+package com.soptie.server.memberRoutine.service;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberRoutineDeleteServiceRequest;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberRoutinesDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

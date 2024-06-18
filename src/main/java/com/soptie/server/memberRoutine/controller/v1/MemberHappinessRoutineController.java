@@ -7,14 +7,14 @@ import com.soptie.server.memberRoutine.controller.v1.api.MemberHappinessRoutineA
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineCreateResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberHappinessRoutineGetResponse;
-import com.soptie.server.memberRoutine.service.v1.MemberRoutineCreateService;
-import com.soptie.server.memberRoutine.service.v1.MemberRoutineDeleteService;
-import com.soptie.server.memberRoutine.service.v1.MemberRoutineReadService;
-import com.soptie.server.memberRoutine.service.v1.MemberRoutineUpdateService;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberHappinessRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberHappinessRoutineGetServiceRequest;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberRoutineAchieveServiceRequest;
-import com.soptie.server.memberRoutine.service.v1.dto.request.MemberRoutineDeleteServiceRequest;
+import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
+import com.soptie.server.memberRoutine.service.MemberRoutineDeleteService;
+import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
+import com.soptie.server.memberRoutine.service.MemberRoutineUpdateService;
+import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineDeleteServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

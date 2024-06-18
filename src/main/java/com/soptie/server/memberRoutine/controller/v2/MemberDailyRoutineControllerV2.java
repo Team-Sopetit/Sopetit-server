@@ -3,8 +3,8 @@ package com.soptie.server.memberRoutine.controller.v2;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberRoutine.controller.v2.api.MemberDailyRoutineApi;
 import com.soptie.server.memberRoutine.controller.v2.dto.response.MemberDailyRoutineListGetResponse;
-import com.soptie.server.memberRoutine.service.v1.MemberRoutineReadService;
-import com.soptie.server.memberRoutine.service.v2.dto.request.MemberDailyRoutineListGetServiceRequest;
+import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import static com.soptie.server.memberRoutine.message.SuccessMessage.SUCCESS_GET
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v2/routines/daily/member")
-public class MemberDailyRoutineController implements MemberDailyRoutineApi {
+public class MemberDailyRoutineControllerV2 implements MemberDailyRoutineApi {
 
     private final MemberRoutineReadService memberRoutineReadService;
 
@@ -30,7 +30,7 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
     ) {
         val memberId = Long.parseLong(principal.getName());
         val response = MemberDailyRoutineListGetResponse
-                .of(memberRoutineReadService.getDailyRoutines(MemberDailyRoutineListGetServiceRequest.of(memberId)));
+                .of(memberRoutineReadService.getDailyRoutinesV2(MemberDailyRoutineListGetServiceRequest.of(memberId)));
         return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
     }
 }

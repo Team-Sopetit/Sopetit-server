@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.service.v1.dto.response;
+package com.soptie.server.memberRoutine.service.dto.response;
 
 import static lombok.AccessLevel.*;
 

@@ -1,14 +1,13 @@
 package com.soptie.server.memberRoutine.controller.v1.dto.response;
 
-import static lombok.AccessLevel.*;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
+import lombok.Builder;
+import lombok.NonNull;
 
 import java.util.List;
 
-import com.soptie.server.memberRoutine.service.v1.dto.response.MemberDailyRoutineListGetServiceResponse;
-import com.soptie.server.memberRoutine.service.v1.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
-
-import lombok.Builder;
-import lombok.NonNull;
+import static lombok.AccessLevel.PRIVATE;
 
 @Builder(access = PRIVATE)
 public record MemberDailyRoutineListGetResponse(
