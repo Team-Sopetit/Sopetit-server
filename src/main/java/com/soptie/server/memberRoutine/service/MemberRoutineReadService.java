@@ -50,7 +50,9 @@ public class MemberRoutineReadService {
         return MemberDailyRoutineByThemeListGetServiceResponse.of(routinesByTheme);
 	}
 
-	private List<MemberDailyRoutineByThemeGetServiceResponse> getDailyRoutinesByTheme(List<MemberRoutineResponse> routines) {
+	private List<MemberDailyRoutineByThemeGetServiceResponse> getDailyRoutinesByTheme(
+			List<MemberRoutineResponse> routines
+	) {
 		val routinesByTheme = routines.stream().collect(Collectors.groupingBy(MemberRoutineResponse::themeId));
         return routinesByTheme.values().stream()
 				.map(this::sortRoutines)
