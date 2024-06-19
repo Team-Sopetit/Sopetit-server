@@ -2,7 +2,7 @@ package com.soptie.server.memberRoutine.controller.v2;
 
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberRoutine.controller.v2.api.MemberDailyRoutineApi;
-import com.soptie.server.memberRoutine.controller.v2.dto.response.MemberDailyRoutineWithThemeListGetResponse;
+import com.soptie.server.memberRoutine.controller.v2.dto.response.MemberDailyRoutineListGetResponseV2;
 import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +25,11 @@ public class MemberDailyRoutineControllerV2 implements MemberDailyRoutineApi {
     private final MemberRoutineReadService memberRoutineReadService;
 
     @GetMapping
-    public ResponseEntity<SuccessResponse<MemberDailyRoutineWithThemeListGetResponse>> acquireAll(
+    public ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponseV2>> acquireAll(
             Principal principal
     ) {
         val memberId = Long.parseLong(principal.getName());
-        val response = MemberDailyRoutineWithThemeListGetResponse
+        val response = MemberDailyRoutineListGetResponseV2
                 .of(memberRoutineReadService.acquireAll(MemberDailyRoutineListGetServiceRequest.of(memberId)));
         return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
     }

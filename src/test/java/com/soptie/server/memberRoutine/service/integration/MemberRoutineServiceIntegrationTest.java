@@ -12,10 +12,9 @@ import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
 import com.soptie.server.memberRoutine.service.MemberRoutineDeleteService;
 import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
 import com.soptie.server.memberRoutine.service.dto.request.*;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineWithThemeGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineGetServiceResponse.MemberDailyRoutineServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineWithThemeListGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.routine.entity.Routine;
@@ -312,7 +311,7 @@ public class MemberRoutineServiceIntegrationTest {
 			MemberDailyRoutineListGetServiceRequest request = MemberDailyRoutineListGetServiceRequest.of(member1.getId());
 
 			// when
-			final MemberDailyRoutineListGetServiceResponse actual = memberRoutineReadService.getDailyRoutines(request);
+			final MemberDailyRoutineGetServiceResponse actual = memberRoutineReadService.getDailyRoutines(request);
 
 			// then
 			List<String> contents = actual.routines().stream().map(MemberDailyRoutineServiceResponse::content).toList();
@@ -357,13 +356,13 @@ public class MemberRoutineServiceIntegrationTest {
 			MemberDailyRoutineListGetServiceRequest request = MemberDailyRoutineListGetServiceRequest.of(member.getId());
 
 			// when
-			final MemberDailyRoutineWithThemeListGetServiceResponse actual = memberRoutineReadService.acquireAll(request);
+			final MemberDailyRoutineListGetServiceResponse actual = memberRoutineReadService.acquireAll(request);
 
 			// then
 			int themeCount = actual.routines().size();
 			assertThat(themeCount).isEqualTo(2);
 			List<String> contents = actual.routines().get(0).routines().stream().map(
-					MemberDailyRoutineWithThemeGetServiceResponse.MemberDailyRoutineServiceResponse::content).toList();
+					MemberDailyRoutineGetServiceResponse.MemberDailyRoutineServiceResponse::content).toList();
 			assertThat(contents).hasSize(2);
 			assertThat(contents).containsExactly(routine2.getContent(), routine1.getContent());
 		}

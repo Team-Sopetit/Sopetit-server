@@ -1,7 +1,7 @@
 package com.soptie.server.memberRoutine.controller.v1.dto.response;
 
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineGetServiceResponse.MemberDailyRoutineServiceResponse;
 import lombok.Builder;
 import lombok.NonNull;
 
@@ -14,7 +14,7 @@ public record MemberDailyRoutineListGetResponse(
 	@NonNull List<MemberDailyRoutineResponse> routines
 ) {
 
-	public static MemberDailyRoutineListGetResponse of(MemberDailyRoutineListGetServiceResponse response) {
+	public static MemberDailyRoutineListGetResponse of(MemberDailyRoutineGetServiceResponse response) {
 		return MemberDailyRoutineListGetResponse.builder()
 				.routines(response.routines().stream().map(MemberDailyRoutineResponse::of).toList())
 				.build();
