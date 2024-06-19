@@ -291,7 +291,7 @@ public class MemberRoutineServiceIntegrationTest {
 			member1 = memberRepository.save(MemberFixture.member().build());
 			member2 = memberRepository.save(MemberFixture.member().build());
 
-			theme = themeRepository.save(ThemeFixture.theme().build());
+			theme = themeRepository.save(ThemeFixture.theme().name("테마").build());
 
 			routine1 = routineRepository.save(RoutineFixture.routine().theme(theme).type(DAILY).content("새로운 나").build());
 			routine2 = routineRepository.save(RoutineFixture.routine().theme(theme).type(DAILY).content("깨끗한 나").build());
