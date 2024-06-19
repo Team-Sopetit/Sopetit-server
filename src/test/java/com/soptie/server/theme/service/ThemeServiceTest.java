@@ -15,8 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.soptie.server.support.fixture.ThemeFixture;
 import com.soptie.server.theme.adapter.ThemeFinder;
 import com.soptie.server.theme.entity.Theme;
-import com.soptie.server.theme.service.dto.response.ThemeListServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeListServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
 import com.soptie.server.theme.service.dto.response.ThemeVO;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,10 +39,10 @@ class ThemeServiceTest {
 		doReturn(themes).when(themeFinder).findAllOrderByNameAsc();
 
 		// when
-		final ThemeListServiceResponse actual = themeService.getThemes();
+		final ThemeListGetServiceResponse actual = themeService.getThemes();
 
 		// then
-		List<Long> themeIds = actual.themes().stream().map(ThemeServiceResponse::themeId).toList();
+		List<Long> themeIds = actual.themes().stream().map(ThemeListGetServiceResponse.ThemeServiceResponse::themeId).toList();
 		assertThat(themeIds).containsExactlyInAnyOrder(1L, 2L);
 	}
 

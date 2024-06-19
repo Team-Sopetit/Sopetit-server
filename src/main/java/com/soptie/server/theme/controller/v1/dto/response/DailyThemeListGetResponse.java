@@ -4,8 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 
-import com.soptie.server.theme.service.dto.response.ThemeListSearchServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeListSearchServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -15,7 +15,7 @@ public record DailyThemeListGetResponse(
 	@NonNull List<DailyThemeResponse> themes
 ) {
 
-	public static DailyThemeListGetResponse of(ThemeListSearchServiceResponse response) {
+	public static DailyThemeListGetResponse of(ThemeListGetServiceResponse response) {
 		return DailyThemeListGetResponse.builder()
 				.themes(response.themes().stream().map(DailyThemeResponse::of).toList())
 				.build();
