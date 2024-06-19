@@ -9,30 +9,30 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @Builder(access = PRIVATE)
-public record MemberDailyRoutineByThemeGetServiceResponse(
+public record ViewWithThemeServiceResponse(
         long themeId,
         @NonNull String themeName,
-        @NonNull List<MemberDailyRoutineServiceResponse> routines
+        @NonNull List<InfoServiceResponse> routines
 ) {
 
-    public static MemberDailyRoutineByThemeGetServiceResponse of(List<MemberRoutineResponse> routines) {
-        return MemberDailyRoutineByThemeGetServiceResponse.builder()
+    public static ViewWithThemeServiceResponse of(List<MemberRoutineResponse> routines) {
+        return ViewWithThemeServiceResponse.builder()
                 .themeId(routines.get(0).themeId())
                 .themeName(routines.get(0).themeName())
-                .routines(routines.stream().map(MemberDailyRoutineServiceResponse::of).toList())
+                .routines(routines.stream().map(InfoServiceResponse::of).toList())
                 .build();
     }
 
     @Builder(access = PRIVATE)
-    public record MemberDailyRoutineServiceResponse(
+    public record InfoServiceResponse(
             long routineId,
             @NonNull String content,
             int achieveCount,
             boolean isAchieve
     ) {
 
-        private static MemberDailyRoutineServiceResponse of(MemberRoutineResponse routine) {
-            return MemberDailyRoutineServiceResponse.builder()
+        private static InfoServiceResponse of(MemberRoutineResponse routine) {
+            return InfoServiceResponse.builder()
                     .routineId(routine.id())
                     .content(routine.content())
                     .achieveCount(routine.achieveCount())
