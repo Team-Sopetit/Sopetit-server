@@ -25,4 +25,13 @@ public class ThemeRepositoryImpl implements ThemeCustomRepository {
 				.orderBy(ExpressionGenerator.getFirstLetter(theme.name).asc())
 				.fetch();
 	}
+
+	@Override
+	public List<Theme> findAllByNotMaker() {
+		//TODO: 무지개 순 정렬 추가
+		return queryFactory
+				.selectFrom(theme)
+				.where(theme.expert.isNull())
+				.fetch();
+	}
 }

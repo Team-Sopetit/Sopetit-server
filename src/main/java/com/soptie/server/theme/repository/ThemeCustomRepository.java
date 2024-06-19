@@ -6,4 +6,5 @@ import com.soptie.server.theme.entity.Theme;
 
 public interface ThemeCustomRepository {
 	List<Theme> findAllOrderByNameAsc();
+	List<Theme> findAllByNotMaker();
 }
