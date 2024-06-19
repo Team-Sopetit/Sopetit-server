@@ -38,7 +38,7 @@ public interface MemberDailyRoutineApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<MemberDailyRoutineWithThemeListGetResponse>> acquire(
+    ResponseEntity<SuccessResponse<MemberDailyRoutineWithThemeListGetResponse>> acquireAll(
             @Parameter(hidden = true) Principal principal
     );
 }

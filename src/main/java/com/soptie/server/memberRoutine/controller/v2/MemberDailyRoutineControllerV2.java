@@ -25,12 +25,12 @@ public class MemberDailyRoutineControllerV2 implements MemberDailyRoutineApi {
     private final MemberRoutineReadService memberRoutineReadService;
 
     @GetMapping
-    public ResponseEntity<SuccessResponse<MemberDailyRoutineWithThemeListGetResponse>> acquire(
+    public ResponseEntity<SuccessResponse<MemberDailyRoutineWithThemeListGetResponse>> acquireAll(
             Principal principal
     ) {
         val memberId = Long.parseLong(principal.getName());
         val response = MemberDailyRoutineWithThemeListGetResponse
-                .of(memberRoutineReadService.acquire(MemberDailyRoutineListGetServiceRequest.of(memberId)));
+                .of(memberRoutineReadService.acquireAll(MemberDailyRoutineListGetServiceRequest.of(memberId)));
         return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
     }
 }
