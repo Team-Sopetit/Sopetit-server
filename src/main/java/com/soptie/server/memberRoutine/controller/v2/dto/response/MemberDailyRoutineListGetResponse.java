@@ -14,9 +14,9 @@ public record MemberDailyRoutineListGetResponse(
         @NonNull List<MemberDailyRoutineByThemeGetServiceResponse> routines
 ) {
 
-    public static MemberDailyRoutineListGetResponse of(MemberDailyRoutineByThemeListGetServiceResponse tempB) {
+    public static MemberDailyRoutineListGetResponse of(MemberDailyRoutineByThemeListGetServiceResponse response) {
         return MemberDailyRoutineListGetResponse.builder()
-                .routines(tempB.routines())
+                .routines(response.routines())
                 .build();
     }
 }
