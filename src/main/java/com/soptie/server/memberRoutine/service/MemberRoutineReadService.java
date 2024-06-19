@@ -6,15 +6,14 @@ import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineByThemeGetServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineByThemeListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,13 +54,6 @@ public class MemberRoutineReadService {
 	) {
 		val routinesByTheme = routines.stream().collect(Collectors.groupingBy(MemberRoutineResponse::themeId));
         return routinesByTheme.values().stream()
-				.map(this::sortRoutines)
 				.map(MemberDailyRoutineByThemeGetServiceResponse::of).toList();
-	}
-
-	private List<MemberRoutineResponse> sortRoutines(List<MemberRoutineResponse> routines) {
-		return routines.stream()
-				.sorted(Comparator.comparing(MemberRoutineResponse::content))
-				.toList();
 	}
 }
