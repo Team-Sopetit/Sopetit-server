@@ -41,7 +41,7 @@ public class MemberRoutineReadService {
 		return memberRoutine.map(MemberHappinessRoutineGetServiceResponse::of);
 	}
 
-	public MemberDailyRoutineByThemeListGetServiceResponse getDailyRoutinesV2(
+	public MemberDailyRoutineByThemeListGetServiceResponse getDailyRoutinesByTheme(
 			MemberDailyRoutineListGetServiceRequest request
 	) {
 		val member = memberFinder.findById(request.memberId());

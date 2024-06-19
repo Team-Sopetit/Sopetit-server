@@ -357,7 +357,7 @@ public class MemberRoutineServiceIntegrationTest {
 			MemberDailyRoutineListGetServiceRequest request = MemberDailyRoutineListGetServiceRequest.of(member.getId());
 
 			// when
-			final MemberDailyRoutineByThemeListGetServiceResponse actual = memberRoutineReadService.getDailyRoutinesV2(request);
+			final MemberDailyRoutineByThemeListGetServiceResponse actual = memberRoutineReadService.getDailyRoutinesByTheme(request);
 
 			// then
 			int themeCount = actual.routines().size();

@@ -30,7 +30,7 @@ public class MemberDailyRoutineControllerV2 implements MemberDailyRoutineApi {
     ) {
         val memberId = Long.parseLong(principal.getName());
         val response = MemberDailyRoutineListGetResponse
-                .of(memberRoutineReadService.getDailyRoutinesV2(MemberDailyRoutineListGetServiceRequest.of(memberId)));
+                .of(memberRoutineReadService.getDailyRoutinesByTheme(MemberDailyRoutineListGetServiceRequest.of(memberId)));
         return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
     }
 }
