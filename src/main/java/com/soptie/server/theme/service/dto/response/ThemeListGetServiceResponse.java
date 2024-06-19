@@ -23,8 +23,6 @@ public record ThemeListGetServiceResponse(
 	public record ThemeServiceResponse(
 		long themeId,
 		String name,
-		String subName, //TODO: add
-		String description, //TODO: add
 		String iconImageUrl,
 		String backgroundImageUrl,
 		String dailyBackgroundImageUrl,
