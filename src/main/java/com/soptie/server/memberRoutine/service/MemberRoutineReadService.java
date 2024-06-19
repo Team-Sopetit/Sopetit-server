@@ -5,8 +5,8 @@ import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.response.ViewWithThemeServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.ViewAllWithThemeServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineWithThemeGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineWithThemeListGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 import lombok.RequiredArgsConstructor;
@@ -40,20 +40,20 @@ public class MemberRoutineReadService {
 		return memberRoutine.map(MemberHappinessRoutineGetServiceResponse::of);
 	}
 
-	public ViewAllWithThemeServiceResponse getDailyRoutinesByTheme(
+	public MemberDailyRoutineWithThemeListGetServiceResponse getDailyRoutinesByTheme(
 			MemberDailyRoutineListGetServiceRequest request
 	) {
 		val member = memberFinder.findById(request.memberId());
 		val routines = memberRoutineFinder.findDailyRoutinesByMember(member);
 		val routinesByTheme = getDailyRoutinesByTheme(routines);
-        return ViewAllWithThemeServiceResponse.of(routinesByTheme);
+        return MemberDailyRoutineWithThemeListGetServiceResponse.of(routinesByTheme);
 	}
 
-	private List<ViewWithThemeServiceResponse> getDailyRoutinesByTheme(
+	private List<MemberDailyRoutineWithThemeGetServiceResponse> getDailyRoutinesByTheme(
 			List<MemberRoutineResponse> routines
 	) {
 		val routinesByTheme = routines.stream().collect(Collectors.groupingBy(MemberRoutineResponse::themeId));
         return routinesByTheme.values().stream()
-				.map(ViewWithThemeServiceResponse::of).toList();
+				.map(MemberDailyRoutineWithThemeGetServiceResponse::of).toList();
 	}
 }
