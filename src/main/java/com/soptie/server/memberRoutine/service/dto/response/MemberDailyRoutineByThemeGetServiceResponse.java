@@ -9,14 +9,14 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @Builder(access = PRIVATE)
-public record MemberDailyRoutineGetServiceResponseV2(
+public record MemberDailyRoutineByThemeGetServiceResponse(
         long themeId,
         @NonNull String themeName,
         @NonNull List<MemberDailyRoutineServiceResponse> routines
 ) {
 
-    public static MemberDailyRoutineGetServiceResponseV2 of(List<MemberRoutineResponse> routines) {
-        return MemberDailyRoutineGetServiceResponseV2.builder()
+    public static MemberDailyRoutineByThemeGetServiceResponse of(List<MemberRoutineResponse> routines) {
+        return MemberDailyRoutineByThemeGetServiceResponse.builder()
                 .themeId(routines.get(0).themeId())
                 .themeName(routines.get(0).themeName())
                 .routines(routines.stream().map(MemberDailyRoutineServiceResponse::of).toList())

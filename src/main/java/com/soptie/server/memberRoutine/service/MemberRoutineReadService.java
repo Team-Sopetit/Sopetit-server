@@ -5,9 +5,9 @@ import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineGetServiceResponseV2;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineByThemeGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponseV2;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineByThemeListGetServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -41,20 +41,20 @@ public class MemberRoutineReadService {
 		return memberRoutine.map(MemberHappinessRoutineGetServiceResponse::of);
 	}
 
-	public MemberDailyRoutineListGetServiceResponseV2 getDailyRoutinesV2(
+	public MemberDailyRoutineByThemeListGetServiceResponse getDailyRoutinesV2(
 			MemberDailyRoutineListGetServiceRequest request
 	) {
 		val member = memberFinder.findById(request.memberId());
 		val routines = memberRoutineFinder.findDailyRoutinesByMember(member);
 		val routinesByTheme = getDailyRoutinesByTheme(routines);
-        return MemberDailyRoutineListGetServiceResponseV2.of(routinesByTheme);
+        return MemberDailyRoutineByThemeListGetServiceResponse.of(routinesByTheme);
 	}
 
-	private List<MemberDailyRoutineGetServiceResponseV2> getDailyRoutinesByTheme(List<MemberRoutineResponse> routines) {
+	private List<MemberDailyRoutineByThemeGetServiceResponse> getDailyRoutinesByTheme(List<MemberRoutineResponse> routines) {
 		val routinesByTheme = routines.stream().collect(Collectors.groupingBy(MemberRoutineResponse::themeId));
         return routinesByTheme.values().stream()
 				.map(this::sortRoutines)
-				.map(MemberDailyRoutineGetServiceResponseV2::of).toList();
+				.map(MemberDailyRoutineByThemeGetServiceResponse::of).toList();
 	}
 
 	private List<MemberRoutineResponse> sortRoutines(List<MemberRoutineResponse> routines) {
