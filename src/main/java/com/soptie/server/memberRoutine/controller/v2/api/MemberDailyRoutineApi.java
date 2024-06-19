@@ -2,7 +2,7 @@ package com.soptie.server.memberRoutine.controller.v2.api;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.memberRoutine.controller.v2.dto.response.MemberDailyRoutineListGetResponse;
+import com.soptie.server.memberRoutine.controller.v2.dto.response.MemberDailyRoutineWithThemeListGetResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -38,7 +38,7 @@ public interface MemberDailyRoutineApi {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponse>> getMemberDailyRoutines(
+    ResponseEntity<SuccessResponse<MemberDailyRoutineWithThemeListGetResponse>> getMemberDailyRoutines(
             @Parameter(hidden = true) Principal principal
     );
 }

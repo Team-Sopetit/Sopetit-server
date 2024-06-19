@@ -10,12 +10,12 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @Builder(access = PRIVATE)
-public record MemberDailyRoutineListGetResponse(
+public record MemberDailyRoutineWithThemeListGetResponse(
         @NonNull List<MemberDailyRoutineWithThemeGetServiceResponse> routines
 ) {
 
-    public static MemberDailyRoutineListGetResponse of(MemberDailyRoutineWithThemeListGetServiceResponse response) {
-        return MemberDailyRoutineListGetResponse.builder()
+    public static MemberDailyRoutineWithThemeListGetResponse of(MemberDailyRoutineWithThemeListGetServiceResponse response) {
+        return MemberDailyRoutineWithThemeListGetResponse.builder()
                 .routines(response.routines())
                 .build();
     }
