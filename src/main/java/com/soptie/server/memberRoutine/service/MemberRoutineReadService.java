@@ -28,7 +28,7 @@ public class MemberRoutineReadService {
 
 	public MemberDailyRoutineListGetServiceResponse getDailyRoutines(MemberDailyRoutineListGetServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
-		val routines = memberRoutineFinder.findDailyRoutinesByMember(member);
+		val routines = memberRoutineFinder.findAllByMember(member);
 		return MemberDailyRoutineListGetServiceResponse.of(routines);
 	}
 
@@ -40,16 +40,16 @@ public class MemberRoutineReadService {
 		return memberRoutine.map(MemberHappinessRoutineGetServiceResponse::of);
 	}
 
-	public MemberDailyRoutineWithThemeListGetServiceResponse getDailyRoutinesByTheme(
+	public MemberDailyRoutineWithThemeListGetServiceResponse acquire(
 			MemberDailyRoutineListGetServiceRequest request
 	) {
 		val member = memberFinder.findById(request.memberId());
-		val routines = memberRoutineFinder.findDailyRoutinesByMember(member);
-		val routinesByTheme = getDailyRoutinesByTheme(routines);
-        return MemberDailyRoutineWithThemeListGetServiceResponse.of(routinesByTheme);
+		val routines = memberRoutineFinder.findAllByMember(member);
+		val routinesWithTheme = collectByTheme(routines);
+        return MemberDailyRoutineWithThemeListGetServiceResponse.of(routinesWithTheme);
 	}
 
-	private List<MemberDailyRoutineWithThemeGetServiceResponse> getDailyRoutinesByTheme(
+	private List<MemberDailyRoutineWithThemeGetServiceResponse> collectByTheme(
 			List<MemberRoutineResponse> routines
 	) {
 		val routinesByTheme = routines.stream().collect(Collectors.groupingBy(MemberRoutineResponse::themeId));

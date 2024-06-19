@@ -36,7 +36,7 @@ public class MemberRoutineFinder {
 		return memberRoutineRepository.findByIsAchieve(true);
 	}
 
-	public List<MemberRoutineResponse> findDailyRoutinesByMember(Member member) {
+	public List<MemberRoutineResponse> findAllByMember(Member member) {
 		return memberRoutineRepository.findByTypeAndMember(DAILY, member);
 	}
 
