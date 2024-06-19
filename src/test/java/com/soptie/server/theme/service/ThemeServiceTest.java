@@ -15,8 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.soptie.server.support.fixture.ThemeFixture;
 import com.soptie.server.theme.adapter.ThemeFinder;
 import com.soptie.server.theme.entity.Theme;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListSearchServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListSearchServiceResponse.ThemeServiceResponse;
 
 @ExtendWith(MockitoExtension.class)
 class ThemeServiceTest {
@@ -39,7 +39,7 @@ class ThemeServiceTest {
 		doReturn(themes).when(themeFinder).findAllOrderByNameAsc();
 
 		// when
-		final ThemeListGetServiceResponse actual = themeService.getThemes();
+		final ThemeListSearchServiceResponse actual = themeService.getThemes();
 
 		// then
 		List<Long> themeIds = actual.themes().stream().map(ThemeServiceResponse::themeId).toList();

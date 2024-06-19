@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.theme.adapter.ThemeFinder;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListSearchServiceResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -16,8 +16,8 @@ public class ThemeService {
 
 	private final ThemeFinder themeFinder;
 
-	public ThemeListGetServiceResponse getThemes() {
+	public ThemeListSearchServiceResponse getThemes() {
 		val themes = themeFinder.findAllOrderByNameAsc();
-		return ThemeListGetServiceResponse.of(themes);
+		return ThemeListSearchServiceResponse.of(themes);
 	}
 }

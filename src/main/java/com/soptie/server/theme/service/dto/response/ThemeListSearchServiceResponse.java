@@ -9,12 +9,12 @@ import com.soptie.server.theme.entity.Theme;
 import lombok.Builder;
 
 @Builder(access = PRIVATE)
-public record ThemeListGetServiceResponse(
+public record ThemeListSearchServiceResponse(
 	List<ThemeServiceResponse> themes
 ) {
 
-	public static ThemeListGetServiceResponse of(List<Theme> themes) {
-		return ThemeListGetServiceResponse.builder()
+	public static ThemeListSearchServiceResponse of(List<Theme> themes) {
+		return ThemeListSearchServiceResponse.builder()
 				.themes(themes.stream().map(ThemeServiceResponse::of).toList())
 				.build();
 	}
@@ -23,6 +23,8 @@ public record ThemeListGetServiceResponse(
 	public record ThemeServiceResponse(
 		long themeId,
 		String name,
+		String subName, //TODO: add
+		String description, //TODO: add
 		String iconImageUrl,
 		String backgroundImageUrl,
 		String dailyBackgroundImageUrl,

@@ -2,8 +2,8 @@ package com.soptie.server.theme.controller.v1.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListSearchServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListSearchServiceResponse.ThemeServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -15,7 +15,7 @@ public record HappinessThemeListGetResponse(
         @NonNull List<HappinessThemeResponse> themes
 ) {
 
-    public static HappinessThemeListGetResponse of(ThemeListGetServiceResponse response) {
+    public static HappinessThemeListGetResponse of(ThemeListSearchServiceResponse response) {
         return HappinessThemeListGetResponse.builder()
                 .themes(response.themes().stream().map(HappinessThemeResponse::of).toList())
                 .build();
