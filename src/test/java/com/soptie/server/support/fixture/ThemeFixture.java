@@ -11,7 +11,7 @@ public class ThemeFixture {
 	private String modifier = "default";
 	private String description = "default";
 	private String color;
-	private ThemeType type;
+	private ThemeType type = ThemeType.BASIC;
 	private final ThemeImageInfo imageInfo = new ThemeImageInfo("https://...", "https://...", "https://...", "https://...", "https://...");
 
 	private ThemeFixture() {
