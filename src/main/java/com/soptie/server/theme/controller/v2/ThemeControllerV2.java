@@ -23,8 +23,8 @@ public class ThemeControllerV2 implements ThemeApi {
 	private final ThemeService themeService;
 
 	@GetMapping
-	public ResponseEntity<SuccessResponse<ThemeListAcquireResponse>> acquireAllByMaker() {
-		val response = ThemeListAcquireResponse.from(themeService.acquireAllByNotMaker());
+	public ResponseEntity<SuccessResponse<ThemeListAcquireResponse>> acquireAllInBasic() {
+		val response = ThemeListAcquireResponse.from(themeService.acquireAllInBasic());
 		return ResponseEntity.ok(success(SUCCESS_ACQUIRE_ALL.getMessage(), response));
 	}
 }

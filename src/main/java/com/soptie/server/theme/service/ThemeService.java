@@ -24,8 +24,8 @@ public class ThemeService {
 		return ThemeListGetServiceResponse.of(themes);
 	}
 
-	public List<ThemeVO> acquireAllByNotMaker() {
-		val themes = themeFinder.findAllByNotMaker();
+	public List<ThemeVO> acquireAllInBasic() {
+		val themes = themeFinder.findAllInBasic();
 		return themes.stream().map(ThemeVO::from).toList();
 	}
 }

@@ -26,7 +26,7 @@ public class ThemeFinder {
 				.orElseThrow(() -> new ThemeException(INVALID_THEME));
 	}
 
-	public List<Theme> findAllByNotMaker() {
-		return themeRepository.findAllByNotMaker();
+	public List<Theme> findAllInBasic() {
+		return themeRepository.findAllInBasic();
 	}
 }

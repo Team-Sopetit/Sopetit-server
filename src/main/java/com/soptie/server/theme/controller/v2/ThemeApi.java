@@ -32,5 +32,5 @@ public interface ThemeApi {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<ThemeListAcquireResponse>> acquireAllByMaker();
+	ResponseEntity<SuccessResponse<ThemeListAcquireResponse>> acquireAllInBasic();
 }

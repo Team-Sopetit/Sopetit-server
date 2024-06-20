@@ -54,10 +54,10 @@ class ThemeServiceTest {
 				ThemeFixture.theme().id(2L).build()
 		);
 
-		doReturn(themes).when(themeFinder).findAllByNotMaker();
+		doReturn(themes).when(themeFinder).findAllInBasic();
 
 		// when
-		final List<ThemeVO> result = themeService.acquireAllByNotMaker();
+		final List<ThemeVO> result = themeService.acquireAllInBasic();
 
 		// then
 		assertThat(result).hasSize(2);

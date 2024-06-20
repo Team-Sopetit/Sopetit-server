@@ -27,7 +27,7 @@ public class ThemeRepositoryImpl implements ThemeCustomRepository {
 	}
 
 	@Override
-	public List<Theme> findAllByNotMaker() {
+	public List<Theme> findAllInBasic() {
 		//TODO: 무지개 순 정렬 추가
 		return queryFactory
 				.selectFrom(theme)
