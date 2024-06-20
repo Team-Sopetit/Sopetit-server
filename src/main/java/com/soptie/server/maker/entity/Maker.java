@@ -1,4 +1,4 @@
-package com.soptie.server.expert.entity;
+package com.soptie.server.maker.entity;
 
 import static jakarta.persistence.GenerationType.*;
 
