@@ -41,12 +41,20 @@ public class Theme {
 	private ThemeType type;
 
 	public Theme(
-			Long id, String name, String modifier, String description, String color, ThemeImageInfo imageInfo) {
+			Long id,
+			String name,
+			String modifier,
+			String description,
+			String color,
+			ThemeType type,
+			ThemeImageInfo imageInfo
+	) {
 		this.id = id;
 		this.name = name;
 		this.modifier = modifier;
 		this.description = description;
 		this.color = color;
+		this.type = type;
 		this.imageInfo = imageInfo;
 	}
 }

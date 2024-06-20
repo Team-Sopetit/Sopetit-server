@@ -2,6 +2,7 @@ package com.soptie.server.support.fixture;
 
 import com.soptie.server.theme.entity.ThemeImageInfo;
 import com.soptie.server.theme.entity.Theme;
+import com.soptie.server.theme.entity.ThemeType;
 
 public class ThemeFixture {
 
@@ -10,6 +11,7 @@ public class ThemeFixture {
 	private String modifier = "default";
 	private String description = "default";
 	private String color;
+	private ThemeType type;
 	private final ThemeImageInfo imageInfo = new ThemeImageInfo("https://...", "https://...", "https://...", "https://...", "https://...");
 
 	private ThemeFixture() {
@@ -44,7 +46,12 @@ public class ThemeFixture {
 		return this;
 	}
 
+	public ThemeFixture type(ThemeType type) {
+		this.type = type;
+		return this;
+	}
+
 	public Theme build() {
-		return new Theme(id, name, modifier, description, color, imageInfo);
+		return new Theme(id, name, modifier, description, color, type, imageInfo);
 	}
 }
