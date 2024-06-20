@@ -25,7 +25,7 @@ public class Theme {
 	@Column(nullable = false)
 	private String name;
 
-	//TODO: DB 업데이트 후 non-null 조건 추가 필요
+	@Column(nullable = false)
 	private String modifier;
 
 	@Embedded
@@ -36,8 +36,8 @@ public class Theme {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String description;
 
-	//TODO: DB 업데이트 후 non-null 조건 추가 필요
 	@Enumerated(value = STRING)
+	@Column(nullable = false)
 	private ThemeType type;
 
 	public Theme(
