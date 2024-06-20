@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.common.support.ExpressionGenerator;
 import com.soptie.server.theme.entity.Theme;
+import com.soptie.server.theme.entity.ThemeType;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,7 +32,7 @@ public class ThemeRepositoryImpl implements ThemeCustomRepository {
 		//TODO: 무지개 순 정렬 추가
 		return queryFactory
 				.selectFrom(theme)
-				.where(theme.expert.isNull())
+				.where(theme.type.eq(ThemeType.BASIC))
 				.fetch();
 	}
 }
