@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.soptie.server.support.fixture.ThemeFixture;
 import com.soptie.server.theme.adapter.ThemeFinder;
 import com.soptie.server.theme.entity.Theme;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
+import com.soptie.server.theme.service.vo.ThemeListGetServiceResponse;
 
 @ExtendWith(MockitoExtension.class)
 class ThemeServiceTest {

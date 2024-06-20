@@ -17,7 +17,7 @@ import com.soptie.server.theme.entity.Theme;
 import com.soptie.server.theme.entity.ThemeType;
 import com.soptie.server.theme.repository.ThemeRepository;
 import com.soptie.server.theme.service.ThemeService;
-import com.soptie.server.theme.service.dto.response.ThemeVO;
+import com.soptie.server.theme.service.vo.ThemeVO;
 
 @IntegrationTest
 @Transactional

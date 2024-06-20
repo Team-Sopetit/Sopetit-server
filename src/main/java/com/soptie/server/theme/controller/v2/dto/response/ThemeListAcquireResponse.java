@@ -2,7 +2,7 @@ package com.soptie.server.theme.controller.v2.dto.response;
 
 import java.util.List;
 
-import com.soptie.server.theme.service.dto.response.ThemeVO;
+import com.soptie.server.theme.service.vo.ThemeVO;
 
 import lombok.AccessLevel;
 import lombok.Builder;

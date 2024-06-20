@@ -1,4 +1,4 @@
-package com.soptie.server.theme.service.dto.response;
+package com.soptie.server.theme.service.vo;
 
 import static lombok.AccessLevel.*;
 
