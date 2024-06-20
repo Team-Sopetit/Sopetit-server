@@ -1,4 +1,4 @@
-package com.soptie.server.expert.entity;
+package com.soptie.server.maker.entity;
 
 import static jakarta.persistence.GenerationType.*;
 
@@ -6,21 +6,20 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
 @Getter
-public class Expert {
+public class Maker {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "expert_id")
+	@Column(name = "maker_id")
 	private Long id;
 
-	@NotNull
+	@Column(nullable = false)
 	private String name;
 
 	private String job;
@@ -29,4 +28,7 @@ public class Expert {
 
 	@Column(columnDefinition = "TEXT")
 	private String description;
+
+	@Column(nullable = false)
+	private long themeId;
 }

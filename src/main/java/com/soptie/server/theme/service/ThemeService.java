@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.theme.adapter.ThemeFinder;
 import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeVO;
+import com.soptie.server.theme.service.vo.ThemeVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
