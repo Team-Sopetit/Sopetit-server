@@ -16,7 +16,7 @@ import com.soptie.server.support.fixture.ThemeFixture;
 import com.soptie.server.theme.adapter.ThemeFinder;
 import com.soptie.server.theme.entity.Theme;
 import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeVO;
 
 @ExtendWith(MockitoExtension.class)
 class ThemeServiceTest {
@@ -42,8 +42,28 @@ class ThemeServiceTest {
 		final ThemeListGetServiceResponse actual = themeService.getThemes();
 
 		// then
-		List<Long> themeIds = actual.themes().stream().map(ThemeServiceResponse::themeId).toList();
+		List<Long> themeIds = actual.themes().stream().map(ThemeListGetServiceResponse.ThemeServiceResponse::themeId).toList();
 		assertThat(themeIds).containsExactlyInAnyOrder(1L, 2L);
+	}
+
+	@Test
+	@DisplayName("[성공] 전문가 테마를 제외한 모든 테마 정보를 조회한다.")
+	void acquireAllByNotMaker() {
+		List<Theme> themes = List.of(
+				ThemeFixture.theme().id(1L).build(),
+				ThemeFixture.theme().id(2L).build()
+		);
+
+		doReturn(themes).when(themeFinder).findAllInBasic();
+
+		// when
+		final List<ThemeVO> result = themeService.acquireAllInBasic();
+
+		// then
+		assertThat(result).hasSize(2);
+
+		//TODO: DB 변경 내용 확정 후 integration-test 이동
+		//TODO: 결과 테마 데이터의 전문가 필드의 null 여부 확인 추가 필요
 	}
 
 }

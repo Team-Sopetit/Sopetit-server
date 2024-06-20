@@ -6,7 +6,9 @@ import com.soptie.server.theme.entity.Theme;
 public class ThemeFixture {
 
 	private Long id;
-	private String name;
+	private String name = "default";
+	private String modifier = "default";
+	private String description = "default";
 	private String color;
 	private final ThemeImageInfo imageInfo = new ThemeImageInfo("https://...", "https://...", "https://...", "https://...", "https://...");
 
@@ -27,12 +29,22 @@ public class ThemeFixture {
 		return this;
 	}
 
+	public ThemeFixture modifier(String modifier) {
+		this.modifier = modifier;
+		return this;
+	}
+
+	public ThemeFixture description(String description) {
+		this.description = description;
+		return this;
+	}
+
 	public ThemeFixture color(String color) {
 		this.color = color;
 		return this;
 	}
 
 	public Theme build() {
-		return new Theme(id, name, color, imageInfo);
+		return new Theme(id, name, modifier, description, color, imageInfo);
 	}
 }
