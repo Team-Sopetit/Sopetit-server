@@ -1,4 +1,4 @@
-package com.soptie.server.theme.service.vo;
+package com.soptie.server.theme.service.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 

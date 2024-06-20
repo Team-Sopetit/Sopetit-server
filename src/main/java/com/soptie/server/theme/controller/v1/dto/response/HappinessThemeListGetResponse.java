@@ -2,8 +2,8 @@ package com.soptie.server.theme.controller.v1.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.soptie.server.theme.service.vo.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.vo.ThemeListGetServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;

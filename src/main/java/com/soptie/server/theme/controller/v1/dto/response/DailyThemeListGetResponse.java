@@ -4,8 +4,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 
-import com.soptie.server.theme.service.vo.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.vo.ThemeListGetServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
+import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
