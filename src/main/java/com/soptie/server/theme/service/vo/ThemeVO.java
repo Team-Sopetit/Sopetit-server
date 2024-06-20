@@ -14,7 +14,7 @@ public record ThemeVO(
 		@NonNull String name,
 		@NonNull String modifier,
 		@NonNull String description,
-		ThemeType themeType
+		@NonNull ThemeType themeType
 ) {
 
 	public static ThemeVO from(Theme theme) {
