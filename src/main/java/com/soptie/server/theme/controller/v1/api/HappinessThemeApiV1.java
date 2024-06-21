@@ -27,6 +27,6 @@ public interface HappinessThemeApiV1 {
                     )
             }
     )
-    ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessThemes();
+    ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> acquireAllInBasic();
 
 }

@@ -24,8 +24,8 @@ public record HappinessSubRoutineListGetServiceResponse(
                 .routineContent(routine.getContent())
                 .themeName(routine.getTheme().getName())
                 .themeColor(routine.getTheme().getColor())
-                .iconImageUrl(routine.getTheme().getImageInfo().getIconImageUrl())
-                .backgroundImageUrl(routine.getTheme().getImageInfo().getHappinessCardImageUrl())
+                .iconImageUrl(routine.getTheme().getImageLinks().getIconImageUrl())
+                .backgroundImageUrl(routine.getTheme().getImageLinks().getHappinessCardImageUrl())
                 .challenges(challenges.stream().map(HappinessSubRoutineServiceResponse::of).toList())
                 .build();
     }

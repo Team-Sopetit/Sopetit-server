@@ -25,4 +25,8 @@ public class ThemeFinder {
 		return themeRepository.findById(id)
 				.orElseThrow(() -> new ThemeException(INVALID_THEME));
 	}
+
+	public List<Theme> findAllInBasic() {
+		return themeRepository.findAllInBasic();
+	}
 }

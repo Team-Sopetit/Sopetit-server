@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
-public class DollImage {
+public class DollImageLinks {
 
 	private String faceImageUrl;
 
