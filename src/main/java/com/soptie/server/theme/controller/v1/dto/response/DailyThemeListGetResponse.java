@@ -32,8 +32,8 @@ public record DailyThemeListGetResponse(
 			return DailyThemeResponse.builder()
 				.themeId(theme.themeId())
 				.name(theme.name())
-				.iconImageUrl(theme.imageInfo().getDailyIconImageUrl())
-				.backgroundImageUrl(theme.imageInfo().getDailyCardImageUrl())
+				.iconImageUrl(theme.imageLinks().getDailyIconImageUrl())
+				.backgroundImageUrl(theme.imageLinks().getDailyCardImageUrl())
 				.build();
 		}
 	}

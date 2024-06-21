@@ -25,16 +25,16 @@ public class Doll {
 	private DollType dollType;
 
 	@Embedded
-	private DollImage imageInfo;
+	private DollImageLinks imageLinks;
 
-	public Doll(DollType dollType, DollImage imageInfo) {
+	public Doll(DollType dollType, DollImageLinks imageLinks) {
 		this.dollType = dollType;
-		this.imageInfo = imageInfo;
+		this.imageLinks = imageLinks;
 	}
 
 	public Doll(Long id, DollType dollType, String faceImageUrl) {
 		this.id = id;
 		this.dollType = dollType;
-		this.imageInfo = new DollImage(faceImageUrl, "", "");
+		this.imageLinks = new DollImageLinks(faceImageUrl, "", "");
 	}
 }

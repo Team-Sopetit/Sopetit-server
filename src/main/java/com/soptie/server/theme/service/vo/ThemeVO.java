@@ -3,7 +3,7 @@ package com.soptie.server.theme.service.vo;
 import static lombok.AccessLevel.*;
 
 import com.soptie.server.theme.entity.Theme;
-import com.soptie.server.theme.entity.ThemeImageInfo;
+import com.soptie.server.theme.entity.ThemeImageLinks;
 import com.soptie.server.theme.entity.ThemeType;
 
 import lombok.Builder;
@@ -16,7 +16,7 @@ public record ThemeVO(
 		@NonNull String modifier,
 		@NonNull String description,
 		@NonNull ThemeType themeType,
-		@NonNull ThemeImageInfo imageInfo
+		@NonNull ThemeImageLinks imageLinks
 ) {
 
 	public static ThemeVO from(Theme theme) {
@@ -26,7 +26,7 @@ public record ThemeVO(
 				.modifier(theme.getModifier())
 				.description(theme.getDescription())
 				.themeType(theme.getType())
-				.imageInfo(theme.getImageInfo())
+				.imageLinks(theme.getImageLinks())
 				.build();
 	}
 }

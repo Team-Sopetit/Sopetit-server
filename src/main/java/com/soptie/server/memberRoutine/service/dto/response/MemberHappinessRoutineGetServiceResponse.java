@@ -40,8 +40,8 @@ public record MemberHappinessRoutineGetServiceResponse(
 
 		private static ThemeServiceResponse of(Theme theme) {
 			return ThemeServiceResponse.builder()
-					.iconImageUrl(theme.getImageInfo().getIconImageUrl())
-					.cardImageUrl(theme.getImageInfo().getHappinessCardImageUrl())
+					.iconImageUrl(theme.getImageLinks().getIconImageUrl())
+					.cardImageUrl(theme.getImageLinks().getHappinessCardImageUrl())
 					.name(theme.getName())
 					.color(theme.getColor())
 					.build();
