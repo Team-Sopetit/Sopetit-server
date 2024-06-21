@@ -1,7 +1,7 @@
 package com.soptie.server.memberRoutine.controller.v2.dto.response;
 
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineGetServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListAcquireServiceResponse;
 import lombok.Builder;
 import lombok.NonNull;
 
@@ -10,12 +10,12 @@ import java.util.List;
 import static lombok.AccessLevel.PRIVATE;
 
 @Builder(access = PRIVATE)
-public record MemberDailyRoutineListGetResponseV2(
+public record MemberDailyRoutineListAcquireResponseV2(
         @NonNull List<MemberDailyRoutineListResponse> routines
 ) {
 
-    public static MemberDailyRoutineListGetResponseV2 of(MemberDailyRoutineListGetServiceResponse response) {
-        return MemberDailyRoutineListGetResponseV2.builder()
+    public static MemberDailyRoutineListAcquireResponseV2 of(MemberDailyRoutineListAcquireServiceResponse response) {
+        return MemberDailyRoutineListAcquireResponseV2.builder()
                 .routines(response.routines().stream()
                         .map(MemberDailyRoutineListResponse::of)
                         .toList())
@@ -29,7 +29,7 @@ public record MemberDailyRoutineListGetResponseV2(
             @NonNull List<MemberDailyRoutineResponse> routines
     ) {
 
-        public static MemberDailyRoutineListResponse of(MemberDailyRoutineGetServiceResponse routines) {
+        public static MemberDailyRoutineListResponse of(MemberDailyRoutinesAcquireServiceResponse routines) {
             return MemberDailyRoutineListResponse.builder()
                     .themeId(routines.themeId())
                     .themeName(routines.themeName())
@@ -46,7 +46,7 @@ public record MemberDailyRoutineListGetResponseV2(
         ) {
 
             private static MemberDailyRoutineResponse of(
-                    MemberDailyRoutineGetServiceResponse.MemberDailyRoutineServiceResponse routine
+                    MemberDailyRoutinesAcquireServiceResponse.MemberDailyRoutineServiceResponse routine
             ) {
                 return MemberDailyRoutineResponse.builder()
                         .routineId(routine.routineId())

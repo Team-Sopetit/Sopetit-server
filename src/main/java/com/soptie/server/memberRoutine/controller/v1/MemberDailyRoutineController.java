@@ -23,7 +23,7 @@ import com.soptie.server.common.support.UriGenerator;
 import com.soptie.server.memberRoutine.controller.v1.api.MemberDailyRoutineApi;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
-import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListGetResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListAcquireResponse;
 import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
 import com.soptie.server.memberRoutine.service.MemberRoutineDeleteService;
@@ -32,7 +32,7 @@ import com.soptie.server.memberRoutine.service.MemberRoutineUpdateService;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -83,12 +83,12 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 	}
 
 	@GetMapping
-	public ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponse>> getMemberDailyRoutines(
+	public ResponseEntity<SuccessResponse<MemberDailyRoutineListAcquireResponse>> getMemberDailyRoutines(
 			Principal principal
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = MemberDailyRoutineListGetResponse
-				.of(memberRoutineReadService.getDailyRoutines(MemberDailyRoutineListGetServiceRequest.of(memberId)));
+		val response = MemberDailyRoutineListAcquireResponse
+				.of(memberRoutineReadService.getDailyRoutines(MemberDailyRoutineListAcquireServiceRequest.of(memberId)));
 		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }

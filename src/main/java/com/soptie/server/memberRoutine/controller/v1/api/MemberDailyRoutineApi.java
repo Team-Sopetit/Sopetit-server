@@ -14,7 +14,7 @@ import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
 import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
-import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListGetResponse;
+import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListAcquireResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -144,7 +144,7 @@ public interface MemberDailyRoutineApi {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponse>> getMemberDailyRoutines(
+	ResponseEntity<SuccessResponse<MemberDailyRoutineListAcquireResponse>> getMemberDailyRoutines(
 			@Parameter(hidden = true) Principal principal
 	);
 }

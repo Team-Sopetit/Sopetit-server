@@ -3,10 +3,10 @@ package com.soptie.server.memberRoutine.service;
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
+import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
 import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineGetServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListAcquireServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -25,10 +25,10 @@ public class MemberRoutineReadService {
 	private final MemberRoutineFinder memberRoutineFinder;
 	private final MemberFinder memberFinder;
 
-	public MemberDailyRoutineGetServiceResponse getDailyRoutines(MemberDailyRoutineListGetServiceRequest request) {
+	public MemberDailyRoutinesAcquireServiceResponse getDailyRoutines(MemberDailyRoutineListAcquireServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val routines = memberRoutineFinder.findAllByMember(member);
-		return MemberDailyRoutineGetServiceResponse.of(routines);
+		return MemberDailyRoutinesAcquireServiceResponse.of(routines);
 	}
 
 	public Optional<MemberHappinessRoutineGetServiceResponse> getHappinessRoutine(
@@ -39,16 +39,16 @@ public class MemberRoutineReadService {
 		return memberRoutine.map(MemberHappinessRoutineGetServiceResponse::of);
 	}
 
-	public MemberDailyRoutineListGetServiceResponse acquireAll(MemberDailyRoutineListGetServiceRequest request) {
+	public MemberDailyRoutineListAcquireServiceResponse acquireAll(MemberDailyRoutineListAcquireServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val routines = memberRoutineFinder.findAllByMember(member);
 		val routinesWithTheme = collectByTheme(routines);
-        return MemberDailyRoutineListGetServiceResponse.of(routinesWithTheme);
+        return MemberDailyRoutineListAcquireServiceResponse.of(routinesWithTheme);
 	}
 
-	private List<MemberDailyRoutineGetServiceResponse> collectByTheme(List<MemberRoutineResponse> routines) {
+	private List<MemberDailyRoutinesAcquireServiceResponse> collectByTheme(List<MemberRoutineResponse> routines) {
 		val routinesByTheme = routines.stream().collect(Collectors.groupingBy(MemberRoutineResponse::themeId));
         return routinesByTheme.values().stream()
-				.map(MemberDailyRoutineGetServiceResponse::of).toList();
+				.map(MemberDailyRoutinesAcquireServiceResponse::of).toList();
 	}
 }
