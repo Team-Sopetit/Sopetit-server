@@ -22,8 +22,7 @@ public interface TestApi {
 			@ApiResponse(
 				responseCode = "200",
 				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))
-			),
+				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
 			@ApiResponse(
 				responseCode = "500",
 				description = "서버 내부 오류",
