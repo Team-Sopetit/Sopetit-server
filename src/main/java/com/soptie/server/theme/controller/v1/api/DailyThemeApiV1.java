@@ -32,5 +32,5 @@ public interface DailyThemeApiV1 {
 					)
 			}
 	)
-	ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes();
+	ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> acquireAllInBasic();
 }

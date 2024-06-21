@@ -9,6 +9,6 @@ public record DollImageResponse(
 ) {
 
 	public static DollImageResponse of(Doll doll) {
-		return new DollImageResponse(doll.getImageInfo().getFaceImageUrl());
+		return new DollImageResponse(doll.getImageLinks().getFaceImageUrl());
 	}
 }

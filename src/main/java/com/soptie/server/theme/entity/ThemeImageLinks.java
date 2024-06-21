@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @Getter
-public class ThemeImageInfo {
+public class ThemeImageLinks {
 
 	private String iconImageUrl;
 
@@ -19,7 +19,7 @@ public class ThemeImageInfo {
 
 	private String happinessCardImageUrl;
 
-	public ThemeImageInfo(String iconImageUrl, String backgroundImageUrl, String dailyCardImageUrl, String dailyIconImageUrl, String happinessCardImageUrl) {
+	public ThemeImageLinks(String iconImageUrl, String backgroundImageUrl, String dailyCardImageUrl, String dailyIconImageUrl, String happinessCardImageUrl) {
 		this.iconImageUrl = iconImageUrl;
 		this.backgroundImageUrl = backgroundImageUrl;
 		this.dailyCardImageUrl = dailyCardImageUrl;

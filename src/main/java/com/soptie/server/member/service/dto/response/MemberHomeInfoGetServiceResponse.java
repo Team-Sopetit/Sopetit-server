@@ -23,7 +23,7 @@ public record MemberHomeInfoGetServiceResponse(
         return MemberHomeInfoGetServiceResponse.builder()
                 .name(member.getMemberDoll().getName())
                 .dollType(member.getMemberDoll().getDoll().getDollType())
-                .frameImageUrl(member.getMemberDoll().getDoll().getImageInfo().getFrameImageUrl())
+                .frameImageUrl(member.getMemberDoll().getDoll().getImageLinks().getFrameImageUrl())
                 .dailyCottonCount(member.getCottonInfo().getDailyCottonCount())
                 .happinessCottonCount(member.getCottonInfo().getHappinessCottonCount())
                 .conversations(conversations)

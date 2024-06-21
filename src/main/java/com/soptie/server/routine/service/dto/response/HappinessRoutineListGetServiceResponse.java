@@ -35,7 +35,7 @@ public record HappinessRoutineListGetServiceResponse(
                     .themeName(routine.getTheme().getName())
                     .themeColor(routine.getTheme().getColor())
                     .content(routine.getContent())
-                    .iconImageUrl(routine.getTheme().getImageInfo().getIconImageUrl())
+                    .iconImageUrl(routine.getTheme().getImageLinks().getIconImageUrl())
                     .build();
         }
     }

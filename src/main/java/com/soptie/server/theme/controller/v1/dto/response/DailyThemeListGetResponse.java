@@ -4,8 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.vo.ThemeVO;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -15,26 +14,26 @@ public record DailyThemeListGetResponse(
 	@NonNull List<DailyThemeResponse> themes
 ) {
 
-	public static DailyThemeListGetResponse of(ThemeListGetServiceResponse response) {
+	public static DailyThemeListGetResponse from(List<ThemeVO> themes) {
 		return DailyThemeListGetResponse.builder()
-				.themes(response.themes().stream().map(DailyThemeResponse::of).toList())
+				.themes(themes.stream().map(DailyThemeResponse::from).toList())
 				.build();
 	}
 
 	@Builder(access = PRIVATE)
-	public record DailyThemeResponse(
+	private record DailyThemeResponse(
 		long themeId,
 		@NonNull String name,
 		@NonNull String iconImageUrl,
 		@NonNull String backgroundImageUrl
 	) {
 
-		private static DailyThemeResponse of(ThemeServiceResponse response) {
+		private static DailyThemeResponse from(ThemeVO theme) {
 			return DailyThemeResponse.builder()
-				.themeId(response.themeId())
-				.name(response.name())
-				.iconImageUrl(response.dailyIconImageUrl())
-				.backgroundImageUrl(response.dailyBackgroundImageUrl())
+				.themeId(theme.themeId())
+				.name(theme.name())
+				.iconImageUrl(theme.imageLinks().dailyIconImageUrl())
+				.backgroundImageUrl(theme.imageLinks().dailyCardImageUrl())
 				.build();
 		}
 	}

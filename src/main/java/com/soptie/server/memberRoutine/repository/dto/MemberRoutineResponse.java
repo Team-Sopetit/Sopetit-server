@@ -18,8 +18,8 @@ public record MemberRoutineResponse(
 		this(
 				memberRoutine.getId(),
 				routine.getContent(),
-				routine.getTheme().getImageInfo().getIconImageUrl(),
-				routine.getTheme().getImageInfo().getDailyIconImageUrl(),
+				routine.getTheme().getImageLinks().getIconImageUrl(),
+				routine.getTheme().getImageLinks().getDailyIconImageUrl(),
 				memberRoutine.getAchieveCount(),
 				memberRoutine.isAchieve()
 		);
