@@ -30,11 +30,11 @@ public record DailyThemeListGetResponse(
 
 		private static DailyThemeResponse from(ThemeVO theme) {
 			return DailyThemeResponse.builder()
-					.themeId(theme.themeId())
-					.name(theme.name())
-					.iconImageUrl(theme.imageInfo().getDailyIconImageUrl())
-					.backgroundImageUrl(theme.imageInfo().getDailyCardImageUrl())
-					.build();
+				.themeId(theme.themeId())
+				.name(theme.name())
+				.iconImageUrl(theme.imageInfo().getDailyIconImageUrl())
+				.backgroundImageUrl(theme.imageInfo().getDailyCardImageUrl())
+				.build();
 		}
 	}
 }
