@@ -37,9 +37,9 @@ class ThemeRepositoryTest {
 		String thirdGetName = "한 걸음 성장";
 
 		themeRepository.saveAll(List.of(
-				ThemeFixture.theme().name(firstGetName).build(),
-				ThemeFixture.theme().name(thirdGetName).build(),
-				ThemeFixture.theme().name(secondGetName).build()
+			ThemeFixture.theme().name(firstGetName).build(),
+			ThemeFixture.theme().name(thirdGetName).build(),
+			ThemeFixture.theme().name(secondGetName).build()
 		));
 
 		// when

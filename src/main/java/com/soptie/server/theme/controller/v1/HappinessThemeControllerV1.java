@@ -21,11 +21,11 @@ import lombok.val;
 @RequestMapping("/api/v1/routines/happiness/themes")
 public class HappinessThemeControllerV1 implements HappinessThemeApiV1 {
 
-    private final ThemeService themeService;
+	private final ThemeService themeService;
 
-    @GetMapping
-    public ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessThemes() {
-        val response = HappinessThemeListGetResponse.of(themeService.getThemes());
-        return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
-    }
+	@GetMapping
+	public ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessThemes() {
+		val response = HappinessThemeListGetResponse.of(themeService.getThemes());
+		return ResponseEntity.ok(success(SUCCESS_GET_HAPPINESS_THEME.getMessage(), response));
+	}
 }

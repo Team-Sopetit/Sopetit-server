@@ -13,16 +13,14 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class VersionServiceImpl implements VersionService {
 
-	private final ValueConfig valueConfig;
-
 	@Override
 	public AppVersionGetServiceResponse getClientAppVersion() {
 		return AppVersionGetServiceResponse.of(
-				valueConfig.getIOS_APP_VERSION(),
-				valueConfig.getIOS_FORCE_UPDATE_VERSION(),
-				valueConfig.getANDROID_APP_VERSION(),
-				valueConfig.getANDROID_FORCE_UPDATE_VERSION(),
-				valueConfig.getNOTIFICATION_TITLE(),
-				valueConfig.getNOTIFICATION_CONTENT());
+			ValueConfig.IOS_APP_VERSION,
+			ValueConfig.IOS_FORCE_UPDATE_VERSION,
+			ValueConfig.ANDROID_APP_VERSION,
+			ValueConfig.ANDROID_FORCE_UPDATE_VERSION,
+			ValueConfig.NOTIFICATION_TITLE,
+			ValueConfig.NOTIFICATION_CONTENT);
 	}
 }

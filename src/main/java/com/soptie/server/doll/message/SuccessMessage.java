@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum SuccessMessage {
 
-	SUCCESS_GET_IMAGE("인형 이미지 조회 성공"),
-	;
+	SUCCESS_GET_IMAGE("인형 이미지 조회 성공");
 
 	private final String message;
 }

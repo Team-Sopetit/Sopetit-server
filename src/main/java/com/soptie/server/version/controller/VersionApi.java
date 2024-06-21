@@ -16,16 +16,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface VersionApi {
 
 	@Operation(
-			summary = "모바일 앱 버전 조회",
-			description = "모바일 앱(클라이언트) 버전 정보를 조회합니다.",
-			responses = {
-					@ApiResponse(responseCode = "200", description = "성공"),
-					@ApiResponse(
-							responseCode = "500",
-							description = "서버 내부 오류",
-							content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-					)
-			}
+		summary = "모바일 앱 버전 조회",
+		description = "모바일 앱(클라이언트) 버전 정보를 조회합니다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
 	ResponseEntity<SuccessResponse<AppVersionGetResponse>> getClientAppVersion();
 }

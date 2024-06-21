@@ -2,19 +2,18 @@ package com.soptie.server.member.entity;
 
 import static com.soptie.server.common.config.ValueConfig.*;
 import static com.soptie.server.member.message.ErrorCode.*;
+import static lombok.AccessLevel.*;
 
 import com.soptie.server.member.exception.MemberException;
-import com.soptie.server.memberDoll.entity.MemberDoll;
 
 import jakarta.persistence.Embeddable;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = PACKAGE)
 @Getter
 public class Cotton {
 
@@ -25,7 +24,7 @@ public class Cotton {
 		this.dailyCottonCount++;
 	}
 
-	protected void addHappinessCotton(){
+	protected void addHappinessCotton() {
 		this.happinessCottonCount++;
 	}
 

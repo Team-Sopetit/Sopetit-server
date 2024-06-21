@@ -18,8 +18,7 @@ public enum RoutineErrorCode {
 	INVALID_ROUTINE(NOT_FOUND, "유효하지 않은 루틴입니다."),
 
 	/* 409 CONFLICT : 중복된 데이터 존재 */
-	DUPLICATED_ROUTINE(CONFLICT, "이미 추가한 루틴입니다."),
-	;
+	DUPLICATED_ROUTINE(CONFLICT, "이미 추가한 루틴입니다.");
 
 	private final HttpStatus httpStatus;
 	private final String message;

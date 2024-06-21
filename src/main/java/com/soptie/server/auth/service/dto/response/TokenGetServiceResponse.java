@@ -1,18 +1,18 @@
 package com.soptie.server.auth.service.dto.response;
 
+import static lombok.AccessLevel.*;
+
 import lombok.Builder;
 import lombok.NonNull;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @Builder(access = PRIVATE)
 public record TokenGetServiceResponse(
-        @NonNull String accessToken
+	@NonNull String accessToken
 ) {
 
-    public static TokenGetServiceResponse of(String accessToken) {
-        return TokenGetServiceResponse.builder()
-                .accessToken(accessToken)
-                .build();
-    }
+	public static TokenGetServiceResponse of(String accessToken) {
+		return TokenGetServiceResponse.builder()
+			.accessToken(accessToken)
+			.build();
+	}
 }

@@ -31,8 +31,8 @@ class ThemeServiceTest {
 	void getAllThemes() {
 		// given
 		List<Theme> themes = List.of(
-				ThemeFixture.theme().id(1L).build(),
-				ThemeFixture.theme().id(2L).build()
+			ThemeFixture.theme().id(1L).build(),
+			ThemeFixture.theme().id(2L).build()
 		);
 
 		doReturn(themes).when(themeFinder).findAllOrderByNameAsc();
@@ -41,7 +41,9 @@ class ThemeServiceTest {
 		final ThemeListGetServiceResponse actual = themeService.getThemes();
 
 		// then
-		List<Long> themeIds = actual.themes().stream().map(ThemeListGetServiceResponse.ThemeServiceResponse::themeId).toList();
+		List<Long> themeIds = actual.themes().stream()
+			.map(ThemeListGetServiceResponse.ThemeServiceResponse::themeId)
+			.toList();
 		assertThat(themeIds).containsExactlyInAnyOrder(1L, 2L);
 	}
 }

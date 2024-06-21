@@ -1,6 +1,8 @@
 package com.soptie.server.theme.controller.v1.dto.response;
 
-import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.*;
+
+import java.util.List;
 
 import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
 import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
@@ -8,30 +10,20 @@ import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.
 import lombok.Builder;
 import lombok.NonNull;
 
-import java.util.List;
-
 @Builder(access = PRIVATE)
-public record HappinessThemeListGetResponse(
-        @NonNull List<HappinessThemeResponse> themes
-) {
+public record HappinessThemeListGetResponse(@NonNull List<HappinessThemeResponse> themes) {
 
-    public static HappinessThemeListGetResponse of(ThemeListGetServiceResponse response) {
-        return HappinessThemeListGetResponse.builder()
-                .themes(response.themes().stream().map(HappinessThemeResponse::of).toList())
-                .build();
-    }
+	public static HappinessThemeListGetResponse of(ThemeListGetServiceResponse response) {
+		return HappinessThemeListGetResponse.builder()
+			.themes(response.themes().stream().map(HappinessThemeResponse::of).toList())
+			.build();
+	}
 
-    @Builder
-    public record HappinessThemeResponse(
-            long themeId,
-            @NonNull String name
-    ) {
+	@Builder
+	public record HappinessThemeResponse(long themeId, @NonNull String name) {
 
-        private static HappinessThemeResponse of(ThemeServiceResponse response) {
-            return HappinessThemeResponse.builder()
-                    .themeId(response.themeId())
-                    .name(response.name())
-                    .build();
-        }
-    }
+		private static HappinessThemeResponse of(ThemeServiceResponse response) {
+			return HappinessThemeResponse.builder().themeId(response.themeId()).name(response.name()).build();
+		}
+	}
 }

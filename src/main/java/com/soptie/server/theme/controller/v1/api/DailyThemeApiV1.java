@@ -16,21 +16,18 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface DailyThemeApiV1 {
 
 	@Operation(
-			summary = "데일리 루틴 테마 목록 조회",
-			description = "데일리 루틴 테마 전체를 조회한다.",
-			responses = {
-					@ApiResponse(responseCode = "200", description = "성공"),
-					@ApiResponse(
-							responseCode = "4xx",
-							description = "클라이언트(요청) 오류",
-							content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-					),
-					@ApiResponse(
-							responseCode = "500",
-							description = "서버 내부 오류",
-							content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-					)
-			}
+		summary = "데일리 루틴 테마 목록 조회",
+		description = "데일리 루틴 테마 전체를 조회한다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(
+				responseCode = "4xx",
+				description = "클라이언트(요청) 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
 	ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes();
 }

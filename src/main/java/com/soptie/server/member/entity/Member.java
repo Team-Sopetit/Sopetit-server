@@ -1,16 +1,26 @@
 package com.soptie.server.member.entity;
 
 import static com.soptie.server.member.message.ErrorCode.*;
+import static jakarta.persistence.EnumType.*;
+import static jakarta.persistence.GenerationType.*;
+
+import java.util.Objects;
 
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.member.exception.MemberException;
-import com.soptie.server.memberDoll.entity.MemberDoll;
 import com.soptie.server.routine.entity.RoutineType;
 
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.Objects;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
@@ -18,11 +28,11 @@ import java.util.Objects;
 public class Member extends BaseTime {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "member_id")
 	private Long id;
 
-	@Enumerated(value = EnumType.STRING)
+	@Enumerated(value = STRING)
 	private SocialType socialType;
 	private String socialId;
 
@@ -52,7 +62,7 @@ public class Member extends BaseTime {
 		this.id = id;
 	}
 
-	public void setMemberDoll(MemberDoll memberDoll) {
+	public void registerMemberDoll(MemberDoll memberDoll) {
 		this.memberDoll = memberDoll;
 	}
 

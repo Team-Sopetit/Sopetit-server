@@ -18,7 +18,7 @@ import lombok.val;
 public class SwaggerConfig {
 
 	@Bean
-	public OpenAPI openAPI() {
+	public OpenAPI openApi() {
 		val securityScheme = new SecurityScheme();
 		securityScheme.setType(HTTP);
 		securityScheme.setScheme("bearer");
@@ -36,8 +36,8 @@ public class SwaggerConfig {
 		info.setVersion("1.0.0");
 
 		return new OpenAPI()
-				.components(components)
-				.security(List.of(securityRequirement))
-				.info(info);
+			.components(components)
+			.security(List.of(securityRequirement))
+			.info(info);
 	}
 }

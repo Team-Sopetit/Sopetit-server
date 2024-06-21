@@ -7,8 +7,11 @@ import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
 
 public interface AuthService {
 
-    SignInServiceResponse signIn(SignInServiceRequest request);
-    void signOut(long memberId);
-    void withdraw(long memberId);
-    TokenGetServiceResponse reissueToken(TokenGetServiceRequest request);
+	SignInServiceResponse signIn(SignInServiceRequest request);
+
+	void signOut(long memberId);
+
+	void withdraw(long memberId);
+
+	TokenGetServiceResponse reissueToken(TokenGetServiceRequest request);
 }

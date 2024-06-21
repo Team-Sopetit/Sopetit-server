@@ -4,5 +4,7 @@ import lombok.NonNull;
 
 public interface BaseResponse {
 	boolean success();
-	@NonNull String message();
+
+	@NonNull
+	String message();
 }
