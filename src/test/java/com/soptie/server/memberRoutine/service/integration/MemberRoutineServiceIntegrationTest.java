@@ -1,19 +1,5 @@
 package com.soptie.server.memberRoutine.service.integration;
 
-import static com.soptie.server.routine.entity.RoutineType.*;
-import static com.soptie.server.routine.message.RoutineErrorCode.*;
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
@@ -25,27 +11,36 @@ import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
 import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
 import com.soptie.server.memberRoutine.service.MemberRoutineDeleteService;
 import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListGetServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListGetServiceResponse.MemberDailyRoutineServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.request.*;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse.MemberDailyRoutineServiceResponse;
+import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutineListAcquireServiceResponse;
 import com.soptie.server.memberRoutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
-import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.Challenge;
+import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.ChallengeRepository;
 import com.soptie.server.routine.repository.RoutineRepository;
 import com.soptie.server.support.IntegrationTest;
-import com.soptie.server.support.fixture.ChallengeFixture;
-import com.soptie.server.support.fixture.MemberFixture;
-import com.soptie.server.support.fixture.MemberRoutineFixture;
-import com.soptie.server.support.fixture.RoutineFixture;
-import com.soptie.server.support.fixture.ThemeFixture;
+import com.soptie.server.support.fixture.*;
 import com.soptie.server.theme.entity.Theme;
 import com.soptie.server.theme.repository.ThemeRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.soptie.server.routine.entity.RoutineType.CHALLENGE;
+import static com.soptie.server.routine.entity.RoutineType.DAILY;
+import static com.soptie.server.routine.message.RoutineErrorCode.CANNOT_ADD_MEMBER_ROUTINE;
+import static com.soptie.server.routine.message.RoutineErrorCode.DUPLICATED_ROUTINE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @IntegrationTest
 @Transactional
@@ -295,7 +290,7 @@ public class MemberRoutineServiceIntegrationTest {
 			member1 = memberRepository.save(MemberFixture.member().build());
 			member2 = memberRepository.save(MemberFixture.member().build());
 
-			theme = themeRepository.save(ThemeFixture.theme().build());
+			theme = themeRepository.save(ThemeFixture.theme().name("테마").build());
 
 			routine1 = routineRepository.save(RoutineFixture.routine().theme(theme).type(DAILY).content("새로운 나").build());
 			routine2 = routineRepository.save(RoutineFixture.routine().theme(theme).type(DAILY).content("깨끗한 나").build());
@@ -313,10 +308,10 @@ public class MemberRoutineServiceIntegrationTest {
 			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
 					.member(member2).routineId(routine3.getId()).type(routine3.getType()).build());
 
-			MemberDailyRoutineListGetServiceRequest request = MemberDailyRoutineListGetServiceRequest.of(member1.getId());
+			MemberDailyRoutineListAcquireServiceRequest request = MemberDailyRoutineListAcquireServiceRequest.of(member1.getId());
 
 			// when
-			final MemberDailyRoutineListGetServiceResponse actual = memberRoutineReadService.getDailyRoutines(request);
+			final MemberDailyRoutinesAcquireServiceResponse actual = memberRoutineReadService.getDailyRoutines(request);
 
 			// then
 			List<String> contents = actual.routines().stream().map(MemberDailyRoutineServiceResponse::content).toList();
@@ -325,6 +320,51 @@ public class MemberRoutineServiceIntegrationTest {
 
 			List<Long> memberRoutineIds = actual.routines().stream().map(MemberDailyRoutineServiceResponse::routineId).toList();
 			assertThat(memberRoutineIds).containsExactlyInAnyOrder(memberRoutine1.getRoutineId(), memberRoutine2.getId());
+		}
+	}
+
+	@Nested
+	class getDailyRoutinesV2 {
+
+		Member member;
+		Theme theme1, theme2;
+		Routine routine1, routine2, routine3;
+
+		@BeforeEach
+		void setUp() {
+			member = memberRepository.save(MemberFixture.member().build());
+
+			theme1 = themeRepository.save(ThemeFixture.theme().name("테마 1").build());
+			theme2 = themeRepository.save(ThemeFixture.theme().name("테마 2").build());
+
+			routine1 = routineRepository.save(RoutineFixture.routine().theme(theme1).type(DAILY).content("새로운 나").build());
+			routine2 = routineRepository.save(RoutineFixture.routine().theme(theme1).type(DAILY).content("깨끗한 나").build());
+			routine3 = routineRepository.save(RoutineFixture.routine().theme(theme2).type(DAILY).content("똑똑한 나").build());
+		}
+
+		@Test
+		@DisplayName("[성공] 회원이 가진 모든 데일리 루틴을 테마별로 조회한다. 이 때, 루틴은 가나다순으로 정렬된다.")
+		void getMemberDailyRoutinesByMember() {
+			// given
+			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
+					.member(member).routineId(routine1.getId()).type(routine1.getType()).build());
+			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
+					.member(member).routineId(routine2.getId()).type(routine2.getType()).build());
+			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
+					.member(member).routineId(routine3.getId()).type(routine3.getType()).build());
+
+			MemberDailyRoutineListAcquireServiceRequest request = MemberDailyRoutineListAcquireServiceRequest.of(member.getId());
+
+			// when
+			final MemberDailyRoutineListAcquireServiceResponse actual = memberRoutineReadService.acquireAll(request);
+
+			// then
+			int themeCount = actual.routines().size();
+			assertThat(themeCount).isEqualTo(2);
+			List<String> contents = actual.routines().get(0).routines().stream().map(
+					MemberDailyRoutinesAcquireServiceResponse.MemberDailyRoutineServiceResponse::content).toList();
+			assertThat(contents).hasSize(2);
+			assertThat(contents).containsExactly(routine2.getContent(), routine1.getContent());
 		}
 	}
 

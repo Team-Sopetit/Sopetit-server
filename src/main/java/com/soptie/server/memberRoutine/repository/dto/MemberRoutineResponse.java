@@ -3,12 +3,15 @@ package com.soptie.server.memberRoutine.repository.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
 import com.soptie.server.routine.entity.Routine;
+import lombok.NonNull;
 
 public record MemberRoutineResponse(
-		Long id,
-		String content,
-		String iconImageUrl,
-		String dailyIconImageUrl,
+		long id,
+		@NonNull String content,
+		@NonNull String iconImageUrl,
+		@NonNull String dailyIconImageUrl,
+		long themeId,
+		@NonNull String themeName,
 		int achieveCount,
 		boolean isAchieve
 ) {
@@ -20,6 +23,8 @@ public record MemberRoutineResponse(
 				routine.getContent(),
 				routine.getTheme().getImageLinks().getIconImageUrl(),
 				routine.getTheme().getImageLinks().getDailyIconImageUrl(),
+				routine.getTheme().getId(),
+				routine.getTheme().getName(),
 				memberRoutine.getAchieveCount(),
 				memberRoutine.isAchieve()
 		);

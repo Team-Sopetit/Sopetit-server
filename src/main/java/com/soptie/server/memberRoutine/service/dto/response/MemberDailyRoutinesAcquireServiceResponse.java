@@ -1,21 +1,24 @@
 package com.soptie.server.memberRoutine.service.dto.response;
 
-import static lombok.AccessLevel.*;
-
-import java.util.List;
-
 import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
-
 import lombok.Builder;
 import lombok.NonNull;
 
+import java.util.List;
+
+import static lombok.AccessLevel.PRIVATE;
+
 @Builder(access = PRIVATE)
-public record MemberDailyRoutineListGetServiceResponse(
-	@NonNull List<MemberDailyRoutineServiceResponse> routines
+public record MemberDailyRoutinesAcquireServiceResponse(
+		long themeId,
+		@NonNull String themeName,
+		@NonNull List<MemberDailyRoutineServiceResponse> routines
 ) {
 
-	public static MemberDailyRoutineListGetServiceResponse of(List<MemberRoutineResponse> routines) {
-		return MemberDailyRoutineListGetServiceResponse.builder()
+	public static MemberDailyRoutinesAcquireServiceResponse of(List<MemberRoutineResponse> routines) {
+		return MemberDailyRoutinesAcquireServiceResponse.builder()
+				.themeId(routines.get(0).themeId())
+				.themeName(routines.get(0).themeName())
 				.routines(routines.stream().map(MemberDailyRoutineServiceResponse::of).toList())
 				.build();
 	}

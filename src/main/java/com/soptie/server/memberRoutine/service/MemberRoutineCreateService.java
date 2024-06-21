@@ -1,12 +1,5 @@
 package com.soptie.server.memberRoutine.service;
 
-import static com.soptie.server.routine.message.RoutineErrorCode.*;
-
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
@@ -19,9 +12,13 @@ import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.exception.RoutineException;
-
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import static com.soptie.server.routine.message.RoutineErrorCode.CANNOT_ADD_MEMBER_ROUTINE;
+import static com.soptie.server.routine.message.RoutineErrorCode.DUPLICATED_ROUTINE;
 
 @Service
 @RequiredArgsConstructor

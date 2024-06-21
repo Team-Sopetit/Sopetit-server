@@ -1,11 +1,5 @@
 package com.soptie.server.memberRoutine.adapter;
 
-import static com.soptie.server.routine.entity.RoutineType.*;
-import static com.soptie.server.routine.message.RoutineErrorCode.*;
-
-import java.util.List;
-import java.util.Optional;
-
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberRoutine.entity.MemberRoutine;
@@ -14,8 +8,14 @@ import com.soptie.server.memberRoutine.repository.dto.MemberChallengeResponse;
 import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.exception.RoutineException;
-
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.soptie.server.routine.entity.RoutineType.CHALLENGE;
+import static com.soptie.server.routine.entity.RoutineType.DAILY;
+import static com.soptie.server.routine.message.RoutineErrorCode.INVALID_ROUTINE;
 
 @RepositoryAdapter
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class MemberRoutineFinder {
 		return memberRoutineRepository.findByIsAchieve(true);
 	}
 
-	public List<MemberRoutineResponse> findDailyRoutinesByMember(Member member) {
+	public List<MemberRoutineResponse> findAllByMember(Member member) {
 		return memberRoutineRepository.findByTypeAndMember(DAILY, member);
 	}
 
