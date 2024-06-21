@@ -9,22 +9,22 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: 체크아웃
+      - name: checkout
         uses: actions/checkout@v3
 
-      - name: Set up JDK 17
+      - name: set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: application.yaml 생성
+      - name: create application.yaml
         run: |
           cd src/main/resources
           echo "${{ secrets.APPLICATION_SECRET_YML }}" > ./application-secret.yml
         working-directory: ${{ env.working-directory }}
 
-      - name: 빌드
+      - name: build
         run: |
           chmod +x gradlew
           ./gradlew build test
