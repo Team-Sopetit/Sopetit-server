@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import com.soptie.server.common.entity.BaseTime;
 import com.soptie.server.member.exception.MemberException;
+import com.soptie.server.memberdoll.entity.MemberDoll;
 import com.soptie.server.routine.entity.RoutineType;
 
 import jakarta.persistence.Column;

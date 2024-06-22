@@ -29,7 +29,7 @@ public class Theme {
 	private String modifier;
 
 	@Embedded
-	private ThemeImageInfo imageInfo;
+	private ThemeImageLinks imageLinks;
 
 	private String color;
 
@@ -47,7 +47,7 @@ public class Theme {
 			String description,
 			String color,
 			ThemeType type,
-			ThemeImageInfo imageInfo
+			ThemeImageLinks imageLinks
 	) {
 		this.id = id;
 		this.name = name;
@@ -55,6 +55,6 @@ public class Theme {
 		this.description = description;
 		this.color = color;
 		this.type = type;
-		this.imageInfo = imageInfo;
+		this.imageLinks = imageLinks;
 	}
 }

@@ -23,8 +23,7 @@ public interface HappinessThemeApiV1 {
 			@ApiResponse(
 				responseCode = "500",
 				description = "서버 내부 오류",
-				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
-	)
-	ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> getHappinessThemes();
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))})
+	ResponseEntity<SuccessResponse<HappinessThemeListGetResponse>> acquireAllInBasic();
 
 }

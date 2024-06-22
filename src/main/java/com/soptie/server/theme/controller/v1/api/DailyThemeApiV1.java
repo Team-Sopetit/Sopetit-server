@@ -29,5 +29,5 @@ public interface DailyThemeApiV1 {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> getThemes();
+	ResponseEntity<SuccessResponse<DailyThemeListGetResponse>> acquireAllInBasic();
 }

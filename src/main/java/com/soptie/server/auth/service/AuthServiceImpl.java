@@ -16,14 +16,14 @@ import com.soptie.server.auth.service.dto.response.SignInServiceResponse;
 import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
 import com.soptie.server.auth.vo.Token;
 import com.soptie.server.common.config.ValueConfig;
-import com.soptie.server.member.adapter.MemberRoutineDeleter;
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.member.entity.MemberDoll;
 import com.soptie.server.member.entity.SocialType;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.member.service.MemberService;
-import com.soptie.server.member.service.doll.MemberDollService;
+import com.soptie.server.memberdoll.entity.MemberDoll;
+import com.soptie.server.memberdoll.service.MemberDollService;
+import com.soptie.server.memberroutine.adapter.MemberRoutineDeleter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.doll.exception.DollException;
-import com.soptie.server.member.exception.MemberDollException;
 import com.soptie.server.member.exception.MemberException;
+import com.soptie.server.memberdoll.exception.MemberDollException;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.theme.exception.ThemeException;
 

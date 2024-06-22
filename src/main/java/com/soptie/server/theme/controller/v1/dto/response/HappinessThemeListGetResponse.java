@@ -4,8 +4,7 @@ import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse;
-import com.soptie.server.theme.service.dto.response.ThemeListGetServiceResponse.ThemeServiceResponse;
+import com.soptie.server.theme.service.vo.ThemeVO;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -13,17 +12,17 @@ import lombok.NonNull;
 @Builder(access = PRIVATE)
 public record HappinessThemeListGetResponse(@NonNull List<HappinessThemeResponse> themes) {
 
-	public static HappinessThemeListGetResponse of(ThemeListGetServiceResponse response) {
+	public static HappinessThemeListGetResponse from(List<ThemeVO> themes) {
 		return HappinessThemeListGetResponse.builder()
-			.themes(response.themes().stream().map(HappinessThemeResponse::of).toList())
+			.themes(themes.stream().map(HappinessThemeResponse::from).toList())
 			.build();
 	}
 
 	@Builder
 	public record HappinessThemeResponse(long themeId, @NonNull String name) {
 
-		private static HappinessThemeResponse of(ThemeServiceResponse response) {
-			return HappinessThemeResponse.builder().themeId(response.themeId()).name(response.name()).build();
+		private static HappinessThemeResponse from(ThemeVO theme) {
+			return HappinessThemeResponse.builder().themeId(theme.themeId()).name(theme.name()).build();
 		}
 	}
 }

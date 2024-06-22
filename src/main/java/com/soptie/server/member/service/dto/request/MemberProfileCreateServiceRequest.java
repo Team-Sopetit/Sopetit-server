@@ -5,7 +5,7 @@ import static lombok.AccessLevel.*;
 import java.util.List;
 
 import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.member.controller.v1.dto.request.MemberProfileCreateRequest;
+import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
 
 import lombok.Builder;
 import lombok.NonNull;

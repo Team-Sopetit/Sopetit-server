@@ -10,17 +10,19 @@ import com.soptie.server.routine.entity.Routine;
 import lombok.Builder;
 
 @Builder(access = PRIVATE)
-public record HappinessSubRoutineListGetServiceResponse(String routineContent, String themeName, String themeColor,
-														String iconImageUrl, String backgroundImageUrl,
-														List<HappinessSubRoutineServiceResponse> challenges) {
+public record HappinessSubRoutineListGetServiceResponse(
+	String routineContent, String themeName, String themeColor,
+	String iconImageUrl, String backgroundImageUrl,
+	List<HappinessSubRoutineServiceResponse> challenges
+) {
 
 	public static HappinessSubRoutineListGetServiceResponse of(Routine routine, List<Challenge> challenges) {
 		return HappinessSubRoutineListGetServiceResponse.builder()
 			.routineContent(routine.getContent())
 			.themeName(routine.getTheme().getName())
 			.themeColor(routine.getTheme().getColor())
-			.iconImageUrl(routine.getTheme().getImageInfo().getIconImageUrl())
-			.backgroundImageUrl(routine.getTheme().getImageInfo().getHappinessCardImageUrl())
+			.iconImageUrl(routine.getTheme().getImageLinks().getIconImageUrl())
+			.backgroundImageUrl(routine.getTheme().getImageLinks().getHappinessCardImageUrl())
 			.challenges(challenges.stream().map(HappinessSubRoutineServiceResponse::of).toList())
 			.build();
 	}

@@ -16,12 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.doll.repository.DollRepository;
 import com.soptie.server.member.adapter.MemberFinder;
-import com.soptie.server.member.adapter.MemberRoutineFinder;
-import com.soptie.server.member.controller.v1.dto.request.MemberProfileCreateRequest;
+import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.member.service.MemberServiceImpl;
 import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
+import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.repository.RoutineRepository;
 import com.soptie.server.support.IntegrationTest;
@@ -91,9 +91,8 @@ public class MemberServiceIntegrationTest {
 			Member foundMember = memberFinder.findById(member.getId());
 			assertThat(foundMember.getMemberDoll().getDoll().getDollType()).isEqualTo(dollType);
 			assertThat(foundMember.getMemberDoll().getName()).isEqualTo(name);
-			assertThat(memberRoutineFinder.findDailyRoutinesByMember(foundMember).size()).isEqualTo(routines.size());
-			assertThat(memberRoutineFinder.findDailyRoutinesByMember(foundMember).get(0).id()).isEqualTo(
-				routine.getId());
+			assertThat(memberRoutineFinder.findAllByMember(foundMember).size()).isEqualTo(routines.size());
+			assertThat(memberRoutineFinder.findAllByMember(foundMember).get(0).id()).isEqualTo(routine.getId());
 		}
 	}
 }

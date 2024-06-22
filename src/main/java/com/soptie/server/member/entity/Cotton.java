@@ -5,6 +5,7 @@ import static com.soptie.server.member.message.ErrorCode.*;
 import static lombok.AccessLevel.*;
 
 import com.soptie.server.member.exception.MemberException;
+import com.soptie.server.memberdoll.entity.MemberDoll;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

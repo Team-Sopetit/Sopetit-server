@@ -10,6 +10,7 @@ import com.soptie.server.member.entity.Member;
 import lombok.Builder;
 import lombok.NonNull;
 
+@SuppressWarnings("checkstyle:LineLength")
 @Builder(access = PRIVATE)
 public record MemberHomeInfoGetServiceResponse(
 	@NonNull String name,
@@ -24,7 +25,7 @@ public record MemberHomeInfoGetServiceResponse(
 		return MemberHomeInfoGetServiceResponse.builder()
 			.name(member.getMemberDoll().getName())
 			.dollType(member.getMemberDoll().getDoll().getDollType())
-			.frameImageUrl(member.getMemberDoll().getDoll().getImageInfo().getFrameImageUrl())
+			.frameImageUrl(member.getMemberDoll().getDoll().getImageLinks().getFrameImageUrl())
 			.dailyCottonCount(member.getCottonInfo().getDailyCottonCount())
 			.happinessCottonCount(member.getCottonInfo().getHappinessCottonCount())
 			.conversations(conversations)

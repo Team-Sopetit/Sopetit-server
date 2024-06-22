@@ -1,7 +1,7 @@
 package com.soptie.server.support.fixture;
 
 import com.soptie.server.doll.entity.Doll;
-import com.soptie.server.member.entity.MemberDoll;
+import com.soptie.server.memberdoll.entity.MemberDoll;
 
 public class MemberDollFixture {
 

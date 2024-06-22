@@ -14,7 +14,8 @@ public record ThemeVO(
 		@NonNull String name,
 		@NonNull String modifier,
 		@NonNull String description,
-		@NonNull ThemeType themeType
+		@NonNull ThemeType themeType,
+		@NonNull ThemeImageLinksVO imageLinks
 ) {
 
 	public static ThemeVO from(Theme theme) {
@@ -24,6 +25,7 @@ public record ThemeVO(
 				.modifier(theme.getModifier())
 				.description(theme.getDescription())
 				.themeType(theme.getType())
+				.imageLinks(ThemeImageLinksVO.from(theme.getImageLinks()))
 				.build();
 	}
 }
