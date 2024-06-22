@@ -23,7 +23,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "auth", description = "인증 API")
 public interface AuthApi {
 
-	@SuppressWarnings("checkstyle:Indentation")
 	@Operation(
 		summary = "소셜 로그인",
 		description = "소셜 로그인을 진행한다.",
