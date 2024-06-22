@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.entity;
+package com.soptie.server.memberroutine.entity;
 
 import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.entity.RoutineType.*;
@@ -10,9 +10,9 @@ import java.time.LocalDate;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.exception.MemberException;
+import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.RoutineType;
-import com.soptie.server.routine.entity.Challenge;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -72,8 +72,8 @@ public class MemberRoutine {
 	}
 
 	public MemberRoutine(
-			Long id, boolean isAchieve, int achieveCount,
-			RoutineType type, long routineId, Member member
+		Long id, boolean isAchieve, int achieveCount,
+		RoutineType type, long routineId, Member member
 	) {
 		this.id = id;
 		this.isAchieve = isAchieve;

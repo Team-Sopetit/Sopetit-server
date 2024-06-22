@@ -2,20 +2,20 @@ package com.soptie.server.common.handler;
 
 import static com.soptie.server.common.dto.ErrorResponse.*;
 
-import com.soptie.server.common.dto.BaseResponse;
-import com.soptie.server.memberDoll.exception.MemberDollException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.soptie.server.auth.exception.AuthException;
+import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.doll.exception.DollException;
 import com.soptie.server.member.exception.MemberException;
+import com.soptie.server.memberdoll.exception.MemberDollException;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.theme.exception.ThemeException;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.*;
+import lombok.val;
 
 @Slf4j
 @RestControllerAdvice

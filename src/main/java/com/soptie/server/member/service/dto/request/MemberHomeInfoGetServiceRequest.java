@@ -1,17 +1,17 @@
 package com.soptie.server.member.service.dto.request;
 
-import lombok.Builder;
+import static lombok.AccessLevel.*;
 
-import static lombok.AccessLevel.PRIVATE;
+import lombok.Builder;
 
 @Builder(access = PRIVATE)
 public record MemberHomeInfoGetServiceRequest(
-        long memberId
+	long memberId
 ) {
 
-    public static MemberHomeInfoGetServiceRequest of(long memberId) {
-        return MemberHomeInfoGetServiceRequest.builder()
-                .memberId(memberId)
-                .build();
-    }
+	public static MemberHomeInfoGetServiceRequest of(long memberId) {
+		return MemberHomeInfoGetServiceRequest.builder()
+			.memberId(memberId)
+			.build();
+	}
 }

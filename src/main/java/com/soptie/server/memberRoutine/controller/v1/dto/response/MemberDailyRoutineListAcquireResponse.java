@@ -1,13 +1,13 @@
-package com.soptie.server.memberRoutine.controller.v1.dto.response;
+package com.soptie.server.memberroutine.controller.v1.dto.response;
 
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
-import com.soptie.server.memberRoutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse.MemberDailyRoutineServiceResponse;
-import lombok.Builder;
-import lombok.NonNull;
+import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
+import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
+
+import lombok.Builder;
+import lombok.NonNull;
 
 @Builder(access = PRIVATE)
 public record MemberDailyRoutineListAcquireResponse(
@@ -16,8 +16,8 @@ public record MemberDailyRoutineListAcquireResponse(
 
 	public static MemberDailyRoutineListAcquireResponse of(MemberDailyRoutinesAcquireServiceResponse response) {
 		return MemberDailyRoutineListAcquireResponse.builder()
-				.routines(response.routines().stream().map(MemberDailyRoutineResponse::of).toList())
-				.build();
+			.routines(response.routines().stream().map(MemberDailyRoutineResponse::of).toList())
+			.build();
 	}
 
 	@Builder(access = PRIVATE)
@@ -29,7 +29,8 @@ public record MemberDailyRoutineListAcquireResponse(
 		boolean isAchieve
 	) {
 
-		private static MemberDailyRoutineResponse of(MemberDailyRoutineServiceResponse response) {
+		private static MemberDailyRoutineResponse of(
+			MemberDailyRoutinesAcquireServiceResponse.MemberDailyRoutineServiceResponse response) {
 			return MemberDailyRoutineResponse.builder()
 				.routineId(response.routineId())
 				.content(response.content())

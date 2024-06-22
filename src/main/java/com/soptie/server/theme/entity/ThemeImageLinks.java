@@ -19,7 +19,8 @@ public class ThemeImageLinks {
 
 	private String happinessCardImageUrl;
 
-	public ThemeImageLinks(String iconImageUrl, String backgroundImageUrl, String dailyCardImageUrl, String dailyIconImageUrl, String happinessCardImageUrl) {
+	public ThemeImageLinks(String iconImageUrl, String backgroundImageUrl, String dailyCardImageUrl,
+		String dailyIconImageUrl, String happinessCardImageUrl) {
 		this.iconImageUrl = iconImageUrl;
 		this.backgroundImageUrl = backgroundImageUrl;
 		this.dailyCardImageUrl = dailyCardImageUrl;

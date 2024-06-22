@@ -20,8 +20,7 @@ public enum ErrorCode {
 	NOT_EXIST_DOLL(NOT_FOUND, "인형을 가지고 있지 않은 회원입니다."),
 
 	/* 409 CONFLICT : 중복된 데이터 존재 */
-	EXIST_PROFILE(CONFLICT, "프로필이 이미 존재합니다."),
-	;
+	EXIST_PROFILE(CONFLICT, "프로필이 이미 존재합니다.");
 
 	private final HttpStatus httpStatus;
 	private final String message;

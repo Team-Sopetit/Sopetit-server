@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.entity;
+package com.soptie.server.memberroutine.entity;
 
 import static jakarta.persistence.EnumType.*;
 

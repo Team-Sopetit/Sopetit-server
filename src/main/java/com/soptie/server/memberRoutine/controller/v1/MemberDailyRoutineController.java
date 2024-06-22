@@ -1,7 +1,7 @@
-package com.soptie.server.memberRoutine.controller.v1;
+package com.soptie.server.memberroutine.controller.v1;
 
 import static com.soptie.server.common.dto.SuccessResponse.*;
-import static com.soptie.server.memberRoutine.message.SuccessMessage.*;
+import static com.soptie.server.memberroutine.message.MemberRoutineSuccessMassage.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -20,19 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.common.support.UriGenerator;
-import com.soptie.server.memberRoutine.controller.v1.api.MemberDailyRoutineApi;
-import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
-import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
-import com.soptie.server.memberRoutine.controller.v1.dto.response.MemberDailyRoutineListAcquireResponse;
-import com.soptie.server.memberRoutine.service.MemberRoutineCreateService;
-import com.soptie.server.memberRoutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
-import com.soptie.server.memberRoutine.service.MemberRoutineDeleteService;
-import com.soptie.server.memberRoutine.service.MemberRoutineReadService;
-import com.soptie.server.memberRoutine.service.MemberRoutineUpdateService;
-import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineAchieveServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
+import com.soptie.server.memberroutine.controller.v1.docs.MemberDailyRoutineApi;
+import com.soptie.server.memberroutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberroutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
+import com.soptie.server.memberroutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
+import com.soptie.server.memberroutine.controller.v1.dto.response.MemberDailyRoutineListAcquireResponse;
+import com.soptie.server.memberroutine.service.MemberRoutineCreateService;
+import com.soptie.server.memberroutine.service.MemberRoutineDeleteService;
+import com.soptie.server.memberroutine.service.MemberRoutineReadService;
+import com.soptie.server.memberroutine.service.MemberRoutineUpdateService;
+import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
+import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
+import com.soptie.server.memberroutine.service.dto.request.MemberRoutineAchieveServiceRequest;
+import com.soptie.server.memberroutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -49,21 +49,21 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 
 	@PostMapping
 	public ResponseEntity<SuccessResponse<MemberDailyRoutineCreateResponse>> createMemberDailyRoutine(
-			Principal principal,
-			@RequestBody MemberDailyRoutineCreateRequest request
+		Principal principal,
+		@RequestBody MemberDailyRoutineCreateRequest request
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = MemberDailyRoutineCreateResponse.of(memberRoutineCreateService.createDailyRoutine(
-				MemberDailyRoutineCreateServiceRequest.of(memberId, request)));
+			MemberDailyRoutineCreateServiceRequest.of(memberId, request)));
 		return ResponseEntity
-				.created(UriGenerator.getURI("/api/v1/routines/daily/member/", response.routineId()))
-				.body(success(SUCCESS_CREATE_ROUTINE.getMessage(), response));
+			.created(UriGenerator.getUri("/api/v1/routines/daily/member/", response.routineId()))
+			.body(success(SUCCESS_CREATE_ROUTINE.getMessage(), response));
 	}
 
 	@DeleteMapping
 	public ResponseEntity<BaseResponse> deleteMemberDailyRoutines(
-			Principal principal,
-			@RequestParam List<Long> routines
+		Principal principal,
+		@RequestParam List<Long> routines
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		memberRoutineDeleteService.deleteMemberRoutines(MemberRoutinesDeleteServiceRequest.of(memberId, routines));
@@ -72,23 +72,23 @@ public class MemberDailyRoutineController implements MemberDailyRoutineApi {
 
 	@PatchMapping("/routine/{routineId}")
 	public ResponseEntity<SuccessResponse<MemberDailyRoutineAchieveResponse>> achieveMemberDailyRoutine(
-			Principal principal,
-			@PathVariable long routineId
+		Principal principal,
+		@PathVariable long routineId
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = MemberDailyRoutineAchieveResponse
-				.of(memberRoutineUpdateService.achieveMemberRoutine(
-						MemberRoutineAchieveServiceRequest.of(memberId, routineId)));
+			.of(memberRoutineUpdateService.achieveMemberRoutine(
+				MemberRoutineAchieveServiceRequest.of(memberId, routineId)));
 		return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
 	}
 
 	@GetMapping
 	public ResponseEntity<SuccessResponse<MemberDailyRoutineListAcquireResponse>> getMemberDailyRoutines(
-			Principal principal
+		Principal principal
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = MemberDailyRoutineListAcquireResponse
-				.of(memberRoutineReadService.getDailyRoutines(MemberDailyRoutineListAcquireServiceRequest.of(memberId)));
+			.of(memberRoutineReadService.getDailyRoutines(MemberDailyRoutineListAcquireServiceRequest.of(memberId)));
 		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }

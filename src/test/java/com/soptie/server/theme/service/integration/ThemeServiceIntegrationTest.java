@@ -30,14 +30,14 @@ public class ThemeServiceIntegrationTest {
 	ThemeRepository themeRepository;
 
 	@Nested
-	class acquire {
+	class Acquire {
 
 		List<Theme> themes = List.of(
-				ThemeFixture.theme().type(ThemeType.BASIC).build(),
-				ThemeFixture.theme().type(ThemeType.BASIC).build(),
-				ThemeFixture.theme().type(ThemeType.BASIC).build(),
-				ThemeFixture.theme().type(ThemeType.MAKER).build(),
-				ThemeFixture.theme().type(ThemeType.MAKER).build()
+			ThemeFixture.theme().type(ThemeType.BASIC).build(),
+			ThemeFixture.theme().type(ThemeType.BASIC).build(),
+			ThemeFixture.theme().type(ThemeType.BASIC).build(),
+			ThemeFixture.theme().type(ThemeType.MAKER).build(),
+			ThemeFixture.theme().type(ThemeType.MAKER).build()
 		);
 
 		@BeforeEach
@@ -55,7 +55,7 @@ public class ThemeServiceIntegrationTest {
 			List<ThemeVO> result = themeService.acquireAllInBasic();
 
 			// then
-			assertThat(result).hasSize((int) countOfBasic);
+			assertThat(result).hasSize((int)countOfBasic);
 		}
 	}
 }

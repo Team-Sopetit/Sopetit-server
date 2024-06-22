@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.service.dto.request;
+package com.soptie.server.memberroutine.service.dto.request;
 
 import static lombok.AccessLevel.*;
 
@@ -6,14 +6,14 @@ import lombok.Builder;
 
 @Builder(access = PRIVATE)
 public record MemberRoutineDeleteServiceRequest(
-		long memberId,
-		long routineId
+	long memberId,
+	long routineId
 ) {
 
 	public static MemberRoutineDeleteServiceRequest of(long memberId, long routineId) {
 		return MemberRoutineDeleteServiceRequest.builder()
-				.memberId(memberId)
-				.routineId(routineId)
-				.build();
+			.memberId(memberId)
+			.routineId(routineId)
+			.build();
 	}
 }

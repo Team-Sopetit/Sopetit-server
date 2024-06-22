@@ -1,21 +1,21 @@
-package com.soptie.server.memberRoutine.adapter;
+package com.soptie.server.memberroutine.adapter;
 
-import com.soptie.server.common.support.RepositoryAdapter;
-import com.soptie.server.member.entity.Member;
-import com.soptie.server.memberRoutine.entity.MemberRoutine;
-import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
-import com.soptie.server.memberRoutine.repository.dto.MemberChallengeResponse;
-import com.soptie.server.memberRoutine.repository.dto.MemberRoutineResponse;
-import com.soptie.server.routine.entity.Routine;
-import com.soptie.server.routine.exception.RoutineException;
-import lombok.RequiredArgsConstructor;
+import static com.soptie.server.routine.entity.RoutineType.*;
+import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.soptie.server.routine.entity.RoutineType.CHALLENGE;
-import static com.soptie.server.routine.entity.RoutineType.DAILY;
-import static com.soptie.server.routine.message.RoutineErrorCode.INVALID_ROUTINE;
+import com.soptie.server.common.support.RepositoryAdapter;
+import com.soptie.server.member.entity.Member;
+import com.soptie.server.memberroutine.entity.MemberRoutine;
+import com.soptie.server.memberroutine.repository.MemberRoutineRepository;
+import com.soptie.server.memberroutine.repository.dto.MemberChallengeResponse;
+import com.soptie.server.memberroutine.repository.dto.MemberRoutineResponse;
+import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.exception.RoutineException;
+
+import lombok.RequiredArgsConstructor;
 
 @RepositoryAdapter
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class MemberRoutineFinder {
 
 	public MemberRoutine findById(long id) {
 		return memberRoutineRepository.findById(id)
-				.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
+			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
 	public List<MemberRoutine> findAchieved() {

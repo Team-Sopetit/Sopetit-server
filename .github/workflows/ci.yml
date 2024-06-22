@@ -1,0 +1,52 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
+      - name: create application.yaml
+        run: |
+          cd src/main/resources
+          echo "${{ secrets.APPLICATION_SECRET_YML }}" > ./application-secret.yml
+        working-directory: ${{ env.working-directory }}
+
+      - name: build
+        run: |
+          chmod +x gradlew
+          ./gradlew build test
+        working-directory: ${{ env.working-directory }}
+        shell: bash
+
+  lint:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Execute checkstyleMain
+        run: ./gradlew clean checkstyleMain
+
+      - name: Execute checkstyleTest
+        run: ./gradlew clean checkstyleTest

@@ -1,17 +1,17 @@
 package com.soptie.server.member.service.dto.response;
 
-import lombok.Builder;
+import static lombok.AccessLevel.*;
 
-import static lombok.AccessLevel.PRIVATE;
+import lombok.Builder;
 
 @Builder(access = PRIVATE)
 public record MemberCottonCountGetServiceResponse(
-        int cottonCount
+	int cottonCount
 ) {
 
-    public static MemberCottonCountGetServiceResponse of(int cottonCount) {
-        return MemberCottonCountGetServiceResponse.builder()
-                .cottonCount(cottonCount)
-                .build();
-    }
+	public static MemberCottonCountGetServiceResponse of(int cottonCount) {
+		return MemberCottonCountGetServiceResponse.builder()
+			.cottonCount(cottonCount)
+			.build();
+	}
 }

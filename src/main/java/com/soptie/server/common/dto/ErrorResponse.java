@@ -1,10 +1,11 @@
 package com.soptie.server.common.dto;
 
-import lombok.AccessLevel;
+import static lombok.AccessLevel.*;
+
 import lombok.Builder;
 import lombok.NonNull;
 
-@Builder(access = AccessLevel.PRIVATE)
+@Builder(access = PRIVATE)
 public record ErrorResponse(
 	boolean success,
 	@NonNull String message
@@ -12,8 +13,8 @@ public record ErrorResponse(
 
 	public static ErrorResponse of(String message) {
 		return ErrorResponse.builder()
-				.success(false)
-				.message(message)
-				.build();
+			.success(false)
+			.message(message)
+			.build();
 	}
 }

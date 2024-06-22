@@ -1,4 +1,4 @@
-package com.soptie.server.memberRoutine.service;
+package com.soptie.server.memberroutine.service;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.memberRoutine.adapter.MemberRoutineDeleter;
-import com.soptie.server.memberRoutine.adapter.MemberRoutineFinder;
-import com.soptie.server.memberRoutine.entity.MemberRoutine;
-import com.soptie.server.memberRoutine.service.dto.request.MemberRoutineDeleteServiceRequest;
-import com.soptie.server.memberRoutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
+import com.soptie.server.memberroutine.adapter.MemberRoutineDeleter;
+import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
+import com.soptie.server.memberroutine.entity.MemberRoutine;
+import com.soptie.server.memberroutine.service.dto.request.MemberRoutineDeleteServiceRequest;
+import com.soptie.server.memberroutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -40,8 +40,8 @@ public class MemberRoutineDeleteService {
 
 	private List<MemberRoutine> filterMemberRoutines(Member member, List<Long> routineIds) {
 		return routineIds.stream()
-				.map(memberRoutineFinder::findById)
-				.filter(routine -> routine.getMember().equals(member))
-				.toList();
+			.map(memberRoutineFinder::findById)
+			.filter(routine -> routine.getMember().equals(member))
+			.toList();
 	}
 }

@@ -21,7 +21,8 @@ import com.soptie.server.routine.service.RoutineService;
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 
-import lombok.*;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,21 +33,21 @@ public class DailyRoutineControllerV1 implements DailyRoutineApiV1 {
 
 	@GetMapping
 	public ResponseEntity<SuccessResponse<DailyRoutineListByThemesGetResponse>> getRoutinesByThemes(
-			@RequestParam List<Long> themes
+		@RequestParam List<Long> themes
 	) {
 		val response = DailyRoutineListByThemesGetResponse
-				.of(routineService.getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest.of(themes)));
+			.of(routineService.getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest.of(themes)));
 		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 
 	@GetMapping("/theme/{themeId}")
 	public ResponseEntity<SuccessResponse<DailyRoutineListByThemeGetResponse>> getRoutinesByTheme(
-			Principal principal,
-			@PathVariable long themeId
+		Principal principal,
+		@PathVariable long themeId
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = DailyRoutineListByThemeGetResponse
-				.of(routineService.getRoutinesByTheme(DailyRoutineListByThemeGetServiceRequest.of(memberId, themeId)));
+			.of(routineService.getRoutinesByTheme(DailyRoutineListByThemeGetServiceRequest.of(memberId, themeId)));
 		return ResponseEntity.ok(success(SUCCESS_GET_ROUTINE.getMessage(), response));
 	}
 }

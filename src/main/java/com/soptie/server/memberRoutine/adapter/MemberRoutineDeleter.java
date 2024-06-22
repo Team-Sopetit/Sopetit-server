@@ -1,11 +1,11 @@
-package com.soptie.server.memberRoutine.adapter;
+package com.soptie.server.memberroutine.adapter;
 
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.memberRoutine.entity.DeletedMemberRoutine;
-import com.soptie.server.memberRoutine.entity.MemberRoutine;
-import com.soptie.server.memberRoutine.repository.DeletedMemberRoutineRepository;
-import com.soptie.server.memberRoutine.repository.MemberRoutineRepository;
+import com.soptie.server.memberroutine.entity.DeletedMemberRoutine;
+import com.soptie.server.memberroutine.entity.MemberRoutine;
+import com.soptie.server.memberroutine.repository.DeletedMemberRoutineRepository;
+import com.soptie.server.memberroutine.repository.MemberRoutineRepository;
 
 import lombok.RequiredArgsConstructor;
 

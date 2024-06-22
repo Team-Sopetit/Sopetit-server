@@ -16,20 +16,17 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface TestApi {
 
 	@Operation(
-			summary = "서버 연결",
-			description = "서버의 연결 여부를 테스트한다.",
-			responses = {
-					@ApiResponse(
-							responseCode = "200",
-							description = "성공",
-							content = @Content(schema = @Schema(implementation = SuccessResponse.class))
-					),
-					@ApiResponse(
-							responseCode = "500",
-							description = "서버 내부 오류",
-							content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-					)
-			}
+		summary = "서버 연결",
+		description = "서버의 연결 여부를 테스트한다.",
+		responses = {
+			@ApiResponse(
+				responseCode = "200",
+				description = "성공",
+				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
 	ResponseEntity<BaseResponse> test();
 }

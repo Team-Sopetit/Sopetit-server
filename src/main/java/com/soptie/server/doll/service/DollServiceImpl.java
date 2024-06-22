@@ -11,7 +11,8 @@ import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.doll.exception.DollException;
 import com.soptie.server.doll.repository.DollRepository;
 
-import lombok.*;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 @Service
 @RequiredArgsConstructor

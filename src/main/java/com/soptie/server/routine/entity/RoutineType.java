@@ -10,8 +10,7 @@ import lombok.Getter;
 public enum RoutineType {
 
 	DAILY("데일리"),
-	CHALLENGE("도전"),
-	;
+	CHALLENGE("도전");
 
 	private final String name;
 }

@@ -1,7 +1,7 @@
 package com.soptie.server.support.fixture;
 
-import com.soptie.server.theme.entity.ThemeImageLinks;
 import com.soptie.server.theme.entity.Theme;
+import com.soptie.server.theme.entity.ThemeImageLinks;
 import com.soptie.server.theme.entity.ThemeType;
 
 public class ThemeFixture {
@@ -12,7 +12,8 @@ public class ThemeFixture {
 	private String description = "default";
 	private String color;
 	private ThemeType type = ThemeType.BASIC;
-	private final ThemeImageLinks imageLinks = new ThemeImageLinks("https://...", "https://...", "https://...", "https://...", "https://...");
+	private final ThemeImageLinks imageLinks = new ThemeImageLinks("https://...", "https://...", "https://...",
+		"https://...", "https://...");
 
 	private ThemeFixture() {
 	}

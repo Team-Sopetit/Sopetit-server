@@ -40,13 +40,15 @@ public class RoutineService {
 		return DailyRoutineListGetServiceResponse.of(routines, theme);
 	}
 
-	public HappinessRoutineListGetServiceResponse getHappinessRoutinesByTheme(HappinessRoutineListGetServiceRequest request) {
+	public HappinessRoutineListGetServiceResponse getHappinessRoutinesByTheme(
+		HappinessRoutineListGetServiceRequest request
+	) {
 		val routines = routineFinder.findChallengeRoutinesByTheme(request.themeId());
 		return HappinessRoutineListGetServiceResponse.of(routines);
 	}
 
 	public HappinessSubRoutineListGetServiceResponse getHappinessSubRoutines(
-			HappinessSubRoutineListGetServiceRequest request
+		HappinessSubRoutineListGetServiceRequest request
 	) {
 		val routine = routineFinder.findById(request.routineId());
 		val subRoutines = challengeFinder.findByRoutine(routine);

@@ -14,7 +14,8 @@ import com.soptie.server.doll.dto.DollImageResponse;
 import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.doll.service.DollService;
 
-import lombok.*;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 @RestController
 @RequiredArgsConstructor

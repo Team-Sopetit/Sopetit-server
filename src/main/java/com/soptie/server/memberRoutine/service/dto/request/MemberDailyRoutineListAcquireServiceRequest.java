@@ -1,17 +1,17 @@
-package com.soptie.server.memberRoutine.service.dto.request;
+package com.soptie.server.memberroutine.service.dto.request;
+
+import static lombok.AccessLevel.*;
 
 import lombok.Builder;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @Builder(access = PRIVATE)
 public record MemberDailyRoutineListAcquireServiceRequest(
-		long memberId
+	long memberId
 ) {
 
 	public static MemberDailyRoutineListAcquireServiceRequest of(long memberId) {
 		return MemberDailyRoutineListAcquireServiceRequest.builder()
-				.memberId(memberId)
-				.build();
+			.memberId(memberId)
+			.build();
 	}
 }
