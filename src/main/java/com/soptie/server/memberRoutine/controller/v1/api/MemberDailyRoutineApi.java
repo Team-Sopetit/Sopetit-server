@@ -1,4 +1,4 @@
-package com.soptie.server.member.controller.v1.docs;
+package com.soptie.server.memberroutine.controller.v1.api;
 
 import java.security.Principal;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.member.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
-import com.soptie.server.member.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
-import com.soptie.server.member.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
-import com.soptie.server.member.controller.v1.dto.response.MemberDailyRoutineListGetResponse;
+import com.soptie.server.memberroutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
+import com.soptie.server.memberroutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
+import com.soptie.server.memberroutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
+import com.soptie.server.memberroutine.controller.v1.dto.response.MemberDailyRoutineListAcquireResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -127,7 +127,7 @@ public interface MemberDailyRoutineApi {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<MemberDailyRoutineListGetResponse>> getMemberDailyRoutines(
+	ResponseEntity<SuccessResponse<MemberDailyRoutineListAcquireResponse>> getMemberDailyRoutines(
 		@Parameter(hidden = true) Principal principal
 	);
 }

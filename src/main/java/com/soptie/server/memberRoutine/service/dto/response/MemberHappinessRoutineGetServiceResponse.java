@@ -1,8 +1,8 @@
-package com.soptie.server.member.service.dto.response.routine.happiness;
+package com.soptie.server.memberroutine.service.dto.response;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.member.repository.dto.MemberChallengeResponse;
+import com.soptie.server.memberroutine.repository.dto.MemberChallengeResponse;
 import com.soptie.server.theme.entity.Theme;
 
 import lombok.Builder;
@@ -40,8 +40,8 @@ public record MemberHappinessRoutineGetServiceResponse(
 
 		private static ThemeServiceResponse of(Theme theme) {
 			return ThemeServiceResponse.builder()
-				.iconImageUrl(theme.getImageInfo().getIconImageUrl())
-				.cardImageUrl(theme.getImageInfo().getHappinessCardImageUrl())
+				.iconImageUrl(theme.getImageLinks().getIconImageUrl())
+				.cardImageUrl(theme.getImageLinks().getHappinessCardImageUrl())
 				.name(theme.getName())
 				.color(theme.getColor())
 				.build();
