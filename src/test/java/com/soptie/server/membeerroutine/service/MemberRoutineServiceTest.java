@@ -17,11 +17,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.memberroutine2.adapter.MemberRoutineDeleter;
-import com.soptie.server.memberroutine2.adapter.MemberRoutineFinder;
-import com.soptie.server.memberroutine2.entity.MemberRoutine;
-import com.soptie.server.memberroutine2.service.MemberRoutineUpdateService;
-import com.soptie.server.memberroutine2.service.dto.request.MemberRoutineAchieveServiceRequest;
+import com.soptie.server.memberroutine.adapter.MemberRoutineDeleter;
+import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
+import com.soptie.server.memberroutine.entity.MemberRoutine;
+import com.soptie.server.memberroutine.service.MemberRoutineUpdateService;
+import com.soptie.server.memberroutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 
