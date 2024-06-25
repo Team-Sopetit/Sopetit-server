@@ -1,6 +1,6 @@
 package com.soptie.server.routine.repository;
 
-import static com.soptie.server.memberroutine.entity.QMemberRoutine.*;
+import static com.soptie.server.memberroutine2.entity.QMemberRoutine.*;
 import static com.soptie.server.routine.entity.QRoutine.*;
 import static java.util.Objects.*;
 

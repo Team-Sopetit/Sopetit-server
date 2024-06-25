@@ -1,6 +1,6 @@
 package com.soptie.server.memberroutine2.repository;
 
-import static com.soptie.server.memberroutine.entity.QMemberRoutine.*;
+import static com.soptie.server.memberroutine2.entity.QMemberRoutine.*;
 import static com.soptie.server.routine.entity.QChallenge.*;
 import static com.soptie.server.routine.entity.QRoutine.*;
 import static com.soptie.server.routine.entity.RoutineType.*;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.common.support.ExpressionGenerator;
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.memberroutine.repository.dto.QMemberChallengeResponse;
-import com.soptie.server.memberroutine.repository.dto.QMemberRoutineResponse;
 import com.soptie.server.memberroutine2.repository.dto.MemberChallengeResponse;
 import com.soptie.server.memberroutine2.repository.dto.MemberRoutineResponse;
+import com.soptie.server.memberroutine2.repository.dto.QMemberChallengeResponse;
+import com.soptie.server.memberroutine2.repository.dto.QMemberRoutineResponse;
 import com.soptie.server.routine.entity.RoutineType;
 
 import lombok.RequiredArgsConstructor;
