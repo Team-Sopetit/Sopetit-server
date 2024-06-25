@@ -19,7 +19,7 @@ import com.soptie.server.member.service.dto.response.MemberCottonCountGetService
 import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
 import com.soptie.server.memberdoll.adapter.MemberDollSaver;
 import com.soptie.server.memberdoll.entity.MemberDoll;
-import com.soptie.server.memberroutine.adapter.MemberRoutineSaver;
+import com.soptie.server.memberroutine2.adapter.MemberRoutineSaver;
 import com.soptie.server.routine.adapter.RoutineFinder;
 
 import lombok.RequiredArgsConstructor;

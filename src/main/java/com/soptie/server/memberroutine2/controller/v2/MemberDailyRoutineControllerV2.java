@@ -1,7 +1,7 @@
-package com.soptie.server.memberroutine.controller.v2;
+package com.soptie.server.memberroutine2.controller.v2;
 
 import static com.soptie.server.common.dto.SuccessResponse.*;
-import static com.soptie.server.memberroutine.message.MemberRoutineSuccessMassage.*;
+import static com.soptie.server.memberroutine2.message.MemberRoutineSuccessMassage.*;
 
 import java.security.Principal;
 
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.memberroutine.controller.v2.docs.MemberDailyRoutineApi;
-import com.soptie.server.memberroutine.controller.v2.dto.response.MemberDailyRoutineListAcquireResponseV2;
-import com.soptie.server.memberroutine.service.MemberRoutineReadService;
-import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
+import com.soptie.server.memberroutine2.controller.v2.docs.MemberDailyRoutineApi;
+import com.soptie.server.memberroutine2.controller.v2.dto.response.MemberDailyRoutineListAcquireResponseV2;
+import com.soptie.server.memberroutine2.service.MemberRoutineReadService;
+import com.soptie.server.memberroutine2.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.memberroutine.repository.MemberRoutineRepository;
+import com.soptie.server.memberroutine2.repository.MemberRoutineRepository;
 import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.repository.ChallengeRepository;

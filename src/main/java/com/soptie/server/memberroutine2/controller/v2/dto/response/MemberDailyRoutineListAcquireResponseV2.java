@@ -1,11 +1,11 @@
-package com.soptie.server.memberroutine.controller.v2.dto.response;
+package com.soptie.server.memberroutine2.controller.v2.dto.response;
 
 import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutineListAcquireServiceResponse;
-import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
+import com.soptie.server.memberroutine2.service.dto.response.MemberDailyRoutineListAcquireServiceResponse;
+import com.soptie.server.memberroutine2.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
