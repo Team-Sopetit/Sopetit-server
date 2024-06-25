@@ -23,7 +23,7 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.member.service.MemberService;
 import com.soptie.server.memberdoll.entity.MemberDoll;
 import com.soptie.server.memberdoll.service.MemberDollService;
-import com.soptie.server.memberroutine2.adapter.MemberRoutineDeleter;
+import com.soptie.server.memberroutine.adapter.MemberRoutineDeleter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

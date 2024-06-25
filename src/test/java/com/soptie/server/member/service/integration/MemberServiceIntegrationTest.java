@@ -21,7 +21,7 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.member.service.MemberServiceImpl;
 import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
-import com.soptie.server.memberroutine2.adapter.MemberRoutineFinder;
+import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.repository.RoutineRepository;
 import com.soptie.server.support.IntegrationTest;
