@@ -1,4 +1,4 @@
-package com.soptie.server.memberroutine.controller.v1.api;
+package com.soptie.server.memberroutine.controller.v1.docs;
 
 import java.security.Principal;
 import java.util.List;
@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "member daily routines V1", description = "회원의 데일리 루틴 API Version1")
-public interface MemberDailyRoutineApi {
+public interface MemberDailyRoutineControllerDocs {
 
 	@Operation(
 		summary = "데일리 루틴 추가",

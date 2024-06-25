@@ -1,4 +1,4 @@
-package com.soptie.server.auth.controller;
+package com.soptie.server.auth.controller.docs;
 
 import java.security.Principal;
 
@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "auth", description = "인증 API")
-public interface AuthApi {
+public interface AuthControllerDocs {
 
 	@Operation(
 		summary = "소셜 로그인",

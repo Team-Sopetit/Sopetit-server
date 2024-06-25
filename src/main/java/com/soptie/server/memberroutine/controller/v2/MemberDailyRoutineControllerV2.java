@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.memberroutine.controller.v2.docs.MemberDailyRoutineApi;
+import com.soptie.server.memberroutine.controller.v2.docs.MemberDailyRoutineControllerV2Docs;
 import com.soptie.server.memberroutine.controller.v2.dto.response.MemberDailyRoutineListAcquireResponseV2;
 import com.soptie.server.memberroutine.service.MemberRoutineReadService;
 import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
@@ -22,7 +22,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v2/routines/daily/member")
-public class MemberDailyRoutineControllerV2 implements MemberDailyRoutineApi {
+public class MemberDailyRoutineControllerV2 implements MemberDailyRoutineControllerV2Docs {
 
 	private final MemberRoutineReadService memberRoutineReadService;
 

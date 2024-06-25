@@ -1,10 +1,10 @@
-package com.soptie.server.test;
+package com.soptie.server.version.controller.docs;
 
 import org.springframework.http.ResponseEntity;
 
-import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.version.controller.dto.response.AppVersionGetResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,21 +12,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "test", description = "테스트 API")
-public interface TestApi {
+@Tag(name = "versions", description = "버전 API")
+public interface VersionControllerDocs {
 
 	@Operation(
-		summary = "서버 연결",
-		description = "서버의 연결 여부를 테스트한다.",
+		summary = "모바일 앱 버전 조회",
+		description = "모바일 앱(클라이언트) 버전 정보를 조회합니다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "500",
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<BaseResponse> test();
+	ResponseEntity<SuccessResponse<AppVersionGetResponse>> getClientAppVersion();
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.theme.controller.v1.api.HappinessThemeApiV1;
+import com.soptie.server.theme.controller.v1.docs.HappinessThemeControllerDocs;
 import com.soptie.server.theme.controller.v1.dto.response.HappinessThemeListGetResponse;
 import com.soptie.server.theme.service.ThemeService;
 
@@ -19,7 +19,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/routines/happiness/themes")
-public class HappinessThemeControllerV1 implements HappinessThemeApiV1 {
+public class HappinessThemeController implements HappinessThemeControllerDocs {
 
 	private final ThemeService themeService;
 

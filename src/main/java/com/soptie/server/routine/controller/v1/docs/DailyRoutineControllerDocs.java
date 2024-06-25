@@ -1,4 +1,4 @@
-package com.soptie.server.routine.controller.v1.api;
+package com.soptie.server.routine.controller.v1.docs;
 
 import java.security.Principal;
 import java.util.List;
@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "daily routines V1", description = "데일리 루틴 API Version1")
-public interface DailyRoutineApiV1 {
+public interface DailyRoutineControllerDocs {
 
 	@Operation(
 		summary = "테마 목록별 데일리 루틴 목록 조회",

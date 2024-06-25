@@ -1,4 +1,4 @@
-package com.soptie.server.routine.controller.v1.api;
+package com.soptie.server.routine.controller.v1.docs;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "happiness routines", description = "행복 루틴 API")
-public interface HappinessRoutineApiV1 {
+public interface HappinessRoutineControllerDocs {
 
 	@Operation(
 		summary = "테마 목록별 행복 루틴 목록 조회",

@@ -1,4 +1,4 @@
-package com.soptie.server.theme.controller.v1.api;
+package com.soptie.server.theme.controller.v1.docs;
 
 import org.springframework.http.ResponseEntity;
 
@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "happiness theme V1", description = "행복 테마 API Version1")
-public interface HappinessThemeApiV1 {
+public interface HappinessThemeControllerDocs {
 
 	@Operation(
 		summary = "행복 루틴 테마 목록 조회",

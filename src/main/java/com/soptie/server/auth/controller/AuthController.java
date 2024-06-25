@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.soptie.server.auth.controller.docs.AuthControllerDocs;
 import com.soptie.server.auth.controller.dto.request.SignInRequest;
 import com.soptie.server.auth.controller.dto.response.SignInResponse;
 import com.soptie.server.auth.controller.dto.response.TokenGetResponse;
@@ -28,7 +29,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
-public class AuthController implements AuthApi {
+public class AuthController implements AuthControllerDocs {
 
 	private final AuthService authService;
 
