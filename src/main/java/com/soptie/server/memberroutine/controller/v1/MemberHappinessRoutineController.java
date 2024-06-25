@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.common.support.UriGenerator;
-import com.soptie.server.memberroutine.controller.v1.docs.MemberHappinessRoutineApi;
+import com.soptie.server.memberroutine.controller.v1.docs.MemberHappinessRoutineControllerDocs;
 import com.soptie.server.memberroutine.controller.v1.dto.request.MemberHappinessRoutineRequest;
 import com.soptie.server.memberroutine.controller.v1.dto.response.MemberHappinessRoutineCreateResponse;
 import com.soptie.server.memberroutine.controller.v1.dto.response.MemberHappinessRoutineGetResponse;
@@ -37,7 +37,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/routines/happiness/member")
-public class MemberHappinessRoutineController implements MemberHappinessRoutineApi {
+public class MemberHappinessRoutineController implements MemberHappinessRoutineControllerDocs {
 
 	private final MemberRoutineCreateService memberRoutineCreateService;
 	private final MemberRoutineReadService memberRoutineReadService;

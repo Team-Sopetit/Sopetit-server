@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
+import com.soptie.server.doll.controller.docs.DollControllerDocs;
 import com.soptie.server.doll.dto.DollImageResponse;
 import com.soptie.server.doll.entity.DollType;
 import com.soptie.server.doll.service.DollService;
@@ -20,7 +21,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/dolls")
-public class DollController implements DollApi {
+public class DollController implements DollControllerDocs {
 
 	private final DollService dollService;
 

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.common.support.UriGenerator;
-import com.soptie.server.memberroutine.controller.v1.docs.MemberDailyRoutineApi;
+import com.soptie.server.memberroutine.controller.v1.docs.MemberDailyRoutineControllerDocs;
 import com.soptie.server.memberroutine.controller.v1.dto.request.MemberDailyRoutineCreateRequest;
 import com.soptie.server.memberroutine.controller.v1.dto.response.MemberDailyRoutineAchieveResponse;
 import com.soptie.server.memberroutine.controller.v1.dto.response.MemberDailyRoutineCreateResponse;
@@ -40,7 +40,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/routines/daily/member")
-public class MemberDailyRoutineController implements MemberDailyRoutineApi {
+public class MemberDailyRoutineController implements MemberDailyRoutineControllerDocs {
 
 	private final MemberRoutineCreateService memberRoutineCreateService;
 	private final MemberRoutineReadService memberRoutineReadService;

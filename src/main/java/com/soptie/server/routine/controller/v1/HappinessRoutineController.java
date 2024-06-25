@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.controller.v1.api.HappinessRoutineApiV1;
+import com.soptie.server.routine.controller.v1.docs.HappinessRoutineControllerDocs;
 import com.soptie.server.routine.controller.v1.dto.response.HappinessRoutineListGetResponse;
 import com.soptie.server.routine.controller.v1.dto.response.HappinessSubRoutineListGetResponse;
 import com.soptie.server.routine.service.RoutineService;
@@ -24,7 +24,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/routines/happiness")
-public class HappinessRoutineControllerV1 implements HappinessRoutineApiV1 {
+public class HappinessRoutineController implements HappinessRoutineControllerDocs {
 
 	private final RoutineService routineService;
 

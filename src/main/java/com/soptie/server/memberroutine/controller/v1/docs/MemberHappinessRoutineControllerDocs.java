@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "member happiness routines V1", description = "회원의 행복 루틴 API Version1")
-public interface MemberHappinessRoutineApi {
+public interface MemberHappinessRoutineControllerDocs {
 
 	@Operation(
 		summary = "행복 루틴 추가",

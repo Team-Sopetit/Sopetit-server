@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "member daily routines V2", description = "회원의 데일리 루틴 API Version2")
-public interface MemberDailyRoutineApi {
+public interface MemberDailyRoutineControllerV2Docs {
 
 	@Operation(
 		summary = "회원의 데일리 루틴 목록 조회",

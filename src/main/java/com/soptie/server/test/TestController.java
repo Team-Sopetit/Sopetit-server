@@ -11,7 +11,7 @@ import com.soptie.server.common.dto.BaseResponse;
 
 @RestController
 @RequestMapping("/api/v1/test")
-public class TestController implements TestApi {
+public class TestController {
 
 	@GetMapping
 	public ResponseEntity<BaseResponse> test() {

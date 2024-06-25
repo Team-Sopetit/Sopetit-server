@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.member.controller.docs.MemberApi;
+import com.soptie.server.member.controller.docs.MemberControllerDocs;
 import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
 import com.soptie.server.member.controller.dto.response.MemberCottonCountGetResponse;
 import com.soptie.server.member.controller.dto.response.MemberHomeInfoGetResponse;
@@ -33,7 +33,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/members")
-public class MemberController implements MemberApi {
+public class MemberController implements MemberControllerDocs {
 
 	private final MemberService memberService;
 

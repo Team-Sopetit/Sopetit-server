@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "members", description = "회원 API")
-public interface MemberApi {
+public interface MemberControllerDocs {
 
 	@Operation(
 		summary = "멤버 프로필 생성",
