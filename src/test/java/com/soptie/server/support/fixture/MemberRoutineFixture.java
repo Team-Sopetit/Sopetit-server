@@ -1,7 +1,7 @@
 package com.soptie.server.support.fixture;
 
 import com.soptie.server.member.entity.Member;
-import com.soptie.server.memberroutine.entity.MemberRoutine;
+import com.soptie.server.memberroutine2.entity.MemberRoutine;
 import com.soptie.server.routine.entity.RoutineType;
 
 public class MemberRoutineFixture {
