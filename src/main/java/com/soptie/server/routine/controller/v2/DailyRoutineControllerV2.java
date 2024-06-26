@@ -3,7 +3,7 @@ package com.soptie.server.routine.controller.v2;
 import static com.soptie.server.common.dto.SuccessResponse.*;
 import static com.soptie.server.routine.message.RoutineSuccessMessage.*;
 
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ public class DailyRoutineControllerV2 implements DailyRoutineControllerV2Docs {
 
 	@GetMapping
 	public ResponseEntity<SuccessResponse<DailyRoutineListAcquireResponseV2>> acquireAllByThemes(
-		@RequestParam Set<Long> themeIds
+		@RequestParam LinkedHashSet<Long> themeIds
 	) {
 		val response = routineService.acquireAllInDailyWithThemeId(themeIds);
 		return ResponseEntity.ok(success(

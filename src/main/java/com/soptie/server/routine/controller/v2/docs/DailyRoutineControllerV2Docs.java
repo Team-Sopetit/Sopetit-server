@@ -1,6 +1,6 @@
 package com.soptie.server.routine.controller.v2.docs;
 
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 import org.springframework.http.ResponseEntity;
 
@@ -12,6 +12,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 public interface DailyRoutineControllerV2Docs {
 
 	ResponseEntity<SuccessResponse<DailyRoutineListAcquireResponseV2>> acquireAllByThemes(
-		@Parameter(name = "list of themes id", description = "조회할 테마 id 목록") Set<Long> themeIds
+		@Parameter(name = "list of themes id", description = "조회할 테마 id 목록") LinkedHashSet<Long> themeIds
 	);
 }
