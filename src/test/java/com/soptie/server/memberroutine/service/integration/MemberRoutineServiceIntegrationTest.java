@@ -25,11 +25,14 @@ import com.soptie.server.memberroutine.repository.MemberRoutineRepository;
 import com.soptie.server.memberroutine.service.MemberRoutineCreateService;
 import com.soptie.server.memberroutine.service.MemberRoutineDeleteService;
 import com.soptie.server.memberroutine.service.MemberRoutineReadService;
+import com.soptie.server.memberroutine.service.dto.request.MemberChallengeRoutineAcquireServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberRoutinesDeleteServiceRequest;
+import com.soptie.server.memberroutine.service.dto.response.MemberChallengeRoutineAcquireServiceResponse;
+import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutineListAcquireServiceResponse;
 import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
 import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse.MemberDailyRoutineServiceResponse;
 import com.soptie.server.memberroutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
@@ -372,6 +375,105 @@ public class MemberRoutineServiceIntegrationTest {
 			// when
 			final Optional<MemberHappinessRoutineGetServiceResponse> actual = memberRoutineReadService
 				.getHappinessRoutine(request);
+
+			// then
+			assertThat(actual).isEmpty();
+		}
+	}
+
+	@Nested
+	class AcquireV2 {
+
+		Member member;
+		Theme theme1;
+		Theme theme2;
+		Routine routine1;
+		Routine routine2;
+		Routine routine3;
+		Routine challengeRoutine;
+
+		@BeforeEach
+		void setUp() {
+			member = memberRepository.save(MemberFixture.member().build());
+
+			theme1 = themeRepository.save(ThemeFixture.theme().name("테마 1").build());
+			theme2 = themeRepository.save(ThemeFixture.theme().name("테마 2").build());
+
+			routine1 = routineRepository.save(
+				RoutineFixture.routine().theme(theme1).type(DAILY).content("새로운 나").build());
+			routine2 = routineRepository.save(
+				RoutineFixture.routine().theme(theme1).type(DAILY).content("깨끗한 나").build());
+			routine3 = routineRepository.save(
+				RoutineFixture.routine().theme(theme2).type(DAILY).content("똑똑한 나").build());
+			challengeRoutine = routineRepository.save(
+				RoutineFixture.routine().theme(theme1).type(CHALLENGE).content("도전 루틴").build());
+		}
+
+		@Test
+		@DisplayName("[성공] 회원이 가진 모든 데일리 루틴을 테마별로 조회한다. 이 때, 루틴은 가나다순으로 정렬된다.")
+		void getMemberDailyRoutinesByMember() {
+			// given
+			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
+				.member(member).routineId(routine1.getId()).type(routine1.getType()).build());
+			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
+				.member(member).routineId(routine2.getId()).type(routine2.getType()).build());
+			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
+				.member(member).routineId(routine3.getId()).type(routine3.getType()).build());
+
+			MemberDailyRoutineListAcquireServiceRequest request = MemberDailyRoutineListAcquireServiceRequest.of(
+				member.getId());
+
+			// when
+			final MemberDailyRoutineListAcquireServiceResponse actual = memberRoutineReadService.acquireAll(request);
+
+			// then
+			int themeCount = actual.routines().size();
+			assertThat(themeCount).isEqualTo(2);
+			List<String> contents = actual.routines().get(0).routines().stream().map(
+				MemberDailyRoutinesAcquireServiceResponse.MemberDailyRoutineServiceResponse::content).toList();
+			assertThat(contents).hasSize(2);
+			assertThat(contents).containsExactly(routine2.getContent(), routine1.getContent());
+		}
+
+		@Test
+		@DisplayName("[성공] 회원의 도전 루틴이 존재한다면 해당 도전 루틴을 테마와 함께 조회한다.")
+		void getMemberChallengeRoutinesByMember() {
+			// given
+			Challenge challenge = challengeRepository.save(
+				ChallengeFixture.challenge()
+					.content("무한~ 도전~")
+					.description("무한으로 즐겨요")
+					.routine(challengeRoutine)
+					.build());
+			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
+				.member(member).routineId(challenge.getId()).type(challengeRoutine.getType()).build());
+
+			MemberChallengeRoutineAcquireServiceRequest request =
+				MemberChallengeRoutineAcquireServiceRequest.of(member.getId());
+
+			// when
+			final Optional<MemberChallengeRoutineAcquireServiceResponse> actual =
+				memberRoutineReadService.acquire(request);
+
+			// then
+			assertThat(actual).isPresent();
+
+			final MemberChallengeRoutineAcquireServiceResponse response = actual.get();
+			assertThat(response.theme().themeId()).isEqualTo(challenge.getRoutine().getTheme().getId());
+			assertThat(response.theme().name()).isEqualTo(challenge.getRoutine().getTheme().getName());
+			assertThat(response.content()).isEqualTo(challenge.getContent());
+		}
+
+		@Test
+		@DisplayName("[성공] 회원이 가진 도전 루틴이 없으면 빈 값으로 조회된다.")
+		void getEmptyWhenMemberHasNotHappinessRoutine() {
+			// given
+			MemberChallengeRoutineAcquireServiceRequest request =
+				MemberChallengeRoutineAcquireServiceRequest.of(member.getId());
+
+			// when
+			final Optional<MemberChallengeRoutineAcquireServiceResponse> actual =
+				memberRoutineReadService.acquire(request);
 
 			// then
 			assertThat(actual).isEmpty();
