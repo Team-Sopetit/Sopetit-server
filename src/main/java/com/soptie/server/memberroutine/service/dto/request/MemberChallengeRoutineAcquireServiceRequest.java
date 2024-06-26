@@ -5,12 +5,12 @@ import static lombok.AccessLevel.*;
 import lombok.Builder;
 
 @Builder(access = PRIVATE)
-public record MemberChallengeAcquireServiceRequest(
+public record MemberChallengeRoutineAcquireServiceRequest(
 	long memberId
 ) {
 
-	public static MemberChallengeAcquireServiceRequest of(long memberId) {
-		return MemberChallengeAcquireServiceRequest.builder()
+	public static MemberChallengeRoutineAcquireServiceRequest of(long memberId) {
+		return MemberChallengeRoutineAcquireServiceRequest.builder()
 			.memberId(memberId)
 			.build();
 	}

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberroutine.repository.dto.MemberRoutineResponse;
-import com.soptie.server.memberroutine.service.dto.request.MemberChallengeAcquireServiceRequest;
+import com.soptie.server.memberroutine.service.dto.request.MemberChallengeRoutineAcquireServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
 import com.soptie.server.memberroutine.service.dto.response.MemberChallengeRoutineAcquireServiceResponse;
@@ -53,7 +53,7 @@ public class MemberRoutineReadService {
 	}
 
 	public Optional<MemberChallengeRoutineAcquireServiceResponse> acquire(
-		MemberChallengeAcquireServiceRequest request
+		MemberChallengeRoutineAcquireServiceRequest request
 	) {
 		val member = memberFinder.findById(request.memberId());
 		val memberRoutine = memberRoutineFinder.findChallengeByMember(member);

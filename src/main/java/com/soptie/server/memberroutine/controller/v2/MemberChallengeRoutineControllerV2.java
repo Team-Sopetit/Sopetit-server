@@ -13,7 +13,7 @@ import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberroutine.controller.v2.docs.MemberChallengeRoutineControllerV2Docs;
 import com.soptie.server.memberroutine.controller.v2.dto.response.MemberChallengeRoutineAcquireResponseV2;
 import com.soptie.server.memberroutine.service.MemberRoutineReadService;
-import com.soptie.server.memberroutine.service.dto.request.MemberChallengeAcquireServiceRequest;
+import com.soptie.server.memberroutine.service.dto.request.MemberChallengeRoutineAcquireServiceRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -28,7 +28,7 @@ public class MemberChallengeRoutineControllerV2 implements MemberChallengeRoutin
 	@GetMapping
 	public ResponseEntity<?> acquire(Principal principal) {
 		val memberId = Long.parseLong(principal.getName());
-		return memberRoutineReadService.acquire(MemberChallengeAcquireServiceRequest.of(memberId))
+		return memberRoutineReadService.acquire(MemberChallengeRoutineAcquireServiceRequest.of(memberId))
 			.map(response -> ResponseEntity.ok(SuccessResponse.success(
 				SUCCESS_GET_ROUTINE.getMessage(),
 				MemberChallengeRoutineAcquireResponseV2.of(response))))
