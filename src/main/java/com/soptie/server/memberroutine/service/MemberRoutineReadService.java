@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberroutine.repository.dto.MemberRoutineResponse;
+import com.soptie.server.memberroutine.service.dto.request.MemberChallengeAcquireServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberHappinessRoutineGetServiceRequest;
+import com.soptie.server.memberroutine.service.dto.response.MemberChallengeRoutineAcquireServiceResponse;
 import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutineListAcquireServiceResponse;
 import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutinesAcquireServiceResponse;
 import com.soptie.server.memberroutine.service.dto.response.MemberHappinessRoutineGetServiceResponse;
@@ -48,6 +50,14 @@ public class MemberRoutineReadService {
 		val routines = memberRoutineFinder.findAllByMember(member);
 		val routinesWithTheme = collectByTheme(routines);
 		return MemberDailyRoutineListAcquireServiceResponse.of(routinesWithTheme);
+	}
+
+	public Optional<MemberChallengeRoutineAcquireServiceResponse> acquire(
+		MemberChallengeAcquireServiceRequest request
+	) {
+		val member = memberFinder.findById(request.memberId());
+		val memberRoutine = memberRoutineFinder.findChallengeByMember(member);
+		return memberRoutine.map(MemberChallengeRoutineAcquireServiceResponse::of);
 	}
 
 	private List<MemberDailyRoutinesAcquireServiceResponse> collectByTheme(List<MemberRoutineResponse> routines) {
