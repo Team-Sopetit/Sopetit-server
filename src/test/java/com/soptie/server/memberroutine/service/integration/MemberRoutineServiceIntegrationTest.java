@@ -1,4 +1,4 @@
-package com.soptie.server.membeerroutine.service.integration;
+package com.soptie.server.memberroutine.service.integration;
 
 import static com.soptie.server.routine.entity.RoutineType.*;
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
