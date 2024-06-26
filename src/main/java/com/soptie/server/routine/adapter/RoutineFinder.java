@@ -8,8 +8,10 @@ import java.util.List;
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.entity.RoutineType;
 import com.soptie.server.routine.exception.RoutineException;
 import com.soptie.server.routine.repository.RoutineRepository;
+import com.soptie.server.routine.service.vo.RoutineVO;
 import com.soptie.server.theme.entity.Theme;
 
 import lombok.RequiredArgsConstructor;
@@ -30,10 +32,14 @@ public class RoutineFinder {
 
 	public Routine findById(long id) {
 		return routineRepository.findById(id)
-				.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
+			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
 	public List<Routine> findChallengeRoutinesByTheme(Long themeId) {
 		return routineRepository.findByTypeAndThemeId(CHALLENGE, themeId);
+	}
+
+	public List<RoutineVO> findAllByTypeAndThemeId(RoutineType type, long themeId) {
+		return routineRepository.findByTypeAndThemeId(type, themeId).stream().map(RoutineVO::from).toList();
 	}
 }

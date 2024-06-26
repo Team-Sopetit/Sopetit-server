@@ -67,6 +67,7 @@ public class SecurityConfig {
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/dolls/image/{type}")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/versions/client/app")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/api/v2/routines/daily", "GET")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
 				.anyRequest().authenticated()
 		);
