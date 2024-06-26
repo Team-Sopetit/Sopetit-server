@@ -3,7 +3,10 @@ package com.soptie.server.routine.service.integration;
 import static com.soptie.server.routine.entity.RoutineType.*;
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +33,7 @@ import com.soptie.server.routine.service.dto.response.HappinessRoutineListGetSer
 import com.soptie.server.routine.service.dto.response.HappinessRoutineListGetServiceResponse.HappinessRoutineServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse.HappinessSubRoutineServiceResponse;
+import com.soptie.server.routine.service.vo.RoutineVO;
 import com.soptie.server.support.IntegrationTest;
 import com.soptie.server.support.fixture.ChallengeFixture;
 import com.soptie.server.support.fixture.MemberFixture;
@@ -62,44 +66,72 @@ public class RoutineServiceIntegrationTest {
 	ChallengeRepository challengeRepository;
 
 	@Nested
-	class AcquireDailyRoutineByTheme {
+	class DailyRoutine {
 
-		Routine routine1;
-		Routine routine2;
-		Routine routine3;
-		Theme theme1;
-		Theme theme2;
-		Theme theme3;
+		@Nested
+		class Acquire {
 
-		@BeforeEach
-		void setUp() {
-			theme1 = themeRepository.save(ThemeFixture.theme().name("관계 쌓기").build());
-			theme2 = themeRepository.save(ThemeFixture.theme().name("한 걸음 성장").build());
-			theme3 = themeRepository.save(ThemeFixture.theme().name("새로운 나").build());
+			Theme theme1;
+			Theme theme2;
+			Theme theme3;
 
-			routine1 = routineRepository.save(
-				RoutineFixture.routine().type(DAILY).content("관계를 쌓아보자").theme(theme1).build());
-			routine2 = routineRepository.save(
-				RoutineFixture.routine().type(DAILY).content("성장하자").theme(theme2).build());
-			routine3 = routineRepository.save(
-				RoutineFixture.routine().type(DAILY).content("보여줄게 완전히 달라진 나").theme(theme3).build());
+			Routine routineOfTheme1;
+			Routine routineOfTheme2;
+			Routine routineOfTheme3;
+
+			@BeforeEach
+			void setUp() {
+				theme1 = themeRepository.save(ThemeFixture.theme().name("관계 쌓기").build());
+				theme2 = themeRepository.save(ThemeFixture.theme().name("한 걸음 성장").build());
+				theme3 = themeRepository.save(ThemeFixture.theme().name("새로운 나").build());
+
+				routineOfTheme1 = routineRepository.save(
+					RoutineFixture.routine().type(DAILY).content("관계를 쌓아보자").theme(theme1).build());
+				routineOfTheme2 = routineRepository.save(
+					RoutineFixture.routine().type(DAILY).content("성장하자").theme(theme2).build());
+				routineOfTheme3 = routineRepository.save(
+					RoutineFixture.routine().type(DAILY).content("보여줄게 완전히 달라진 나").theme(theme3).build());
+			}
+
+			@Test
+			@DisplayName("[성공] 테마 id 목록에 포함된 테마를 갖는 데일리 루틴 목록을 조회한다.")
+			void acquireAllByThemeIds() {
+				// given
+				List<Long> themeIds = List.of(theme1.getId(), theme2.getId());
+				DailyRoutineListByThemesGetServiceRequest request = DailyRoutineListByThemesGetServiceRequest.of(
+					themeIds);
+
+				// when
+				final DailyRoutineListGetServiceResponse actual = routineService.getRoutinesByThemes(request);
+
+				// then
+				assertThat(actual.routines()).hasSize(2);
+				List<Long> routineIds = actual.routines().stream().map(DailyRoutineServiceResponse::routineId).toList();
+				assertThat(routineIds).containsExactlyInAnyOrder(routineOfTheme1.getId(), routineOfTheme2.getId());
+			}
+
+			@Test
+			@DisplayName("[성공] 각 테마(id)별로 데일리 루틴 목록을 조회한다.")
+			void acquireAllWithThemeIds() {
+				// given
+				Set<Long> themeIds = new LinkedHashSet<>();
+				themeIds.add(theme2.getId());
+				themeIds.add(theme1.getId());
+
+				// when
+				final Map<Long, List<RoutineVO>> actual = routineService.acquireAllInDailyWithThemeId(themeIds);
+
+				// then
+				assertThat(actual.keySet()).containsExactly(theme2.getId(), theme1.getId());
+
+				List<Long> routineIdsForTheme1 = actual.get(theme1.getId()).stream().map(RoutineVO::routineId).toList();
+				assertThat(routineIdsForTheme1).containsExactlyInAnyOrder(routineOfTheme1.getId());
+
+				List<Long> routineIdsForTheme2 = actual.get(theme2.getId()).stream().map(RoutineVO::routineId).toList();
+				assertThat(routineIdsForTheme2).containsExactlyInAnyOrder(routineOfTheme2.getId());
+			}
 		}
 
-		@Test
-		@DisplayName("[성공] 테마 id 목록에 포함된 테마를 갖는 데일리 루틴 목록을 조회한다.")
-		void getDailyRoutinesByThemeIds() {
-			// given
-			List<Long> themeIds = List.of(theme1.getId(), theme2.getId());
-			DailyRoutineListByThemesGetServiceRequest request = DailyRoutineListByThemesGetServiceRequest.of(themeIds);
-
-			// when
-			final DailyRoutineListGetServiceResponse actual = routineService.getRoutinesByThemes(request);
-
-			// then
-			assertThat(actual.routines()).hasSize(2);
-			List<Long> routineIds = actual.routines().stream().map(DailyRoutineServiceResponse::routineId).toList();
-			assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
-		}
 	}
 
 	@Nested
