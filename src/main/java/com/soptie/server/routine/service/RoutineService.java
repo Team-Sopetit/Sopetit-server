@@ -64,7 +64,6 @@ public class RoutineService {
 	}
 
 	public Map<Long, List<RoutineVO>> acquireAllInDailyWithThemeId(Set<Long> themeIds) {
-		System.out.println(themeIds);
 		val themeToRoutine = new LinkedHashMap<Long, List<RoutineVO>>();
 		for (val themeId : themeIds) {
 			val routines = routineFinder.findAllByTypeAndThemeId(DAILY, themeId);
