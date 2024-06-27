@@ -41,6 +41,6 @@ public interface ChallengeRoutineControllerV2Docs {
 			description = "조회할 도전 루틴 테마 id",
 			in = ParameterIn.QUERY,
 			example = "1"
-		) @RequestParam Long themeId
+		) @RequestParam long themeId
 	);
 }
