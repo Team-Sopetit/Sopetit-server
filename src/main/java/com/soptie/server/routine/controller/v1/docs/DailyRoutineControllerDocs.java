@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemeGetResponse;
-import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListByThemesGetResponse;
+import com.soptie.server.routine.controller.v1.dto.response.DailyRoutineListAcquireResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -37,7 +36,7 @@ public interface DailyRoutineControllerDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<DailyRoutineListByThemesGetResponse>> getRoutinesByThemes(
+	ResponseEntity<SuccessResponse<DailyRoutineListAcquireResponse>> acquireAllByThemes(
 		@Parameter(
 			name = "themes",
 			description = "조회할 데일리 루틴 테마 id 목록",
@@ -60,7 +59,7 @@ public interface DailyRoutineControllerDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<DailyRoutineListByThemeGetResponse>> getRoutinesByTheme(
+	ResponseEntity<SuccessResponse<DailyRoutineListAcquireResponse>> acquireAllByTheme(
 		@Parameter(hidden = true) Principal principal,
 		@Parameter(
 			name = "themeId",

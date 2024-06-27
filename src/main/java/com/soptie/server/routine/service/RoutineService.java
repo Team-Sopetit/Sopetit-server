@@ -12,11 +12,8 @@ import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
 import com.soptie.server.routine.entity.RoutineType;
-import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
-import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.HappinessRoutineListGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.HappinessSubRoutineListGetServiceRequest;
-import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.vo.RoutineVO;
@@ -35,16 +32,12 @@ public class RoutineService {
 	private final MemberFinder memberFinder;
 	private final ChallengeFinder challengeFinder;
 
-	public DailyRoutineListGetServiceResponse getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest request) {
-		val routines = routineFinder.findDailyRoutinesByThemeIds(request.themeIds());
-		return DailyRoutineListGetServiceResponse.of(routines);
+	public List<RoutineVO> acquireAllInDailyByThemeIds(List<Long> themeIds) {
+		return routineFinder.findAllByTypeAndThemeIds(RoutineType.DAILY, themeIds);
 	}
 
-	public DailyRoutineListGetServiceResponse getRoutinesByTheme(DailyRoutineListByThemeGetServiceRequest request) {
-		val theme = themeFinder.findById(request.themeId());
-		val member = memberFinder.findById(request.memberId());
-		val routines = routineFinder.findDailyRoutinesByThemeAndNotMember(theme, member);
-		return DailyRoutineListGetServiceResponse.of(routines, theme);
+	public List<RoutineVO> acquireAllInDailyNotInMemberByThemeId(long memberId, long themeId) {
+		return routineFinder.findAllNotInMemberByTypeAndThemeId(memberId, RoutineType.DAILY, themeId);
 	}
 
 	public HappinessRoutineListGetServiceResponse getHappinessRoutinesByTheme(
