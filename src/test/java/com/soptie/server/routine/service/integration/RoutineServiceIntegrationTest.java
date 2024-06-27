@@ -1,13 +1,11 @@
 package com.soptie.server.routine.service.integration;
 
-import static com.soptie.server.routine.entity.RoutineType.*;
-import static org.assertj.core.api.Assertions.*;
-
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -20,6 +18,7 @@ import com.soptie.server.member.repository.MemberRepository;
 import com.soptie.server.memberroutine.repository.MemberRoutineRepository;
 import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.entity.RoutineType;
 import com.soptie.server.routine.repository.ChallengeRepository;
 import com.soptie.server.routine.repository.RoutineRepository;
 import com.soptie.server.routine.service.RoutineService;
@@ -86,11 +85,11 @@ public class RoutineServiceIntegrationTest {
 				theme3 = themeRepository.save(ThemeFixture.theme().name("새로운 나").build());
 
 				routineOfTheme1 = routineRepository.save(
-					RoutineFixture.routine().type(DAILY).content("관계를 쌓아보자").theme(theme1).build());
+					RoutineFixture.routine().type(RoutineType.DAILY).content("관계를 쌓아보자").theme(theme1).build());
 				routineOfTheme2 = routineRepository.save(
-					RoutineFixture.routine().type(DAILY).content("성장하자").theme(theme2).build());
+					RoutineFixture.routine().type(RoutineType.DAILY).content("성장하자").theme(theme2).build());
 				routineOfTheme3 = routineRepository.save(
-					RoutineFixture.routine().type(DAILY).content("보여줄게 완전히 달라진 나").theme(theme3).build());
+					RoutineFixture.routine().type(RoutineType.DAILY).content("완전히 달라진 나").theme(theme3).build());
 			}
 
 			@Test
@@ -105,13 +104,14 @@ public class RoutineServiceIntegrationTest {
 				final DailyRoutineListGetServiceResponse actual = routineService.getRoutinesByThemes(request);
 
 				// then
-				assertThat(actual.routines()).hasSize(2);
+				Assertions.assertThat(actual.routines()).hasSize(2);
 				List<Long> routineIds = actual.routines().stream().map(DailyRoutineServiceResponse::routineId).toList();
-				assertThat(routineIds).containsExactlyInAnyOrder(routineOfTheme1.getId(), routineOfTheme2.getId());
+				Assertions.assertThat(routineIds)
+					.containsExactlyInAnyOrder(routineOfTheme1.getId(), routineOfTheme2.getId());
 			}
 
 			@Test
-			@DisplayName("[성공] 각 테마(id)별로 데일리 루틴 목록을 조회한다.")
+			@DisplayName("[성공] 각 테마 id 별로 데일리 루틴 목록을 조회한다.")
 			void acquireAllWithThemeIds() {
 				// given
 				Set<Long> themeIds = new LinkedHashSet<>();
@@ -122,13 +122,13 @@ public class RoutineServiceIntegrationTest {
 				final Map<Long, List<RoutineVO>> actual = routineService.acquireAllInDailyWithThemeId(themeIds);
 
 				// then
-				assertThat(actual.keySet()).containsExactly(theme2.getId(), theme1.getId());
+				Assertions.assertThat(actual.keySet()).containsExactly(theme2.getId(), theme1.getId());
 
 				List<Long> routineIdsForTheme1 = actual.get(theme1.getId()).stream().map(RoutineVO::routineId).toList();
-				assertThat(routineIdsForTheme1).containsExactlyInAnyOrder(routineOfTheme1.getId());
+				Assertions.assertThat(routineIdsForTheme1).containsExactlyInAnyOrder(routineOfTheme1.getId());
 
 				List<Long> routineIdsForTheme2 = actual.get(theme2.getId()).stream().map(RoutineVO::routineId).toList();
-				assertThat(routineIdsForTheme2).containsExactlyInAnyOrder(routineOfTheme2.getId());
+				Assertions.assertThat(routineIdsForTheme2).containsExactlyInAnyOrder(routineOfTheme2.getId());
 			}
 		}
 
@@ -151,18 +151,19 @@ public class RoutineServiceIntegrationTest {
 			theme = themeRepository.save(ThemeFixture.theme().name("관계 쌓기").build());
 
 			routine1 = routineRepository.save(
-				RoutineFixture.routine().type(DAILY).content("관계 쌓자").theme(theme).build());
+				RoutineFixture.routine().type(RoutineType.DAILY).content("관계 쌓자").theme(theme).build());
 			routine2 = routineRepository.save(
-				RoutineFixture.routine().type(DAILY).content("쌓자 관계").theme(theme).build());
-			routineNoTheme = routineRepository.save(RoutineFixture.routine().type(DAILY).content("테마 없음").build());
+				RoutineFixture.routine().type(RoutineType.DAILY).content("쌓자 관계").theme(theme).build());
+			routineNoTheme = routineRepository.save(
+				RoutineFixture.routine().type(RoutineType.DAILY).content("테마 없음").build());
 			routineMemberHas = routineRepository.save(
-				RoutineFixture.routine().type(DAILY).content("쌓자 관계").theme(theme).build());
+				RoutineFixture.routine().type(RoutineType.DAILY).content("쌓자 관계").theme(theme).build());
 			challengeRoutine = routineRepository.save(
-				RoutineFixture.routine().type(CHALLENGE).content("관계 도전").theme(theme).build());
+				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("관계 도전").theme(theme).build());
 
 			memberRoutineRepository.save(
 				MemberRoutineFixture.memberRoutine()
-					.type(DAILY)
+					.type(RoutineType.DAILY)
 					.routineId(routineMemberHas.getId())
 					.member(member)
 					.build());
@@ -180,7 +181,7 @@ public class RoutineServiceIntegrationTest {
 
 			// then
 			List<Long> routineIds = actual.routines().stream().map(DailyRoutineServiceResponse::routineId).toList();
-			assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
+			Assertions.assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
 		}
 	}
 
@@ -199,11 +200,11 @@ public class RoutineServiceIntegrationTest {
 			theme2 = themeRepository.save(ThemeFixture.theme().name("한 걸음 성장").color("민트").build());
 
 			routine1 = routineRepository.save(
-				RoutineFixture.routine().type(CHALLENGE).content("관계쌓는").theme(theme1).build());
+				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("관계쌓는").theme(theme1).build());
 			routine2 = routineRepository.save(
-				RoutineFixture.routine().type(CHALLENGE).content("성장하는").theme(theme1).build());
+				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("성장하는").theme(theme1).build());
 			routine3 = routineRepository.save(
-				RoutineFixture.routine().type(CHALLENGE).content("보여주는").theme(theme2).build());
+				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("보여주는").theme(theme2).build());
 		}
 
 		@Test
@@ -216,9 +217,9 @@ public class RoutineServiceIntegrationTest {
 			final HappinessRoutineListGetServiceResponse actual = routineService.getHappinessRoutinesByTheme(request);
 
 			// then
-			assertThat(actual.routines()).hasSize(2);
+			Assertions.assertThat(actual.routines()).hasSize(2);
 			List<Long> routineIds = actual.routines().stream().map(HappinessRoutineServiceResponse::routineId).toList();
-			assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
+			Assertions.assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
 		}
 	}
 
@@ -237,9 +238,9 @@ public class RoutineServiceIntegrationTest {
 			theme = themeRepository.save(ThemeFixture.theme().name("관계 쌓기").color("라일락").build());
 
 			routine1 = routineRepository.save(
-				RoutineFixture.routine().type(CHALLENGE).content("관계쌓는").theme(theme).build());
+				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("관계쌓는").theme(theme).build());
 			routine2 = routineRepository.save(
-				RoutineFixture.routine().type(CHALLENGE).content("성장하는").theme(theme).build());
+				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("성장하는").theme(theme).build());
 
 			challenge1 = challengeRepository.save(ChallengeFixture.challenge().routine(routine1).build());
 			challenge2 = challengeRepository.save(ChallengeFixture.challenge().routine(routine1).build());
@@ -257,11 +258,11 @@ public class RoutineServiceIntegrationTest {
 			final HappinessSubRoutineListGetServiceResponse actual = routineService.getHappinessSubRoutines(request);
 
 			// then
-			assertThat(actual.challenges()).hasSize(2);
+			Assertions.assertThat(actual.challenges()).hasSize(2);
 
 			List<Long> challengeIds = actual.challenges().stream()
 				.map(HappinessSubRoutineServiceResponse::challengeId).toList();
-			assertThat(challengeIds).containsExactlyInAnyOrder(challenge1.getId(), challenge2.getId());
+			Assertions.assertThat(challengeIds).containsExactlyInAnyOrder(challenge1.getId(), challenge2.getId());
 		}
 	}
 }

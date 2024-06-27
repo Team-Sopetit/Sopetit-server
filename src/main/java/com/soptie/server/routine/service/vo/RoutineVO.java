@@ -1,14 +1,13 @@
 package com.soptie.server.routine.service.vo;
 
-import static lombok.AccessLevel.*;
-
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.RoutineType;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Builder;
 
-@Builder(access = PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public record RoutineVO(
 	long routineId,
 	@NotNull String content,

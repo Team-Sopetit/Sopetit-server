@@ -1,7 +1,5 @@
 package com.soptie.server.routine.service;
 
-import static com.soptie.server.routine.entity.RoutineType.*;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
+import com.soptie.server.routine.entity.RoutineType;
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.HappinessRoutineListGetServiceRequest;
@@ -66,7 +65,7 @@ public class RoutineService {
 	public Map<Long, List<RoutineVO>> acquireAllInDailyWithThemeId(Set<Long> themeIds) {
 		val themeToRoutine = new LinkedHashMap<Long, List<RoutineVO>>();
 		for (val themeId : themeIds) {
-			val routines = routineFinder.findAllByTypeAndThemeId(DAILY, themeId);
+			val routines = routineFinder.findAllByTypeAndThemeId(RoutineType.DAILY, themeId);
 			themeToRoutine.put(themeId, routines);
 		}
 		return themeToRoutine;
