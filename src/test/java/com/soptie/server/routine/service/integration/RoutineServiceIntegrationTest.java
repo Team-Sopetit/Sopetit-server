@@ -1,6 +1,6 @@
 package com.soptie.server.routine.service.integration;
 
-import static com.soptie.server.routine.entity.RoutineType.*;
+import static com.soptie.server.routine.entity.RoutineType.CHALLENGE;
 
 import java.util.LinkedHashSet;
 import java.util.List;

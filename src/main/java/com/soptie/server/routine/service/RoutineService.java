@@ -1,6 +1,6 @@
 package com.soptie.server.routine.service;
 
-import static com.soptie.server.common.config.ValueConfig.*;
+import static com.soptie.server.common.config.ValueConfig.MEMBER_HAS_NOT_CHALLENGE;
 
 import java.util.LinkedHashMap;
 import java.util.List;
