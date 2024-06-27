@@ -1,16 +1,15 @@
 package com.soptie.server.routine.controller.v2.dto.response;
 
-import static lombok.AccessLevel.*;
-
 import java.util.List;
 import java.util.Map;
 
 import com.soptie.server.routine.service.vo.RoutineVO;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Builder;
 
-@Builder(access = PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public record DailyRoutineListAcquireResponseV2(
 	List<ThemeResponse> themes
 ) {
@@ -21,7 +20,7 @@ public record DailyRoutineListAcquireResponseV2(
 			.build();
 	}
 
-	@Builder(access = PRIVATE)
+	@Builder(access = AccessLevel.PRIVATE)
 	private record ThemeResponse(
 		long themeId,
 		List<RoutineResponse> routines
@@ -35,7 +34,7 @@ public record DailyRoutineListAcquireResponseV2(
 		}
 	}
 
-	@Builder(access = PRIVATE)
+	@Builder(access = AccessLevel.PRIVATE)
 	private record RoutineResponse(
 		long routineId,
 		@NotNull String content

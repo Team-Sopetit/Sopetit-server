@@ -1,8 +1,5 @@
 package com.soptie.server.routine.controller.v2;
 
-import static com.soptie.server.common.dto.SuccessResponse.*;
-import static com.soptie.server.routine.message.RoutineSuccessMessage.*;
-
 import java.util.LinkedHashSet;
 
 import org.springframework.http.ResponseEntity;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.routine.controller.v2.docs.DailyRoutineControllerV2Docs;
 import com.soptie.server.routine.controller.v2.dto.response.DailyRoutineListAcquireResponseV2;
+import com.soptie.server.routine.message.RoutineSuccessMessage;
 import com.soptie.server.routine.service.RoutineService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,8 +29,8 @@ public class DailyRoutineControllerV2 implements DailyRoutineControllerV2Docs {
 		@RequestParam LinkedHashSet<Long> themeIds
 	) {
 		val response = routineService.acquireAllInDailyWithThemeId(themeIds);
-		return ResponseEntity.ok(success(
-			SUCCESS_GET_ROUTINE.getMessage(),
+		return ResponseEntity.ok(SuccessResponse.success(
+			RoutineSuccessMessage.SUCCESS_GET_ROUTINE.getMessage(),
 			DailyRoutineListAcquireResponseV2.from(response)));
 	}
 }
