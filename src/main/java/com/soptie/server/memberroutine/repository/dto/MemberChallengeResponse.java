@@ -5,15 +5,17 @@ import com.soptie.server.memberroutine.entity.MemberRoutine;
 import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.theme.entity.Theme;
 
+import lombok.NonNull;
+
 public record MemberChallengeResponse(
-	Long id,
-	Long challengeId,
-	String routineContent,
-	String content,
-	String description,
-	String place,
-	String requiredTime,
-	Theme theme
+	long id,
+	long challengeId,
+	@NonNull String routineContent,
+	@NonNull String content,
+	@NonNull String description,
+	@NonNull String place,
+	@NonNull String requiredTime,
+	@NonNull Theme theme
 ) {
 
 	@QueryProjection
