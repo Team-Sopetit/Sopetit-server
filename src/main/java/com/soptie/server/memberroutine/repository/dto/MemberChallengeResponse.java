@@ -7,6 +7,7 @@ import com.soptie.server.theme.entity.Theme;
 
 public record MemberChallengeResponse(
 	Long id,
+	Long challengeId,
 	String routineContent,
 	String content,
 	String description,
@@ -19,6 +20,7 @@ public record MemberChallengeResponse(
 	public MemberChallengeResponse(MemberRoutine memberRoutine, Challenge challenge, Theme theme) {
 		this(
 			memberRoutine.getId(),
+			challenge.getId(),
 			challenge.getRoutine().getContent(),
 			challenge.getContent(),
 			challenge.getDescription(),
