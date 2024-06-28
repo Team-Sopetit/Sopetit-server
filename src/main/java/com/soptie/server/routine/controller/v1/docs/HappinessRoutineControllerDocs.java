@@ -34,7 +34,7 @@ public interface HappinessRoutineControllerDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<HappinessRoutineListAcquireResponse>> getHappinessRoutinesByThemes(
+	ResponseEntity<SuccessResponse<HappinessRoutineListAcquireResponse>> acquireAllByTheme(
 		@Parameter(
 			name = "themeId",
 			description = "조회할 행복 루틴 테마 id",
@@ -57,7 +57,7 @@ public interface HappinessRoutineControllerDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<HappinessSubRoutineListAcquireResponse>> getHappinessSubRoutinesByRoutineOfTheme(
+	ResponseEntity<SuccessResponse<HappinessSubRoutineListAcquireResponse>> acquireAllInSubByRoutine(
 		@Parameter(
 			name = "routineId",
 			description = "조회할 서브 행복 루틴 id",

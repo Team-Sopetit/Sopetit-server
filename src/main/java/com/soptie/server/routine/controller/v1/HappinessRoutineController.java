@@ -26,7 +26,7 @@ public class HappinessRoutineController implements HappinessRoutineControllerDoc
 	private final RoutineService routineService;
 
 	@GetMapping
-	public ResponseEntity<SuccessResponse<HappinessRoutineListAcquireResponse>> getHappinessRoutinesByThemes(
+	public ResponseEntity<SuccessResponse<HappinessRoutineListAcquireResponse>> acquireAllByTheme(
 		@RequestParam(required = false) Long themeId
 	) {
 		return ResponseEntity.ok(SuccessResponse.success(
@@ -35,7 +35,7 @@ public class HappinessRoutineController implements HappinessRoutineControllerDoc
 	}
 
 	@GetMapping("/routine/{routineId}")
-	public ResponseEntity<SuccessResponse<HappinessSubRoutineListAcquireResponse>> getHappinessSubRoutinesByRoutineOfTheme(
+	public ResponseEntity<SuccessResponse<HappinessSubRoutineListAcquireResponse>> acquireAllInSubByRoutine(
 		@PathVariable long routineId
 	) {
 		val response = HappinessSubRoutineListAcquireResponse.of(
