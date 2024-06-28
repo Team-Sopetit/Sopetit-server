@@ -22,10 +22,7 @@ import com.soptie.server.routine.entity.RoutineType;
 import com.soptie.server.routine.repository.ChallengeRepository;
 import com.soptie.server.routine.repository.RoutineRepository;
 import com.soptie.server.routine.service.RoutineService;
-import com.soptie.server.routine.service.dto.request.HappinessRoutineListGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.HappinessSubRoutineListGetServiceRequest;
-import com.soptie.server.routine.service.dto.response.HappinessRoutineListGetServiceResponse;
-import com.soptie.server.routine.service.dto.response.HappinessRoutineListGetServiceResponse.HappinessRoutineServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse.HappinessSubRoutineServiceResponse;
 import com.soptie.server.routine.service.vo.RoutineVO;
@@ -176,15 +173,12 @@ public class RoutineServiceIntegrationTest {
 		@Test
 		@DisplayName("[성공] 테마에 포함된 행복 루틴 목록을 조회한다.")
 		void getHappinessRoutinesByTheme() {
-			// given
-			HappinessRoutineListGetServiceRequest request = HappinessRoutineListGetServiceRequest.of(theme1.getId());
-
 			// when
-			final HappinessRoutineListGetServiceResponse actual = routineService.getHappinessRoutinesByTheme(request);
+			final List<RoutineVO> actual = routineService.acquireAllInHappinessByThemeId(theme1.getId());
 
 			// then
-			Assertions.assertThat(actual.routines()).hasSize(2);
-			List<Long> routineIds = actual.routines().stream().map(HappinessRoutineServiceResponse::routineId).toList();
+			Assertions.assertThat(actual).hasSize(2);
+			List<Long> routineIds = actual.stream().map(RoutineVO::routineId).toList();
 			Assertions.assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
 		}
 	}

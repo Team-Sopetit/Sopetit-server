@@ -1,6 +1,5 @@
 package com.soptie.server.routine.adapter;
 
-import static com.soptie.server.routine.entity.RoutineType.*;
 import static com.soptie.server.routine.message.RoutineErrorCode.*;
 
 import java.util.List;
@@ -34,11 +33,7 @@ public class RoutineFinder {
 			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
-	public List<Routine> findChallengeRoutinesByTheme(Long themeId) {
-		return routineRepository.findByTypeAndThemeId(CHALLENGE, themeId);
-	}
-
-	public List<RoutineVO> findAllByTypeAndThemeId(RoutineType type, long themeId) {
+	public List<RoutineVO> findAllByTypeAndThemeId(RoutineType type, Long themeId) {
 		return routineRepository.findByTypeAndThemeId(type, themeId).stream().map(RoutineVO::from).toList();
 	}
 }

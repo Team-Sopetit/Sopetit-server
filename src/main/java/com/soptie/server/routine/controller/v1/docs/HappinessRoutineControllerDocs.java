@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
-import com.soptie.server.routine.controller.v1.dto.response.HappinessRoutineListGetResponse;
-import com.soptie.server.routine.controller.v1.dto.response.HappinessSubRoutineListGetResponse;
+import com.soptie.server.routine.controller.v1.dto.response.HappinessRoutineListAcquireResponse;
+import com.soptie.server.routine.controller.v1.dto.response.HappinessSubRoutineListAcquireResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,7 +34,7 @@ public interface HappinessRoutineControllerDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<HappinessRoutineListGetResponse>> getHappinessRoutinesByThemes(
+	ResponseEntity<SuccessResponse<HappinessRoutineListAcquireResponse>> getHappinessRoutinesByThemes(
 		@Parameter(
 			name = "themeId",
 			description = "조회할 행복 루틴 테마 id",
@@ -57,7 +57,7 @@ public interface HappinessRoutineControllerDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<HappinessSubRoutineListGetResponse>> getHappinessSubRoutinesByRoutineOfTheme(
+	ResponseEntity<SuccessResponse<HappinessSubRoutineListAcquireResponse>> getHappinessSubRoutinesByRoutineOfTheme(
 		@Parameter(
 			name = "routineId",
 			description = "조회할 서브 행복 루틴 id",

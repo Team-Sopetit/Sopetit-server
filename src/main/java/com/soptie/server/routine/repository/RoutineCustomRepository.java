@@ -10,5 +10,5 @@ public interface RoutineCustomRepository {
 
 	List<Routine> findByTypeAndThemeAndNotMember(long memberId, RoutineType type, long themeId);
 
-	List<Routine> findByTypeAndThemeId(RoutineType type, long themeId);
+	List<Routine> findByTypeAndThemeId(RoutineType type, Long themeId);
 }

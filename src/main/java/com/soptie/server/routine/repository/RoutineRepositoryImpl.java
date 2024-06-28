@@ -51,7 +51,7 @@ public class RoutineRepositoryImpl implements RoutineCustomRepository {
 			.fetch();
 	}
 
-	public List<Routine> findByTypeAndThemeId(RoutineType type, long themeId) {
+	public List<Routine> findByTypeAndThemeId(RoutineType type, Long themeId) {
 		return queryFactory
 			.selectFrom(routine)
 			.where(
