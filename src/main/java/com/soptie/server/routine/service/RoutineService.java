@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
+import com.soptie.server.memberroutine.repository.dto.MemberChallengeResponse;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
 import com.soptie.server.routine.entity.Challenge;
@@ -93,10 +94,7 @@ public class RoutineService {
 
 	private long getChallengeIdByMember(Member member) {
 		val challengeByMember = memberRoutineFinder.findChallengeByMember(member);
-		if (challengeByMember.isPresent()) {
-			return challengeByMember.get().challengeId();
-		}
-		return MEMBER_HAS_NOT_CHALLENGE;
+		return challengeByMember.map(MemberChallengeResponse::challengeId).orElse(MEMBER_HAS_NOT_CHALLENGE);
 	}
 
 	private List<ChallengeVO> getChallengeVOs(List<Challenge> challenges, long challengeId) {
