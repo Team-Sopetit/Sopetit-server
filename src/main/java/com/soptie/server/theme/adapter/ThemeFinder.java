@@ -1,6 +1,6 @@
 package com.soptie.server.theme.adapter;
 
-import static com.soptie.server.theme.message.ThemeErrorCode.*;
+import static com.soptie.server.theme.message.ThemeErrorCode.INVALID_THEME;
 
 import java.util.List;
 
@@ -23,10 +23,14 @@ public class ThemeFinder {
 
 	public Theme findById(long id) {
 		return themeRepository.findById(id)
-				.orElseThrow(() -> new ThemeException(INVALID_THEME));
+			.orElseThrow(() -> new ThemeException(INVALID_THEME));
 	}
 
 	public List<Theme> findAllInBasic() {
 		return themeRepository.findAllInBasic();
+	}
+
+	public boolean isExistById(long id) {
+		return themeRepository.existsById(id);
 	}
 }

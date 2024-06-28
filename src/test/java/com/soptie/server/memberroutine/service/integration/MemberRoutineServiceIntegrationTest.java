@@ -1,8 +1,11 @@
 package com.soptie.server.memberroutine.service.integration;
 
-import static com.soptie.server.routine.entity.RoutineType.*;
-import static com.soptie.server.routine.message.RoutineErrorCode.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.soptie.server.routine.entity.RoutineType.CHALLENGE;
+import static com.soptie.server.routine.entity.RoutineType.DAILY;
+import static com.soptie.server.routine.message.RoutineErrorCode.CANNOT_ADD_MEMBER_ROUTINE;
+import static com.soptie.server.routine.message.RoutineErrorCode.DUPLICATED_ROUTINE;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import java.util.Optional;
@@ -344,6 +347,8 @@ public class MemberRoutineServiceIntegrationTest {
 				ChallengeFixture.challenge()
 					.content("무한~ 도전~")
 					.description("무한으로 즐겨요")
+					.requiredTime("2시간")
+					.place("MBC")
 					.routine(challengeRoutine)
 					.build());
 			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()
@@ -416,6 +421,8 @@ public class MemberRoutineServiceIntegrationTest {
 				ChallengeFixture.challenge()
 					.content("무한~ 도전~")
 					.description("무한으로 즐겨요")
+					.requiredTime("2시간")
+					.place("MBC")
 					.routine(challengeRoutine)
 					.build());
 			memberRoutineRepository.save(MemberRoutineFixture.memberRoutine()

@@ -1,5 +1,7 @@
 package com.soptie.server.routine.service;
 
+import static com.soptie.server.common.config.ValueConfig.MEMBER_HAS_NOT_CHALLENGE;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.adapter.MemberFinder;
+import com.soptie.server.member.entity.Member;
+import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
+import com.soptie.server.memberroutine.repository.dto.MemberChallengeResponse;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
 import com.soptie.server.routine.entity.RoutineType;
@@ -16,6 +21,7 @@ import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemeGetS
 import com.soptie.server.routine.service.dto.request.DailyRoutineListByThemesGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.HappinessRoutineListGetServiceRequest;
 import com.soptie.server.routine.service.dto.request.HappinessSubRoutineListGetServiceRequest;
+import com.soptie.server.routine.service.dto.response.ChallengeRoutineListAcquireServiceResponse;
 import com.soptie.server.routine.service.dto.response.DailyRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse;
@@ -34,6 +40,7 @@ public class RoutineService {
 	private final ThemeFinder themeFinder;
 	private final MemberFinder memberFinder;
 	private final ChallengeFinder challengeFinder;
+	private final MemberRoutineFinder memberRoutineFinder;
 
 	public DailyRoutineListGetServiceResponse getRoutinesByThemes(DailyRoutineListByThemesGetServiceRequest request) {
 		val routines = routineFinder.findDailyRoutinesByThemeIds(request.themeIds());
@@ -69,5 +76,25 @@ public class RoutineService {
 			themeToRoutine.put(themeId, routines);
 		}
 		return themeToRoutine;
+	}
+
+	public Map<String, ChallengeRoutineListAcquireServiceResponse> acquireAllInChallengeWithThemeId(long memberId,
+		long themeId) {
+		themeFinder.isExistById(themeId);
+		val member = memberFinder.findById(memberId);
+		val challengeIdByMember = getChallengeIdByMember(member);
+		val challengeRoutinesByTheme = routineFinder.findChallengeRoutinesByTheme(themeId);
+		val themeToChallenge = new LinkedHashMap<String, ChallengeRoutineListAcquireServiceResponse>();
+		for (val routine : challengeRoutinesByTheme) {
+			val challenges = challengeFinder.findByRoutine(routine);
+			themeToChallenge.put(routine.getContent(),
+				ChallengeRoutineListAcquireServiceResponse.of(challenges, challengeIdByMember));
+		}
+		return themeToChallenge;
+	}
+
+	private long getChallengeIdByMember(Member member) {
+		val challengeByMember = memberRoutineFinder.findChallengeByMember(member);
+		return challengeByMember.map(MemberChallengeResponse::challengeId).orElse(MEMBER_HAS_NOT_CHALLENGE);
 	}
 }
