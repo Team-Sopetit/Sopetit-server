@@ -12,18 +12,16 @@ public record ChallengeVO(
 	@NonNull String content,
 	@NonNull String description,
 	@NonNull String requiredTime,
-	@NonNull String place,
-	boolean hasRoutine
+	@NonNull String place
 ) {
 
-	public static ChallengeVO from(Challenge challenge, long challengeId) {
+	public static ChallengeVO from(Challenge challenge) {
 		return ChallengeVO.builder()
 			.challengeId(challenge.getId())
 			.content(challenge.getContent())
 			.description(challenge.getDescription())
 			.requiredTime(challenge.getRequiredTime())
 			.place(challenge.getPlace())
-			.hasRoutine(challenge.getId().equals(challengeId))
 			.build();
 	}
 }

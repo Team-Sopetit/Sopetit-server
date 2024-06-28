@@ -3,7 +3,7 @@ package com.soptie.server.routine.controller.v2.dto.response;
 import java.util.List;
 import java.util.Map;
 
-import com.soptie.server.routine.service.vo.ChallengeVO;
+import com.soptie.server.routine.service.dto.response.ChallengeRoutineListAcquireServiceResponse;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,10 +11,12 @@ import lombok.NonNull;
 
 @Builder(access = AccessLevel.PRIVATE)
 public record ChallengeRoutineListAcquireResponseV2(
-	List<RoutineResponse> routines
+	@NonNull List<RoutineResponse> routines
 ) {
 
-	public static ChallengeRoutineListAcquireResponseV2 from(Map<String, List<ChallengeVO>> challengesMap) {
+	public static ChallengeRoutineListAcquireResponseV2 from(
+		Map<String, ChallengeRoutineListAcquireServiceResponse> challengesMap
+	) {
 		return ChallengeRoutineListAcquireResponseV2.builder()
 			.routines(challengesMap.keySet()
 				.stream()
@@ -26,13 +28,13 @@ public record ChallengeRoutineListAcquireResponseV2(
 	@Builder(access = AccessLevel.PRIVATE)
 	private record RoutineResponse(
 		@NonNull String title,
-		List<ChallengeResponse> challenges
+		@NonNull List<ChallengeResponse> challenges
 	) {
 
-		private static RoutineResponse from(String title, List<ChallengeVO> challenges) {
+		private static RoutineResponse from(String title, ChallengeRoutineListAcquireServiceResponse challenges) {
 			return RoutineResponse.builder()
 				.title(title)
-				.challenges(challenges.stream().map(ChallengeResponse::from).toList())
+				.challenges(challenges.challenges().stream().map(ChallengeResponse::from).toList())
 				.build();
 		}
 	}
@@ -47,13 +49,14 @@ public record ChallengeRoutineListAcquireResponseV2(
 		boolean hasRoutine
 	) {
 
-		private static ChallengeResponse from(ChallengeVO challenge) {
+		private static ChallengeResponse from(
+			ChallengeRoutineListAcquireServiceResponse.ChallengeRoutineAcquireResponse challenge) {
 			return ChallengeResponse.builder()
-				.challengeId(challenge.challengeId())
-				.content(challenge.content())
-				.description(challenge.description())
-				.requiredTime(challenge.requiredTime())
-				.place(challenge.place())
+				.challengeId(challenge.challenge().challengeId())
+				.content(challenge.challenge().content())
+				.description(challenge.challenge().description())
+				.requiredTime(challenge.challenge().requiredTime())
+				.place(challenge.challenge().place())
 				.hasRoutine(challenge.hasRoutine())
 				.build();
 		}
