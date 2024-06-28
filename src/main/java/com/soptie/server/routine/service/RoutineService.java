@@ -80,7 +80,7 @@ public class RoutineService {
 	}
 
 	public Map<String, List<ChallengeVO>> acquireAllInChallengeWithThemeId(long memberId, long themeId) {
-		themeFinder.findById(themeId);
+		themeFinder.isExistById(themeId);
 		val member = memberFinder.findById(memberId);
 		val challengeIdByMember = getChallengeIdByMember(member);
 		val challengeRoutinesByTheme = routineFinder.findChallengeRoutinesByTheme(themeId);
