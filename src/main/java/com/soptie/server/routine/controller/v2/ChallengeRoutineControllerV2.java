@@ -27,7 +27,7 @@ public class ChallengeRoutineControllerV2 implements ChallengeRoutineControllerV
 	@GetMapping
 	public ResponseEntity<SuccessResponse<ChallengeRoutineListAcquireResponseV2>> acquireAllByTheme(
 		Principal principal,
-		@RequestParam(value = "themeId") long themeId
+		@RequestParam long themeId
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = routineService.acquireAllInChallengeWithThemeId(memberId, themeId);
