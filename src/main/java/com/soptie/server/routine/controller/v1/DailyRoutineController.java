@@ -32,9 +32,10 @@ public class DailyRoutineController implements DailyRoutineControllerDocs {
 	public ResponseEntity<SuccessResponse<DailyRoutineListAcquireResponse>> acquireAllByThemes(
 		@RequestParam List<Long> themes
 	) {
+		val response = routineService.acquireAllInDailyByThemeIds(themes);
 		return ResponseEntity.ok(SuccessResponse.success(
 			RoutineSuccessMessage.SUCCESS_GET_ROUTINE.getMessage(),
-			DailyRoutineListAcquireResponse.from(routineService.acquireAllInDailyByThemeIds(themes))));
+			DailyRoutineListAcquireResponse.from(response)));
 	}
 
 	@GetMapping("/theme/{themeId}")
@@ -43,10 +44,10 @@ public class DailyRoutineController implements DailyRoutineControllerDocs {
 		@PathVariable long themeId
 	) {
 		val memberId = Long.parseLong(principal.getName());
+		val themeResponse = themeService.acquireById(themeId);
+		val routinesResponse = routineService.acquireAllInDailyNotInMemberByThemeId(memberId, themeId);
 		return ResponseEntity.ok(SuccessResponse.success(
 			RoutineSuccessMessage.SUCCESS_GET_ROUTINE.getMessage(),
-			DailyRoutineListAcquireResponse.from(
-				themeService.acquireById(themeId),
-				routineService.acquireAllInDailyNotInMemberByThemeId(memberId, themeId))));
+			DailyRoutineListAcquireResponse.from(themeResponse, routinesResponse)));
 	}
 }

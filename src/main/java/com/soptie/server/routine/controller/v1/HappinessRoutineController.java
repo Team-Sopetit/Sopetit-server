@@ -29,19 +29,19 @@ public class HappinessRoutineController implements HappinessRoutineControllerDoc
 	public ResponseEntity<SuccessResponse<HappinessRoutineListAcquireResponse>> acquireAllByTheme(
 		@RequestParam(required = false) Long themeId
 	) {
+		val response = routineService.acquireAllInHappinessByThemeId(themeId);
 		return ResponseEntity.ok(SuccessResponse.success(
 			RoutineSuccessMessage.SUCCESS_GET_HAPPINESS_ROUTINE.getMessage(),
-			HappinessRoutineListAcquireResponse.from(routineService.acquireAllInHappinessByThemeId(themeId))));
+			HappinessRoutineListAcquireResponse.from(response)));
 	}
 
 	@GetMapping("/routine/{routineId}")
 	public ResponseEntity<SuccessResponse<HappinessSubRoutineListAcquireResponse>> acquireAllInSubByRoutine(
 		@PathVariable long routineId
 	) {
-		val response = HappinessSubRoutineListAcquireResponse.of(
-			routineService.getHappinessSubRoutines(HappinessSubRoutineListGetServiceRequest.of(routineId)));
+		val response = routineService.getHappinessSubRoutines(HappinessSubRoutineListGetServiceRequest.of(routineId));
 		return ResponseEntity.ok(SuccessResponse.success(
 			RoutineSuccessMessage.SUCCESS_GET_HAPPINESS_SUB_ROUTINES.getMessage(),
-			response));
+			HappinessSubRoutineListAcquireResponse.of(response)));
 	}
 }
