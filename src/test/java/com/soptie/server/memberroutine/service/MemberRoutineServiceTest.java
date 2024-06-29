@@ -1,4 +1,4 @@
-package com.soptie.server.membeerroutine.service;
+package com.soptie.server.memberroutine.service;
 
 import static com.soptie.server.routine.entity.RoutineType.*;
 import static org.assertj.core.api.Assertions.*;
@@ -20,7 +20,6 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberroutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberroutine.entity.MemberRoutine;
-import com.soptie.server.memberroutine.service.MemberRoutineUpdateService;
 import com.soptie.server.memberroutine.service.dto.request.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;

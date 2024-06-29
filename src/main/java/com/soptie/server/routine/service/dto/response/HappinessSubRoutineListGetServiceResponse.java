@@ -1,11 +1,11 @@
 package com.soptie.server.routine.service.dto.response;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 
-import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.service.vo.ChallengeVO;
 
 import lombok.Builder;
 
@@ -16,7 +16,7 @@ public record HappinessSubRoutineListGetServiceResponse(
 	List<HappinessSubRoutineServiceResponse> challenges
 ) {
 
-	public static HappinessSubRoutineListGetServiceResponse of(Routine routine, List<Challenge> challenges) {
+	public static HappinessSubRoutineListGetServiceResponse of(Routine routine, List<ChallengeVO> challenges) {
 		return HappinessSubRoutineListGetServiceResponse.builder()
 			.routineContent(routine.getContent())
 			.themeName(routine.getTheme().getName())
@@ -33,13 +33,13 @@ public record HappinessSubRoutineListGetServiceResponse(
 		String requiredTime, String place
 	) {
 
-		private static HappinessSubRoutineServiceResponse of(Challenge challenge) {
+		private static HappinessSubRoutineServiceResponse of(ChallengeVO challenge) {
 			return HappinessSubRoutineServiceResponse.builder()
-				.challengeId(challenge.getId())
-				.content(challenge.getContent())
-				.description(challenge.getDescription())
-				.requiredTime(challenge.getRequiredTime())
-				.place(challenge.getPlace())
+				.challengeId(challenge.challengeId())
+				.content(challenge.content())
+				.description(challenge.description())
+				.requiredTime(challenge.requiredTime())
+				.place(challenge.place())
 				.build();
 		}
 	}

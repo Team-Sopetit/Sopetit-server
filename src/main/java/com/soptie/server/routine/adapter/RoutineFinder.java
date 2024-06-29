@@ -33,6 +33,10 @@ public class RoutineFinder {
 			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
+	public List<Routine> findChallengeRoutinesByTheme(Long themeId) {
+		return routineRepository.findByTypeAndThemeId(RoutineType.CHALLENGE, themeId);
+	}
+
 	public List<RoutineVO> findAllByTypeAndThemeId(RoutineType type, Long themeId) {
 		return routineRepository.findByTypeAndThemeId(type, themeId).stream().map(RoutineVO::from).toList();
 	}

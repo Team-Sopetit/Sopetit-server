@@ -1,5 +1,7 @@
 package com.soptie.server.routine.service.integration;
 
+import static com.soptie.server.routine.entity.RoutineType.*;
+
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.memberroutine.entity.MemberRoutine;
 import com.soptie.server.memberroutine.repository.MemberRoutineRepository;
 import com.soptie.server.routine.entity.Challenge;
 import com.soptie.server.routine.entity.Routine;
@@ -23,6 +26,7 @@ import com.soptie.server.routine.repository.ChallengeRepository;
 import com.soptie.server.routine.repository.RoutineRepository;
 import com.soptie.server.routine.service.RoutineService;
 import com.soptie.server.routine.service.dto.request.HappinessSubRoutineListGetServiceRequest;
+import com.soptie.server.routine.service.dto.response.ChallengeRoutineListAcquireServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse;
 import com.soptie.server.routine.service.dto.response.HappinessSubRoutineListGetServiceResponse.HappinessSubRoutineServiceResponse;
 import com.soptie.server.routine.service.vo.RoutineVO;
@@ -163,11 +167,11 @@ public class RoutineServiceIntegrationTest {
 			theme2 = themeRepository.save(ThemeFixture.theme().name("한 걸음 성장").color("민트").build());
 
 			routine1 = routineRepository.save(
-				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("관계쌓는").theme(theme1).build());
+				RoutineFixture.routine().type(CHALLENGE).content("관계쌓는").theme(theme1).build());
 			routine2 = routineRepository.save(
-				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("성장하는").theme(theme1).build());
+				RoutineFixture.routine().type(CHALLENGE).content("성장하는").theme(theme1).build());
 			routine3 = routineRepository.save(
-				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("보여주는").theme(theme2).build());
+				RoutineFixture.routine().type(CHALLENGE).content("보여주는").theme(theme2).build());
 		}
 
 		@Test
@@ -198,13 +202,37 @@ public class RoutineServiceIntegrationTest {
 			theme = themeRepository.save(ThemeFixture.theme().name("관계 쌓기").color("라일락").build());
 
 			routine1 = routineRepository.save(
-				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("관계쌓는").theme(theme).build());
+				RoutineFixture.routine().type(CHALLENGE).content("관계쌓는").theme(theme).build());
 			routine2 = routineRepository.save(
-				RoutineFixture.routine().type(RoutineType.CHALLENGE).content("성장하는").theme(theme).build());
+				RoutineFixture.routine().type(CHALLENGE).content("성장하는").theme(theme).build());
 
-			challenge1 = challengeRepository.save(ChallengeFixture.challenge().routine(routine1).build());
-			challenge2 = challengeRepository.save(ChallengeFixture.challenge().routine(routine1).build());
-			challenge3 = challengeRepository.save(ChallengeFixture.challenge().routine(routine2).build());
+			challenge1 = challengeRepository.save(
+				ChallengeFixture.challenge()
+					.content("도전 루틴 내용")
+					.description("도전 루틴 설명")
+					.requiredTime("10분")
+					.place("소프티 숙소")
+					.routine(routine1)
+					.build()
+			);
+			challenge2 = challengeRepository.save(
+				ChallengeFixture.challenge()
+					.content("도전 루틴 내용")
+					.description("도전 루틴 설명")
+					.requiredTime("10분")
+					.place("소프티 숙소")
+					.routine(routine1)
+					.build()
+			);
+			challenge3 = challengeRepository.save(
+				ChallengeFixture.challenge()
+					.content("도전 루틴 내용")
+					.description("도전 루틴 설명")
+					.requiredTime("10분")
+					.place("소프티 숙소")
+					.routine(routine2)
+					.build()
+			);
 		}
 
 		@Test
@@ -223,6 +251,92 @@ public class RoutineServiceIntegrationTest {
 			List<Long> challengeIds = actual.challenges().stream()
 				.map(HappinessSubRoutineServiceResponse::challengeId).toList();
 			Assertions.assertThat(challengeIds).containsExactlyInAnyOrder(challenge1.getId(), challenge2.getId());
+		}
+	}
+
+	@Nested
+	class AcquireChallengeByThemes {
+
+		Member member;
+		Challenge challenge1;
+		Challenge challenge2;
+		Challenge challenge3;
+		Routine routine1;
+		Routine routine2;
+		Theme theme;
+		MemberRoutine memberRoutine;
+
+		@BeforeEach
+		void setUp() {
+			member = memberRepository.save(MemberFixture.member().build());
+			theme = themeRepository.save(ThemeFixture.theme().name("관계 쌓기").color("라일락").build());
+
+			routine1 = routineRepository.save(
+				RoutineFixture.routine().type(CHALLENGE).content("관계쌓는").theme(theme).build());
+			routine2 = routineRepository.save(
+				RoutineFixture.routine().type(CHALLENGE).content("성장하는").theme(theme).build());
+
+			challenge1 = challengeRepository.save(
+				ChallengeFixture.challenge().routine(routine1)
+					.content("선배 마라탕 사주세요.")
+					.description("혹시 탕후루도 같이?")
+					.requiredTime("30분")
+					.place("소프티 숙소")
+					.build()
+			);
+			challenge2 = challengeRepository.save(
+				ChallengeFixture.challenge().routine(routine1)
+					.content("선배 탕후루 사주세요.")
+					.description("혹시 마라탕도 같이?")
+					.requiredTime("1시간")
+					.place("소프티 숙소")
+					.build()
+			);
+			challenge3 = challengeRepository.save(
+				ChallengeFixture.challenge().routine(routine2)
+					.content("선배")
+					.description("안된다고요?")
+					.requiredTime("10분")
+					.place("소프티 숙소")
+					.build()
+			);
+
+			memberRoutine = memberRoutineRepository.save(
+				MemberRoutineFixture.memberRoutine()
+					.type(CHALLENGE).routineId(challenge2.getId()).member(member).build()
+			);
+		}
+
+		@Test
+		@DisplayName("[성공] 테마에 속한 도전 루틴 목록을 조회한다. 이 때, 멤버가 가지고 있는 도전 루틴이라면 hasRoutine의 값이 true이다.")
+		void acquireAllByTheme() {
+			// given
+			long themeId = theme.getId();
+			long memberId = member.getId();
+
+			// when
+			final Map<String, ChallengeRoutineListAcquireServiceResponse> actual =
+				routineService.acquireAllInChallengeWithThemeId(memberId, themeId);
+
+			// then
+			Assertions.assertThat(actual.keySet())
+				.containsExactlyInAnyOrder(routine1.getContent(), routine2.getContent());
+
+			ChallengeRoutineListAcquireServiceResponse challenges = actual.get(routine1.getContent());
+			Assertions.assertThat(
+				challenges.challenges().stream()
+					.filter(challenge -> challenge.challenge().challengeId() == challenge1.getId())
+					.findAny()
+					.orElseThrow()
+					.hasRoutine()
+			).isEqualTo(false);
+			Assertions.assertThat(
+				challenges.challenges().stream()
+					.filter(challenge -> challenge.challenge().challengeId() == challenge2.getId())
+					.findAny()
+					.orElseThrow()
+					.hasRoutine()
+			).isEqualTo(true);
 		}
 	}
 }
