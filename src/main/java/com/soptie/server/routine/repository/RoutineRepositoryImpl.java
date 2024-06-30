@@ -11,10 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.common.support.ExpressionGenerator;
-import com.soptie.server.member.entity.Member;
 import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.RoutineType;
-import com.soptie.server.theme.entity.Theme;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,19 +33,19 @@ public class RoutineRepositoryImpl implements RoutineCustomRepository {
 			.fetch();
 	}
 
-	public List<Routine> findByTypeAndThemeAndNotMember(RoutineType type, Theme theme, Member member) {
+	public List<Routine> findByTypeAndThemeAndNotMember(long memberId, RoutineType type, long themeId) {
 		return queryFactory
 			.selectFrom(routine)
 			.leftJoin(memberRoutine)
 			.on(
 				routine.id.eq(memberRoutine.routineId),
 				memberRoutine.type.eq(type),
-				memberRoutine.member.eq(member)
+				memberRoutine.member.id.eq(memberId)
 			)
 			.where(
 				memberRoutine.isNull(),
 				routine.type.eq(type),
-				routine.theme.eq(theme)
+				routine.theme.id.eq(themeId)
 			)
 			.orderBy(ExpressionGenerator.getFirstLetter(routine.content).asc())
 			.fetch();

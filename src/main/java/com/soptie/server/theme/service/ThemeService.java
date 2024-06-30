@@ -22,4 +22,8 @@ public class ThemeService {
 		val themes = themeFinder.findAllInBasic();
 		return themes.stream().map(ThemeVO::from).toList();
 	}
+
+	public ThemeVO acquireById(long themeId) {
+		return ThemeVO.from(themeFinder.findById(themeId));
+	}
 }

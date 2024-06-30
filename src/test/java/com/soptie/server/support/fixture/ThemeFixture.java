@@ -10,7 +10,7 @@ public class ThemeFixture {
 	private String name = "default";
 	private String modifier = "default";
 	private String description = "default";
-	private String color;
+	private String color = "#FFFFF";
 	private ThemeType type = ThemeType.BASIC;
 	private final ThemeImageLinks imageLinks = new ThemeImageLinks("https://...", "https://...", "https://...",
 		"https://...", "https://...");

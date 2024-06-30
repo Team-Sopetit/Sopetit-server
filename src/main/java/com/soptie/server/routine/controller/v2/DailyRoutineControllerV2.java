@@ -33,4 +33,5 @@ public class DailyRoutineControllerV2 implements DailyRoutineControllerV2Docs {
 			RoutineSuccessMessage.SUCCESS_GET_ROUTINE.getMessage(),
 			DailyRoutineListAcquireResponseV2.from(response)));
 	}
+
 }
