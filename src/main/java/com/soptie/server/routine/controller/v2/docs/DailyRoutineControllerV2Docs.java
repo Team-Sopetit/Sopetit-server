@@ -12,6 +12,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 public interface DailyRoutineControllerV2Docs {
 
 	ResponseEntity<SuccessResponse<DailyRoutineListAcquireResponseV2>> acquireAllByThemes(
-		@Parameter(name = "list of themes id", description = "조회할 테마 id 목록") LinkedHashSet<Long> themeIds
+		@Parameter(name = "themeIds", description = "조회할 테마 id 목록") LinkedHashSet<Long> themeIds
 	);
 }
