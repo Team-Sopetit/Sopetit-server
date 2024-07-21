@@ -2,6 +2,8 @@ package com.soptie.server.routine.service;
 
 import static com.soptie.server.common.config.ValueConfig.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
+import com.soptie.server.memberroutine.entity.MemberRoutine;
 import com.soptie.server.memberroutine.repository.dto.MemberChallengeResponse;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
@@ -81,6 +84,24 @@ public class RoutineService {
 				ChallengeRoutineListAcquireServiceResponse.of(challenges, challengeIdByMember));
 		}
 		return themeToChallenge;
+	}
+
+	public Map<Boolean, List<RoutineVO>> acquireAllInDailyByThemeAndMember(long memberId, long themeId) {
+		val routines = routineFinder.findAllByTypeAndThemeId(RoutineType.DAILY, themeId);
+		val member = memberFinder.findById(memberId);
+		val memberRoutineIds = memberRoutineFinder.findAllByMemberAndType(member, RoutineType.DAILY).stream()
+			.map(MemberRoutine::getRoutineId)
+			.toList();
+		return getRoutineToMember(routines, memberRoutineIds);
+	}
+
+	private Map<Boolean, List<RoutineVO>> getRoutineToMember(List<RoutineVO> routines, List<Long> memberRoutineIds) {
+		val routineToMember = new HashMap<Boolean, List<RoutineVO>>();
+		for (val routine : routines) {
+			val isMemberRoutine = memberRoutineIds.contains(routine.routineId());
+			routineToMember.computeIfAbsent(isMemberRoutine, k -> new ArrayList<>()).add(routine);
+		}
+		return routineToMember;
 	}
 
 	private long getChallengeIdByMember(Member member) {
