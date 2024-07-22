@@ -1,6 +1,6 @@
 package com.soptie.server.common.handler;
 
-import static com.soptie.server.common.dto.ErrorResponse.*;
+import static com.soptie.server.common.dto.ErrorResponse.of;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.soptie.server.auth.exception.AuthException;
 import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.doll.exception.DollException;
+import com.soptie.server.maker.exception.MakerException;
 import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberdoll.exception.MemberDollException;
 import com.soptie.server.routine.exception.RoutineException;
@@ -63,6 +64,14 @@ public class ErrorHandler {
 
 	@ExceptionHandler(ThemeException.class)
 	public ResponseEntity<BaseResponse> routineException(ThemeException exception) {
+		log.error(exception.getMessage());
+
+		val errorCode = exception.getErrorCode();
+		return ResponseEntity.status(errorCode.getHttpStatus()).body(of(errorCode.getMessage()));
+	}
+
+	@ExceptionHandler(MakerException.class)
+	public ResponseEntity<BaseResponse> makerException(MakerException exception) {
 		log.error(exception.getMessage());
 
 		val errorCode = exception.getErrorCode();
