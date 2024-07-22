@@ -1,7 +1,7 @@
 package com.soptie.server.theme.controller.v2;
 
-import static com.soptie.server.common.dto.SuccessResponse.*;
-import static com.soptie.server.theme.message.ThemeSuccessMessage.*;
+import static com.soptie.server.common.dto.SuccessResponse.success;
+import static com.soptie.server.theme.message.ThemeSuccessMessage.SUCCESS_ACQUIRE_ALL;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
