@@ -28,7 +28,7 @@ public class MakerController implements MakerControllerDocs {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public SuccessResponse<MakerListAcquireResponse> acquireAll() {
-		val response = makerService.acquireAllTheme();
+		val response = makerService.acquireAll();
 		return success(SUCCESS_GET_MAKER_THEME.getMessage(), MakerListAcquireResponse.from(response));
 	}
 }

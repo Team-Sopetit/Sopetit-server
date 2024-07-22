@@ -18,7 +18,7 @@ public class MakerService {
 
 	private final MakerFinder makerFinder;
 
-	public MakerListAcquireServiceResponse acquireAllTheme() {
+	public MakerListAcquireServiceResponse acquireAll() {
 		List<Maker> makers = makerFinder.findAll();
 		return MakerListAcquireServiceResponse.from(makers);
 	}
