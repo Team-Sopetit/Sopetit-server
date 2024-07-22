@@ -1,8 +1,14 @@
 package com.soptie.server.maker.entity;
 
-import static jakarta.persistence.GenerationType.*;
+import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PROTECTED;
+
+import java.util.List;
+
+import com.soptie.server.common.support.StringListConverter;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -10,8 +16,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor(access = PROTECTED)
 public class Maker {
 
 	@Id
@@ -29,6 +35,11 @@ public class Maker {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
+	private String content;
+
 	@Column(nullable = false)
 	private long themeId;
+
+	@Convert(converter = StringListConverter.class)
+	private List<String> tags;
 }
