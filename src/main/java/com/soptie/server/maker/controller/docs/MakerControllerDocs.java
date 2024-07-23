@@ -17,10 +17,7 @@ public interface MakerControllerDocs {
 		summary = "메이커 테마 리스트 조회",
 		description = "메이커 테마 리스트를 조회한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",
