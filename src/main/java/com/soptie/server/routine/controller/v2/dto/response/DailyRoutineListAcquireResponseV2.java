@@ -3,7 +3,7 @@ package com.soptie.server.routine.controller.v2.dto.response;
 import java.util.List;
 import java.util.Map;
 
-import com.soptie.server.routine.service.vo.RoutineVO;
+import com.soptie.server.routine.entity.Routine;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -14,7 +14,7 @@ public record DailyRoutineListAcquireResponseV2(
 	List<ThemeResponse> themes
 ) {
 
-	public static DailyRoutineListAcquireResponseV2 from(Map<Long, List<RoutineVO>> routinesMap) {
+	public static DailyRoutineListAcquireResponseV2 from(Map<Long, List<Routine>> routinesMap) {
 		return DailyRoutineListAcquireResponseV2.builder()
 			.themes(routinesMap.keySet().stream().map(key -> ThemeResponse.from(key, routinesMap.get(key))).toList())
 			.build();
@@ -26,7 +26,7 @@ public record DailyRoutineListAcquireResponseV2(
 		List<RoutineResponse> routines
 	) {
 
-		private static ThemeResponse from(long themeId, List<RoutineVO> routines) {
+		private static ThemeResponse from(long themeId, List<Routine> routines) {
 			return ThemeResponse.builder()
 				.themeId(themeId)
 				.routines(routines.stream().map(RoutineResponse::from).toList())
@@ -40,10 +40,10 @@ public record DailyRoutineListAcquireResponseV2(
 		@NotNull String content
 	) {
 
-		private static RoutineResponse from(RoutineVO routine) {
+		private static RoutineResponse from(Routine routine) {
 			return RoutineResponse.builder()
-				.routineId(routine.routineId())
-				.content(routine.content())
+				.routineId(routine.getId())
+				.content(routine.getContent())
 				.build();
 		}
 	}

@@ -114,15 +114,15 @@ public class RoutineServiceIntegrationTest {
 				themeIds.add(theme1.getId());
 
 				// when
-				final Map<Long, List<RoutineVO>> actual = routineService.acquireAllInDailyWithThemeId(themeIds);
+				final Map<Long, List<Routine>> actual = routineService.acquireAllInDailyWithThemeId(themeIds);
 
 				// then
 				Assertions.assertThat(actual.keySet()).containsExactly(theme2.getId(), theme1.getId());
 
-				List<Long> routineIdsForTheme1 = actual.get(theme1.getId()).stream().map(RoutineVO::routineId).toList();
+				List<Long> routineIdsForTheme1 = actual.get(theme1.getId()).stream().map(Routine::getId).toList();
 				Assertions.assertThat(routineIdsForTheme1).containsExactlyInAnyOrder(routineOfTheme1.getId());
 
-				List<Long> routineIdsForTheme2 = actual.get(theme2.getId()).stream().map(RoutineVO::routineId).toList();
+				List<Long> routineIdsForTheme2 = actual.get(theme2.getId()).stream().map(Routine::getId).toList();
 				Assertions.assertThat(routineIdsForTheme2).containsExactlyInAnyOrder(routineOfTheme2.getId());
 			}
 
@@ -178,11 +178,11 @@ public class RoutineServiceIntegrationTest {
 		@DisplayName("[성공] 테마에 포함된 행복 루틴 목록을 조회한다.")
 		void getHappinessRoutinesByTheme() {
 			// when
-			final List<RoutineVO> actual = routineService.acquireAllInHappinessByThemeId(theme1.getId());
+			final List<Routine> actual = routineService.acquireAllInHappinessByThemeId(theme1.getId());
 
 			// then
 			Assertions.assertThat(actual).hasSize(2);
-			List<Long> routineIds = actual.stream().map(RoutineVO::routineId).toList();
+			List<Long> routineIds = actual.stream().map(Routine::getId).toList();
 			Assertions.assertThat(routineIds).containsExactlyInAnyOrder(routine1.getId(), routine2.getId());
 		}
 	}
