@@ -98,9 +98,11 @@ public class RoutineService {
 
 	private Map<Boolean, List<Routine>> getRoutineToMember(List<Routine> routines, List<Long> memberRoutineIds) {
 		val routineToMember = new HashMap<Boolean, List<Routine>>();
+		routineToMember.put(true, new ArrayList<>());
+		routineToMember.put(false, new ArrayList<>());
 		for (val routine : routines) {
 			val isMemberRoutine = memberRoutineIds.contains(routine.getId());
-			routineToMember.computeIfAbsent(isMemberRoutine, k -> new ArrayList<>()).add(routine);
+			routineToMember.get(isMemberRoutine).add(routine);
 		}
 		return routineToMember;
 	}
