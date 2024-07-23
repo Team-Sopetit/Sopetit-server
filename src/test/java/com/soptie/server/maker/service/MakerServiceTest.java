@@ -69,5 +69,7 @@ class MakerServiceTest {
 
 		// then
 		assertThat(result.makers().size()).isEqualTo(2);
+		assertThat(result.makers().get(0).makerId()).isEqualTo(makerId1);
+		assertThat(result.makers().get(1).makerId()).isEqualTo(makerId2);
 	}
 }
