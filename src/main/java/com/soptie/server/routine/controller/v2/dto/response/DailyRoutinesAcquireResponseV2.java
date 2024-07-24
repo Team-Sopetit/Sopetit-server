@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.soptie.server.routine.service.vo.RoutineVO;
+import com.soptie.server.routine.entity.Routine;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +19,7 @@ public record DailyRoutinesAcquireResponseV2(
 	List<DailyRoutineResponse> routines
 ) {
 
-	public static DailyRoutinesAcquireResponseV2 from(Map<Boolean, List<RoutineVO>> routineToMember) {
+	public static DailyRoutinesAcquireResponseV2 from(Map<Boolean, List<Routine>> routineToMember) {
 		val routines = new ArrayList<DailyRoutineResponse>();
 		for (val key : routineToMember.keySet()) {
 			routines.addAll(routineToMember.get(key).stream()
@@ -42,10 +42,10 @@ public record DailyRoutinesAcquireResponseV2(
 		boolean existedInMember
 	) {
 
-		private static DailyRoutineResponse of(RoutineVO routine, boolean existedInMember) {
+		private static DailyRoutineResponse of(Routine routine, boolean existedInMember) {
 			return DailyRoutineResponse.builder()
-				.id(routine.routineId())
-				.content(routine.content())
+				.id(routine.getId())
+				.content(routine.getContent())
 				.existedInMember(existedInMember)
 				.build();
 		}

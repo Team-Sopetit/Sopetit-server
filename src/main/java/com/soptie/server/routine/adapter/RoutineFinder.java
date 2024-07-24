@@ -37,7 +37,7 @@ public class RoutineFinder {
 		return routineRepository.findByTypeAndThemeId(RoutineType.CHALLENGE, themeId);
 	}
 
-	public List<RoutineVO> findAllByTypeAndThemeId(RoutineType type, Long themeId) {
-		return routineRepository.findByTypeAndThemeId(type, themeId).stream().map(RoutineVO::from).toList();
+	public List<Routine> findAllByTypeAndThemeId(RoutineType type, Long themeId) {
+		return routineRepository.findByTypeAndThemeId(type, themeId);
 	}
 }

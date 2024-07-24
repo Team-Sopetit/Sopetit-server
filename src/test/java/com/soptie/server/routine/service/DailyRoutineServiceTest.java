@@ -18,8 +18,8 @@ import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberroutine.entity.MemberRoutine;
 import com.soptie.server.routine.adapter.RoutineFinder;
+import com.soptie.server.routine.entity.Routine;
 import com.soptie.server.routine.entity.RoutineType;
-import com.soptie.server.routine.service.vo.RoutineVO;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 import com.soptie.server.support.fixture.RoutineFixture;
@@ -46,12 +46,12 @@ class DailyRoutineServiceTest {
 		long themeId = 0L;
 		long memberId = 0L;
 		Member member = MemberFixture.member().build();
-		List<RoutineVO> routines = List.of(
-			RoutineVO.from(RoutineFixture.routine().id(1L).build()),
-			RoutineVO.from(RoutineFixture.routine().id(2L).build()),
-			RoutineVO.from(RoutineFixture.routine().id(3L).build()),
-			RoutineVO.from(RoutineFixture.routine().id(4L).build()),
-			RoutineVO.from(RoutineFixture.routine().id(5L).build())
+		List<Routine> routines = List.of(
+			RoutineFixture.routine().id(1L).build(),
+			RoutineFixture.routine().id(2L).build(),
+			RoutineFixture.routine().id(3L).build(),
+			RoutineFixture.routine().id(4L).build(),
+			RoutineFixture.routine().id(5L).build()
 		);
 		List<MemberRoutine> memberRoutines = List.of(
 			MemberRoutineFixture.memberRoutine().routineId(1L).build(),
@@ -64,7 +64,7 @@ class DailyRoutineServiceTest {
 		doReturn(memberRoutines).when(memberRoutineFinder).findAllByMemberAndType(member, RoutineType.DAILY);
 
 		// when
-		Map<Boolean, List<RoutineVO>> result = routineService.acquireAllInDailyByThemeAndMember(memberId, themeId);
+		Map<Boolean, List<Routine>> result = routineService.acquireAllInDailyByThemeAndMember(memberId, themeId);
 
 		// then
 		assertThat(result.get(true)).hasSize(3);
