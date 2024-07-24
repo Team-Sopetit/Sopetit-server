@@ -13,6 +13,7 @@ import com.soptie.server.memberroutine.repository.MemberRoutineRepository;
 import com.soptie.server.memberroutine.repository.dto.MemberChallengeResponse;
 import com.soptie.server.memberroutine.repository.dto.MemberRoutineResponse;
 import com.soptie.server.routine.entity.Routine;
+import com.soptie.server.routine.entity.RoutineType;
 import com.soptie.server.routine.exception.RoutineException;
 
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,9 @@ public class MemberRoutineFinder {
 
 	public Optional<MemberChallengeResponse> findChallengeByMember(Member member) {
 		return memberRoutineRepository.findChallengeByMember(member);
+	}
+
+	public List<MemberRoutine> findAllByMemberAndType(Member member, RoutineType type) {
+		return memberRoutineRepository.findByMemberAndType(member, type);
 	}
 }

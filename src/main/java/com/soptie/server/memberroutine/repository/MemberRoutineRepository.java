@@ -20,4 +20,6 @@ public interface MemberRoutineRepository extends JpaRepository<MemberRoutine, Lo
 	void deleteByMember(Member member);
 
 	boolean existsByMemberAndType(Member member, RoutineType type);
+
+	List<MemberRoutine> findByMemberAndType(Member member, RoutineType type);
 }
