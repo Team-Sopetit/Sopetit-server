@@ -24,14 +24,24 @@ public class MemberRoutineUpdateService {
 	private final MemberRoutineDeleter memberRoutineDeleter;
 	private final MemberFinder memberFinder;
 
-	public MemberRoutineAchieveServiceResponse achieveMemberRoutine(MemberRoutineAchieveServiceRequest request) {
+	public MemberRoutineAchieveServiceResponse updateAchievementStatus(MemberRoutineAchieveServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val memberRoutine = memberRoutineFinder.findById(request.memberRoutineId());
+		val isAchievedToday = memberRoutine.isAchieveToday();
+
 		memberRoutine.checkMemberHas(member);
-		memberRoutine.achieve();
-		member.addCottonCount(memberRoutine.getType());
-		deleteMemberRoutineIfTypeIsOneTime(memberRoutine);
-		return MemberRoutineAchieveServiceResponse.of(memberRoutine);
+
+		if (memberRoutine.isAchieve()) {
+			memberRoutine.cancelAchievement();
+		} else {
+			if (!isAchievedToday) {
+				member.addCottonCount(memberRoutine.getType());
+			}
+			memberRoutine.achieve();
+			deleteMemberRoutineIfTypeIsOneTime(memberRoutine);
+		}
+
+		return MemberRoutineAchieveServiceResponse.of(memberRoutine, !isAchievedToday);
 	}
 
 	public void initDailyRoutines() {

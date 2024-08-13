@@ -36,6 +36,8 @@ public class MemberRoutine {
 
 	private boolean isAchieve;
 
+	private boolean isAchieveToday;
+
 	private int achieveCount;
 
 	@Enumerated(value = STRING)
@@ -49,6 +51,7 @@ public class MemberRoutine {
 
 	public MemberRoutine(Member member, Routine routine) {
 		this.isAchieve = false;
+		this.isAchieveToday = false;
 		this.achieveCount = 0;
 		this.type = routine.getType();
 		this.routineId = routine.getId();
@@ -57,6 +60,7 @@ public class MemberRoutine {
 
 	public MemberRoutine(Member member, Challenge challenge) {
 		this.isAchieve = false;
+		this.isAchieveToday = false;
 		this.achieveCount = 0;
 		this.type = CHALLENGE;
 		this.routineId = challenge.getId();
@@ -65,6 +69,7 @@ public class MemberRoutine {
 
 	public MemberRoutine(DeletedMemberRoutine deletedMemberRoutine) {
 		this.isAchieve = isAchievedToday(deletedMemberRoutine);
+		this.isAchieveToday = isAchievedToday(deletedMemberRoutine);
 		this.achieveCount = deletedMemberRoutine.getAchieveCount();
 		this.type = deletedMemberRoutine.getType();
 		this.routineId = deletedMemberRoutine.getRoutineId();
@@ -77,6 +82,7 @@ public class MemberRoutine {
 	) {
 		this.id = id;
 		this.isAchieve = isAchieve;
+		this.isAchieveToday = isAchieve;
 		this.achieveCount = achieveCount;
 		this.type = type;
 		this.routineId = routineId;
@@ -85,11 +91,18 @@ public class MemberRoutine {
 
 	public void achieve() {
 		this.isAchieve = true;
+		this.isAchieveToday = true;
 		this.achieveCount++;
 	}
 
 	public void initAchieve() {
 		this.isAchieve = false;
+		this.isAchieveToday = false;
+	}
+
+	public void cancelAchievement() {
+		this.isAchieve = false;
+		this.achieveCount--;
 	}
 
 	public void checkMemberHas(Member member) {

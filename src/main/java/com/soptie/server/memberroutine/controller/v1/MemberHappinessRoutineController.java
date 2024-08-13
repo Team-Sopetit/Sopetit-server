@@ -81,7 +81,7 @@ public class MemberHappinessRoutineController implements MemberHappinessRoutineC
 		@PathVariable Long routineId
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		memberRoutineUpdateService.achieveMemberRoutine(MemberRoutineAchieveServiceRequest.of(memberId, routineId));
+		memberRoutineUpdateService.updateAchievementStatus(MemberRoutineAchieveServiceRequest.of(memberId, routineId));
 		return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage()));
 	}
 }
