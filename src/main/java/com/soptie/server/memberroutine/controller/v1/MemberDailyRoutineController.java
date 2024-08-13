@@ -77,7 +77,7 @@ public class MemberDailyRoutineController implements MemberDailyRoutineControlle
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = MemberDailyRoutineAchieveResponse
-			.of(memberRoutineUpdateService.achieveMemberRoutine(
+			.of(memberRoutineUpdateService.updateAchievementStatus(
 				MemberRoutineAchieveServiceRequest.of(memberId, routineId)));
 		return ResponseEntity.ok(success(SUCCESS_ACHIEVE_ROUTINE.getMessage(), response));
 	}

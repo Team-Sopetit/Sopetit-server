@@ -63,7 +63,7 @@ class MemberRoutineServiceTest {
 			memberRoutine.getId());
 
 		// when
-		memberRoutineUpdateService.achieveMemberRoutine(request);
+		memberRoutineUpdateService.updateAchievementStatus(request);
 
 		// then
 		assertThat(memberRoutine.isAchieve()).isTrue();
@@ -95,7 +95,7 @@ class MemberRoutineServiceTest {
 			memberRoutine.getId());
 
 		// when
-		memberRoutineUpdateService.achieveMemberRoutine(request);
+		memberRoutineUpdateService.updateAchievementStatus(request);
 
 		// then
 		assertThat(memberRoutine.isAchieve()).isTrue();
