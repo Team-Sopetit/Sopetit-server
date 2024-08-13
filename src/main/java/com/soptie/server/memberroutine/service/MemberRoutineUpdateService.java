@@ -1,13 +1,11 @@
 package com.soptie.server.memberroutine.service;
 
-import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.entity.RoutineType.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.adapter.MemberFinder;
-import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberroutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberroutine.entity.MemberRoutine;
@@ -31,9 +29,7 @@ public class MemberRoutineUpdateService {
 		val memberRoutine = memberRoutineFinder.findById(request.memberRoutineId());
 		val isAchievedToday = memberRoutine.isAchieveToday();
 
-		if (memberRoutine.getMember() != member) {
-			throw new MemberException(INACCESSIBLE_ROUTINE);
-		}
+		memberRoutine.checkMemberHas(member);
 
 		if (memberRoutine.isAchieve()) {
 			memberRoutine.cancelAchievement();
