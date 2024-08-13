@@ -1,11 +1,13 @@
 package com.soptie.server.memberroutine.service;
 
+import static com.soptie.server.member.message.ErrorCode.*;
 import static com.soptie.server.routine.entity.RoutineType.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.member.adapter.MemberFinder;
+import com.soptie.server.member.exception.MemberException;
 import com.soptie.server.memberroutine.adapter.MemberRoutineDeleter;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberroutine.entity.MemberRoutine;
@@ -27,11 +29,23 @@ public class MemberRoutineUpdateService {
 	public MemberRoutineAchieveServiceResponse achieveMemberRoutine(MemberRoutineAchieveServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
 		val memberRoutine = memberRoutineFinder.findById(request.memberRoutineId());
-		memberRoutine.checkMemberHas(member);
-		memberRoutine.achieve();
-		member.addCottonCount(memberRoutine.getType());
-		deleteMemberRoutineIfTypeIsOneTime(memberRoutine);
-		return MemberRoutineAchieveServiceResponse.of(memberRoutine);
+		val isAchievedToday = memberRoutine.isAchieveToday();
+
+		if (memberRoutine.getMember() != member) {
+			throw new MemberException(INACCESSIBLE_ROUTINE);
+		}
+
+		if (memberRoutine.isAchieve()) {
+			memberRoutine.cancelAchievement();
+		} else {
+			if (!isAchievedToday) {
+				member.addCottonCount(memberRoutine.getType());
+			}
+			memberRoutine.achieve();
+			deleteMemberRoutineIfTypeIsOneTime(memberRoutine);
+		}
+
+		return MemberRoutineAchieveServiceResponse.of(memberRoutine, !isAchievedToday);
 	}
 
 	public void initDailyRoutines() {
