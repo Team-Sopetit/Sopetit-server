@@ -34,9 +34,6 @@ public class Maker {
 
 	private String profileImageUrl;
 
-	@Column(columnDefinition = "TEXT")
-	private String description;
-
 	private String content;
 
 	@Column(nullable = false)

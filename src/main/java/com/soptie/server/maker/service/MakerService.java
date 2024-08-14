@@ -1,15 +1,13 @@
 package com.soptie.server.maker.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.maker.adapter.MakerFinder;
-import com.soptie.server.maker.entity.Maker;
 import com.soptie.server.maker.service.dto.MakerListAcquireServiceResponse;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +17,7 @@ public class MakerService {
 	private final MakerFinder makerFinder;
 
 	public MakerListAcquireServiceResponse acquireAll() {
-		List<Maker> makers = makerFinder.findAll();
+		val makers = makerFinder.findAllWithTheme();
 		return MakerListAcquireServiceResponse.from(makers);
 	}
 }

@@ -10,7 +10,6 @@ public class MakerFixture {
 	private String name;
 	private String job;
 	private String profileImageUrl;
-	private String description;
 	private String content;
 	private Long themeId;
 	private List<String> tags;
@@ -42,11 +41,6 @@ public class MakerFixture {
 		return this;
 	}
 
-	public MakerFixture description(String description) {
-		this.description = description;
-		return this;
-	}
-
 	public MakerFixture content(String content) {
 		this.content = content;
 		return this;
@@ -63,6 +57,6 @@ public class MakerFixture {
 	}
 
 	public Maker build() {
-		return new Maker(id, name, job, profileImageUrl, description, content, themeId, tags);
+		return new Maker(id, name, job, profileImageUrl, content, themeId, tags);
 	}
 }
