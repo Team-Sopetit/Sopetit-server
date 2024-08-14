@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 
-import com.soptie.server.maker.entity.Maker;
+import com.soptie.server.maker.repository.dto.MakerThemeResponse;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -14,7 +14,7 @@ public record MakerListAcquireServiceResponse(
 	List<MakerAcquireServiceResponse> makers
 ) {
 
-	public static MakerListAcquireServiceResponse from(List<Maker> makers) {
+	public static MakerListAcquireServiceResponse from(List<MakerThemeResponse> makers) {
 		return MakerListAcquireServiceResponse.builder()
 			.makers(makers.stream().map(MakerAcquireServiceResponse::from).toList())
 			.build();
@@ -23,21 +23,27 @@ public record MakerListAcquireServiceResponse(
 	@Builder(access = PRIVATE)
 	public record MakerAcquireServiceResponse(
 		long makerId,
-		long themeId,
-		@NonNull String profileImageUrl,
-		@NonNull String description,
 		@NonNull String content,
-		@NonNull List<String> tags
+		@NonNull String name,
+		@NonNull String profileImageUrl,
+		@NonNull List<String> tags,
+		long themeId,
+		@NonNull String description,
+		@NonNull String themeName,
+		@NonNull String modifier
 	) {
 
-		public static MakerAcquireServiceResponse from(Maker maker) {
+		public static MakerAcquireServiceResponse from(MakerThemeResponse maker) {
 			return MakerAcquireServiceResponse.builder()
-				.makerId(maker.getId())
-				.themeId(maker.getThemeId())
-				.profileImageUrl(maker.getProfileImageUrl())
-				.description(maker.getDescription())
-				.content(maker.getContent())
-				.tags(maker.getTags())
+				.makerId(maker.makerId())
+				.content(maker.content())
+				.name(maker.name())
+				.profileImageUrl(maker.profileImageUrl())
+				.tags(maker.tags())
+				.themeId(maker.themeId())
+				.description(maker.description())
+				.themeName(maker.themeName())
+				.modifier(maker.modifier())
 				.build();
 		}
 	}

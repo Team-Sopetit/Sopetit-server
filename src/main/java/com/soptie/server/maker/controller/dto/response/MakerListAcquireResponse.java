@@ -23,21 +23,27 @@ public record MakerListAcquireResponse(
 	@Builder(access = PRIVATE)
 	private record MakerAcquireResponse(
 		long makerId,
-		long themeId,
-		@NonNull String profileImageUrl,
-		@NonNull String description,
 		@NonNull String content,
-		@NonNull List<String> tags
+		@NonNull String name,
+		@NonNull String profileImageUrl,
+		@NonNull List<String> tags,
+		long themeId,
+		@NonNull String description,
+		@NonNull String themeName,
+		@NonNull String modifier
 	) {
 
 		public static MakerAcquireResponse from(MakerListAcquireServiceResponse.MakerAcquireServiceResponse maker) {
 			return MakerAcquireResponse.builder()
 				.makerId(maker.makerId())
-				.themeId(maker.themeId())
-				.profileImageUrl(maker.profileImageUrl())
-				.description(maker.description())
 				.content(maker.content())
+				.name(maker.name())
+				.profileImageUrl(maker.profileImageUrl())
 				.tags(maker.tags())
+				.themeId(maker.themeId())
+				.description(maker.description())
+				.themeName(maker.themeName())
+				.modifier(maker.modifier())
 				.build();
 		}
 	}
