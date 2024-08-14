@@ -48,7 +48,6 @@ public class MakerServiceIntegrationTest {
 		String name = "maker";
 		String job = "job";
 		String profileImageUrl = "profileImageUrl";
-		String description = "description";
 		String content = "content";
 		List<String> tags = List.of("#tag1", "#tag2", "#tag3");
 
@@ -59,7 +58,6 @@ public class MakerServiceIntegrationTest {
 				.name(name)
 				.job(job)
 				.profileImageUrl(profileImageUrl)
-				.description(description)
 				.content(content)
 				.themeId(themeId1)
 				.tags(tags)
@@ -70,7 +68,6 @@ public class MakerServiceIntegrationTest {
 				.name(name)
 				.job(job)
 				.profileImageUrl(profileImageUrl)
-				.description(description)
 				.content(content)
 				.themeId(themeId2)
 				.tags(tags)
