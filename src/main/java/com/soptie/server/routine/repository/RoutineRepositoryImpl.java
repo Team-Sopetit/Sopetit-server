@@ -62,6 +62,17 @@ public class RoutineRepositoryImpl implements RoutineCustomRepository {
 			.fetch();
 	}
 
+	@Override
+	public List<Routine> findByIdsAndType(List<Long> ids, RoutineType type) {
+		return queryFactory
+			.selectFrom(routine)
+			.where(
+				routine.id.in(ids),
+				routine.type.eq(type)
+			)
+			.fetch();
+	}
+
 	private BooleanExpression themeEq(Long themeId) {
 		return (isNull(themeId) || themeId == 0L) ? null : routine.theme.id.eq(themeId);
 	}

@@ -9,6 +9,7 @@ import com.soptie.server.member.adapter.MemberFinder;
 import com.soptie.server.member.entity.Member;
 import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
 import com.soptie.server.memberroutine.adapter.MemberRoutineSaver;
+import com.soptie.server.memberroutine.controller.v1.dto.request.MemberDailyRoutinesCreateRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
 import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutineCreateServiceResponse;
@@ -38,6 +39,12 @@ public class MemberRoutineCreateService {
 		checkMemberHasSameRoutineAlready(member, routine);
 		val savedMemberRoutine = memberRoutineSaver.checkHasDeletedAndSave(member, routine);
 		return MemberDailyRoutineCreateServiceResponse.of(savedMemberRoutine);
+	}
+
+	public void createDailyRoutines(long memberId, MemberDailyRoutinesCreateRequest request) {
+		val member = memberFinder.findById(memberId);
+		val routines = routineFinder.findDailyByIds(request.routineIds());
+		routines.forEach(routine -> memberRoutineSaver.checkHasDeletedAndSave(member, routine));
 	}
 
 	public MemberHappinessRoutineCreateServiceResponse createHappinessRoutine(

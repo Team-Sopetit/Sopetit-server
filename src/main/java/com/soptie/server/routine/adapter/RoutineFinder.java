@@ -33,6 +33,10 @@ public class RoutineFinder {
 			.orElseThrow(() -> new RoutineException(INVALID_ROUTINE));
 	}
 
+	public List<Routine> findDailyByIds(List<Long> ids) {
+		return routineRepository.findByIdsAndType(ids, RoutineType.DAILY);
+	}
+
 	public List<Routine> findChallengeRoutinesByTheme(Long themeId) {
 		return routineRepository.findByTypeAndThemeId(RoutineType.CHALLENGE, themeId);
 	}
