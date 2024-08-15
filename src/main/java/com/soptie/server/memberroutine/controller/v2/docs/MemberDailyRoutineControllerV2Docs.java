@@ -47,7 +47,10 @@ public interface MemberDailyRoutineControllerV2Docs {
 		summary = "데일리 루틴 다중 추가",
 		description = "회원의 데일리 루틴을 다중으로 추가한다.",
 		responses = {
-			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(
+				responseCode = "200",
+				description = "성공",
+				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
 			@ApiResponse(
 				responseCode = "401",
 				description = "유효하지 않은 토큰",
