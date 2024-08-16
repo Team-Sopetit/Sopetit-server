@@ -1,21 +1,24 @@
 package com.soptie.server.memberroutine.controller.v2;
 
-import static com.soptie.server.common.dto.SuccessResponse.*;
-import static com.soptie.server.memberroutine.message.MemberRoutineSuccessMassage.*;
+import static com.soptie.server.common.dto.SuccessResponse.success;
+import static com.soptie.server.memberroutine.message.MemberRoutineSuccessMassage.SUCCESS_CREATE_ROUTINE;
+import static com.soptie.server.memberroutine.message.MemberRoutineSuccessMassage.SUCCESS_GET_ROUTINE;
 
 import java.security.Principal;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberroutine.controller.v1.dto.request.MemberDailyRoutinesCreateRequest;
 import com.soptie.server.memberroutine.controller.v2.docs.MemberDailyRoutineControllerV2Docs;
 import com.soptie.server.memberroutine.controller.v2.dto.response.MemberDailyRoutineListAcquireResponseV2;
+import com.soptie.server.memberroutine.controller.v2.dto.response.MemberDailyRoutinesCreateResponse;
 import com.soptie.server.memberroutine.service.MemberRoutineCreateService;
 import com.soptie.server.memberroutine.service.MemberRoutineReadService;
 import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineListAcquireServiceRequest;
@@ -42,12 +45,14 @@ public class MemberDailyRoutineControllerV2 implements MemberDailyRoutineControl
 	}
 
 	@PostMapping
-	public ResponseEntity<BaseResponse> createMemberDailyRoutines(
+	@ResponseStatus(HttpStatus.CREATED)
+	public SuccessResponse<MemberDailyRoutinesCreateResponse> createMemberDailyRoutines(
 		Principal principal,
 		MemberDailyRoutinesCreateRequest request
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		memberRoutineCreateService.createDailyRoutines(memberId, request);
-		return ResponseEntity.ok(SuccessResponse.success(SUCCESS_CREATE_ROUTINE.getMessage()));
+		val response = MemberDailyRoutinesCreateResponse
+			.of(memberRoutineCreateService.createDailyRoutines(memberId, request));
+		return SuccessResponse.success(SUCCESS_CREATE_ROUTINE.getMessage(), response);
 	}
 }

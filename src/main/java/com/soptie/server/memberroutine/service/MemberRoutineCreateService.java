@@ -1,6 +1,7 @@
 package com.soptie.server.memberroutine.service;
 
-import static com.soptie.server.routine.message.RoutineErrorCode.*;
+import static com.soptie.server.routine.message.RoutineErrorCode.CANNOT_ADD_MEMBER_ROUTINE;
+import static com.soptie.server.routine.message.RoutineErrorCode.DUPLICATED_ROUTINE;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import com.soptie.server.memberroutine.controller.v1.dto.request.MemberDailyRout
 import com.soptie.server.memberroutine.service.dto.request.MemberDailyRoutineCreateServiceRequest;
 import com.soptie.server.memberroutine.service.dto.request.MemberHappinessRoutineCreateServiceRequest;
 import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutineCreateServiceResponse;
+import com.soptie.server.memberroutine.service.dto.response.MemberDailyRoutinesCreateServiceResponse;
 import com.soptie.server.memberroutine.service.dto.response.MemberHappinessRoutineCreateServiceResponse;
 import com.soptie.server.routine.adapter.ChallengeFinder;
 import com.soptie.server.routine.adapter.RoutineFinder;
@@ -41,10 +43,16 @@ public class MemberRoutineCreateService {
 		return MemberDailyRoutineCreateServiceResponse.of(savedMemberRoutine);
 	}
 
-	public void createDailyRoutines(long memberId, MemberDailyRoutinesCreateRequest request) {
+	public MemberDailyRoutinesCreateServiceResponse createDailyRoutines(
+		long memberId, MemberDailyRoutinesCreateRequest request
+	) {
 		val member = memberFinder.findById(memberId);
 		val routines = routineFinder.findDailyByIds(request.routineIds());
-		routines.forEach(routine -> memberRoutineSaver.checkHasDeletedAndSave(member, routine));
+		routines.forEach(routine -> checkMemberHasSameRoutineAlready(member, routine));
+		val memberRoutines = routines.stream()
+			.map(routine -> memberRoutineSaver.checkHasDeletedAndSave(member, routine))
+			.toList();
+		return MemberDailyRoutinesCreateServiceResponse.of(memberRoutines);
 	}
 
 	public MemberHappinessRoutineCreateServiceResponse createHappinessRoutine(
