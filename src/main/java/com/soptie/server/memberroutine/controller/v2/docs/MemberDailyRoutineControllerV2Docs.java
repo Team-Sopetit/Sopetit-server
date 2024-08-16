@@ -5,11 +5,11 @@ import java.security.Principal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.soptie.server.common.dto.BaseResponse;
 import com.soptie.server.common.dto.ErrorResponse;
 import com.soptie.server.common.dto.SuccessResponse;
 import com.soptie.server.memberroutine.controller.v1.dto.request.MemberDailyRoutinesCreateRequest;
 import com.soptie.server.memberroutine.controller.v2.dto.response.MemberDailyRoutineListAcquireResponseV2;
+import com.soptie.server.memberroutine.controller.v2.dto.response.MemberDailyRoutinesCreateResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -64,7 +64,7 @@ public interface MemberDailyRoutineControllerV2Docs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<BaseResponse> createMemberDailyRoutines(
+	SuccessResponse<MemberDailyRoutinesCreateResponse> createMemberDailyRoutines(
 		@Parameter(hidden = true) Principal principal,
 		@RequestBody MemberDailyRoutinesCreateRequest request
 	);
