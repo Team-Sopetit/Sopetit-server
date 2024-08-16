@@ -48,7 +48,7 @@ public interface MemberDailyRoutineControllerV2Docs {
 		description = "회원의 데일리 루틴을 다중으로 추가한다.",
 		responses = {
 			@ApiResponse(
-				responseCode = "200",
+				responseCode = "201",
 				description = "성공",
 				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
 			@ApiResponse(
