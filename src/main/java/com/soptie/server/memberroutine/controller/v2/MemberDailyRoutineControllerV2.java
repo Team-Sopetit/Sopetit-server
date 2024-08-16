@@ -45,7 +45,7 @@ public class MemberDailyRoutineControllerV2 implements MemberDailyRoutineControl
 	}
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.CREATED)
 	public SuccessResponse<MemberDailyRoutinesCreateResponse> createMemberDailyRoutines(
 		Principal principal,
 		MemberDailyRoutinesCreateRequest request
