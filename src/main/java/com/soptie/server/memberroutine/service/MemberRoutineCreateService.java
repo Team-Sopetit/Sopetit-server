@@ -48,6 +48,7 @@ public class MemberRoutineCreateService {
 	) {
 		val member = memberFinder.findById(memberId);
 		val routines = routineFinder.findDailyByIds(request.routineIds());
+		routines.forEach(routine -> checkMemberHasSameRoutineAlready(member, routine));
 		val memberRoutines = routines.stream()
 			.map(routine -> memberRoutineSaver.checkHasDeletedAndSave(member, routine))
 			.toList();
