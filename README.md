@@ -1,51 +1,12 @@
 ### 📑 Architecture
-![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/fc4c347d-03fd-4298-a097-3110d36c92ad)
 
 ### 📋 Model Diagram
-![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/a260dcff-292b-4dd1-8acd-030a57a57a65)
 
 ### 📖 Directory
-```
-📁 Sopetit-server
-├── .github
-├── .idea
-├── build
-├── gen
-├── gradel
-├── scripts
-├── src.main
-│   ├──java.com.soptie.server
-│       ├── auth
-│       ├── common
-│       ├── conversation
-│       ├── doll
-│       ├── member
-│           ├── controller
-│           ├── dto
-│           ├── entity
-│           ├── message
-│           ├── repository
-│           ├── service
-│       ├── memberDoll
-│       ├── memberRoutine
-│       ├── routine
-│       ├── test
-├── src.test
-│    ├──java.com.soptie.server
-│       ├── auth
-│       ├── base
-│       ├── doll
-│       ├── member
-│       ├── memberRoutine
-│           ├── controller
-│           ├── fixture
-│       ├── routine
-│       ├── test
-```
 
 ### ✉️ Commit Messge Rules
 
-**서버** 들의 **Git Commit Message Rules**
+**댕냥이** 들의 **Git Commit Message Rules**
 
 - 반영사항을 바로 확인할 수 있도록 작은 기능 하나라도 구현되면 커밋을 권장합니다.
 - 기능 구현이 완벽하지 않을 땐, 각자 브랜치에 커밋을 해주세요.
@@ -79,7 +40,7 @@
 
 ### **💻 Github mangement**
 
-**소프티** 들의 WorkFlow : **Gitflow Workflow**
+**댕냥이** 들의 WorkFlow : **Gitflow Workflow**
 
 - Develop, Feature, Hotfix 브랜치
 
@@ -109,15 +70,15 @@
 ### ❗️ branch naming convention
 
 - develop
-- feature/issue_number-도메인-http Method-api
-- fix/issue_number-도메인-http Method-api
+- feature/issue_number
+- fix/issue_number
 - release/version_number
-- hotfix/issue_number - Short Description
+- hotfix/issue_number
 
 예시 >
 
 ```
-  feature/#3-user-post-api
+  feature/#3
 ```
 
 ### 📋 Code Review Convention
@@ -137,8 +98,7 @@
 
 ### 👩‍👧‍👧 Our Team
 
-|        **🍀 [최승빈](https://github.com/csb9427)**  |    **🍀 [남궁찬](https://github.com/Chan531)**                 |**🍀 [김소현](https://github.com/thguss)**                 |
+|        **🍀 [최승빈](https://github.com/csb9427)**  |    **🍀 [김수영](https://github.com/sootudio)**                 |**🍀 [김아영](https://github.com/a-young-kim)**                 |
   |:-----------------------------------:|:-----------------------------------:|:-----------------------------------:|
 |   Server Developer  |    Server Developer     |   Server Developer |
-| ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/4eaa9aaa-b834-4883-91c8-cb5dd3005c5d) |   ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/3e82a81c-1710-4199-8c5c-c920fdb8229b) |   ![image](https://github.com/Team-Sopetit/Sopetit-server/assets/80771842/ca9420e7-744d-4725-a9d9-36f79669fd04) |
 |        프로젝트 세팅<br />    |       프로젝트 셋팅<br/>      |   프로젝트 세팅<br />    |  
