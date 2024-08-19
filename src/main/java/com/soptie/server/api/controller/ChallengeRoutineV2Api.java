@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.docs.ChallengeRoutineV2ApiDocs;
+import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.routine.ChallengeRoutineListAcquireResponseV2;
-import com.soptie.server.common.message.RoutineSuccessMessage;
 import com.soptie.server.domain.routine.RoutineService;
 
 import lombok.RequiredArgsConstructor;

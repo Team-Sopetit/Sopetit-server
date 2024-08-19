@@ -11,7 +11,7 @@ import com.soptie.server.persistence.adapter.DollFinder;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberDollSaver;
 import com.soptie.server.persistence.adapter.MemberRoutineSaver;
-import com.soptie.server.persistence.adapter.RoutineFinder;
+import com.soptie.server.persistence.adapter.RoutineAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -24,7 +24,7 @@ public class MemberService {
 
 	private final ConversationFinder conversationFinder;
 	private final DollFinder dollFinder;
-	private final RoutineFinder routineFinder;
+	private final RoutineAdapter routineAdapter;
 	private final MemberDollSaver memberDollSaver;
 	private final MemberRoutineSaver memberRoutineSaver;
 
@@ -55,7 +55,7 @@ public class MemberService {
 
 	private void createDailyRoutines(Member member, List<Long> routineIds) {
 		routineIds.forEach(id -> {
-			val routine = routineFinder.findById(id);
+			val routine = routineAdapter.findById(id);
 			memberRoutineSaver.checkHasDeletedAndSave(member, routine);
 		});
 	}

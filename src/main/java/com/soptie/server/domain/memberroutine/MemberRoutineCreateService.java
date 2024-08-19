@@ -10,7 +10,7 @@ import com.soptie.server.common.exception.RoutineException;
 import com.soptie.server.persistence.adapter.ChallengeFinder;
 import com.soptie.server.persistence.adapter.MemberRoutineFinder;
 import com.soptie.server.persistence.adapter.MemberRoutineSaver;
-import com.soptie.server.persistence.adapter.RoutineFinder;
+import com.soptie.server.persistence.adapter.RoutineAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -23,12 +23,12 @@ public class MemberRoutineCreateService {
 	private final MemberRoutineSaver memberRoutineSaver;
 	private final MemberRoutineFinder memberRoutineFinder;
 	private final MemberFinder memberFinder;
-	private final RoutineFinder routineFinder;
+	private final RoutineAdapter routineAdapter;
 	private final ChallengeFinder challengeFinder;
 
 	public MemberDailyRoutineCreateServiceResponse createDailyRoutine(MemberDailyRoutineCreateServiceRequest request) {
 		val member = memberFinder.findById(request.memberId());
-		val routine = routineFinder.findById(request.routineId());
+		val routine = routineAdapter.findById(request.routineId());
 		checkMemberHasSameRoutineAlready(member, routine);
 		val savedMemberRoutine = memberRoutineSaver.checkHasDeletedAndSave(member, routine);
 		return MemberDailyRoutineCreateServiceResponse.of(savedMemberRoutine);
@@ -38,7 +38,7 @@ public class MemberRoutineCreateService {
 		long memberId, MemberDailyRoutinesCreateRequest request
 	) {
 		val member = memberFinder.findById(memberId);
-		val routines = routineFinder.findDailyByIds(request.routineIds());
+		val routines = routineAdapter.findDailyByIds(request.routineIds());
 		routines.forEach(routine -> checkMemberHasSameRoutineAlready(member, routine));
 		val memberRoutines = routines.stream()
 			.map(routine -> memberRoutineSaver.checkHasDeletedAndSave(member, routine))
