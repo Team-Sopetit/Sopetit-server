@@ -2,7 +2,7 @@ package com.soptie.server.domain.memberroutine;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.persistence.entity.MemberRoutine;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 
 import lombok.Builder;
 

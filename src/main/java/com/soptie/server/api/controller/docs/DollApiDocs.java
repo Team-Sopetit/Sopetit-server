@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.doll.DollImageResponse;
-import com.soptie.server.persistence.entity.DollType;
+import com.soptie.server.domain.doll.DollType;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

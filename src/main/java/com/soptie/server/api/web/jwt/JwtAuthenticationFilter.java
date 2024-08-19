@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.soptie.server.config.ValueConfig;
+import com.soptie.server.common.support.ValueConfig;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

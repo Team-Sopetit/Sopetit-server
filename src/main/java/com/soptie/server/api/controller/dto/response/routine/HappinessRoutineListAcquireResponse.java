@@ -3,8 +3,6 @@ package com.soptie.server.api.controller.dto.response.routine;
 import java.util.List;
 import java.util.Objects;
 
-import com.soptie.server.persistence.entity.Routine;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NonNull;

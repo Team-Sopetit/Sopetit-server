@@ -6,10 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.dto.response.doll.DollImageResponse;
-import com.soptie.server.domain.usecase.DollService;
-import com.soptie.server.persistence.entity.Doll;
-import com.soptie.server.persistence.entity.DollType;
 import com.soptie.server.common.exception.DollException;
+import com.soptie.server.domain.usecase.DollService;
 import com.soptie.server.persistence.repository.DollRepository;
 
 import lombok.RequiredArgsConstructor;

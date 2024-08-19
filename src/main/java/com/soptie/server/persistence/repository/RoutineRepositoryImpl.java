@@ -1,7 +1,5 @@
 package com.soptie.server.persistence.repository;
 
-import static com.soptie.server.memberroutine.entity.QMemberRoutine.*;
-import static com.soptie.server.routine.entity.QRoutine.*;
 import static java.util.Objects.*;
 
 import java.util.List;
@@ -11,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.common.support.ExpressionGenerator;
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.persistence.entity.RoutineType;
 
 import lombok.RequiredArgsConstructor;
 

@@ -4,8 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 
-import com.soptie.server.persistence.entity.Routine;
-
 import lombok.Builder;
 
 @Builder(access = PRIVATE)

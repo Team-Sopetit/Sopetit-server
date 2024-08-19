@@ -1,15 +1,11 @@
 package com.soptie.server.persistence.repository;
 
-import static com.soptie.server.maker.entity.QMaker.maker;
-import static com.soptie.server.theme.entity.QTheme.theme;
-
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.api.controller.dto.response.maker.MakerThemeResponse;
-import com.soptie.server.maker.repository.dto.QMakerThemeResponse;
 
 import lombok.RequiredArgsConstructor;
 

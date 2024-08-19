@@ -2,7 +2,7 @@ package com.soptie.server.domain.theme;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.persistence.entity.ThemeImageLinks;
+import com.soptie.server.persistence.entity.deleted.ThemeImageLinks;
 
 import lombok.Builder;
 

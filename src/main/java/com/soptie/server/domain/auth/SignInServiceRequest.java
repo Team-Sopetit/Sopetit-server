@@ -3,7 +3,6 @@ package com.soptie.server.domain.auth;
 import static lombok.AccessLevel.*;
 
 import com.soptie.server.api.controller.dto.request.auth.SignInRequest;
-import com.soptie.server.persistence.entity.SocialType;
 
 import lombok.Builder;
 import lombok.NonNull;

@@ -3,8 +3,7 @@ package com.soptie.server.api.controller.dto.response.maker;
 import java.util.List;
 
 import com.querydsl.core.annotations.QueryProjection;
-import com.soptie.server.persistence.entity.Maker;
-import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.entity.deleted.Theme;
 
 import lombok.NonNull;
 

@@ -1,14 +1,14 @@
 package com.soptie.server.domain.memberroutine;
 
-import static com.soptie.server.persistence.entity.RoutineType.*;
+import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.persistence.adapter.MemberFinder;
+import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberRoutineDeleter;
 import com.soptie.server.persistence.adapter.MemberRoutineFinder;
-import com.soptie.server.persistence.entity.MemberRoutine;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -17,13 +17,13 @@ import lombok.val;
 @RequiredArgsConstructor
 @Transactional
 public class MemberRoutineUpdateService {
+	private final MemberAdapter memberAdapter;
 
 	private final MemberRoutineFinder memberRoutineFinder;
 	private final MemberRoutineDeleter memberRoutineDeleter;
-	private final MemberFinder memberFinder;
 
 	public MemberRoutineAchieveServiceResponse updateAchievementStatus(MemberRoutineAchieveServiceRequest request) {
-		val member = memberFinder.findById(request.memberId());
+		val member = memberAdapter.findById(request.memberId());
 		val memberRoutine = memberRoutineFinder.findById(request.memberRoutineId());
 		val isAchievedToday = memberRoutine.isAchieveToday();
 
@@ -33,7 +33,12 @@ public class MemberRoutineUpdateService {
 			memberRoutine.cancelAchievement();
 		} else {
 			if (!isAchievedToday) {
-				member.addCottonCount(memberRoutine.getType());
+				if (memberRoutine.getType() == DAILY) {
+					member.getCottonInfo().addBasicCottonCount();
+				} else {
+					member.getCottonInfo().addRainbowCottonCount();
+				}
+				memberAdapter.update(member);
 			}
 			memberRoutine.achieve();
 			deleteMemberRoutineIfTypeIsOneTime(memberRoutine);

@@ -1,8 +1,5 @@
 package com.soptie.server.support.fixture;
 
-import com.soptie.server.persistence.entity.Challenge;
-import com.soptie.server.persistence.entity.Routine;
-
 public class ChallengeFixture {
 
 	private Long id;

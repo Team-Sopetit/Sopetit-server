@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.persistence.entity.Theme;
-import com.soptie.server.persistence.entity.ThemeType;
+import com.soptie.server.persistence.entity.deleted.Theme;
+import com.soptie.server.persistence.entity.deleted.ThemeType;
 import com.soptie.server.persistence.repository.ThemeRepository;
 import com.soptie.server.support.IntegrationTest;
 import com.soptie.server.support.fixture.ThemeFixture;

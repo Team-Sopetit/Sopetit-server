@@ -1,20 +1,18 @@
 package com.soptie.server.persistence.adapter;
 
-import static com.soptie.server.persistence.entity.RoutineType.*;
 import static com.soptie.server.common.message.RoutineErrorCode.*;
+import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.soptie.server.common.exception.RoutineException;
 import com.soptie.server.common.support.RepositoryAdapter;
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.MemberRoutine;
+import com.soptie.server.domain.member.Member;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 import com.soptie.server.persistence.repository.MemberRoutineRepository;
 import com.soptie.server.persistence.repository.dto.MemberChallengeResponse;
 import com.soptie.server.persistence.repository.dto.MemberRoutineResponse;
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.persistence.entity.RoutineType;
-import com.soptie.server.common.exception.RoutineException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +23,8 @@ public class MemberRoutineFinder {
 	private final MemberRoutineRepository memberRoutineRepository;
 
 	public boolean isExist(Member member, Routine routine) {
-		return memberRoutineRepository.existsByMemberAndTypeAndRoutineId(member, routine.getType(), routine.getId());
+		return memberRoutineRepository
+			.existsByMemberIdAndTypeAndRoutineId(member.getId(), routine.getType(), routine.getId());
 	}
 
 	public MemberRoutine findById(long id) {
@@ -42,7 +41,7 @@ public class MemberRoutineFinder {
 	}
 
 	public boolean existMemberChallenge(Member member) {
-		return memberRoutineRepository.existsByMemberAndType(member, CHALLENGE);
+		return memberRoutineRepository.existsByMemberIdAndType(member.getId(), CHALLENGE);
 	}
 
 	public Optional<MemberChallengeResponse> findChallengeByMember(Member member) {
@@ -50,6 +49,6 @@ public class MemberRoutineFinder {
 	}
 
 	public List<MemberRoutine> findAllByMemberAndType(Member member, RoutineType type) {
-		return memberRoutineRepository.findByMemberAndType(member, type);
+		return memberRoutineRepository.findByMemberIdAndType(member.getId(), type);
 	}
 }

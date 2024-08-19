@@ -14,8 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
-import com.soptie.server.config.ValueConfig;
-import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.common.support.ValueConfig;
 import com.soptie.server.persistence.repository.MemberRepository;
 import com.soptie.server.support.fixture.MemberFixture;
 

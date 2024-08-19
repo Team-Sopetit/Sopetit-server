@@ -1,20 +1,16 @@
 package com.soptie.server.domain.memberroutine;
 
-import static com.soptie.server.common.message.RoutineErrorCode.CANNOT_ADD_MEMBER_ROUTINE;
-import static com.soptie.server.common.message.RoutineErrorCode.DUPLICATED_ROUTINE;
+import static com.soptie.server.common.message.RoutineErrorCode.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.persistence.adapter.MemberFinder;
-import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.api.controller.dto.request.memberroutine.MemberDailyRoutinesCreateRequest;
+import com.soptie.server.common.exception.RoutineException;
+import com.soptie.server.persistence.adapter.ChallengeFinder;
 import com.soptie.server.persistence.adapter.MemberRoutineFinder;
 import com.soptie.server.persistence.adapter.MemberRoutineSaver;
-import com.soptie.server.api.controller.dto.request.memberroutine.MemberDailyRoutinesCreateRequest;
-import com.soptie.server.persistence.adapter.ChallengeFinder;
 import com.soptie.server.persistence.adapter.RoutineFinder;
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.common.exception.RoutineException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

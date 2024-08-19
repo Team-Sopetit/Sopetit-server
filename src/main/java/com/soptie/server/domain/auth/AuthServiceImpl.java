@@ -8,20 +8,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.config.ValueConfig;
-import com.soptie.server.domain.usecase.AuthService;
-import com.soptie.server.external.AppleService;
-import com.soptie.server.external.KakaoService;
 import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.SocialType;
 import com.soptie.server.common.exception.MemberException;
-import com.soptie.server.persistence.repository.MemberRepository;
-import com.soptie.server.domain.usecase.MemberService;
-import com.soptie.server.persistence.entity.MemberDoll;
+import com.soptie.server.common.support.ValueConfig;
+import com.soptie.server.domain.usecase.AuthService;
 import com.soptie.server.domain.usecase.MemberDollService;
+import com.soptie.server.external.AppleService;
+import com.soptie.server.external.KakaoService;
 import com.soptie.server.persistence.adapter.MemberRoutineDeleter;
+import com.soptie.server.persistence.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

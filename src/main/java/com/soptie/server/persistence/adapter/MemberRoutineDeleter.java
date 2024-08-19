@@ -1,9 +1,8 @@
 package com.soptie.server.persistence.adapter;
 
 import com.soptie.server.common.support.RepositoryAdapter;
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.DeletedMemberRoutine;
-import com.soptie.server.persistence.entity.MemberRoutine;
+import com.soptie.server.persistence.entity.deleted.DeletedMemberRoutine;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 import com.soptie.server.persistence.repository.DeletedMemberRoutineRepository;
 import com.soptie.server.persistence.repository.MemberRoutineRepository;
 
@@ -21,8 +20,8 @@ public class MemberRoutineDeleter {
 		memberRoutineRepository.delete(memberRoutine);
 	}
 
-	public void deleteByMember(Member member) {
-		memberRoutineRepository.deleteByMember(member);
-		deletedMemberRoutineRepository.deleteByMember(member);
+	public void deleteByMember(long memberId) {
+		memberRoutineRepository.deleteByMemberId(memberId);
+		deletedMemberRoutineRepository.deleteByMemberId(memberId);
 	}
 }

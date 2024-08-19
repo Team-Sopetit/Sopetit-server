@@ -3,7 +3,7 @@ package com.soptie.server.domain.memberroutine;
 import static lombok.AccessLevel.*;
 
 import com.soptie.server.persistence.repository.dto.MemberChallengeResponse;
-import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.entity.deleted.Theme;
 
 import lombok.Builder;
 

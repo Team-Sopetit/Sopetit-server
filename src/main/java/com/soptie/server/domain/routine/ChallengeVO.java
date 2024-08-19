@@ -1,7 +1,5 @@
 package com.soptie.server.domain.routine;
 
-import com.soptie.server.persistence.entity.Challenge;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NonNull;

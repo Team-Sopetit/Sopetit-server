@@ -1,7 +1,5 @@
 package com.soptie.server.support.fixture;
 
-import com.soptie.server.persistence.entity.Conversation;
-
 public class ConversationFixture {
 
 	private Long id;

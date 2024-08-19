@@ -1,6 +1,6 @@
 package com.soptie.server.domain.routine;
 
-import static com.soptie.server.persistence.entity.RoutineType.*;
+import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -16,12 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.domain.routine.HappinessSubRoutineListGetServiceResponse.HappinessSubRoutineServiceResponse;
-import com.soptie.server.persistence.entity.Challenge;
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.MemberRoutine;
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.persistence.entity.RoutineType;
-import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
+import com.soptie.server.persistence.entity.deleted.Theme;
 import com.soptie.server.persistence.repository.ChallengeRepository;
 import com.soptie.server.persistence.repository.MemberRepository;
 import com.soptie.server.persistence.repository.MemberRoutineRepository;

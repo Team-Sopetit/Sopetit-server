@@ -2,8 +2,8 @@ package com.soptie.server.domain.theme;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.persistence.entity.Theme;
-import com.soptie.server.persistence.entity.ThemeType;
+import com.soptie.server.persistence.entity.deleted.Theme;
+import com.soptie.server.persistence.entity.deleted.ThemeType;
 
 import lombok.Builder;
 import lombok.NonNull;

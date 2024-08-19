@@ -5,8 +5,6 @@ import static com.soptie.server.common.message.RoutineErrorCode.INVALID_ROUTINE;
 import java.util.List;
 
 import com.soptie.server.common.support.RepositoryAdapter;
-import com.soptie.server.persistence.entity.Challenge;
-import com.soptie.server.persistence.entity.Routine;
 import com.soptie.server.common.exception.RoutineException;
 import com.soptie.server.persistence.repository.ChallengeRepository;
 import com.soptie.server.domain.routine.ChallengeVO;

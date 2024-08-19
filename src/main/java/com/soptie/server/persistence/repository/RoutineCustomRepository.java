@@ -2,9 +2,6 @@ package com.soptie.server.persistence.repository;
 
 import java.util.List;
 
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.persistence.entity.RoutineType;
-
 public interface RoutineCustomRepository {
 	List<Routine> findByTypeAndThemeIds(RoutineType type, List<Long> themeIds);
 

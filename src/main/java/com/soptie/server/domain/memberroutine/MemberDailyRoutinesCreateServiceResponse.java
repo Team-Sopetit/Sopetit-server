@@ -4,7 +4,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 
-import com.soptie.server.persistence.entity.MemberRoutine;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 
 import lombok.Builder;
 import lombok.NonNull;

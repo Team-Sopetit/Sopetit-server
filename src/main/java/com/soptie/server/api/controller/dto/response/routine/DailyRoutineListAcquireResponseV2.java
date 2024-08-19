@@ -3,8 +3,6 @@ package com.soptie.server.api.controller.dto.response.routine;
 import java.util.List;
 import java.util.Map;
 
-import com.soptie.server.persistence.entity.Routine;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;

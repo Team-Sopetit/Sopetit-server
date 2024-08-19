@@ -4,8 +4,7 @@ import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import com.soptie.server.persistence.entity.DollType;
-import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.domain.doll.DollType;
 
 import lombok.Builder;
 import lombok.NonNull;

@@ -5,13 +5,10 @@ import static com.soptie.server.common.message.DollErrorCode.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.domain.usecase.MemberDollService;
-import com.soptie.server.persistence.entity.Doll;
-import com.soptie.server.persistence.entity.DollType;
 import com.soptie.server.common.exception.DollException;
+import com.soptie.server.domain.doll.DollType;
+import com.soptie.server.domain.usecase.MemberDollService;
 import com.soptie.server.persistence.repository.DollRepository;
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.MemberDoll;
 import com.soptie.server.persistence.repository.MemberDollRepository;
 
 import lombok.RequiredArgsConstructor;

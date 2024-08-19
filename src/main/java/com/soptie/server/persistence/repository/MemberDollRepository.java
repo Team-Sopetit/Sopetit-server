@@ -2,7 +2,7 @@ package com.soptie.server.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.soptie.server.persistence.entity.MemberDoll;
+import com.soptie.server.persistence.entity.MemberDollEntity;
 
-public interface MemberDollRepository extends JpaRepository<MemberDoll, Long> {
+public interface MemberDollRepository extends JpaRepository<MemberDollEntity, Long> {
 }

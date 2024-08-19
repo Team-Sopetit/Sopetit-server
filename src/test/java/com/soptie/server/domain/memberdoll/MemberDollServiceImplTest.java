@@ -1,7 +1,6 @@
 package com.soptie.server.domain.memberdoll;
 
-import static com.soptie.server.persistence.entity.DollType.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.soptie.server.domain.doll.DollType.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Optional;
@@ -13,8 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.persistence.entity.Doll;
-import com.soptie.server.persistence.entity.Member;
 import com.soptie.server.persistence.repository.DollRepository;
 import com.soptie.server.persistence.repository.MemberDollRepository;
 import com.soptie.server.support.fixture.MemberFixture;

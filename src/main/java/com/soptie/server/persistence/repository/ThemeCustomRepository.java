@@ -2,10 +2,10 @@ package com.soptie.server.persistence.repository;
 
 import java.util.List;
 
-import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.entity.ThemeEntity;
 
 public interface ThemeCustomRepository {
-	List<Theme> findAllOrderByNameAsc();
+	List<ThemeEntity> findAllOrderByNameAsc();
 
-	List<Theme> findAllInBasic();
+	List<ThemeEntity> findAllInBasic();
 }

@@ -5,8 +5,6 @@ import static com.soptie.server.common.message.RoutineErrorCode.*;
 import java.util.List;
 
 import com.soptie.server.common.support.RepositoryAdapter;
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.persistence.entity.RoutineType;
 import com.soptie.server.common.exception.RoutineException;
 import com.soptie.server.persistence.repository.RoutineRepository;
 import com.soptie.server.domain.routine.RoutineVO;

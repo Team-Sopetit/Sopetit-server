@@ -1,8 +1,7 @@
 package com.soptie.server.persistence.repository.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import com.soptie.server.persistence.entity.MemberRoutine;
-import com.soptie.server.persistence.entity.Routine;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 
 import lombok.NonNull;
 

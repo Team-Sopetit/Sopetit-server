@@ -5,11 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.persistence.adapter.MemberFinder;
-import com.soptie.server.persistence.entity.Member;
 import com.soptie.server.persistence.adapter.MemberRoutineDeleter;
 import com.soptie.server.persistence.adapter.MemberRoutineFinder;
-import com.soptie.server.persistence.entity.MemberRoutine;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

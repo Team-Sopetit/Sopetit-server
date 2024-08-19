@@ -2,8 +2,6 @@ package com.soptie.server.support.fixture;
 
 import java.util.List;
 
-import com.soptie.server.persistence.entity.Maker;
-
 public class MakerFixture {
 
 	private Long id;

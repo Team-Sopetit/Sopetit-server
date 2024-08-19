@@ -1,7 +1,5 @@
 package com.soptie.server.api.controller.dto.response.doll;
 
-import com.soptie.server.persistence.entity.Doll;
-
 import lombok.NonNull;
 
 public record DollImageResponse(

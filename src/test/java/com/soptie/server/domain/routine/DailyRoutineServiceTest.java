@@ -13,13 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.persistence.adapter.MemberFinder;
 import com.soptie.server.persistence.adapter.MemberRoutineFinder;
 import com.soptie.server.persistence.adapter.RoutineFinder;
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.MemberRoutine;
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.persistence.entity.RoutineType;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 import com.soptie.server.support.fixture.RoutineFixture;

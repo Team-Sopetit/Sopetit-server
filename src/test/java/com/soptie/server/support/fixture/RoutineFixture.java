@@ -1,8 +1,6 @@
 package com.soptie.server.support.fixture;
 
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.persistence.entity.RoutineType;
-import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.entity.deleted.Theme;
 
 public class RoutineFixture {
 

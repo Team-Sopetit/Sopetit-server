@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.api.controller.docs.DollApiDocs;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.doll.DollImageResponse;
-import com.soptie.server.persistence.entity.DollType;
+import com.soptie.server.domain.doll.DollType;
 import com.soptie.server.domain.usecase.DollService;
 
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.soptie.server.api.controller;
 
 import static com.soptie.server.api.controller.dto.response.SuccessResponse.*;
-import static com.soptie.server.common.support.UriGenerator.*;
 import static com.soptie.server.common.message.MemberSuccessMessage.*;
+import static com.soptie.server.common.support.UriGenerator.*;
 
 import java.security.Principal;
 
@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soptie.server.api.controller.dto.response.BaseResponse;
-import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.docs.MemberApiDocs;
 import com.soptie.server.api.controller.dto.request.member.MemberProfileCreateRequest;
+import com.soptie.server.api.controller.dto.response.BaseResponse;
+import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.member.MemberCottonCountGetResponse;
 import com.soptie.server.api.controller.dto.response.member.MemberHomeInfoGetResponse;
-import com.soptie.server.persistence.entity.CottonType;
-import com.soptie.server.domain.usecase.MemberService;
 import com.soptie.server.domain.member.CottonGiveServiceRequest;
 import com.soptie.server.domain.member.MemberHomeInfoGetServiceRequest;
 import com.soptie.server.domain.member.MemberProfileCreateServiceRequest;
+import com.soptie.server.domain.member.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

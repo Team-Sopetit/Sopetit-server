@@ -1,7 +1,5 @@
 package com.soptie.server.api.controller.dto.request.auth;
 
-import com.soptie.server.persistence.entity.SocialType;
-
 import lombok.NonNull;
 
 public record SignInRequest(

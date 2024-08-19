@@ -2,7 +2,7 @@ package com.soptie.server.api.controller.dto.request.member;
 
 import java.util.List;
 
-import com.soptie.server.persistence.entity.DollType;
+import com.soptie.server.domain.doll.DollType;
 
 import lombok.NonNull;
 

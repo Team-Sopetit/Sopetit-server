@@ -14,8 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.soptie.server.api.controller.dto.response.doll.DollImageResponse;
-import com.soptie.server.persistence.entity.Doll;
-import com.soptie.server.persistence.entity.DollType;
 import com.soptie.server.persistence.repository.DollRepository;
 import com.soptie.server.support.fixture.DollFixture;
 

@@ -1,10 +1,6 @@
 package com.soptie.server.persistence.repository;
 
-import static com.soptie.server.memberroutine.entity.QMemberRoutine.*;
-import static com.soptie.server.routine.entity.QChallenge.*;
-import static com.soptie.server.routine.entity.QRoutine.*;
-import static com.soptie.server.persistence.entity.RoutineType.*;
-import static com.soptie.server.theme.entity.QTheme.*;
+import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,12 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.common.support.ExpressionGenerator;
-import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.domain.member.Member;
 import com.soptie.server.persistence.repository.dto.MemberChallengeResponse;
 import com.soptie.server.persistence.repository.dto.MemberRoutineResponse;
 import com.soptie.server.persistence.repository.dto.QMemberChallengeResponse;
 import com.soptie.server.persistence.repository.dto.QMemberRoutineResponse;
-import com.soptie.server.persistence.entity.RoutineType;
 
 import lombok.RequiredArgsConstructor;
 

@@ -3,7 +3,7 @@ package com.soptie.server.domain.version;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.config.ValueConfig;
+import com.soptie.server.common.support.ValueConfig;
 import com.soptie.server.domain.usecase.VersionService;
 
 import lombok.RequiredArgsConstructor;

@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.persistence.adapter.MemberFinder;
 import com.soptie.server.persistence.adapter.MemberRoutineFinder;
 import com.soptie.server.persistence.repository.dto.MemberRoutineResponse;
 

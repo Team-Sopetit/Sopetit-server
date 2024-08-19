@@ -1,8 +1,5 @@
 package com.soptie.server.support.fixture;
 
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.MemberDoll;
-
 public class MemberFixture {
 
 	private Long id;

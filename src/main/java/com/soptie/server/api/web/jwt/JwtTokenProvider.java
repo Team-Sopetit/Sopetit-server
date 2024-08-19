@@ -11,7 +11,7 @@ import javax.crypto.SecretKey;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.soptie.server.config.ValueConfig;
+import com.soptie.server.common.support.ValueConfig;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

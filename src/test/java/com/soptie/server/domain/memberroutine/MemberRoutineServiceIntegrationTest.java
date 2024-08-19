@@ -1,7 +1,7 @@
 package com.soptie.server.domain.memberroutine;
 
 import static com.soptie.server.common.message.RoutineErrorCode.*;
-import static com.soptie.server.persistence.entity.RoutineType.*;
+import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
@@ -18,12 +18,9 @@ import com.soptie.server.api.controller.dto.request.memberroutine.MemberDailyRou
 import com.soptie.server.api.controller.dto.request.memberroutine.MemberHappinessRoutineRequest;
 import com.soptie.server.common.exception.RoutineException;
 import com.soptie.server.domain.memberroutine.MemberDailyRoutinesAcquireServiceResponse.MemberDailyRoutineServiceResponse;
-import com.soptie.server.persistence.entity.Challenge;
-import com.soptie.server.persistence.entity.DeletedMemberRoutine;
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.MemberRoutine;
-import com.soptie.server.persistence.entity.Routine;
-import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.entity.deleted.DeletedMemberRoutine;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
+import com.soptie.server.persistence.entity.deleted.Theme;
 import com.soptie.server.persistence.repository.ChallengeRepository;
 import com.soptie.server.persistence.repository.DeletedMemberRoutineRepository;
 import com.soptie.server.persistence.repository.MemberRepository;

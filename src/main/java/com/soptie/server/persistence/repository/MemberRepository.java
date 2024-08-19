@@ -4,11 +4,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.SocialType;
+import com.soptie.server.persistence.entity.MemberEntity;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
-	Optional<Member> findBySocialTypeAndSocialId(SocialType socialType, String socialId);
+public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
+	Optional<MemberEntity> findBySocialTypeAndSocialId(SocialType socialType, String socialId);
 
-	Optional<Member> findByRefreshToken(String refreshToken);
+	Optional<MemberEntity> findByRefreshToken(String refreshToken);
 }

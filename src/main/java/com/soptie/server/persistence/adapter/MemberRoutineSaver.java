@@ -1,17 +1,14 @@
 package com.soptie.server.persistence.adapter;
 
-import static com.soptie.server.persistence.entity.RoutineType.*;
+import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
 
 import java.util.Optional;
 
 import com.soptie.server.common.support.RepositoryAdapter;
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.entity.DeletedMemberRoutine;
-import com.soptie.server.persistence.entity.MemberRoutine;
+import com.soptie.server.persistence.entity.deleted.DeletedMemberRoutine;
+import com.soptie.server.persistence.entity.deleted.MemberRoutine;
 import com.soptie.server.persistence.repository.DeletedMemberRoutineRepository;
 import com.soptie.server.persistence.repository.MemberRoutineRepository;
-import com.soptie.server.persistence.entity.Challenge;
-import com.soptie.server.persistence.entity.Routine;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

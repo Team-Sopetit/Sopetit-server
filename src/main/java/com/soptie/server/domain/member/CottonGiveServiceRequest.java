@@ -2,8 +2,6 @@ package com.soptie.server.domain.member;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.persistence.entity.CottonType;
-
 import lombok.Builder;
 import lombok.NonNull;
 

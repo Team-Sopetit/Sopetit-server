@@ -12,7 +12,6 @@ import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.request.member.MemberProfileCreateRequest;
 import com.soptie.server.api.controller.dto.response.member.MemberCottonCountGetResponse;
 import com.soptie.server.api.controller.dto.response.member.MemberHomeInfoGetResponse;
-import com.soptie.server.persistence.entity.CottonType;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
