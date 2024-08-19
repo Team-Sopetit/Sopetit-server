@@ -1,4 +1,4 @@
-package com.soptie.server.routine.service.integration;
+package com.soptie.server.domain.routine;
 
 import static com.soptie.server.persistence.entity.RoutineType.*;
 
@@ -15,29 +15,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.persistence.entity.Member;
-import com.soptie.server.persistence.repository.MemberRepository;
-import com.soptie.server.persistence.entity.MemberRoutine;
-import com.soptie.server.persistence.repository.MemberRoutineRepository;
+import com.soptie.server.domain.routine.HappinessSubRoutineListGetServiceResponse.HappinessSubRoutineServiceResponse;
 import com.soptie.server.persistence.entity.Challenge;
+import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.persistence.entity.MemberRoutine;
 import com.soptie.server.persistence.entity.Routine;
 import com.soptie.server.persistence.entity.RoutineType;
+import com.soptie.server.persistence.entity.Theme;
 import com.soptie.server.persistence.repository.ChallengeRepository;
+import com.soptie.server.persistence.repository.MemberRepository;
+import com.soptie.server.persistence.repository.MemberRoutineRepository;
 import com.soptie.server.persistence.repository.RoutineRepository;
-import com.soptie.server.domain.routine.RoutineService;
-import com.soptie.server.domain.routine.HappinessSubRoutineListGetServiceRequest;
-import com.soptie.server.domain.routine.ChallengeRoutineListAcquireServiceResponse;
-import com.soptie.server.domain.routine.HappinessSubRoutineListGetServiceResponse;
-import com.soptie.server.domain.routine.HappinessSubRoutineListGetServiceResponse.HappinessSubRoutineServiceResponse;
-import com.soptie.server.domain.routine.RoutineVO;
+import com.soptie.server.persistence.repository.ThemeRepository;
 import com.soptie.server.support.IntegrationTest;
 import com.soptie.server.support.fixture.ChallengeFixture;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 import com.soptie.server.support.fixture.RoutineFixture;
 import com.soptie.server.support.fixture.ThemeFixture;
-import com.soptie.server.persistence.entity.Theme;
-import com.soptie.server.persistence.repository.ThemeRepository;
 
 @IntegrationTest
 @Transactional

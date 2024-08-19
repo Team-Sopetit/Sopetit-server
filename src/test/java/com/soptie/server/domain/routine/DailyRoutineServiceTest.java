@@ -1,4 +1,4 @@
-package com.soptie.server.routine.service;
+package com.soptie.server.domain.routine;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -13,12 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.domain.routine.RoutineService;
 import com.soptie.server.persistence.adapter.MemberFinder;
-import com.soptie.server.persistence.entity.Member;
 import com.soptie.server.persistence.adapter.MemberRoutineFinder;
-import com.soptie.server.persistence.entity.MemberRoutine;
 import com.soptie.server.persistence.adapter.RoutineFinder;
+import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.persistence.entity.MemberRoutine;
 import com.soptie.server.persistence.entity.Routine;
 import com.soptie.server.persistence.entity.RoutineType;
 import com.soptie.server.support.fixture.MemberFixture;

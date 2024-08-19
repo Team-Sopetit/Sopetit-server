@@ -1,4 +1,4 @@
-package com.soptie.server.doll.service;
+package com.soptie.server.domain.doll;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.domain.doll.DollServiceImpl;
 import com.soptie.server.api.controller.dto.response.doll.DollImageResponse;
 import com.soptie.server.persistence.entity.Doll;
 import com.soptie.server.persistence.entity.DollType;

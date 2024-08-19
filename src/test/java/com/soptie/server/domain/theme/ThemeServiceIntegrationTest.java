@@ -1,4 +1,4 @@
-package com.soptie.server.theme.service.integration;
+package com.soptie.server.domain.theme;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -11,13 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.support.IntegrationTest;
-import com.soptie.server.support.fixture.ThemeFixture;
 import com.soptie.server.persistence.entity.Theme;
 import com.soptie.server.persistence.entity.ThemeType;
 import com.soptie.server.persistence.repository.ThemeRepository;
-import com.soptie.server.domain.theme.ThemeService;
-import com.soptie.server.domain.theme.ThemeVO;
+import com.soptie.server.support.IntegrationTest;
+import com.soptie.server.support.fixture.ThemeFixture;
 
 @IntegrationTest
 @Transactional
