@@ -13,19 +13,17 @@ import lombok.RequiredArgsConstructor;
 
 @RepositoryAdapter
 @RequiredArgsConstructor
-public class ThemeFinder {
+public class ThemeAdapter {
 	private final ThemeRepository themeRepository;
 
-	public List<Theme> findAllOrderByNameAsc() {
-		return themeRepository.findAllOrderByNameAsc().stream().map(ThemeEntity::toDomain).toList();
+	public List<Theme> findByBasic() {
+		return themeRepository.findByMakerIdIsNullOrderBySequenceAsc()
+			.stream().map(ThemeEntity::toDomain)
+			.toList();
 	}
 
 	public Theme findById(long id) {
 		return find(id).toDomain();
-	}
-
-	public List<Theme> findAllInBasic() {
-		return themeRepository.findAllInBasic().stream().map(ThemeEntity::toDomain).toList();
 	}
 
 	public boolean isExistById(long id) {
