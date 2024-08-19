@@ -12,11 +12,15 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.soptie.server.api.controller.dto.response.routine.GetRoutinesByMemberResponse;
+import com.soptie.server.api.controller.dto.response.routine.GetRoutinesByThemeResponse;
+import com.soptie.server.domain.member.Member;
+import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.persistence.adapter.ChallengeFinder;
+import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberRoutineFinder;
-import com.soptie.server.persistence.adapter.RoutineFinder;
-import com.soptie.server.persistence.adapter.ThemeFinder;
-import com.soptie.server.persistence.entity.deleted.MemberRoutine;
+import com.soptie.server.persistence.adapter.RoutineAdapter;
+import com.soptie.server.persistence.adapter.ThemeAdapter;
 import com.soptie.server.persistence.repository.dto.MemberChallengeResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -26,66 +30,27 @@ import lombok.val;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class RoutineService {
-
-	private final RoutineFinder routineFinder;
+	private final RoutineAdapter routineAdapter;
 	private final ChallengeFinder challengeFinder;
 	private final MemberRoutineFinder memberRoutineFinder;
-	private final ThemeFinder themeFinder;
-	private final MemberFinder memberFinder;
+	private final ThemeAdapter themeAdapter;
+	private final MemberAdapter memberAdapter;
 
-	public List<RoutineVO> acquireAllInDailyByThemeIds(List<Long> themeIds) {
-		return routineFinder.findAllByTypeAndThemeIds(RoutineType.DAILY, themeIds);
-	}
-
-	public List<RoutineVO> acquireAllInDailyNotInMemberByThemeId(long memberId, long themeId) {
-		return routineFinder.findAllNotInMemberByTypeAndThemeId(memberId, RoutineType.DAILY, themeId);
-	}
-
-	public List<Routine> acquireAllInHappinessByThemeId(Long themeId) {
-		return routineFinder.findAllByTypeAndThemeId(RoutineType.CHALLENGE, themeId);
-	}
-
-	public HappinessSubRoutineListGetServiceResponse getHappinessSubRoutines(
-		HappinessSubRoutineListGetServiceRequest request
-	) {
-		val routine = routineFinder.findById(request.routineId());
-		val subRoutines = challengeFinder.findByRoutine(routine);
-		return HappinessSubRoutineListGetServiceResponse.of(routine, subRoutines);
-	}
-
-	public Map<Long, List<Routine>> acquireAllInDailyWithThemeId(Set<Long> themeIds) {
-		val themeToRoutine = new LinkedHashMap<Long, List<Routine>>();
+	public GetRoutinesByThemeResponse getRoutinesByThemeIds(Set<Long> themeIds) {
+		val routinesByThemeId = new LinkedHashMap<Long, List<Routine>>();
 		for (val themeId : themeIds) {
-			val routines = routineFinder.findAllByTypeAndThemeId(RoutineType.DAILY, themeId);
-			themeToRoutine.put(themeId, routines);
+			val routines = routineAdapter.findByThemeId(themeId);
+			routinesByThemeId.put(themeId, routines);
 		}
-		return themeToRoutine;
+		return GetRoutinesByThemeResponse.of(routinesByThemeId);
 	}
 
-	public Map<String, ChallengeRoutineListAcquireServiceResponse> acquireAllInChallengeWithThemeId(
-		long memberId,
-		long themeId
-	) {
-		themeFinder.isExistById(themeId);
-		val member = memberFinder.findById(memberId);
-		val challengeIdByMember = getChallengeIdByMember(member);
-		val challengeRoutinesByTheme = routineFinder.findChallengeRoutinesByTheme(themeId);
-		val themeToChallenge = new LinkedHashMap<String, ChallengeRoutineListAcquireServiceResponse>();
-		for (val routine : challengeRoutinesByTheme) {
-			val challenges = challengeFinder.findByRoutine(routine);
-			themeToChallenge.put(routine.getContent(),
-				ChallengeRoutineListAcquireServiceResponse.of(challenges, challengeIdByMember));
-		}
-		return themeToChallenge;
-	}
-
-	public Map<Boolean, List<Routine>> acquireAllInDailyByThemeAndMember(long memberId, long themeId) {
-		val routines = routineFinder.findAllByTypeAndThemeId(RoutineType.DAILY, themeId);
-		val member = memberFinder.findById(memberId);
-		val memberRoutineIds = memberRoutineFinder.findAllByMemberAndType(member, RoutineType.DAILY).stream()
+	public GetRoutinesByMemberResponse getRoutinesByThemeId(long memberId, long themeId) {
+		val routines = routineAdapter.findByThemeId(themeId);
+		val memberRoutineIds = memberRoutineFinder.findByMemberId(memberId).stream()
 			.map(MemberRoutine::getRoutineId)
 			.toList();
-		return getRoutineToMember(routines, memberRoutineIds);
+		return GetRoutinesByMemberResponse.of(getRoutineToMember(routines, memberRoutineIds));
 	}
 
 	private Map<Boolean, List<Routine>> getRoutineToMember(List<Routine> routines, List<Long> memberRoutineIds) {
@@ -97,6 +62,23 @@ public class RoutineService {
 			routineToMember.get(isMemberRoutine).add(routine);
 		}
 		return routineToMember;
+	}
+
+	public Map<String, ChallengeRoutineListAcquireServiceResponse> acquireAllInChallengeWithThemeId(
+		long memberId,
+		long themeId
+	) {
+		themeAdapter.isExistById(themeId);
+		val member = memberAdapter.findById(memberId);
+		val challengeIdByMember = getChallengeIdByMember(member);
+		val challengeRoutinesByTheme = routineAdapter.findChallengeRoutinesByTheme(themeId);
+		val themeToChallenge = new LinkedHashMap<String, ChallengeRoutineListAcquireServiceResponse>();
+		for (val routine : challengeRoutinesByTheme) {
+			val challenges = challengeFinder.findByRoutine(routine);
+			themeToChallenge.put(routine.getContent(),
+				ChallengeRoutineListAcquireServiceResponse.of(challenges, challengeIdByMember));
+		}
+		return themeToChallenge;
 	}
 
 	private long getChallengeIdByMember(Member member) {

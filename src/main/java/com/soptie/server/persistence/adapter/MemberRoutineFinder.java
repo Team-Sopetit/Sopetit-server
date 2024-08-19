@@ -1,7 +1,6 @@
 package com.soptie.server.persistence.adapter;
 
 import static com.soptie.server.common.message.RoutineErrorCode.*;
-import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +8,8 @@ import java.util.Optional;
 import com.soptie.server.common.exception.RoutineException;
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.member.Member;
-import com.soptie.server.persistence.entity.deleted.MemberRoutine;
+import com.soptie.server.domain.memberroutine.MemberRoutine;
+import com.soptie.server.persistence.entity.MemberRoutineEntity;
 import com.soptie.server.persistence.repository.MemberRoutineRepository;
 import com.soptie.server.persistence.repository.dto.MemberChallengeResponse;
 import com.soptie.server.persistence.repository.dto.MemberRoutineResponse;
@@ -19,8 +19,13 @@ import lombok.RequiredArgsConstructor;
 @RepositoryAdapter
 @RequiredArgsConstructor
 public class MemberRoutineFinder {
-
 	private final MemberRoutineRepository memberRoutineRepository;
+
+	public List<MemberRoutine> findByMemberId(long memberId) {
+		return memberRoutineRepository.findByMemberId(memberId)
+			.stream().map(MemberRoutineEntity::toDomain)
+			.toList();
+	}
 
 	public boolean isExist(Member member, Routine routine) {
 		return memberRoutineRepository
@@ -46,9 +51,5 @@ public class MemberRoutineFinder {
 
 	public Optional<MemberChallengeResponse> findChallengeByMember(Member member) {
 		return memberRoutineRepository.findChallengeByMember(member);
-	}
-
-	public List<MemberRoutine> findAllByMemberAndType(Member member, RoutineType type) {
-		return memberRoutineRepository.findByMemberIdAndType(member.getId(), type);
 	}
 }

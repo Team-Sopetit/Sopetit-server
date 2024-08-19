@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class DailyRoutineServiceTest {
+class RoutineServiceTest {
 	@InjectMocks
 	RoutineService routineService;
 
