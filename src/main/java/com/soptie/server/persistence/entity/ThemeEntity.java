@@ -16,6 +16,8 @@ public class ThemeEntity extends BaseEntity {
 	private String comment;
 	@Column(nullable = false)
 	private String description;
+	@Column(nullable = false)
+	private int sequence;
 	private String iconImageUrl;
 	private String backgroundImageUrl;
 	private String color;
@@ -27,6 +29,7 @@ public class ThemeEntity extends BaseEntity {
 			.name(this.name)
 			.comment(this.comment)
 			.description(this.description)
+			.sequence(this.sequence)
 			.imageUrls(toImageUrls())
 			.color(this.color)
 			.makerId(this.makerId)

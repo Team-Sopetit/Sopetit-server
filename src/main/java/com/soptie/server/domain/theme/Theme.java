@@ -12,6 +12,7 @@ public class Theme {
 	private String comment;
 	@NotNull
 	private String description;
+	private int sequence;
 	@NotNull
 	private ThemeImageUrls imageUrls;
 	private String color;
