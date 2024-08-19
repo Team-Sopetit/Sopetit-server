@@ -2,8 +2,10 @@ package com.soptie.server.domain.theme;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
+@Getter
 public class Theme {
 	private Long id;
 	@NotNull
@@ -13,8 +15,5 @@ public class Theme {
 	@NotNull
 	private String description;
 	private int sequence;
-	@NotNull
-	private ThemeImageUrls imageUrls;
-	private String color;
 	private Long makerId;
 }
