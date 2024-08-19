@@ -1,7 +1,7 @@
 package com.soptie.server.member.service;
 
-import static com.soptie.server.doll.entity.DollType.*;
-import static com.soptie.server.member.message.ErrorCode.*;
+import static com.soptie.server.persistence.entity.DollType.*;
+import static com.soptie.server.common.message.MemberErrorCode.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -14,18 +14,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.conversation.adapter.ConversationFinder;
-import com.soptie.server.conversation.entity.Conversation;
-import com.soptie.server.doll.entity.Doll;
-import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.member.adapter.MemberFinder;
-import com.soptie.server.member.entity.CottonType;
-import com.soptie.server.member.entity.Member;
-import com.soptie.server.member.exception.MemberException;
-import com.soptie.server.member.service.dto.request.CottonGiveServiceRequest;
-import com.soptie.server.member.service.dto.request.MemberHomeInfoGetServiceRequest;
-import com.soptie.server.member.service.dto.response.MemberHomeInfoGetServiceResponse;
-import com.soptie.server.memberdoll.entity.MemberDoll;
+import com.soptie.server.domain.member.MemberServiceImpl;
+import com.soptie.server.persistence.entity.Doll;
+import com.soptie.server.persistence.entity.DollType;
+import com.soptie.server.persistence.adapter.MemberFinder;
+import com.soptie.server.persistence.entity.CottonType;
+import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.common.exception.MemberException;
+import com.soptie.server.domain.member.CottonGiveServiceRequest;
+import com.soptie.server.domain.member.MemberHomeInfoGetServiceRequest;
+import com.soptie.server.domain.member.MemberHomeInfoGetServiceResponse;
+import com.soptie.server.persistence.entity.MemberDoll;
+import com.soptie.server.persistence.adapter.ConversationFinder;
+import com.soptie.server.persistence.entity.Conversation;
 import com.soptie.server.support.fixture.ConversationFixture;
 import com.soptie.server.support.fixture.DollFixture;
 import com.soptie.server.support.fixture.MemberDollFixture;

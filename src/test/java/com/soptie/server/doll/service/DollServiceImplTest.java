@@ -13,10 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.doll.dto.DollImageResponse;
-import com.soptie.server.doll.entity.Doll;
-import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.doll.repository.DollRepository;
+import com.soptie.server.domain.doll.DollServiceImpl;
+import com.soptie.server.api.controller.dto.response.doll.DollImageResponse;
+import com.soptie.server.persistence.entity.Doll;
+import com.soptie.server.persistence.entity.DollType;
+import com.soptie.server.persistence.repository.DollRepository;
 import com.soptie.server.support.fixture.DollFixture;
 
 @ExtendWith(MockitoExtension.class)

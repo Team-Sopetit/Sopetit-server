@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.maker.entity.Maker;
-import com.soptie.server.maker.repository.MakerRepository;
-import com.soptie.server.maker.service.MakerService;
-import com.soptie.server.maker.service.dto.MakerListAcquireServiceResponse;
+import com.soptie.server.persistence.entity.Maker;
+import com.soptie.server.persistence.repository.MakerRepository;
+import com.soptie.server.domain.maker.MakerService;
+import com.soptie.server.domain.maker.MakerListAcquireServiceResponse;
 import com.soptie.server.support.IntegrationTest;
 import com.soptie.server.support.fixture.MakerFixture;
 import com.soptie.server.support.fixture.ThemeFixture;
-import com.soptie.server.theme.entity.Theme;
-import com.soptie.server.theme.repository.ThemeRepository;
+import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.repository.ThemeRepository;
 
 @IntegrationTest
 @Transactional

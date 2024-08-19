@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-import com.soptie.server.common.config.JpaAuditingConfig;
-import com.soptie.server.common.config.JpaQueryFactoryConfig;
+import com.soptie.server.config.JpaAuditingConfig;
+import com.soptie.server.config.JpaQueryFactoryConfig;
 
 @DataJpaTest(showSql = false)
 @Import({JpaAuditingConfig.class, JpaQueryFactoryConfig.class})

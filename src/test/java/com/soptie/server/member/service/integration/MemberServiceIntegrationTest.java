@@ -1,7 +1,7 @@
 package com.soptie.server.member.service.integration;
 
-import static com.soptie.server.doll.entity.DollType.*;
-import static com.soptie.server.routine.entity.RoutineType.*;
+import static com.soptie.server.persistence.entity.DollType.*;
+import static com.soptie.server.persistence.entity.RoutineType.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
@@ -13,24 +13,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.doll.entity.DollType;
-import com.soptie.server.doll.repository.DollRepository;
-import com.soptie.server.member.adapter.MemberFinder;
-import com.soptie.server.member.controller.dto.request.MemberProfileCreateRequest;
-import com.soptie.server.member.entity.Member;
-import com.soptie.server.member.repository.MemberRepository;
-import com.soptie.server.member.service.MemberServiceImpl;
-import com.soptie.server.member.service.dto.request.MemberProfileCreateServiceRequest;
-import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
-import com.soptie.server.routine.entity.Routine;
-import com.soptie.server.routine.repository.RoutineRepository;
+import com.soptie.server.persistence.entity.DollType;
+import com.soptie.server.persistence.repository.DollRepository;
+import com.soptie.server.persistence.adapter.MemberFinder;
+import com.soptie.server.api.controller.dto.request.member.MemberProfileCreateRequest;
+import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.persistence.repository.MemberRepository;
+import com.soptie.server.domain.member.MemberServiceImpl;
+import com.soptie.server.domain.member.MemberProfileCreateServiceRequest;
+import com.soptie.server.persistence.adapter.MemberRoutineFinder;
+import com.soptie.server.persistence.entity.Routine;
+import com.soptie.server.persistence.repository.RoutineRepository;
 import com.soptie.server.support.IntegrationTest;
 import com.soptie.server.support.fixture.DollFixture;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.RoutineFixture;
 import com.soptie.server.support.fixture.ThemeFixture;
-import com.soptie.server.theme.entity.Theme;
-import com.soptie.server.theme.repository.ThemeRepository;
+import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.repository.ThemeRepository;
 
 @IntegrationTest
 @Transactional

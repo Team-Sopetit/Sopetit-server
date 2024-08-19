@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.support.IntegrationTest;
 import com.soptie.server.support.fixture.ThemeFixture;
-import com.soptie.server.theme.entity.Theme;
-import com.soptie.server.theme.entity.ThemeType;
-import com.soptie.server.theme.repository.ThemeRepository;
-import com.soptie.server.theme.service.ThemeService;
-import com.soptie.server.theme.service.vo.ThemeVO;
+import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.entity.ThemeType;
+import com.soptie.server.persistence.repository.ThemeRepository;
+import com.soptie.server.domain.theme.ThemeService;
+import com.soptie.server.domain.theme.ThemeVO;
 
 @IntegrationTest
 @Transactional

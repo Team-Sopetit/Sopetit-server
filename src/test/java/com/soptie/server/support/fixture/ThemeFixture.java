@@ -1,8 +1,8 @@
 package com.soptie.server.support.fixture;
 
-import com.soptie.server.theme.entity.Theme;
-import com.soptie.server.theme.entity.ThemeImageLinks;
-import com.soptie.server.theme.entity.ThemeType;
+import com.soptie.server.persistence.entity.Theme;
+import com.soptie.server.persistence.entity.ThemeImageLinks;
+import com.soptie.server.persistence.entity.ThemeType;
 
 public class ThemeFixture {
 

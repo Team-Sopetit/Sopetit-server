@@ -1,6 +1,6 @@
 package com.soptie.server.memberroutine.service;
 
-import static com.soptie.server.routine.entity.RoutineType.*;
+import static com.soptie.server.persistence.entity.RoutineType.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -15,12 +15,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.member.adapter.MemberFinder;
-import com.soptie.server.member.entity.Member;
-import com.soptie.server.memberroutine.adapter.MemberRoutineDeleter;
-import com.soptie.server.memberroutine.adapter.MemberRoutineFinder;
-import com.soptie.server.memberroutine.entity.MemberRoutine;
-import com.soptie.server.memberroutine.service.dto.request.MemberRoutineAchieveServiceRequest;
+import com.soptie.server.domain.memberroutine.MemberRoutineUpdateService;
+import com.soptie.server.persistence.adapter.MemberFinder;
+import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.persistence.adapter.MemberRoutineDeleter;
+import com.soptie.server.persistence.adapter.MemberRoutineFinder;
+import com.soptie.server.persistence.entity.MemberRoutine;
+import com.soptie.server.domain.memberroutine.MemberRoutineAchieveServiceRequest;
 import com.soptie.server.support.fixture.MemberFixture;
 import com.soptie.server.support.fixture.MemberRoutineFixture;
 

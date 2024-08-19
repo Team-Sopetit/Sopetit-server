@@ -12,13 +12,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.auth.jwt.JwtTokenProvider;
-import com.soptie.server.auth.jwt.UserAuthentication;
-import com.soptie.server.auth.service.dto.request.TokenGetServiceRequest;
-import com.soptie.server.auth.service.dto.response.TokenGetServiceResponse;
-import com.soptie.server.common.config.ValueConfig;
-import com.soptie.server.member.entity.Member;
-import com.soptie.server.member.repository.MemberRepository;
+import com.soptie.server.domain.auth.TokenGetServiceRequest;
+import com.soptie.server.domain.auth.TokenGetServiceResponse;
+import com.soptie.server.config.ValueConfig;
+import com.soptie.server.domain.auth.AuthServiceImpl;
+import com.soptie.server.api.web.jwt.JwtTokenProvider;
+import com.soptie.server.api.web.jwt.UserAuthentication;
+import com.soptie.server.persistence.entity.Member;
+import com.soptie.server.persistence.repository.MemberRepository;
 import com.soptie.server.support.fixture.MemberFixture;
 
 @ExtendWith(MockitoExtension.class)

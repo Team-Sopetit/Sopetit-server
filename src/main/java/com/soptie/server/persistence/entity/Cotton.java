@@ -1,0 +1,56 @@
+package com.soptie.server.persistence.entity;
+
+import static com.soptie.server.config.ValueConfig.*;
+import static com.soptie.server.common.message.MemberErrorCode.*;
+import static lombok.AccessLevel.*;
+
+import com.soptie.server.common.exception.MemberException;
+
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Embeddable
+@NoArgsConstructor
+@AllArgsConstructor(access = PACKAGE)
+@Getter
+public class Cotton {
+
+	private int dailyCottonCount;
+	private int happinessCottonCount;
+
+	protected void addDailyCotton() {
+		this.dailyCottonCount++;
+	}
+
+	protected void addHappinessCotton() {
+		this.happinessCottonCount++;
+	}
+
+	protected int subtractAndGetCotton(CottonType type, MemberDoll memberDoll) {
+		return switch (type) {
+			case DAILY -> subtractAndGetDailyCotton();
+			case HAPPINESS -> subtractAndGetHappinessCotton(memberDoll);
+		};
+	}
+
+	private int subtractAndGetDailyCotton() {
+		checkCount(this.dailyCottonCount);
+		this.dailyCottonCount--;
+		return this.dailyCottonCount;
+	}
+
+	private int subtractAndGetHappinessCotton(MemberDoll memberDoll) {
+		checkCount(this.happinessCottonCount);
+		this.happinessCottonCount--;
+		memberDoll.addHappinessCottonCount();
+		return this.happinessCottonCount;
+	}
+
+	private void checkCount(int count) {
+		if (count <= MIN_COTTON_COUNT) {
+			throw new MemberException(NOT_ENOUGH_COTTON);
+		}
+	}
+}

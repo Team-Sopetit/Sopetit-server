@@ -1,7 +1,7 @@
 package com.soptie.server.support.fixture;
 
-import com.soptie.server.doll.entity.Doll;
-import com.soptie.server.doll.entity.DollType;
+import com.soptie.server.persistence.entity.Doll;
+import com.soptie.server.persistence.entity.DollType;
 
 public class DollFixture {
 
