@@ -12,9 +12,8 @@ import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
 import com.soptie.server.common.support.ValueConfig;
 import com.soptie.server.domain.usecase.AuthService;
-import com.soptie.server.domain.usecase.MemberDollService;
-import com.soptie.server.external.AppleService;
-import com.soptie.server.external.KakaoService;
+import com.soptie.server.external.oauth.AppleService;
+import com.soptie.server.external.oauth.KakaoService;
 import com.soptie.server.persistence.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -122,7 +121,7 @@ public class AuthServiceImpl implements AuthService {
 
 	private void deleteMemberDoll(MemberDoll memberDoll) {
 		if (Objects.nonNull(memberDoll)) {
-			memberDollService.deleteMemberDoll(memberDoll);
+			memberDollService.deleteMemberDoll(memberDoll); //TODO: using adapter
 		}
 	}
 

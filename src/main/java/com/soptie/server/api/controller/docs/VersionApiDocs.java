@@ -1,10 +1,8 @@
 package com.soptie.server.api.controller.docs;
 
-import org.springframework.http.ResponseEntity;
-
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.version.AppVersionGetResponse;
+import com.soptie.server.api.controller.dto.response.version.GetAppVersionResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,7 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "versions", description = "버전 API")
+@Tag(name = "VersionAPI", description = "버전 API")
 public interface VersionApiDocs {
 
 	@Operation(
@@ -25,5 +23,5 @@ public interface VersionApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<AppVersionGetResponse>> getClientAppVersion();
+	SuccessResponse<GetAppVersionResponse> getClientAppVersion();
 }

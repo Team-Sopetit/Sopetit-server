@@ -5,12 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
+import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
+import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
 import com.soptie.server.domain.conversation.Conversation;
 import com.soptie.server.domain.doll.DollType;
+import com.soptie.server.domain.memberdoll.MemberDoll;
 import com.soptie.server.persistence.adapter.ConversationAdapter;
-import com.soptie.server.persistence.adapter.DollFinder;
+import com.soptie.server.persistence.adapter.DollAdapter;
 import com.soptie.server.persistence.adapter.MemberAdapter;
-import com.soptie.server.persistence.adapter.MemberDollSaver;
+import com.soptie.server.persistence.adapter.MemberDollAdapter;
 import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.RoutineAdapter;
 
@@ -23,46 +27,47 @@ import lombok.val;
 public class MemberService {
 	private final MemberAdapter memberAdapter;
 	private final ConversationAdapter conversationAdapter;
-	private final DollFinder dollFinder;
+	private final DollAdapter dollAdapter;
 	private final RoutineAdapter routineAdapter;
-	private final MemberDollSaver memberDollSaver;
+	private final MemberDollAdapter memberDollAdapter;
 	private final MemberRoutineAdapter memberRoutineAdapter;
 
 	@Transactional
-	public void createMemberProfile(MemberProfileCreateServiceRequest request) {
-		val member = memberAdapter.findById(request.memberId());
-		//TODO: check on MemberDoll
-		member.checkMemberDollNonExist();
-		createDailyRoutines(member, request.routines());
-		createMemberDoll(member, request.dollType(), request.name());
+	public void createMemberProfile(long memberId, CreateProfileRequest request) {
+		val member = memberAdapter.findById(memberId);
+		createMemberDoll(memberId, request.dollType(), request.name());
+		createMemberRoutines(member, request.routines());
 	}
 
 	@Transactional
-	public MemberCottonCountGetServiceResponse giveCotton(CottonGiveServiceRequest request) {
-		val member = memberAdapter.findById(request.memberId());
-		//TODO: subtract MemberCotton & add DollCotton
-		val cottonCount = member.subtractAndGetCotton(request.cottonType());
-		return MemberCottonCountGetServiceResponse.of(cottonCount);
+	public GiveMemberCottonResponse giveCotton(long memberId, CottonType cottonType) {
+		val member = memberAdapter.findById(memberId);
+		member.getCottonInfo().subtractCotton(cottonType);
+		memberAdapter.update(member);
+
+		val memberDoll = memberDollAdapter.findByMember(memberId);
+		memberDoll.getCottonInfo().giveCotton(cottonType);
+		memberDollAdapter.update(memberDoll);
+
+		return GiveMemberCottonResponse.of(member, cottonType);
 	}
 
-	public MemberHomeInfoGetServiceResponse getMemberHomeInfo(MemberHomeInfoGetServiceRequest request) {
-		val member = memberAdapter.findById(request.memberId());
-		//TODO: check on MemberDoll
-		member.checkMemberDollExist();
+	public GetHomeInfoResponse getMemberHomeInfo(long memberId) {
+		val member = memberAdapter.findById(memberId);
+		val memberDoll = memberDollAdapter.findByMember(memberId);
 		val conversations = conversationAdapter.findAll().stream().map(Conversation::getContent).toList();
-		return MemberHomeInfoGetServiceResponse.of(member, conversations);
+		return GetHomeInfoResponse.of(member, memberDoll, conversations);
 	}
 
-	private void createDailyRoutines(Member member, List<Long> routineIds) {
-		routineIds.forEach(id -> {
-			val routine = routineAdapter.findById(id);
-			memberRoutineAdapter.checkHasDeletedAndSave(member, routine);
-		});
+	private void createMemberRoutines(Member member, List<Long> routineIds) {
+		val routines = routineAdapter.findByIds(routineIds);
+		memberRoutineAdapter.saveAll(member, routines);
 	}
 
-	private void createMemberDoll(Member member, DollType dollType, String name) {
-		val doll = dollFinder.findByType(dollType);
-		val memberDoll = new MemberDoll(member, doll, name);
-		memberDollSaver.save(memberDoll);
+	private void createMemberDoll(long memberId, DollType dollType, String name) {
+		if (!memberDollAdapter.isExistByMember(memberId)) {
+			val doll = dollAdapter.findByType(dollType);
+			memberDollAdapter.save(new MemberDoll(name, dollType, memberId, doll.getId()));
+		}
 	}
 }

@@ -16,4 +16,11 @@ public class MemberCotton {
 	public void addRainbowCottonCount() {
 		this.rainbowCottonCount++;
 	}
+
+	public void subtractCotton(CottonType type) {
+		switch (type) {
+			case DAILY -> basicCottonCount--;
+			case HAPPINESS -> rainbowCottonCount--;
+		}
+	}
 }

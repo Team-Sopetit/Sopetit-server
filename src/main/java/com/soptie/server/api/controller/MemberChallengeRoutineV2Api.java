@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.api.controller.docs.MemberChallengeRoutineV2ApiDocs;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.MemberChallengeRoutineAcquireResponseV2;
+import com.soptie.server.api.controller.dto.response.membermission.MemberChallengeRoutineAcquireResponseV2;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
