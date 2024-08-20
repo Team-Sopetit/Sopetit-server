@@ -26,7 +26,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.soptie.server.common.support.ValueConfig;
-import com.soptie.server.common.exception.AuthException;
 
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;

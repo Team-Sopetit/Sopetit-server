@@ -2,12 +2,11 @@ package com.soptie.server.api.controller.docs;
 
 import java.security.Principal;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.routine.ChallengeRoutineListAcquireResponseV2;
+import com.soptie.server.api.controller.dto.response.challenge.GetChallengesByMemberResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,8 +16,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "challenge routines V2", description = "도전 루틴 API Version2")
-public interface ChallengeRoutineV2ApiDocs {
+@Tag(name = "ChallengeRoutine_v2", description = "도전 루틴 API version2")
+public interface ChallengeApiDocs {
 
 	@Operation(
 		summary = "테마별 도전 루틴 목록 조회",
@@ -34,7 +33,7 @@ public interface ChallengeRoutineV2ApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<ChallengeRoutineListAcquireResponseV2>> acquireAllByTheme(
+	SuccessResponse<GetChallengesByMemberResponse> getChallengesByTheme(
 		@Parameter(hidden = true) Principal principal,
 		@Parameter(
 			name = "themeId",

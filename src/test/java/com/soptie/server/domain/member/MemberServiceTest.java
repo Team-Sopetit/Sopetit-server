@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.common.exception.MemberException;
 import com.soptie.server.domain.doll.DollType;
 import com.soptie.server.persistence.adapter.ConversationFinder;
 import com.soptie.server.support.fixture.ConversationFixture;

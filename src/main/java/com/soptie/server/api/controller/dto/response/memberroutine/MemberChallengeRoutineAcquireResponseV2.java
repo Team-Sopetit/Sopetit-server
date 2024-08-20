@@ -2,8 +2,6 @@ package com.soptie.server.api.controller.dto.response.memberroutine;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.domain.memberroutine.MemberChallengeRoutineAcquireServiceResponse;
-
 import lombok.Builder;
 import lombok.NonNull;
 
