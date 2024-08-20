@@ -1,4 +1,4 @@
-package com.soptie.server.domain.memberroutine;
+package com.soptie.server.domain.membermission;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

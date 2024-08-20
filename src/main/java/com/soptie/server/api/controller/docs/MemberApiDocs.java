@@ -2,16 +2,15 @@ package com.soptie.server.api.controller.docs;
 
 import java.security.Principal;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.soptie.server.api.controller.dto.response.BaseResponse;
+import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.request.member.MemberProfileCreateRequest;
-import com.soptie.server.api.controller.dto.response.member.MemberCottonCountGetResponse;
-import com.soptie.server.api.controller.dto.response.member.MemberHomeInfoGetResponse;
+import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
+import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
+import com.soptie.server.domain.member.CottonType;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -25,12 +24,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface MemberApiDocs {
 
 	@Operation(
-		summary = "멤버 프로필 생성",
-		description = "멤버 프로필을 생성한다.",
+		summary = "회원 프로필 생성",
+		description = "회원의 프로필을 생성한다.",
 		responses = {
 			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
+				responseCode = "201",
+				description = "CREATED success",
 				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
 			@ApiResponse(
 				responseCode = "400",
@@ -49,24 +48,20 @@ public interface MemberApiDocs {
 				description = "이미 존재하는 프로필",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
 			@ApiResponse(
-				responseCode = "4xx",
-				description = "클라이언트(요청) 오류",
-				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-			@ApiResponse(
 				responseCode = "500",
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<BaseResponse> createMemberProfile(
+	SuccessResponse<?> createMemberProfile(
 		@Parameter(hidden = true) Principal principal,
-		@RequestBody MemberProfileCreateRequest request
+		@RequestBody CreateProfileRequest request
 	);
 
 	@Operation(
 		summary = "솜뭉치 주기",
 		description = "솜뭉치를 준다.",
 		responses = {
-			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(responseCode = "200", description = "OK success"),
 			@ApiResponse(
 				responseCode = "400",
 				description = "솜뭉치 부족",
@@ -88,7 +83,7 @@ public interface MemberApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<MemberCottonCountGetResponse>> giveCotton(
+	SuccessResponse<GiveMemberCottonResponse> giveCotton(
 		@Parameter(hidden = true) Principal principal,
 		@Parameter(
 			name = "cottonType",
@@ -120,7 +115,7 @@ public interface MemberApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<MemberHomeInfoGetResponse>> getMemberHomeInfo(
+	SuccessResponse<GetHomeInfoResponse> getMemberHomeInfo(
 		@Parameter(hidden = true) Principal principal
 	);
 }

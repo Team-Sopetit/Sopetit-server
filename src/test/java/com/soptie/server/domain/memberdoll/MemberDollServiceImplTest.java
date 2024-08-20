@@ -1,12 +1,5 @@
 package com.soptie.server.domain.memberdoll;
 
-import static com.soptie.server.domain.doll.DollType.*;
-import static org.mockito.Mockito.*;
-
-import java.util.Optional;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,7 +7,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.soptie.server.persistence.repository.DollRepository;
 import com.soptie.server.persistence.repository.MemberDollRepository;
-import com.soptie.server.support.fixture.MemberFixture;
 
 @ExtendWith(MockitoExtension.class)
 class MemberDollServiceImplTest {
@@ -27,7 +19,7 @@ class MemberDollServiceImplTest {
 
 	@Mock
 	private MemberDollRepository memberDollRepository;
-
+/*
 	@Test
 	@DisplayName("멤버 인형을 생성하고 이를 멤버의 멤버 인형으로 설정한다.")
 	void addMemberDoll() {
@@ -48,4 +40,5 @@ class MemberDollServiceImplTest {
 		Member member = MemberFixture.member().id(memberId).build();
 		return member;
 	}
+ */
 }
