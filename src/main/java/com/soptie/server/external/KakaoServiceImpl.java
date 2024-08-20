@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.soptie.server.common.support.ValueConfig;
-import com.soptie.server.common.exception.AuthException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

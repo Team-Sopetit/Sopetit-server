@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
-import com.soptie.server.common.exception.MemberException;
 import com.soptie.server.common.support.ValueConfig;
 import com.soptie.server.domain.usecase.AuthService;
 import com.soptie.server.domain.usecase.MemberDollService;

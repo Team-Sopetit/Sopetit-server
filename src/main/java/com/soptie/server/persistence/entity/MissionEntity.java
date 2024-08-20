@@ -1,5 +1,7 @@
 package com.soptie.server.persistence.entity;
 
+import com.soptie.server.domain.challenge.Mission;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -17,4 +19,15 @@ public class MissionEntity extends BaseEntity {
 	private String place;
 	@Column(nullable = false)
 	private long challengeId;
+
+	public Mission toDomain() {
+		return Mission.builder()
+			.id(this.id)
+			.content(this.content)
+			.description(this.description)
+			.requiredTime(this.requiredTime)
+			.place(this.place)
+			.challengeId(this.challengeId)
+			.build();
+	}
 }

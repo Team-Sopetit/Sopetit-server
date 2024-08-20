@@ -1,7 +1,5 @@
 package com.soptie.server.domain.routine;
 
-import static com.soptie.server.common.support.ValueConfig.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -14,13 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.dto.response.routine.GetRoutinesByMemberResponse;
 import com.soptie.server.api.controller.dto.response.routine.GetRoutinesByThemeResponse;
-import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
-import com.soptie.server.persistence.adapter.ChallengeFinder;
-import com.soptie.server.persistence.adapter.MemberAdapter;
+import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.RoutineAdapter;
-import com.soptie.server.persistence.adapter.ThemeAdapter;
-import com.soptie.server.persistence.repository.dto.MemberChallengeResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -30,10 +24,7 @@ import lombok.val;
 @Transactional(readOnly = true)
 public class RoutineService {
 	private final RoutineAdapter routineAdapter;
-	private final ChallengeFinder challengeFinder;
-	private final MemberRoutineFinder memberRoutineFinder;
-	private final ThemeAdapter themeAdapter;
-	private final MemberAdapter memberAdapter;
+	private final MemberRoutineAdapter memberRoutineAdapter;
 
 	public GetRoutinesByThemeResponse getRoutinesByThemeIds(Set<Long> themeIds) {
 		val routinesByThemeId = new LinkedHashMap<Long, List<Routine>>();
@@ -46,7 +37,7 @@ public class RoutineService {
 
 	public GetRoutinesByMemberResponse getRoutinesByThemeId(long memberId, long themeId) {
 		val routines = routineAdapter.findByThemeId(themeId);
-		val memberRoutineIds = memberRoutineFinder.findByMemberId(memberId).stream()
+		val memberRoutineIds = memberRoutineAdapter.findByMemberId(memberId).stream()
 			.map(MemberRoutine::getRoutineId)
 			.toList();
 		return GetRoutinesByMemberResponse.of(getRoutineToMember(routines, memberRoutineIds));
@@ -61,27 +52,5 @@ public class RoutineService {
 			routineToMember.get(isMemberRoutine).add(routine);
 		}
 		return routineToMember;
-	}
-
-	public Map<String, ChallengeRoutineListAcquireServiceResponse> acquireAllInChallengeWithThemeId(
-		long memberId,
-		long themeId
-	) {
-		themeAdapter.isExistById(themeId);
-		val member = memberAdapter.findById(memberId);
-		val challengeIdByMember = getChallengeIdByMember(member);
-		val challengeRoutinesByTheme = routineAdapter.findChallengeRoutinesByTheme(themeId);
-		val themeToChallenge = new LinkedHashMap<String, ChallengeRoutineListAcquireServiceResponse>();
-		for (val routine : challengeRoutinesByTheme) {
-			val challenges = challengeFinder.findByRoutine(routine);
-			themeToChallenge.put(routine.getContent(),
-				ChallengeRoutineListAcquireServiceResponse.of(challenges, challengeIdByMember));
-		}
-		return themeToChallenge;
-	}
-
-	private long getChallengeIdByMember(Member member) {
-		val challengeByMember = memberRoutineFinder.findChallengeByMember(member);
-		return challengeByMember.map(MemberChallengeResponse::challengeId).orElse(MEMBER_HAS_NOT_CHALLENGE);
 	}
 }

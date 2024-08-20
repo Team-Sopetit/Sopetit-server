@@ -2,8 +2,10 @@ package com.soptie.server.domain.challenge;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
+@Getter
 public class Mission {
 	private Long id;
 	@NotNull
