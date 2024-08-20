@@ -1,4 +1,4 @@
-package com.soptie.server.external;
+package com.soptie.server.external.oauth;
 
 public interface KakaoService {
 

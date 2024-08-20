@@ -1,4 +1,4 @@
-package com.soptie.server.external;
+package com.soptie.server.external.oauth;
 
 import static com.soptie.server.common.message.AuthErrorCode.*;
 

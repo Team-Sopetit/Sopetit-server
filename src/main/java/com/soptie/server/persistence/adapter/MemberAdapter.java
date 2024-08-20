@@ -17,7 +17,7 @@ public class MemberAdapter {
 
 	public void deleteById(long memberId) {
 		val member = find(memberId);
-		//TODO: delete with 연관관계
+		//TODO: delete with 연관관계 (auth)
 		memberRepository.delete(member);
 	}
 

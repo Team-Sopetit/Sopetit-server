@@ -21,7 +21,10 @@ public enum SuccessMessage {
 	DELETE_ROUTINE("루틴 삭제 성공"),
 
 	/* challenge */
-	GET_CHALLENGE("도전루틴 조회 성공");
+	GET_CHALLENGE("도전루틴 조회 성공"),
+
+	/* version */
+	GET_VERSION("버전 조회 성공");
 
 	private final String message;
 }

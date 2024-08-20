@@ -1,4 +1,4 @@
-package com.soptie.server.api.controller.dto.response.memberroutine;
+package com.soptie.server.api.controller.dto.response.membermission;
 
 import static lombok.AccessLevel.*;
 
