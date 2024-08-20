@@ -18,7 +18,6 @@ import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.persistence.adapter.ChallengeFinder;
 import com.soptie.server.persistence.adapter.MemberAdapter;
-import com.soptie.server.persistence.adapter.MemberRoutineFinder;
 import com.soptie.server.persistence.adapter.RoutineAdapter;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
 import com.soptie.server.persistence.repository.dto.MemberChallengeResponse;

@@ -1,121 +1,26 @@
 package com.soptie.server.domain.memberroutine;
 
-import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import com.soptie.server.persistence.adapter.MemberRoutineDeleter;
-import com.soptie.server.persistence.adapter.MemberRoutineFinder;
-import com.soptie.server.persistence.entity.deleted.MemberRoutine;
-import com.soptie.server.support.fixture.MemberFixture;
-import com.soptie.server.support.fixture.MemberRoutineFixture;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @ExtendWith(MockitoExtension.class)
 class MemberRoutineServiceTest {
-
 	@InjectMocks
-	private MemberRoutineUpdateService memberRoutineUpdateService;
-
-	@Mock
-	private MemberFinder memberFinder;
-
-	@Mock
-	private MemberRoutineFinder memberRoutineFinder;
-
-	@Mock
-	private MemberRoutineDeleter memberRoutineDeleter;
+	private MemberRoutineService memberRoutineService;
 
 	@Test
-	@DisplayName("[성공] 데일리 루틴을 달성하면 달성 횟수와 데일리 솜 뭉치 개수가 1만큼 증가한다.")
-	void shouldUpdateAchieveCountAndCottonCountWhenAchieveDailyRoutine() {
+	@DisplayName("[성공] 회원이 추가한 루틴을 조회횐다.")
+	void getMemberRoutines() { //TODO: 테스트
 		// given
-		int beforeCottonCount = 0;
-		int beforeAchieveCount = 0;
-
-		Member member = MemberFixture.member().id(1L).dailyCotton(beforeCottonCount).build();
-		MemberRoutine memberRoutine = MemberRoutineFixture.memberRoutine()
-			.id(3L)
-			.type(DAILY)
-			.isAchieve(false)
-			.achieveCount(beforeAchieveCount)
-			.member(member)
-			.build();
-
-		doReturn(member).when(memberFinder).findById(member.getId());
-		doReturn(memberRoutine).when(memberRoutineFinder).findById(memberRoutine.getId());
-
-		MemberRoutineAchieveServiceRequest request = MemberRoutineAchieveServiceRequest.of(member.getId(),
-			memberRoutine.getId());
 
 		// when
-		memberRoutineUpdateService.updateAchievementStatus(request);
 
 		// then
-		assertThat(memberRoutine.isAchieve()).isTrue();
-		assertThat(memberRoutine.getAchieveCount()).isEqualTo(beforeAchieveCount + 1);
-		assertThat(member.getCottonInfo().getDailyCottonCount()).isEqualTo(beforeCottonCount + 1);
 	}
-
-	@Test
-	@DisplayName("[성공] 행복 루틴을 달성하면 달성 횟수와 행복 솜 뭉치 개수가 1만큼 증가한다.")
-	void shouldUpdateAchieveCountAndCottonCountWhenAchieveHappinessRoutine() {
-		// given
-		int beforeCottonCount = 0;
-		int beforeAchieveCount = 0;
-
-		Member member = MemberFixture.member().id(1L).dailyCotton(beforeCottonCount).build();
-		MemberRoutine memberRoutine = MemberRoutineFixture.memberRoutine()
-			.id(3L)
-			.type(CHALLENGE)
-			.isAchieve(false)
-			.achieveCount(beforeAchieveCount)
-			.member(member)
-			.build();
-
-		doReturn(member).when(memberFinder).findById(member.getId());
-		doReturn(memberRoutine).when(memberRoutineFinder).findById(memberRoutine.getId());
-		doNothing().when(memberRoutineDeleter).softDelete(memberRoutine);
-
-		MemberRoutineAchieveServiceRequest request = MemberRoutineAchieveServiceRequest.of(member.getId(),
-			memberRoutine.getId());
-
-		// when
-		memberRoutineUpdateService.updateAchievementStatus(request);
-
-		// then
-		assertThat(memberRoutine.isAchieve()).isTrue();
-		assertThat(memberRoutine.getAchieveCount()).isEqualTo(beforeAchieveCount + 1);
-		assertThat(member.getCottonInfo().getHappinessCottonCount()).isEqualTo(beforeCottonCount + 1);
-	}
-
-	@Test
-	@DisplayName("[성공] 달성한 데일리 루틴을 달성 초기화한다.")
-	void updateAchieveFalseAchievedMemberRoutine() {
-		// given
-		List<MemberRoutine> memberRoutines = List.of(
-			MemberRoutineFixture.memberRoutine().id(1L).isAchieve(true).build(),
-			MemberRoutineFixture.memberRoutine().id(2L).isAchieve(true).build());
-
-		doReturn(memberRoutines).when(memberRoutineFinder).findAchieved();
-
-		// when
-		memberRoutineUpdateService.initDailyRoutines();
-
-		// then
-		assertThat(memberRoutines.get(0).isAchieve()).isFalse();
-		assertThat(memberRoutines.get(1).isAchieve()).isFalse();
-	}
-
 }

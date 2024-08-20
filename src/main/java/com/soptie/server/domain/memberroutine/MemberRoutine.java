@@ -12,4 +12,15 @@ public class MemberRoutine {
 	private int achievementCount;
 	private long memberId;
 	private long routineId;
+
+	public void achieve() {
+		this.isAchievedToday = true;
+		this.achievementCount += this.isAchieved ? 1 : -1;
+		this.isAchieved = !this.isAchieved;
+	}
+
+	public void initAchievement() {
+		this.isAchievedToday = false;
+		this.isAchieved = false;
+	}
 }

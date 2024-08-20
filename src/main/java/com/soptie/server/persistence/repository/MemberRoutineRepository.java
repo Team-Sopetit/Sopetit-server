@@ -3,21 +3,20 @@ package com.soptie.server.persistence.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.soptie.server.persistence.entity.MemberRoutineEntity;
 
-public interface MemberRoutineRepository
-	extends JpaRepository<MemberRoutineEntity, Long>, MemberRoutineCustomRepository {
+public interface MemberRoutineRepository extends JpaRepository<MemberRoutineEntity, Long> {
+	@Query("SELECT mr FROM MemberRoutineEntity mr WHERE mr.memberId = :memberId AND mr.isDeleted = true")
+	List<MemberRoutineEntity> findDeletedByMemberId(long memberId);
+
+	@Query("SELECT mr FROM MemberRoutineEntity mr WHERE mr.isAchieved = :isAchieved AND mr.isDeleted = true")
+	List<MemberRoutineEntity> findDeletedByAchieved(boolean isAchieved);
+
 	List<MemberRoutineEntity> findByMemberId(long memberId);
 
-	boolean existsByMemberIdAndTypeAndRoutineId(long memberId, RoutineType type, long routineId);
+	List<MemberRoutineEntity> findByIdIn(List<Long> ids);
 
-	Optional<MemberRoutine> findByMemberIdAndTypeAndRoutineId(long memberId, RoutineType type, long routineId);
-
-	@SuppressWarnings("SpringDataMethodInconsistencyInspection")
-	List<MemberRoutine> findByIsAchieve(boolean isAchieve);
-
-	void deleteByMemberId(long memberId);
-
-	boolean existsByMemberIdAndType(long memberId, RoutineType type);
+	List<MemberRoutineEntity> findByAchieved(boolean isAchieved);
 }

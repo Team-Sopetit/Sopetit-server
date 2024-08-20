@@ -2,7 +2,6 @@ package com.soptie.server.domain.member;
 
 import static com.soptie.server.domain.doll.DollType.*;
 import static com.soptie.server.persistence.entity.deleted.RoutineType.*;
-import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.dto.request.member.MemberProfileCreateRequest;
-import com.soptie.server.persistence.adapter.MemberRoutineFinder;
 import com.soptie.server.domain.doll.DollType;
 import com.soptie.server.persistence.entity.deleted.Theme;
 import com.soptie.server.persistence.repository.DollRepository;
