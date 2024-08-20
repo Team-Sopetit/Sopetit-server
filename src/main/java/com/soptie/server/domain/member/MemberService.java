@@ -10,7 +10,6 @@ import com.soptie.server.persistence.adapter.ConversationFinder;
 import com.soptie.server.persistence.adapter.DollFinder;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberDollSaver;
-import com.soptie.server.persistence.adapter.MemberRoutineSaver;
 import com.soptie.server.persistence.adapter.RoutineAdapter;
 
 import lombok.RequiredArgsConstructor;

@@ -10,7 +10,10 @@ public enum SuccessMessage {
 	GET_THEME("테마 조회 성공"),
 
 	/* routine */
-	GET_ROUTINE("루틴 조회 성공");
+	CREATE_ROUTINE("루틴 추가 성공"),
+	GET_ROUTINE("루틴 조회 성공"),
+	ACHIEVE_ROUTINE("루틴 달성 성공"),
+	DELETE_ROUTINE("루틴 삭제 성공");
 
 	private final String message;
 }

@@ -2,8 +2,6 @@ package com.soptie.server.api.controller.dto.response.memberroutine;
 
 import static lombok.AccessLevel.*;
 
-import com.soptie.server.domain.memberroutine.MemberDailyRoutineCreateServiceResponse;
-
 import lombok.Builder;
 
 @Builder(access = PRIVATE)

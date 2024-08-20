@@ -26,8 +26,8 @@ public class MemberAdapter {
 	}
 
 	public void update(Member member) {
-		val foundMember = find(member.getId());
-		foundMember.update(member);
+		val memberEntity = find(member.getId());
+		memberEntity.update(member);
 	}
 
 	private MemberEntity find(long id) {

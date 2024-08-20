@@ -16,7 +16,6 @@ import com.soptie.server.domain.usecase.AuthService;
 import com.soptie.server.domain.usecase.MemberDollService;
 import com.soptie.server.external.AppleService;
 import com.soptie.server.external.KakaoService;
-import com.soptie.server.persistence.adapter.MemberRoutineDeleter;
 import com.soptie.server.persistence.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;

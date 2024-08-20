@@ -4,8 +4,6 @@ import static lombok.AccessLevel.*;
 
 import java.util.List;
 
-import com.soptie.server.domain.memberroutine.MemberDailyRoutinesAcquireServiceResponse;
-
 import lombok.Builder;
 import lombok.NonNull;
 

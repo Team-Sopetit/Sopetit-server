@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.docs.MemberChallengeRoutineV2ApiDocs;
+import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.memberroutine.MemberChallengeRoutineAcquireResponseV2;
-import com.soptie.server.domain.memberroutine.MemberRoutineReadService;
 import com.soptie.server.domain.memberroutine.MemberChallengeRoutineAcquireServiceRequest;
 
 import lombok.RequiredArgsConstructor;

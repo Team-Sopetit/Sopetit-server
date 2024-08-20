@@ -3,6 +3,7 @@ package com.soptie.server.persistence.entity;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.member.MemberCotton;
 import com.soptie.server.domain.member.Social;
+import com.soptie.server.domain.member.SocialType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
