@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.soptie.server.domain.conversation.Conversation;
 import com.soptie.server.domain.doll.DollType;
-import com.soptie.server.persistence.adapter.ConversationFinder;
+import com.soptie.server.persistence.adapter.ConversationAdapter;
 import com.soptie.server.persistence.adapter.DollFinder;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberDollSaver;
+import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.RoutineAdapter;
 
 import lombok.RequiredArgsConstructor;
@@ -20,12 +22,11 @@ import lombok.val;
 @Transactional(readOnly = true)
 public class MemberService {
 	private final MemberAdapter memberAdapter;
-
-	private final ConversationFinder conversationFinder;
+	private final ConversationAdapter conversationAdapter;
 	private final DollFinder dollFinder;
 	private final RoutineAdapter routineAdapter;
 	private final MemberDollSaver memberDollSaver;
-	private final MemberRoutineSaver memberRoutineSaver;
+	private final MemberRoutineAdapter memberRoutineAdapter;
 
 	@Transactional
 	public void createMemberProfile(MemberProfileCreateServiceRequest request) {
@@ -48,14 +49,14 @@ public class MemberService {
 		val member = memberAdapter.findById(request.memberId());
 		//TODO: check on MemberDoll
 		member.checkMemberDollExist();
-		val conversations = getConversations();
+		val conversations = conversationAdapter.findAll().stream().map(Conversation::getContent).toList();
 		return MemberHomeInfoGetServiceResponse.of(member, conversations);
 	}
 
 	private void createDailyRoutines(Member member, List<Long> routineIds) {
 		routineIds.forEach(id -> {
 			val routine = routineAdapter.findById(id);
-			memberRoutineSaver.checkHasDeletedAndSave(member, routine);
+			memberRoutineAdapter.checkHasDeletedAndSave(member, routine);
 		});
 	}
 
@@ -63,9 +64,5 @@ public class MemberService {
 		val doll = dollFinder.findByType(dollType);
 		val memberDoll = new MemberDoll(member, doll, name);
 		memberDollSaver.save(memberDoll);
-	}
-
-	private List<String> getConversations() {
-		return conversationFinder.findAll().stream().map(Conversation::getContent).toList();
 	}
 }
