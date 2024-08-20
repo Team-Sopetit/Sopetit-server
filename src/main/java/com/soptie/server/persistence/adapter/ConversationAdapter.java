@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @RepositoryAdapter
 @RequiredArgsConstructor
-public class ConversationFinder {
+public class ConversationAdapter {
 	private final ConversationRepository conversationRepository;
 
 	public List<Conversation> findAll() {
