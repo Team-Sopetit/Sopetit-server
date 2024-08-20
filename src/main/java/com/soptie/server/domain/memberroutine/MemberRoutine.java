@@ -18,4 +18,9 @@ public class MemberRoutine {
 		this.achievementCount += this.isAchieved ? 1 : -1;
 		this.isAchieved = !this.isAchieved;
 	}
+
+	public void initAchievement() {
+		this.isAchievedToday = false;
+		this.isAchieved = false;
+	}
 }

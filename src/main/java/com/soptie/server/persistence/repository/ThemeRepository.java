@@ -8,4 +8,6 @@ import com.soptie.server.persistence.entity.ThemeEntity;
 
 public interface ThemeRepository extends JpaRepository<ThemeEntity, Long> {
 	List<ThemeEntity> findByMakerIdIsNullOrderBySequenceAsc();
+
+	List<ThemeEntity> findByIdIn(List<Long> ids);
 }

@@ -26,6 +26,12 @@ public class ThemeAdapter {
 		return find(id).toDomain();
 	}
 
+	public List<Theme> findByIds(List<Long> ids) {
+		return themeRepository.findByIdIn(ids)
+			.stream().map(ThemeEntity::toDomain)
+			.toList();
+	}
+
 	public boolean isExistById(long id) {
 		return themeRepository.existsById(id);
 	}

@@ -1,5 +1,6 @@
 package com.soptie.server.persistence.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.soptie.server.common.exception.ExceptionCode;
@@ -52,6 +53,16 @@ public class MemberRoutineAdapter {
 	public void update(MemberRoutine memberRoutine) {
 		val memberRoutineEntity = find(memberRoutine.getId());
 		memberRoutineEntity.update(memberRoutine);
+	}
+
+	public List<MemberRoutine> findAchieved() {
+		val memberRoutines = new ArrayList<MemberRoutine>();
+		memberRoutines.addAll(memberRoutineRepository.findByAchieved(true).stream()
+			.map(MemberRoutineEntity::toDomain)
+			.toList());
+		memberRoutines.addAll(memberRoutineRepository.findDeletedByAchieved(true).stream().map(
+			MemberRoutineEntity::toDomain).toList());
+		return memberRoutines;
 	}
 
 	private MemberRoutineEntity restore(

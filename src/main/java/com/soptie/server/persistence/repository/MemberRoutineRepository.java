@@ -11,7 +11,12 @@ public interface MemberRoutineRepository extends JpaRepository<MemberRoutineEnti
 	@Query("SELECT mr FROM MemberRoutineEntity mr WHERE mr.memberId = :memberId AND mr.isDeleted = true")
 	List<MemberRoutineEntity> findDeletedByMemberId(long memberId);
 
+	@Query("SELECT mr FROM MemberRoutineEntity mr WHERE mr.isAchieved = :isAchieved AND mr.isDeleted = true")
+	List<MemberRoutineEntity> findDeletedByAchieved(boolean isAchieved);
+
 	List<MemberRoutineEntity> findByMemberId(long memberId);
 
 	List<MemberRoutineEntity> findByIdIn(List<Long> ids);
+
+	List<MemberRoutineEntity> findByAchieved(boolean isAchieved);
 }

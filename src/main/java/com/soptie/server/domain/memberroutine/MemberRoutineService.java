@@ -50,7 +50,11 @@ public class MemberRoutineService {
 		val routines = routineAdapter.findByIds(routinesIds);
 		val routinesById = routines.stream().collect(Collectors.toMap(Routine::getId, routine -> routine));
 
-		val routinesByTheme = toRoutinesByTheme(memberRoutines, routinesById);
+		val themeIds = routines.stream().map(Routine::getThemeId).distinct().toList();
+		val themes = themeAdapter.findByIds(themeIds);
+		val themesById = themes.stream().collect(Collectors.toMap(Theme::getId, theme -> theme));
+
+		val routinesByTheme = toRoutinesByTheme(memberRoutines, routinesById, themesById);
 		return GetMemberRoutinesResponse.of(routinesByTheme);
 	}
 
@@ -85,16 +89,25 @@ public class MemberRoutineService {
 		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
 	}
 
+	@Transactional
+	public void initAchievement() {
+		val memberRoutines = memberRoutineAdapter.findAchieved();
+		for (val memberRoutine : memberRoutines) {
+			memberRoutine.initAchievement();
+		}
+	}
+
 	private Map<Theme, Map<Routine, MemberRoutine>> toRoutinesByTheme(
 		List<MemberRoutine> memberRoutines,
-		Map<Long, Routine> routinesById
+		Map<Long, Routine> routinesById,
+		Map<Long, Theme> themesById
 	) {
 		return memberRoutines.stream()
 			.collect(Collectors.groupingBy(
 				// Theme-key
 				memberRoutine -> {
 					val themeId = routinesById.get(memberRoutine.getRoutineId()).getThemeId();
-					return themeAdapter.findById(themeId);
+					return themesById.get(themeId);
 				},
 
 				// Map-value
