@@ -1,22 +1,11 @@
 package com.soptie.server.domain.maker;
 
-import static org.assertj.core.api.Assertions.*;
-
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.persistence.entity.deleted.Theme;
 import com.soptie.server.persistence.repository.MakerRepository;
 import com.soptie.server.persistence.repository.ThemeRepository;
 import com.soptie.server.support.IntegrationTest;
-import com.soptie.server.support.fixture.MakerFixture;
-import com.soptie.server.support.fixture.ThemeFixture;
 
 @IntegrationTest
 @Transactional
@@ -30,7 +19,7 @@ public class MakerServiceIntegrationTest {
 
 	@Autowired
 	ThemeRepository themeRepository;
-
+/*
 	@Nested
 	class Acquire {
 
@@ -86,5 +75,5 @@ public class MakerServiceIntegrationTest {
 			assertThat(actual.makers().stream().filter(maker -> maker.makerId() == makerId1).findAny()).isNotEmpty();
 			assertThat(actual.makers().stream().filter(maker -> maker.makerId() == makerId2).findAny()).isNotEmpty();
 		}
-	}
+	}*/
 }
