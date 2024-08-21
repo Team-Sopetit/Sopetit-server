@@ -10,4 +10,8 @@ public class MemberMission {
 	private int achievementCount;
 	private long memberId;
 	private long missionId;
+
+	public void achieve() {
+		this.achievementCount++;
+	}
 }
