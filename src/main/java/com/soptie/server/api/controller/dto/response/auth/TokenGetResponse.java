@@ -1,8 +1,6 @@
 package com.soptie.server.api.controller.dto.response.auth;
 
-import static lombok.AccessLevel.*;
-
-import com.soptie.server.domain.auth.TokenGetServiceResponse;
+import static lombok.AccessLevel.PRIVATE;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -12,9 +10,9 @@ public record TokenGetResponse(
 	@NonNull String accessToken
 ) {
 
-	public static TokenGetResponse of(TokenGetServiceResponse response) {
+	public static TokenGetResponse from(String accessToken) {
 		return TokenGetResponse.builder()
-			.accessToken(response.accessToken())
+			.accessToken(accessToken)
 			.build();
 	}
 }

@@ -1,8 +1,8 @@
 package com.soptie.server.api.controller.dto.response.auth;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
-import com.soptie.server.domain.auth.SignInServiceResponse;
+import com.soptie.server.domain.auth.Token;
 
 import lombok.Builder;
 import lombok.NonNull;
@@ -14,11 +14,11 @@ public record SignInResponse(
 	boolean isMemberDollExist
 ) {
 
-	public static SignInResponse of(SignInServiceResponse response) {
+	public static SignInResponse of(Token token, boolean isMemberDollExist) {
 		return SignInResponse.builder()
-			.accessToken(response.accessToken())
-			.refreshToken(response.refreshToken())
-			.isMemberDollExist(response.isMemberDollExist())
+			.accessToken(token.getAccessToken())
+			.refreshToken(token.getRefreshToken())
+			.isMemberDollExist(isMemberDollExist)
 			.build();
 	}
 }
