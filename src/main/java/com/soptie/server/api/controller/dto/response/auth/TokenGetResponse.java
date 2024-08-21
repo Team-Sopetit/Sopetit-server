@@ -2,12 +2,12 @@ package com.soptie.server.api.controller.dto.response.auth;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.NonNull;
 
 @Builder(access = PRIVATE)
 public record TokenGetResponse(
-	@NonNull String accessToken
+	@NotNull String accessToken
 ) {
 
 	public static TokenGetResponse from(String accessToken) {

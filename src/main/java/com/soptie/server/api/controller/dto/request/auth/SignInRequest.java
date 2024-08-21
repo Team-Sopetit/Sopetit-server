@@ -2,10 +2,10 @@ package com.soptie.server.api.controller.dto.request.auth;
 
 import com.soptie.server.domain.member.SocialType;
 
-import lombok.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public record SignInRequest(
-	@NonNull SocialType socialType
+	@NotNull SocialType socialType
 ) {
 
 	public static SignInRequest of(SocialType socialType) {
