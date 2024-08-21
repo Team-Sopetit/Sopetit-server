@@ -38,12 +38,6 @@ public class MemberAdapter {
 		memberRepository.deleteById(memberId);
 	}
 
-	public void deleteById(long memberId) {
-		val member = find(memberId);
-		//TODO: delete with 연관관계 (auth)
-		memberRepository.delete(member);
-	}
-
 	public Member findById(long memberId) {
 		return find(memberId).toDomain();
 	}
