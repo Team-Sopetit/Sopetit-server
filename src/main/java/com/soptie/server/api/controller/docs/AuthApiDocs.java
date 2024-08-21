@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.soptie.server.api.controller.dto.request.auth.SignInRequest;
-import com.soptie.server.api.controller.dto.response.BaseResponse;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.auth.SignInResponse;
@@ -88,7 +87,7 @@ public interface AuthApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	BaseResponse signOut(@Parameter(hidden = true) Principal principal);
+	SuccessResponse<?> signOut(@Parameter(hidden = true) Principal principal);
 
 	@Operation(
 		summary = "회원 탈퇴",
@@ -111,5 +110,5 @@ public interface AuthApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	BaseResponse withdrawal(@Parameter(hidden = true) Principal principal);
+	SuccessResponse<?> withdrawal(@Parameter(hidden = true) Principal principal);
 }
