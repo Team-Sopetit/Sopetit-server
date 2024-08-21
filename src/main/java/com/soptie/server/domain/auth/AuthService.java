@@ -41,26 +41,27 @@ public class AuthService {
 	public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
 		val member = getMember(socialAccessToken, request.socialType());
 		val token = getToken(member);
-		val isMemberDollExist = isMemberDollExist(member.getId());
+		val isMemberDollExist = memberDollAdapter.isExistByMember(member.getId());
+		;
 		memberAdapter.update(member);
 		return SignInResponse.of(token, isMemberDollExist);
 	}
 
 	public TokenGetResponse reissueToken(String refreshToken) {
-		val member = findMember(refreshToken);
+		val member = memberAdapter.findByRefreshToken(getTokenFromBearerString(refreshToken));
 		val token = generateAccessToken(member.getId());
 		return TokenGetResponse.from(token);
 	}
 
 	@Transactional
 	public void signOut(long memberId) {
-		val member = findMember(memberId);
+		val member = memberAdapter.findById(memberId);
 		member.resetRefreshToken();
 	}
 
 	@Transactional
 	public void withdraw(long memberId) {
-		findMember(memberId);
+		memberAdapter.findById(memberId);
 		memberRoutineAdapter.deleteAllByMemberId(memberId);
 		memberMissionAdapter.deleteAllByMemberId(memberId);
 		memberDollAdapter.deleteByMember(memberId);
@@ -99,18 +100,6 @@ public class AuthService {
 			.accessToken(jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired()))
 			.refreshToken(jwtTokenProvider.generateToken(authentication, valueConfig.getRefreshTokenExpired()))
 			.build();
-	}
-
-	private boolean isMemberDollExist(long memberId) {
-		return memberDollAdapter.isExistByMember(memberId);
-	}
-
-	private Member findMember(long id) {
-		return memberAdapter.findById(id);
-	}
-
-	private Member findMember(String refreshToken) {
-		return memberAdapter.findByRefreshToken(getTokenFromBearerString(refreshToken));
 	}
 
 	private String getTokenFromBearerString(String token) {
