@@ -2,14 +2,12 @@ package com.soptie.server.api.controller.docs;
 
 import java.security.Principal;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import com.soptie.server.api.controller.dto.response.BaseResponse;
+import com.soptie.server.api.controller.dto.request.auth.SignInRequest;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.request.auth.SignInRequest;
 import com.soptie.server.api.controller.dto.response.auth.SignInResponse;
 import com.soptie.server.api.controller.dto.response.auth.TokenGetResponse;
 
@@ -37,7 +35,7 @@ public interface AuthApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<SignInResponse>> signIn(
+	SuccessResponse<SignInResponse> signIn(
 		@RequestHeader("Authorization") String socialAccessToken,
 		@RequestBody SignInRequest request
 	);
@@ -64,7 +62,7 @@ public interface AuthApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<SuccessResponse<TokenGetResponse>> reissueToken(
+	SuccessResponse<TokenGetResponse> reissueToken(
 		@RequestHeader("Authorization") String refreshToken
 	);
 
@@ -89,7 +87,7 @@ public interface AuthApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<BaseResponse> signOut(@Parameter(hidden = true) Principal principal);
+	SuccessResponse<?> signOut(@Parameter(hidden = true) Principal principal);
 
 	@Operation(
 		summary = "회원 탈퇴",
@@ -112,5 +110,5 @@ public interface AuthApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	ResponseEntity<BaseResponse> withdrawal(@Parameter(hidden = true) Principal principal);
+	SuccessResponse<?> withdrawal(@Parameter(hidden = true) Principal principal);
 }

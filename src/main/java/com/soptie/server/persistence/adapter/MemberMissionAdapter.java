@@ -26,6 +26,10 @@ public class MemberMissionAdapter {
 			.toList();
 	}
 
+	public void deleteAllByMemberId(long memberId) {
+		memberMissionRepository.deleteAllByMemberId(memberId);
+	}
+
 	public Optional<MemberMission> findByMember(long memberId) {
 		return memberMissionRepository.findByMemberId(memberId).map(MemberMissionEntity::toDomain);
 	}

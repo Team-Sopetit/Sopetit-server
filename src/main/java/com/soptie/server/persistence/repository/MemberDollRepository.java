@@ -10,4 +10,6 @@ public interface MemberDollRepository extends JpaRepository<MemberDollEntity, Lo
 	boolean existsByMemberId(long memberId);
 
 	Optional<MemberDollEntity> findByMemberId(long memberId);
+
+	void deleteByMemberId(long memberId);
 }

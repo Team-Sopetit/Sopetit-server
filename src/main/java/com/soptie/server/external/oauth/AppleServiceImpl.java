@@ -1,7 +1,5 @@
 package com.soptie.server.external.oauth;
 
-import static com.soptie.server.common.message.AuthErrorCode.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +23,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.soptie.server.common.exception.ExceptionCode;
+import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.ValueConfig;
 
 import io.jsonwebtoken.Jwts;
@@ -105,7 +105,7 @@ public class AppleServiceImpl implements AppleService {
 		val matchingPublicKey = findMatchingPublicKey(publicKeyList, kid, alg);
 
 		if (Objects.isNull(matchingPublicKey)) {
-			throw new AuthException(INVALID_KEY);
+			throw new SoftieException(ExceptionCode.UNAUTHORIZED);
 		}
 
 		return getPublicKey(matchingPublicKey);
@@ -147,7 +147,7 @@ public class AppleServiceImpl implements AppleService {
 
 			return keyFactory.generatePublic(publicKeySpec);
 		} catch (InvalidKeySpecException | NoSuchAlgorithmException exception) {
-			throw new AuthException(INVALID_KEY);
+			throw new SoftieException(ExceptionCode.UNAUTHORIZED);
 		}
 	}
 }

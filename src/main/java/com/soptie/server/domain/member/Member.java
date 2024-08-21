@@ -10,4 +10,12 @@ public class Member {
 	private Social socialInfo;
 	private String refreshToken;
 	private MemberCotton cottonInfo;
+
+	public void resetRefreshToken() {
+		this.refreshToken = null;
+	}
+
+	public void updateRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
+	}
 }

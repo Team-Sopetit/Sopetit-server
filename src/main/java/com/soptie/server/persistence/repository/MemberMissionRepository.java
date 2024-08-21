@@ -11,6 +11,8 @@ import com.soptie.server.persistence.entity.MemberMissionEntity;
 public interface MemberMissionRepository extends JpaRepository<MemberMissionEntity, Long> {
 	List<MemberMissionEntity> findByMemberIdAndMissionIdIn(long memberId, List<Long> missionIds);
 
+	void deleteAllByMemberId(long memberId);
+
 	Optional<MemberMissionEntity> findByMemberId(long memberId);
 
 	@Query("SELECT mm FROM MemberMissionEntity mm WHERE mm.memberId = :memberId AND mm.isDeleted = true")

@@ -10,8 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member", schema = "softie")
 public class MemberEntity extends BaseEntity {
 	@Enumerated(value = EnumType.STRING)
@@ -24,6 +27,13 @@ public class MemberEntity extends BaseEntity {
 	private int basicCottonCount;
 	@Column(nullable = false)
 	private int rainbowCottonCount;
+
+	public MemberEntity(SocialType socialType, String socialId) {
+		this.socialType = socialType;
+		this.socialId = socialId;
+		this.basicCottonCount = 0;
+		this.rainbowCottonCount = 0;
+	}
 
 	public void update(Member member) {
 		this.refreshToken = member.getRefreshToken();
