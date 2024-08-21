@@ -11,7 +11,6 @@ import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
 import com.soptie.server.common.support.ValueConfig;
 import com.soptie.server.domain.member.Member;
-import com.soptie.server.domain.member.MemberService;
 import com.soptie.server.domain.member.SocialType;
 import com.soptie.server.external.oauth.AppleService;
 import com.soptie.server.external.oauth.KakaoService;
@@ -19,7 +18,6 @@ import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberDollAdapter;
 import com.soptie.server.persistence.adapter.MemberMissionAdapter;
 import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
-import com.soptie.server.persistence.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -30,10 +28,8 @@ import lombok.val;
 public class AuthService {
 
 	private final JwtTokenProvider jwtTokenProvider;
-	private final MemberRepository memberRepository;
 	private final KakaoService kakaoService;
 	private final AppleService appleService;
-	private final MemberService memberService;
 	private final ValueConfig valueConfig;
 
 	private final MemberDollAdapter memberDollAdapter;
@@ -46,6 +42,7 @@ public class AuthService {
 		val member = getMember(socialAccessToken, request.socialType());
 		val token = getToken(member);
 		val isMemberDollExist = isMemberDollExist(member.getId());
+		memberAdapter.update(member);
 		return SignInResponse.of(token, isMemberDollExist);
 	}
 
@@ -83,13 +80,12 @@ public class AuthService {
 	}
 
 	private Member signUp(SocialType socialType, String socialId) {
-		return memberRepository.findBySocialTypeAndSocialId(socialType, socialId)
+		return memberAdapter.findBySocialTypeAndSocialId(socialType, socialId)
 			.orElseGet(() -> saveMember(socialType, socialId));
 	}
 
 	private Member saveMember(SocialType socialType, String socialId) {
-		val member = Member.builder().socialType(socialType).socialId(socialId).build();
-		return memberRepository.save(member);
+		return memberAdapter.save(socialType, socialId);
 	}
 
 	private Token getToken(Member member) {
@@ -110,12 +106,11 @@ public class AuthService {
 	}
 
 	private Member findMember(long id) {
-		return memberRepository.findById(id).orElseThrow(() -> new MemberException(INVALID_MEMBER));
+		return memberAdapter.findById(id);
 	}
 
 	private Member findMember(String refreshToken) {
-		return memberRepository.findByRefreshToken(getTokenFromBearerString(refreshToken))
-			.orElseThrow(() -> new MemberException(INVALID_MEMBER));
+		return memberAdapter.findByRefreshToken(getTokenFromBearerString(refreshToken));
 	}
 
 	private String getTokenFromBearerString(String token) {
@@ -125,9 +120,5 @@ public class AuthService {
 	private String generateAccessToken(long memberId) {
 		val authentication = new UserAuthentication(memberId, null, null);
 		return jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired());
-	}-
-
-	private void deleteMember(Member member) {
-		memberService.deleteMember(member);
 	}
 }
