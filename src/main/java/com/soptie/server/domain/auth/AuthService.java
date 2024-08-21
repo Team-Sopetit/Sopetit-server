@@ -1,19 +1,24 @@
 package com.soptie.server.domain.auth;
 
-import static com.soptie.server.common.message.MemberErrorCode.*;
-
-import java.util.Objects;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.soptie.server.api.controller.dto.request.auth.SignInRequest;
+import com.soptie.server.api.controller.dto.response.auth.SignInResponse;
+import com.soptie.server.api.controller.dto.response.auth.TokenGetResponse;
 import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
 import com.soptie.server.common.support.ValueConfig;
-import com.soptie.server.domain.usecase.AuthService;
+import com.soptie.server.domain.member.Member;
+import com.soptie.server.domain.member.MemberService;
+import com.soptie.server.domain.member.SocialType;
 import com.soptie.server.external.oauth.AppleService;
 import com.soptie.server.external.oauth.KakaoService;
+import com.soptie.server.persistence.adapter.MemberAdapter;
+import com.soptie.server.persistence.adapter.MemberDollAdapter;
+import com.soptie.server.persistence.adapter.MemberMissionAdapter;
+import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
 import com.soptie.server.persistence.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,48 +27,47 @@ import lombok.val;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class AuthServiceImpl implements AuthService {
+public class AuthService {
 
 	private final JwtTokenProvider jwtTokenProvider;
 	private final MemberRepository memberRepository;
 	private final KakaoService kakaoService;
 	private final AppleService appleService;
 	private final MemberService memberService;
-	private final MemberDollService memberDollService;
 	private final ValueConfig valueConfig;
 
-	private final MemberRoutineDeleter memberRoutineDeleter;
+	private final MemberDollAdapter memberDollAdapter;
+	private final MemberRoutineAdapter memberRoutineAdapter;
+	private final MemberMissionAdapter memberMissionAdapter;
+	private final MemberAdapter memberAdapter;
 
-	@Override
 	@Transactional
-	public SignInServiceResponse signIn(SignInServiceRequest request) {
-		val member = getMember(request.socialAccessToken(), request.socialType());
+	public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
+		val member = getMember(socialAccessToken, request.socialType());
 		val token = getToken(member);
-		val isMemberDollExist = member.isMemberDollExist();
-		return SignInServiceResponse.of(token, isMemberDollExist);
+		val isMemberDollExist = isMemberDollExist(member.getId());
+		return SignInResponse.of(token, isMemberDollExist);
 	}
 
-	@Override
-	public TokenGetServiceResponse reissueToken(TokenGetServiceRequest request) {
-		val member = findMember(request.refreshToken());
+	public TokenGetResponse reissueToken(String refreshToken) {
+		val member = findMember(refreshToken);
 		val token = generateAccessToken(member.getId());
-		return TokenGetServiceResponse.of(token);
+		return TokenGetResponse.from(token);
 	}
 
-	@Override
 	@Transactional
 	public void signOut(long memberId) {
 		val member = findMember(memberId);
 		member.resetRefreshToken();
 	}
 
-	@Override
 	@Transactional
 	public void withdraw(long memberId) {
-		val member = findMember(memberId);
-		deleteMemberDoll(member.getMemberDoll());
-		memberRoutineDeleter.deleteByMember(member);
-		deleteMember(member);
+		findMember(memberId);
+		memberRoutineAdapter.deleteAllByMemberId(memberId);
+		memberMissionAdapter.deleteAllByMemberId(memberId);
+		memberDollAdapter.deleteByMember(memberId);
+		memberAdapter.delete(memberId);
 	}
 
 	private Member getMember(String socialAccessToken, SocialType socialType) {
@@ -101,6 +105,10 @@ public class AuthServiceImpl implements AuthService {
 			.build();
 	}
 
+	private boolean isMemberDollExist(long memberId) {
+		return memberDollAdapter.isExistByMember(memberId);
+	}
+
 	private Member findMember(long id) {
 		return memberRepository.findById(id).orElseThrow(() -> new MemberException(INVALID_MEMBER));
 	}
@@ -117,13 +125,7 @@ public class AuthServiceImpl implements AuthService {
 	private String generateAccessToken(long memberId) {
 		val authentication = new UserAuthentication(memberId, null, null);
 		return jwtTokenProvider.generateToken(authentication, valueConfig.getAccessTokenExpired());
-	}
-
-	private void deleteMemberDoll(MemberDoll memberDoll) {
-		if (Objects.nonNull(memberDoll)) {
-			memberDollService.deleteMemberDoll(memberDoll); //TODO: using adapter
-		}
-	}
+	}-
 
 	private void deleteMember(Member member) {
 		memberService.deleteMember(member);
