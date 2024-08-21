@@ -19,4 +19,8 @@ public class MemberMissionAdapter {
 			.stream().map(MemberMissionEntity::toDomain)
 			.toList();
 	}
+
+	public void deleteAllByMemberId(long memberId) {
+		memberMissionRepository.deleteAllByMemberId(memberId);
+	}
 }

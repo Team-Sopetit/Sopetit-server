@@ -19,4 +19,6 @@ public interface MemberRoutineRepository extends JpaRepository<MemberRoutineEnti
 	List<MemberRoutineEntity> findByIdIn(List<Long> ids);
 
 	List<MemberRoutineEntity> findByAchieved(boolean isAchieved);
+
+	void deleteAllByMemberId(long memberId);
 }

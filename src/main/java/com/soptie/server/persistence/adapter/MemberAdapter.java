@@ -13,7 +13,12 @@ import lombok.val;
 @RepositoryAdapter
 @RequiredArgsConstructor
 public class MemberAdapter {
+
 	private final MemberRepository memberRepository;
+
+	public void delete(long memberId) {
+		memberRepository.deleteById(memberId);
+	}
 
 	public void deleteById(long memberId) {
 		val member = find(memberId);

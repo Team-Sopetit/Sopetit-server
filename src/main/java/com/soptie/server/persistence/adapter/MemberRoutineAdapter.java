@@ -18,6 +18,7 @@ import lombok.val;
 @RepositoryAdapter
 @RequiredArgsConstructor
 public class MemberRoutineAdapter {
+
 	private final MemberRoutineRepository memberRoutineRepository;
 
 	public List<MemberRoutine> saveAll(Member member, List<Routine> routines) {
@@ -44,6 +45,10 @@ public class MemberRoutineAdapter {
 	public void deleteAll(List<MemberRoutine> memberRoutines) {
 		val memberRoutineIds = memberRoutines.stream().map(MemberRoutine::getId).toList();
 		memberRoutineRepository.deleteAllByIdInBatch(memberRoutineIds);
+	}
+
+	public void deleteAllByMemberId(long memberId) {
+		memberRoutineRepository.deleteAllByMemberId(memberId);
 	}
 
 	public MemberRoutine findById(long memberRoutineId) {

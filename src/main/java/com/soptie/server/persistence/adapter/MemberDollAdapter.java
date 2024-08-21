@@ -36,6 +36,10 @@ public class MemberDollAdapter {
 		memberDollEntity.update(memberDoll);
 	}
 
+	public void deleteByMember(long memberId) {
+		memberDollRepository.deleteByMemberId(memberId);
+	}
+
 	private MemberDollEntity find(long id) {
 		return memberDollRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "MemberDoll ID: " + id));
