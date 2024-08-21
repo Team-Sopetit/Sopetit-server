@@ -1,7 +1,5 @@
 package com.soptie.server.external.oauth;
 
-import static com.soptie.server.common.message.AuthErrorCode.*;
-
 import java.util.Map;
 
 import org.springframework.http.HttpEntity;
@@ -11,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
+import com.soptie.server.common.exception.ExceptionCode;
+import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.ValueConfig;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class KakaoServiceImpl implements KakaoService {
 			val responseData = restTemplate.postForEntity(valueConfig.getKakaoUri(), httpEntity, Object.class);
 			return objectMapper.convertValue(responseData.getBody(), Map.class).get("id").toString();
 		} catch (Exception exception) {
-			throw new AuthException(INVALID_TOKEN);
+			throw new SoftieException(ExceptionCode.UNAUTHORIZED);
 		}
 	}
 }
