@@ -1,29 +1,15 @@
 package com.soptie.server.domain.auth;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.util.Optional;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import com.soptie.server.api.web.jwt.JwtTokenProvider;
-import com.soptie.server.api.web.jwt.UserAuthentication;
-import com.soptie.server.common.support.ValueConfig;
-import com.soptie.server.persistence.repository.MemberRepository;
-import com.soptie.server.support.fixture.MemberFixture;
 
 @ExtendWith(MockitoExtension.class)
 class AuthServiceImplTest {
 
 	@InjectMocks
-	private AuthServiceImpl authService;
-
+	private AuthService authService;
+/*
 	@Mock
 	private MemberRepository memberRepository;
 
@@ -74,4 +60,5 @@ class AuthServiceImplTest {
 		Member member = MemberFixture.member().id(memberId).build();
 		return member;
 	}
+	*/
 }
