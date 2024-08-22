@@ -9,10 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import com.soptie.server.persistence.entity.MemberRoutineEntity;
 
 public interface MemberRoutineRepository extends JpaRepository<MemberRoutineEntity, Long> {
-	@Query("SELECT mr FROM MemberRoutineEntity mr WHERE mr.memberId = :memberId AND mr.isDeleted = true")
+	@Query(
+		value = "SELECT * FROM member_routine WHERE member_id = :memberId AND is_deleted = true",
+		nativeQuery = true)
 	List<MemberRoutineEntity> findDeletedByMemberId(long memberId);
 
-	@Query("SELECT mr FROM MemberRoutineEntity mr WHERE mr.isAchieved = :isAchieved AND mr.isDeleted = true")
+	@Query(
+		value = "SELECT * FROM member_routine WHERE is_achieved = :isAchieved AND is_deleted = true",
+		nativeQuery = true)
 	List<MemberRoutineEntity> findDeletedByIsAchieved(boolean isAchieved);
 
 	List<MemberRoutineEntity> findByMemberId(long memberId);
