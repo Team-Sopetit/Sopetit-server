@@ -3,6 +3,7 @@ package com.soptie.server.persistence.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.soptie.server.persistence.entity.MemberRoutineEntity;
@@ -21,6 +22,10 @@ public interface MemberRoutineRepository extends JpaRepository<MemberRoutineEnti
 	@SuppressWarnings("SpringDataMethodInconsistencyInspection")
 	List<MemberRoutineEntity> findByIsAchieved(boolean isAchieved);
 
+	@Modifying
+	@Query(
+		value = "DELETE FROM member_routine WHERE member_id = :memberId",
+		nativeQuery = true)
 	void deleteAllByMemberId(long memberId);
 
 	void deleteAllByIdIn(List<Long> ids);
