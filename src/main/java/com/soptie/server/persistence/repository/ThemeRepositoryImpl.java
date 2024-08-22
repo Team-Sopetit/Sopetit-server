@@ -1,12 +1,15 @@
 package com.soptie.server.persistence.repository;
 
-import java.util.ArrayList;
+import static com.soptie.server.persistence.entity.QMakerEntity.*;
+import static com.soptie.server.persistence.entity.QThemeEntity.*;
+
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soptie.server.api.controller.dto.response.maker.MakerThemeResponse;
+import com.soptie.server.api.controller.dto.response.maker.QMakerThemeResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,11 +21,10 @@ public class ThemeRepositoryImpl implements ThemeCustomRepository {
 
 	@Override
 	public List<MakerThemeResponse> findAllWithMaker() {
-		return new ArrayList<>();
-		// return queryFactory.select(new QMakerThemeResponse(theme, maker))
-		// 	.from(theme)
-		// 	.leftJoin(maker).on(theme.makerId.eq(maker.id))
-		// 	.fetchJoin()
-		// 	.fetch();
+		return queryFactory.select(new QMakerThemeResponse(themeEntity, makerEntity))
+			.from(themeEntity)
+			.leftJoin(makerEntity).on(themeEntity.makerId.eq(makerEntity.id))
+			.fetchJoin()
+			.fetch();
 	}
 }
