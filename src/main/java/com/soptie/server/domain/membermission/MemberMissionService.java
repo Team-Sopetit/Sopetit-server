@@ -63,6 +63,7 @@ public class MemberMissionService {
 		}
 		memberMission.achieve();
 		memberMissionAdapter.update(memberMission);
+		memberMissionAdapter.flush();
 		memberMissionAdapter.delete(memberMission);
 	}
 

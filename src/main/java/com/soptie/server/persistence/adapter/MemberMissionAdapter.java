@@ -53,6 +53,10 @@ public class MemberMissionAdapter {
 			.toDomain();
 	}
 
+	public void flush() {
+		memberMissionRepository.flush();
+	}
+
 	private MemberMissionEntity restore(
 		List<MemberMissionEntity> deletedMemberMissions,
 		Member member,
