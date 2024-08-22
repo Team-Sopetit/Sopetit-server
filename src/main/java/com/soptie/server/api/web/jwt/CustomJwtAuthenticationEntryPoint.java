@@ -1,6 +1,5 @@
 package com.soptie.server.api.web.jwt;
 
-import static com.soptie.server.common.message.AuthErrorCode.*;
 import static jakarta.servlet.http.HttpServletResponse.*;
 import static org.springframework.http.MediaType.*;
 
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
+import com.soptie.server.common.exception.ExceptionCode;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,6 +36,7 @@ public class CustomJwtAuthenticationEntryPoint implements AuthenticationEntryPoi
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType(APPLICATION_JSON_VALUE);
 		response.setStatus(SC_UNAUTHORIZED);
-		response.getWriter().println(objectMapper.writeValueAsString(ErrorResponse.of(INVALID_TOKEN.getMessage())));
+		response.getWriter()
+			.println(objectMapper.writeValueAsString(ErrorResponse.of(ExceptionCode.UNAUTHORIZED.getMessage())));
 	}
 }

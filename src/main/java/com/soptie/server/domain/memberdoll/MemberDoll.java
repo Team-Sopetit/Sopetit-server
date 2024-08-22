@@ -3,10 +3,12 @@ package com.soptie.server.domain.memberdoll;
 import com.soptie.server.domain.doll.DollType;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Builder
+@AllArgsConstructor
 @Getter
 public class MemberDoll {
 	private Long id;

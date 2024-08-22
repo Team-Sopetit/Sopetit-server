@@ -5,6 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.soptie.server.domain.member.MemberService;
 import com.soptie.server.persistence.repository.DollRepository;
 import com.soptie.server.persistence.repository.MemberDollRepository;
 
@@ -12,7 +13,7 @@ import com.soptie.server.persistence.repository.MemberDollRepository;
 class MemberDollServiceImplTest {
 
 	@InjectMocks
-	private MemberDollServiceImpl memberDollService;
+	private MemberService memberService;
 
 	@Mock
 	private DollRepository dollRepository;
