@@ -1,5 +1,7 @@
 package com.soptie.server.domain.memberdoll;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,26 +22,14 @@ class MemberDollServiceImplTest {
 
 	@Mock
 	private MemberDollRepository memberDollRepository;
-/*
+
 	@Test
 	@DisplayName("멤버 인형을 생성하고 이를 멤버의 멤버 인형으로 설정한다.")
-	void addMemberDoll() {
+	void createMemberDollAndSetMember() { //TODO: 테스트
 		// given
-		long id = 1L;
-		String name = "brownie";
-		Member member = member(id);
-		doReturn(Optional.of(new Doll())).when(dollRepository).findByDollType(BROWN);
 
 		// when
-		memberDollService.createMemberDoll(member, BROWN, name);
 
 		// then
-		assertThat(member.getMemberDoll().getName()).isEqualTo(name);
 	}
-
-	private Member member(long memberId) {
-		Member member = MemberFixture.member().id(memberId).build();
-		return member;
-	}
- */
 }
