@@ -12,7 +12,7 @@ import com.soptie.server.persistence.repository.DollRepository;
 import com.soptie.server.persistence.repository.MemberDollRepository;
 
 @ExtendWith(MockitoExtension.class)
-class MemberDollServiceImplTest {
+class MemberDollServiceTest {
 
 	@InjectMocks
 	private MemberService memberService;

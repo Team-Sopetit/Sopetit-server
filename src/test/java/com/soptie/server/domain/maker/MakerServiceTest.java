@@ -2,13 +2,15 @@ package com.soptie.server.domain.maker;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.soptie.server.support.IntegrationTest;
+@ExtendWith(MockitoExtension.class)
+public class MakerServiceTest {
 
-@IntegrationTest
-@Transactional
-public class MakerServiceIntegrationTest {
+	@InjectMocks
+	private MakerService makerService;
 
 	@Test
 	@DisplayName("[성공] 메이커와 해당하는 테마 정보를 조회한다.")

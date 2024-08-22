@@ -13,7 +13,7 @@ class MemberServiceTest {
 	private MemberService memberService;
 
 	@Test
-	@DisplayName("멤버 프로필 생성 시, 멤버 데일리 루틴 생성과 멤버 인형 생성 메소드를 호출한다.")
+	@DisplayName("[성공] 응답이 유효하면 회원 프로필이 생성된다.")
 	void createMemberProfileSuccessfully() { //TODO: 테스트
 		// given
 
