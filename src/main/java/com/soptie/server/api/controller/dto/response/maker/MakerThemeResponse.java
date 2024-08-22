@@ -1,36 +1,36 @@
 package com.soptie.server.api.controller.dto.response.maker;
 
-import java.util.List;
-
 import com.querydsl.core.annotations.QueryProjection;
-import com.soptie.server.persistence.entity.deleted.Theme;
+import com.soptie.server.domain.maker.Maker;
+import com.soptie.server.domain.maker.Tags;
+import com.soptie.server.domain.theme.Theme;
 
-import lombok.NonNull;
+import jakarta.validation.constraints.NotNull;
 
 public record MakerThemeResponse(
-	long makerId,
-	@NonNull String content,
-	@NonNull String name,
-	@NonNull String profileImageUrl,
-	@NonNull List<String> tags,
 	long themeId,
-	@NonNull String description,
-	@NonNull String themeName,
-	@NonNull String modifier
+	@NotNull String description,
+	@NotNull String name,
+	@NotNull String comment,
+	long makerId,
+	@NotNull String makerName,
+	@NotNull String introductionUrl,
+	@NotNull String profileImageUrl,
+	@NotNull Tags tags
 ) {
 
 	@QueryProjection
-	public MakerThemeResponse(Maker maker, Theme theme) {
+	public MakerThemeResponse(Theme theme, Maker maker) {
 		this(
-			maker.getId(),
-			maker.getContent(),
-			maker.getName(),
-			maker.getProfileImageUrl(),
-			maker.getTags(),
 			theme.getId(),
 			theme.getDescription(),
 			theme.getName(),
-			theme.getModifier()
+			theme.getComment(),
+			maker.getId(),
+			maker.getName(),
+			maker.getIntroductionUrl(),
+			maker.getProfileImageUrl(),
+			maker.getTags()
 		);
 	}
 }

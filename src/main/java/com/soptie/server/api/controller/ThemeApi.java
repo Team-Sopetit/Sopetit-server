@@ -19,6 +19,7 @@ import lombok.val;
 @RequiredArgsConstructor
 @RequestMapping("/api/v2/themes")
 public class ThemeApi implements ThemeApiDocs {
+
 	private final ThemeService themeService;
 
 	@ResponseStatus(HttpStatus.OK)

@@ -2,7 +2,7 @@ package com.soptie.server.api.controller.docs;
 
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.maker.MakerListAcquireResponse;
+import com.soptie.server.api.controller.dto.response.maker.GetMakerListResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,5 +27,5 @@ public interface MakerApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<MakerListAcquireResponse> acquireAll();
+	SuccessResponse<GetMakerListResponse> acquireAll();
 }

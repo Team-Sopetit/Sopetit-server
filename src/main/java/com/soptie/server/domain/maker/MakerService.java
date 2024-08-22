@@ -3,7 +3,8 @@ package com.soptie.server.domain.maker;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.persistence.adapter.MakerAdapter;
+import com.soptie.server.api.controller.dto.response.maker.GetMakerListResponse;
+import com.soptie.server.persistence.adapter.ThemeAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -13,10 +14,10 @@ import lombok.val;
 @Transactional(readOnly = true)
 public class MakerService {
 
-	private final MakerAdapter makerAdapter;
+	private final ThemeAdapter themeAdapter;
 
-	public MakerListAcquireServiceResponse acquireAll() {
-		val makers = makerAdapter.findAllWithTheme();
-		return MakerListAcquireServiceResponse.from(makers);
+	public GetMakerListResponse acquireAll() {
+		val themes = themeAdapter.findAllWithMaker();
+		return GetMakerListResponse.from(themes);
 	}
 }

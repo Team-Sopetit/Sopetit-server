@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.soptie.server.persistence.entity.MakerEntity;
 
-public interface MakerRepository extends JpaRepository<MakerEntity, Long>, MakerCustomRepository {
+public interface MakerRepository extends JpaRepository<MakerEntity, Long> {
 }
