@@ -62,10 +62,10 @@ public class MemberRoutineAdapter {
 
 	public List<MemberRoutine> findAchieved() {
 		val memberRoutines = new ArrayList<MemberRoutine>();
-		memberRoutines.addAll(memberRoutineRepository.findByAchieved(true).stream()
+		memberRoutines.addAll(memberRoutineRepository.findByIsAchieved(true).stream()
 			.map(MemberRoutineEntity::toDomain)
 			.toList());
-		memberRoutines.addAll(memberRoutineRepository.findDeletedByAchieved(true).stream().map(
+		memberRoutines.addAll(memberRoutineRepository.findDeletedByIsAchieved(true).stream().map(
 			MemberRoutineEntity::toDomain).toList());
 		return memberRoutines;
 	}

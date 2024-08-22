@@ -12,13 +12,14 @@ public interface MemberRoutineRepository extends JpaRepository<MemberRoutineEnti
 	List<MemberRoutineEntity> findDeletedByMemberId(long memberId);
 
 	@Query("SELECT mr FROM MemberRoutineEntity mr WHERE mr.isAchieved = :isAchieved AND mr.isDeleted = true")
-	List<MemberRoutineEntity> findDeletedByAchieved(boolean isAchieved);
+	List<MemberRoutineEntity> findDeletedByIsAchieved(boolean isAchieved);
 
 	List<MemberRoutineEntity> findByMemberId(long memberId);
 
 	List<MemberRoutineEntity> findByIdIn(List<Long> ids);
 
-	List<MemberRoutineEntity> findByAchieved(boolean isAchieved);
+	@SuppressWarnings("SpringDataMethodInconsistencyInspection")
+	List<MemberRoutineEntity> findByIsAchieved(boolean isAchieved);
 
 	void deleteAllByMemberId(long memberId);
 }
