@@ -15,6 +15,8 @@ public interface MemberMissionRepository extends JpaRepository<MemberMissionEnti
 
 	Optional<MemberMissionEntity> findByMemberId(long memberId);
 
-	@Query("SELECT mm FROM MemberMissionEntity mm WHERE mm.memberId = :memberId AND mm.isDeleted = true")
+	@Query(
+		value = "SELECT * FROM member_mission WHERE member_id = :memberId AND is_deleted = true",
+		nativeQuery = true)
 	List<MemberMissionEntity> findDeletedByMemberId(long memberId);
 }
