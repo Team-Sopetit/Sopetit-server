@@ -1,6 +1,6 @@
 package com.soptie.server.api.controller.dto.response.maker;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public record GetMakerListResponse(
 		@Schema(description = "메이커 id", example = "1")
 		long makerId,
 		@Schema(description = "메이커 소개 페이지 url", example = "https://www.test")
-		@NotNull String content,
+		@NotNull String introductionUrl,
 		@Schema(description = "메이커 이름", example = "소프티")
 		@NotNull String name,
 		@Schema(description = "메이커 프로필 이미지 url", example = "https://www.test")
@@ -39,20 +39,20 @@ public record GetMakerListResponse(
 		@Schema(description = "테마 이름", example = "소프티해지기")
 		@NotNull String themeName,
 		@Schema(description = "수식어", example = "200만 유튜버와 함께 하는")
-		@NotNull String modifier
+		@NotNull String comment
 	) {
 
 		public static GetMakerResponse from(MakerThemeResponse response) {
 			return GetMakerResponse.builder()
 				.makerId(response.maker().getId())
-				.content(response.maker().getIntroductionUrl())
+				.introductionUrl(response.maker().getIntroductionUrl())
 				.name(response.maker().getName())
 				.profileImageUrl(response.maker().getProfileImageUrl())
 				.tags(response.maker().getTags().toTagList())
 				.themeId(response.theme().getId())
 				.description(response.theme().getDescription())
 				.themeName(response.theme().getName())
-				.modifier(response.theme().getComment())
+				.comment(response.theme().getComment())
 				.build();
 		}
 	}
