@@ -44,7 +44,7 @@ public class MemberRoutineAdapter {
 
 	public void deleteAll(List<MemberRoutine> memberRoutines) {
 		val memberRoutineIds = memberRoutines.stream().map(MemberRoutine::getId).toList();
-		memberRoutineRepository.deleteAllByIdInBatch(memberRoutineIds);
+		memberRoutineRepository.deleteAllByIdIn(memberRoutineIds);
 	}
 
 	public void deleteAllByMemberId(long memberId) {
