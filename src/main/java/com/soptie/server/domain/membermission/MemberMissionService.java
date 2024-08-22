@@ -54,6 +54,7 @@ public class MemberMissionService {
 
 	@Transactional
 	public void achieveMemberMission(long memberId, long missionId) {
+		val member = memberAdapter.findById(memberId);
 		val memberMission = memberMissionAdapter.findByMember(memberId)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Member ID: " + memberId));
 		if (memberMission.getId() != missionId) {
@@ -61,6 +62,8 @@ public class MemberMissionService {
 				ExceptionCode.NOT_AVAILABLE,
 				"Member ID: " + memberId + ", Mission ID: " + missionId);
 		}
+		member.getCottonInfo().addRainbowCottonCount();
+		memberAdapter.update(member);
 		memberMission.achieve();
 		memberMissionAdapter.update(memberMission);
 		memberMissionAdapter.flush();
