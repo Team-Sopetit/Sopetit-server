@@ -26,7 +26,7 @@ import lombok.val;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/routines/happiness/member")
 public class MemberMissionApi implements MemberMissionApiDocs {
-	private MemberMissionService memberMissionService;
+	private final MemberMissionService memberMissionService;
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
