@@ -42,7 +42,7 @@ public class AuthService {
 		val member = getMember(socialAccessToken, request.socialType());
 		val token = getToken(member);
 		val isMemberDollExist = memberDollAdapter.isExistByMember(member.getId());
-		;
+
 		memberAdapter.update(member);
 		return SignInResponse.of(token, isMemberDollExist);
 	}
