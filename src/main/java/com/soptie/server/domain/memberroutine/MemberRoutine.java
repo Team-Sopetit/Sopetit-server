@@ -15,7 +15,7 @@ public class MemberRoutine {
 
 	public void achieve() {
 		this.isAchievedToday = true;
-		this.achievementCount += this.isAchieved ? 1 : -1;
+		this.achievementCount += !this.isAchieved ? 1 : -1;
 		this.isAchieved = !this.isAchieved;
 	}
 
