@@ -2,6 +2,7 @@ package com.soptie.server.persistence.adapter;
 
 import java.util.List;
 
+import com.soptie.server.api.controller.dto.response.maker.MakerThemeResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.RepositoryAdapter;
@@ -14,12 +15,17 @@ import lombok.RequiredArgsConstructor;
 @RepositoryAdapter
 @RequiredArgsConstructor
 public class ThemeAdapter {
+
 	private final ThemeRepository themeRepository;
 
 	public List<Theme> findByBasic() {
 		return themeRepository.findByMakerIdIsNullOrderBySequenceAsc()
 			.stream().map(ThemeEntity::toDomain)
 			.toList();
+	}
+
+	public List<MakerThemeResponse> findAllWithMaker() {
+		return themeRepository.findAllWithMaker();
 	}
 
 	public Theme findById(long id) {
