@@ -1,7 +1,7 @@
 package com.soptie.server.persistence.repository;
 
-import static com.soptie.server.persistence.entity.QMakerEntity.*;
-import static com.soptie.server.persistence.entity.QThemeEntity.*;
+import static com.soptie.server.persistence.entity.QMakerEntity.makerEntity;
+import static com.soptie.server.persistence.entity.QThemeEntity.themeEntity;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class ThemeRepositoryImpl implements ThemeCustomRepository {
 	public List<MakerThemeResponse> findAllWithMaker() {
 		return queryFactory.select(new QMakerThemeResponse(themeEntity, makerEntity))
 			.from(themeEntity)
-			.leftJoin(makerEntity).on(themeEntity.makerId.eq(makerEntity.id))
+			.innerJoin(makerEntity).on(themeEntity.makerId.eq(makerEntity.id))
 			.fetchJoin()
 			.fetch();
 	}
