@@ -78,6 +78,6 @@ public class MemberMissionService {
 		val mission = missionAdapter.findById(memberMission.getMissionId());
 		val challenge = challengeAdapter.findById(mission.getChallengeId());
 		val theme = themeAdapter.findById(challenge.getThemeId());
-		return GetMemberMissionResponse.of(theme, challenge, mission);
+		return GetMemberMissionResponse.of(memberMission, theme, challenge, mission);
 	}
 }
