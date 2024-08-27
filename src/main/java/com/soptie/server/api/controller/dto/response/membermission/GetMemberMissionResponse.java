@@ -2,6 +2,7 @@ package com.soptie.server.api.controller.dto.response.membermission;
 
 import com.soptie.server.domain.challenge.Challenge;
 import com.soptie.server.domain.challenge.Mission;
+import com.soptie.server.domain.membermission.MemberMission;
 import com.soptie.server.domain.theme.Theme;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,9 +30,11 @@ public record GetMemberMissionResponse(
 	@NotNull String timeTaken
 ) {
 
-	public static GetMemberMissionResponse of(Theme theme, Challenge challenge, Mission mission) {
+	public static GetMemberMissionResponse of(
+		MemberMission memberMission, Theme theme, Challenge challenge, Mission mission
+	) {
 		return GetMemberMissionResponse.builder()
-			.routineId(mission.getId())
+			.routineId(memberMission.getId())
 			.themeId(theme.getId())
 			.themeName(theme.getName())
 			.title(challenge.getName())
