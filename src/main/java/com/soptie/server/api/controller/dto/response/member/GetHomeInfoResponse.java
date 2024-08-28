@@ -22,7 +22,8 @@ public record GetHomeInfoResponse(
 	@Schema(description = "무지개 솜뭉치 개수", example = "10")
 	int happinessCottonCount,
 	@Schema(description = "대화 내용 목록", example = "[\"안녕?\", \"반가워~\"]")
-	@NotNull List<String> conversations
+	@NotNull List<String> conversations,
+	String frameImageUrl //TODO: delete
 ) {
 
 	public static GetHomeInfoResponse of(Member member, MemberDoll memberDoll, List<String> conversations) {
@@ -32,6 +33,17 @@ public record GetHomeInfoResponse(
 			.dailyCottonCount(member.getCottonInfo().getBasicCottonCount())
 			.happinessCottonCount(member.getCottonInfo().getRainbowCottonCount())
 			.conversations(conversations)
+			.frameImageUrl(getFrameImageUrl(memberDoll.getDollId()))
 			.build();
+	}
+
+	private static String getFrameImageUrl(long dollId) {
+		return switch ((int)dollId) {
+			case 1 -> "https://github.com/Team-Sopetit/sopetit-image/blob/main/character/brown/background.png?raw=true";
+			case 2 -> "https://github.com/Team-Sopetit/sopetit-image/blob/main/character/gray/background.png?raw=true";
+			case 3 -> "https://github.com/Team-Sopetit/sopetit-image/blob/main/character/red/background.png?raw=true";
+			default ->
+				"https://github.com/Team-Sopetit/sopetit-image/blob/main/character/white/background.png?raw=true";
+		};
 	}
 }
