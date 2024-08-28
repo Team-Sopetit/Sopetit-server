@@ -33,7 +33,7 @@ public record DailyRoutineThemesResponse(
 				.themeId(theme.getId())
 				.name(theme.getName())
 				.iconImageUrl(ThemeData.getIconImageUrl(theme.getId()))
-				.backgroundImageUrl(ThemeData.getBackgroundImageUrl(theme.getId()))
+				.backgroundImageUrl(ThemeData.getDailyBackgroundImageUrl(theme.getId()))
 				.build();
 		}
 	}

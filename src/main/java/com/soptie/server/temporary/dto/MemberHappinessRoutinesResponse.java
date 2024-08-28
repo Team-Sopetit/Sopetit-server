@@ -48,7 +48,7 @@ public record MemberHappinessRoutinesResponse(
 		private static ThemeServiceResponse of(Theme theme) {
 			return ThemeServiceResponse.builder()
 				.iconImageUrl(ThemeData.getIconImageUrl(theme.getId()))
-				.cardImageUrl(ThemeData.getBackgroundImageUrl(theme.getId()))
+				.cardImageUrl(ThemeData.getHappinessBackgroundUrl(theme.getId()))
 				.name(theme.getName())
 				.color(ThemeData.getColor(theme.getId()))
 				.build();

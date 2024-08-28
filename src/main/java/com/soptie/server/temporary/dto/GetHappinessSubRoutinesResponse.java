@@ -27,7 +27,7 @@ public record GetHappinessSubRoutinesResponse(
 			.name(theme.getName())
 			.nameColor(ThemeData.getColor(theme.getId()))
 			.iconImageUrl(ThemeData.getIconImageUrl(theme.getId()))
-			.contentImageUrl(ThemeData.getBackgroundImageUrl(theme.getId()))
+			.contentImageUrl(ThemeData.getHappinessBackgroundUrl(theme.getId()))
 			.subRoutines(missions.stream().map(HappinessSubRoutineResponse::of).toList())
 			.build();
 	}
