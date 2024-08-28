@@ -17,7 +17,7 @@ public record GetDailyRoutinesResponse(
 
 	public static GetDailyRoutinesResponse of(long themeId, List<Routine> routines) {
 		return GetDailyRoutinesResponse.builder()
-			.backgroundImageUrl(ThemeData.getBackgroundImageUrl(themeId))
+			.backgroundImageUrl(ThemeData.getDailyBackgroundImageUrl(themeId))
 			.routines(routines.stream().map(DailyRoutineResponse::of).toList())
 			.build();
 	}
