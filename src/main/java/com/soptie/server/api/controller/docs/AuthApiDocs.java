@@ -3,7 +3,6 @@ package com.soptie.server.api.controller.docs;
 import java.security.Principal;
 
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.soptie.server.api.controller.dto.request.auth.SignInRequest;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
@@ -36,7 +35,7 @@ public interface AuthApiDocs {
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
 	SuccessResponse<SignInResponse> signIn(
-		@RequestHeader("Authorization") String socialAccessToken,
+		@Parameter(hidden = true) String socialAccessToken,
 		@RequestBody SignInRequest request
 	);
 
@@ -63,7 +62,7 @@ public interface AuthApiDocs {
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
 	SuccessResponse<TokenGetResponse> reissueToken(
-		@RequestHeader("Authorization") String refreshToken
+		@Parameter(hidden = true) String refreshToken
 	);
 
 	@Operation(
