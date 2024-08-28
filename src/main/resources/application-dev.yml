@@ -16,24 +16,6 @@ spring:
         format_sql: true
         default_batch_fetch_size: 1000
         auto_quote_keyword: true
-  security:
-    oauth2:
-      client:
-        registration:
-          kakao:
-            client-id: ${KAKAO.CLIENT_ID}
-            redirect-uri: ${KAKAO.REDIRECT_URI}
-            authorization-grant-type: authorization_code
-            scope: profile_nickname
-            client-name: Kakao
-            client-secret: ${KAKAO.CLIENT_SECRET}
-            client-authentication-method: POST
-        provider:
-          kakao:
-            authorization-uri: https://kauth.kakao.com/oauth/authorize
-            token-uri: https://kauth.kakao.com/oauth/token
-            user-info-uri: https://kapi.kakao.com/v2/user/me
-            user-name-attribute: id
 
 logging:
   level:
@@ -46,7 +28,7 @@ jwt:
   secret: ${JWT.SECRET}
   KAKAO_URL: https://kapi.kakao.com/v2/user/me
   APPLE_URL: https://appleid.apple.com/auth/keys
-  ACCESS_TOKEN_EXPIRED: 60000
+  ACCESS_TOKEN_EXPIRED: 7200000
   REFRESH_TOKEN_EXPIRED: 1209600000
 
 softie:

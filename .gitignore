@@ -38,3 +38,6 @@ out/
 
 ### configuration ###
 application-secret.yml
+
+### JPAQueryFactory ###
+generated
