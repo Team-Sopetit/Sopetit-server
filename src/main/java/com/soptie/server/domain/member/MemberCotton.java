@@ -23,4 +23,11 @@ public class MemberCotton {
 			case HAPPINESS -> rainbowCottonCount--;
 		}
 	}
+
+	public int getCottonCount(CottonType type) {
+		return switch (type) {
+			case DAILY -> basicCottonCount;
+			case HAPPINESS -> rainbowCottonCount;
+		};
+	}
 }

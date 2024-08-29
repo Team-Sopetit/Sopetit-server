@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
 import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
 import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
+import com.soptie.server.common.exception.ExceptionCode;
+import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.conversation.Conversation;
 import com.soptie.server.domain.doll.DollType;
 import com.soptie.server.domain.memberdoll.MemberDoll;
@@ -42,6 +44,11 @@ public class MemberService {
 	@Transactional
 	public GiveMemberCottonResponse giveCotton(long memberId, CottonType cottonType) {
 		val member = memberAdapter.findById(memberId);
+
+		if (member.getCottonInfo().getCottonCount(cottonType) <= 0) {
+			throw new SoftieException(ExceptionCode.BAD_REQUEST, "솜뭉치가 없습니다.");
+		}
+
 		member.getCottonInfo().subtractCotton(cottonType);
 		memberAdapter.update(member);
 
