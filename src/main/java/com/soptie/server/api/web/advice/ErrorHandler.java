@@ -15,15 +15,15 @@ import lombok.extern.slf4j.Slf4j;
 public class ErrorHandler {
 
 	@ExceptionHandler(SoftieException.class)
-	public ResponseEntity<ErrorResponse> authException(SoftieException exception) {
+	public ResponseEntity<ErrorResponse> softieException(SoftieException exception) {
 		log.error(exception.getMessage());
 		return ResponseEntity
 			.status(exception.getStatusCode())
-			.body(ErrorResponse.of(exception.getDefaultMessage() + "\n" + exception.getDetailMessage()));
+			.body(ErrorResponse.of("[" + exception.getDefaultMessage() + "] " + exception.getDetailMessage()));
 	}
 
 	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<ErrorResponse> makerException(RuntimeException exception) {
+	public ResponseEntity<ErrorResponse> exception(RuntimeException exception) {
 		log.error(exception.getMessage());
 		return ResponseEntity
 			.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
