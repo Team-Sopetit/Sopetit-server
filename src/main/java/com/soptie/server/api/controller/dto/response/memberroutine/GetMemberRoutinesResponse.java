@@ -1,5 +1,6 @@
 package com.soptie.server.api.controller.dto.response.memberroutine;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +54,7 @@ public record GetMemberRoutinesResponse(
 		private static List<MemberRoutineResponse> toRoutines(Map<Routine, MemberRoutine> routinesByMember) {
 			return routinesByMember.entrySet().stream()
 				.map(entry -> MemberRoutineResponse.of(entry.getKey(), entry.getValue()))
+				.sorted(Comparator.comparingLong(MemberRoutineResponse::routineId))
 				.toList();
 		}
 
