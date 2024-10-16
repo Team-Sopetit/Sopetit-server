@@ -3,13 +3,20 @@ spring:
     import: application-secret.yml
     activate:
       on-profile: test
+
   datasource:
     url: jdbc:h2:mem:test;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
+
+  sql:
+    init:
+      schema-locations: classpath:/sql/schema.sql
+
   jpa:
     hibernate:
       ddl-auto: create
+
   security:
     oauth2:
       client:
