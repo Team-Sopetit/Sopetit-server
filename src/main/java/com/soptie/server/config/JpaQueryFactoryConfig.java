@@ -1,4 +1,4 @@
-package com.soptie.server.persistence.config;
+package com.soptie.server.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
