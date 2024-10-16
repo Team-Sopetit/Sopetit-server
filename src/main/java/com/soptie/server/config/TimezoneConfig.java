@@ -1,4 +1,4 @@
-package com.soptie.server.persistence.config;
+package com.soptie.server.config;
 
 import java.util.TimeZone;
 

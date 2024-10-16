@@ -31,7 +31,7 @@ jwt:
   ACCESS_TOKEN_EXPIRED: 7200000
   REFRESH_TOKEN_EXPIRED: 1209600000
 
-softie:
+batch:
   cron:
     init:
       routine: "0 0 0 * * *"

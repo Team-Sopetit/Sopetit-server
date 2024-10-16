@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberRoutineScheduler {
 	private final MemberRoutineService memberRoutineService;
 
-	@Scheduled(cron = "${softie.cron.init.routine}")
+	@Scheduled(cron = "${batch.cron.init.routine}")
 	public void initMemberDailyRoutines() {
 		memberRoutineService.initAchievement();
 	}

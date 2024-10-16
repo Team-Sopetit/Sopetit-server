@@ -1,4 +1,4 @@
-package com.soptie.server.api.config;
+package com.soptie.server.config;
 
 import static io.swagger.v3.oas.models.security.SecurityScheme.Type.*;
 
