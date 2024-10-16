@@ -1,4 +1,4 @@
-package com.soptie.server.persistence.repository;
+package com.soptie.server.persistence.repository.routine;
 
 import java.util.List;
 
