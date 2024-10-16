@@ -1,6 +1,5 @@
 package com.soptie.server.persistence.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.soptie.server.common.exception.ExceptionCode;
@@ -10,7 +9,7 @@ import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.entity.MemberRoutineEntity;
-import com.soptie.server.persistence.repository.MemberRoutineRepository;
+import com.soptie.server.persistence.repository.routine.MemberRoutineRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -60,14 +59,8 @@ public class MemberRoutineAdapter {
 		memberRoutineEntity.update(memberRoutine);
 	}
 
-	public List<MemberRoutine> findAchieved() {
-		val memberRoutines = new ArrayList<MemberRoutine>();
-		memberRoutines.addAll(memberRoutineRepository.findByIsAchieved(true).stream()
-			.map(MemberRoutineEntity::toDomain)
-			.toList());
-		memberRoutines.addAll(memberRoutineRepository.findDeletedByIsAchieved(true).stream().map(
-			MemberRoutineEntity::toDomain).toList());
-		return memberRoutines;
+	public void initAllAchievement() {
+		memberRoutineRepository.bulkInitAchievement();
 	}
 
 	private MemberRoutineEntity restore(

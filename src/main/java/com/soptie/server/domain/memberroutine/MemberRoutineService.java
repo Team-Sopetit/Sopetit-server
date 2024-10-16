@@ -91,10 +91,7 @@ public class MemberRoutineService {
 
 	@Transactional
 	public void initAchievement() {
-		val memberRoutines = memberRoutineAdapter.findAchieved();
-		for (val memberRoutine : memberRoutines) {
-			memberRoutine.initAchievement();
-		}
+		memberRoutineAdapter.initAllAchievement();
 	}
 
 	private Map<Theme, Map<Routine, MemberRoutine>> toRoutinesByTheme(

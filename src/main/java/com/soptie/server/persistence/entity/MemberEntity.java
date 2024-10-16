@@ -28,11 +28,20 @@ public class MemberEntity extends BaseEntity {
 	@Column(nullable = false)
 	private int rainbowCottonCount;
 
+	//TODO: 2번째 생성자 활용(Entity 보호)
 	public MemberEntity(SocialType socialType, String socialId) {
 		this.socialType = socialType;
 		this.socialId = socialId;
 		this.basicCottonCount = 0;
 		this.rainbowCottonCount = 0;
+	}
+
+	public MemberEntity(Member member) {
+		this.socialType = member.getSocialInfo().getSocialType();
+		this.socialId = member.getSocialInfo().getSocialId();
+		this.refreshToken = member.getRefreshToken();
+		this.basicCottonCount = member.getCottonInfo().getBasicCottonCount();
+		this.rainbowCottonCount = member.getCottonInfo().getRainbowCottonCount();
 	}
 
 	public void update(Member member) {

@@ -38,6 +38,7 @@ public class MemberRoutineEntity extends BaseEntity {
 	@Column(nullable = false)
 	private long routineId;
 
+	//TODO: 아래 생성자 활용 (Entity 보호)
 	public MemberRoutineEntity(Member member, Routine routine) {
 		this.isAchieved = false;
 		this.isAchievedToday = false;
@@ -45,6 +46,15 @@ public class MemberRoutineEntity extends BaseEntity {
 		this.isDeleted = false;
 		this.memberId = member.getId();
 		this.routineId = routine.getId();
+	}
+
+	public MemberRoutineEntity(MemberRoutine memberRoutine) {
+		this.isAchieved = memberRoutine.isAchieved();
+		this.isAchievedToday = memberRoutine.isAchievedToday();
+		this.achievementCount = memberRoutine.getAchievementCount();
+		this.isDeleted = false;
+		this.memberId = memberRoutine.getMemberId();
+		this.routineId = memberRoutine.getRoutineId();
 	}
 
 	public MemberRoutine toDomain() {

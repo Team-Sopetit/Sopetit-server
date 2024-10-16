@@ -7,7 +7,7 @@ import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.entity.RoutineEntity;
-import com.soptie.server.persistence.repository.RoutineRepository;
+import com.soptie.server.persistence.repository.routine.RoutineRepository;
 
 import lombok.RequiredArgsConstructor;
 
