@@ -17,9 +17,9 @@ import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.domain.theme.Theme;
 import com.soptie.server.persistence.adapter.MemberAdapter;
-import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
-import com.soptie.server.persistence.adapter.RoutineAdapter;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
+import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;

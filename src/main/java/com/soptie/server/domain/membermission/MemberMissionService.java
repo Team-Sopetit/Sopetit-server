@@ -1,5 +1,6 @@
 package com.soptie.server.domain.membermission;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -10,11 +11,11 @@ import com.soptie.server.api.controller.dto.response.membermission.CreateMemberM
 import com.soptie.server.api.controller.dto.response.membermission.GetMemberMissionResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
-import com.soptie.server.persistence.adapter.ChallengeAdapter;
 import com.soptie.server.persistence.adapter.MemberAdapter;
-import com.soptie.server.persistence.adapter.MemberMissionAdapter;
-import com.soptie.server.persistence.adapter.MissionAdapter;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
+import com.soptie.server.persistence.adapter.mission.ChallengeAdapter;
+import com.soptie.server.persistence.adapter.mission.MemberMissionAdapter;
+import com.soptie.server.persistence.adapter.mission.MissionAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -68,6 +69,14 @@ public class MemberMissionService {
 		memberMissionAdapter.update(memberMission);
 		memberMissionAdapter.flush();
 		memberMissionAdapter.delete(memberMission);
+	}
+
+	private void updateHistory(long memberRoutineId, boolean isAchievedToday) {
+		if (isAchievedToday) {
+			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutineId, LocalDate.now());
+		} else {
+			routineHistoryAdapter.save(memberRoutineId);
+		}
 	}
 
 	public Optional<GetMemberMissionResponse> getMemberMission(long memberId) {

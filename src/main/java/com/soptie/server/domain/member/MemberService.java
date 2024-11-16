@@ -17,8 +17,8 @@ import com.soptie.server.persistence.adapter.ConversationAdapter;
 import com.soptie.server.persistence.adapter.DollAdapter;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberDollAdapter;
-import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
-import com.soptie.server.persistence.adapter.RoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
