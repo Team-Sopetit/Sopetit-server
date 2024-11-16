@@ -7,7 +7,7 @@ import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.challenge.Challenge;
 import com.soptie.server.persistence.entity.mission.ChallengeEntity;
-import com.soptie.server.persistence.repository.ChallengeRepository;
+import com.soptie.server.persistence.repository.mission.ChallengeRepository;
 
 import lombok.RequiredArgsConstructor;
 
