@@ -6,7 +6,7 @@ import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.challenge.Mission;
-import com.soptie.server.persistence.entity.MissionEntity;
+import com.soptie.server.persistence.entity.mission.MissionEntity;
 import com.soptie.server.persistence.repository.MissionRepository;
 
 import lombok.RequiredArgsConstructor;
