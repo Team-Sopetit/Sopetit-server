@@ -1,6 +1,6 @@
 package com.soptie.server.persistence.repository.routine.custom;
 
-import static com.soptie.server.persistence.entity.QMemberRoutineEntity.*;
+import static com.soptie.server.persistence.entity.routine.QMemberRoutineEntity.*;
 
 import org.springframework.stereotype.Repository;
 
