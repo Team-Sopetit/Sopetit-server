@@ -1,6 +1,5 @@
 package com.soptie.server.domain.membermission;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +15,7 @@ import com.soptie.server.persistence.adapter.ThemeAdapter;
 import com.soptie.server.persistence.adapter.mission.ChallengeAdapter;
 import com.soptie.server.persistence.adapter.mission.MemberMissionAdapter;
 import com.soptie.server.persistence.adapter.mission.MissionAdapter;
+import com.soptie.server.persistence.adapter.mission.MissionHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -29,6 +29,7 @@ public class MemberMissionService {
 	private final ChallengeAdapter challengeAdapter;
 	private final MissionAdapter missionAdapter;
 	private final MemberAdapter memberAdapter;
+	private final MissionHistoryAdapter missionHistoryAdapter;
 
 	@Transactional
 	public CreateMemberMissionResponse createMemberMission(long memberId, CreateMemberMissionRequest request) {
@@ -69,14 +70,7 @@ public class MemberMissionService {
 		memberMissionAdapter.update(memberMission);
 		memberMissionAdapter.flush();
 		memberMissionAdapter.delete(memberMission);
-	}
-
-	private void updateHistory(long memberRoutineId, boolean isAchievedToday) {
-		if (isAchievedToday) {
-			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutineId, LocalDate.now());
-		} else {
-			routineHistoryAdapter.save(memberRoutineId);
-		}
+		missionHistoryAdapter.save(memberMission.getId());
 	}
 
 	public Optional<GetMemberMissionResponse> getMemberMission(long memberId) {
