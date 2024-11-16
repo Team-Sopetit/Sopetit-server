@@ -95,9 +95,9 @@ public class MemberRoutineService {
 
 	private void updateHistory(long memberRoutineId, boolean isAchievedToday) {
 		if (isAchievedToday) {
-			routineHistoryAdapter.save(memberRoutineId);
-		} else {
 			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutineId, LocalDate.now());
+		} else {
+			routineHistoryAdapter.save(memberRoutineId);
 		}
 	}
 
