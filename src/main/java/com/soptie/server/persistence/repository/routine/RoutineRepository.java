@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.soptie.server.persistence.entity.RoutineEntity;
+import com.soptie.server.persistence.entity.routine.RoutineEntity;
 
 public interface RoutineRepository extends JpaRepository<RoutineEntity, Long> {
 	//TODO: 데이터베이스 내부 자체 처리 방법 찾아보기

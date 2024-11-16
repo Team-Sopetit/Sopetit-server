@@ -1,6 +1,7 @@
-package com.soptie.server.persistence.entity;
+package com.soptie.server.persistence.entity.routine;
 
 import com.soptie.server.domain.routine.Routine;
+import com.soptie.server.persistence.entity.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
