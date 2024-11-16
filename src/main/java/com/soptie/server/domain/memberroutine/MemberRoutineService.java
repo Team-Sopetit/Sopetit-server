@@ -1,5 +1,6 @@
 package com.soptie.server.domain.memberroutine;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.RoutineAdapter;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -31,6 +33,7 @@ public class MemberRoutineService {
 	private final MemberAdapter memberAdapter;
 	private final RoutineAdapter routineAdapter;
 	private final ThemeAdapter themeAdapter;
+	private final RoutineHistoryAdapter routineHistoryAdapter;
 
 	@Transactional
 	public CreateMemberRoutinesResponse createRoutines(
@@ -85,8 +88,17 @@ public class MemberRoutineService {
 
 		memberRoutine.achieve();
 		memberRoutineAdapter.update(memberRoutine);
+		updateHistory(memberRoutineId, isAchievedToday);
 
 		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
+	}
+
+	private void updateHistory(long memberRoutineId, boolean isAchievedToday) {
+		if (isAchievedToday) {
+			routineHistoryAdapter.save(memberRoutineId);
+		} else {
+			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutineId, LocalDate.now());
+		}
 	}
 
 	@Transactional
