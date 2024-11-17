@@ -54,4 +54,11 @@ public class MemberMissionApi implements MemberMissionApiDocs {
 		memberMissionService.achieveMemberMission(memberId, routineId);
 		return SuccessResponse.success(SuccessMessage.ACHIEVE_ROUTINE.getMessage());
 	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@DeleteMapping("/history/{historyId}")
+	public SuccessResponse<?> deleteMissionHistory(@PathVariable long historyId) {
+		memberMissionService.deleteHistory(historyId);
+		return SuccessResponse.success(SuccessMessage.DELETE_ROUTINE.getMessage());
+	}
 }

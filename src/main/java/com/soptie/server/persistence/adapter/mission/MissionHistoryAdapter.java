@@ -15,4 +15,8 @@ public class MissionHistoryAdapter {
 	public void save(long memberMissionId) {
 		historyRepository.save(new MissionHistoryEntity(memberMissionId));
 	}
+
+	public void deleteById(long historyId) {
+		historyRepository.deleteById(historyId);
+	}
 }
