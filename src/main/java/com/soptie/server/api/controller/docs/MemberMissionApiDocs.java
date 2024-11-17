@@ -94,4 +94,27 @@ public interface MemberMissionApiDocs {
 		)
 		@PathVariable long routineId
 	);
+
+	@Operation(
+		summary = "미션 기록 삭제",
+		description = "달성한 미션 기록을 삭제합니다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(
+				responseCode = "4xx",
+				description = "클라이언트(요청) 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
+	)
+	SuccessResponse<?> deleteMissionHistory(
+		@Parameter(
+			name = "historyId",
+			description = "달성 이력 id",
+			in = ParameterIn.PATH,
+			example = "1"
+		) @PathVariable long historyId
+	);
 }

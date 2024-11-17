@@ -48,4 +48,11 @@ public class MemberRoutineApi implements MemberRoutineApiDocs {
 		val response = memberRoutineService.achieveMemberRoutine(memberId, routineId);
 		return SuccessResponse.success(SuccessMessage.ACHIEVE_ROUTINE.getMessage(), response);
 	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@DeleteMapping("/history/{historyId}")
+	public SuccessResponse<?> deleteRoutineHistory(@PathVariable long historyId) {
+		memberRoutineService.deleteHistory(historyId);
+		return SuccessResponse.success(SuccessMessage.DELETE_ROUTINE.getMessage());
+	}
 }

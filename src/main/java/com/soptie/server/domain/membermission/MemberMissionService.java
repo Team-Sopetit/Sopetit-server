@@ -83,4 +83,9 @@ public class MemberMissionService {
 		val theme = themeAdapter.findById(challenge.getThemeId());
 		return GetMemberMissionResponse.of(memberMission, theme, challenge, mission);
 	}
+
+	@Transactional
+	public void deleteHistory(long historyId) {
+		missionHistoryAdapter.deleteById(historyId);
+	}
 }
