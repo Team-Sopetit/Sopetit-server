@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "members", description = "회원 API")
+@Tag(name = "[Member] 회원 API", description = "회원 관련 api 입니다.")
 public interface MemberApiDocs {
 
 	@Operation(

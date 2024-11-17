@@ -10,7 +10,7 @@ import lombok.Builder;
 
 @Builder(access = AccessLevel.PRIVATE)
 public record MemberProfileResponse(
-	@Schema(description = "회원가입 일자", example = "yyyy-MM-dd:HH:mm")
+	@Schema(description = "회원가입 일자", example = "2024-08-28T15:34:05.272309")
 	LocalDateTime createdAt
 ) {
 
