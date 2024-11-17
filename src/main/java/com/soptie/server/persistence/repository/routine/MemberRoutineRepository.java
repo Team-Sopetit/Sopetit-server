@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.soptie.server.persistence.entity.MemberRoutineEntity;
+import com.soptie.server.persistence.entity.routine.MemberRoutineEntity;
 import com.soptie.server.persistence.repository.routine.custom.MemberRoutineCustomRepository;
 
 public interface MemberRoutineRepository

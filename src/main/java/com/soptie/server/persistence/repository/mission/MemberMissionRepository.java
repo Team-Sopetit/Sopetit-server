@@ -1,4 +1,4 @@
-package com.soptie.server.persistence.repository;
+package com.soptie.server.persistence.repository.mission;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.soptie.server.persistence.entity.MemberMissionEntity;
+import com.soptie.server.persistence.entity.mission.MemberMissionEntity;
 
 public interface MemberMissionRepository extends JpaRepository<MemberMissionEntity, Long> {
 	List<MemberMissionEntity> findByMemberIdAndMissionIdIn(long memberId, List<Long> missionIds);

@@ -1,4 +1,4 @@
-package com.soptie.server.persistence.adapter;
+package com.soptie.server.persistence.adapter.routine;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.routine.Routine;
-import com.soptie.server.persistence.entity.MemberRoutineEntity;
+import com.soptie.server.persistence.entity.routine.MemberRoutineEntity;
 import com.soptie.server.persistence.repository.routine.MemberRoutineRepository;
 
 import lombok.RequiredArgsConstructor;

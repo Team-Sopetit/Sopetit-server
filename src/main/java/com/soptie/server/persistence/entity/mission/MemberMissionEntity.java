@@ -1,4 +1,4 @@
-package com.soptie.server.persistence.entity;
+package com.soptie.server.persistence.entity.mission;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -6,6 +6,7 @@ import org.hibernate.annotations.SQLRestriction;
 import com.soptie.server.domain.challenge.Mission;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.membermission.MemberMission;
+import com.soptie.server.persistence.entity.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

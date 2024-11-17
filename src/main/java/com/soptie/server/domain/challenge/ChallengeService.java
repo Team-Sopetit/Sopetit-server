@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.dto.response.challenge.GetChallengesByMemberResponse;
 import com.soptie.server.domain.membermission.MemberMission;
-import com.soptie.server.persistence.adapter.ChallengeAdapter;
-import com.soptie.server.persistence.adapter.MemberMissionAdapter;
-import com.soptie.server.persistence.adapter.MissionAdapter;
+import com.soptie.server.persistence.adapter.mission.ChallengeAdapter;
+import com.soptie.server.persistence.adapter.mission.MemberMissionAdapter;
+import com.soptie.server.persistence.adapter.mission.MissionAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

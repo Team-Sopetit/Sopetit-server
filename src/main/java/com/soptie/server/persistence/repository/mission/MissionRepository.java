@@ -1,10 +1,10 @@
-package com.soptie.server.persistence.repository;
+package com.soptie.server.persistence.repository.mission;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.soptie.server.persistence.entity.MissionEntity;
+import com.soptie.server.persistence.entity.mission.MissionEntity;
 
 public interface MissionRepository extends JpaRepository<MissionEntity, Long> {
 	List<MissionEntity> findByChallengeIdIn(List<Long> challengeIds);

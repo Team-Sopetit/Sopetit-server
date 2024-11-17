@@ -1,4 +1,4 @@
-package com.soptie.server.persistence.adapter;
+package com.soptie.server.persistence.adapter.mission;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +9,8 @@ import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.challenge.Mission;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.membermission.MemberMission;
-import com.soptie.server.persistence.entity.MemberMissionEntity;
-import com.soptie.server.persistence.repository.MemberMissionRepository;
+import com.soptie.server.persistence.entity.mission.MemberMissionEntity;
+import com.soptie.server.persistence.repository.mission.MemberMissionRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

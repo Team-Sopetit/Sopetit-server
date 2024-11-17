@@ -16,8 +16,8 @@ import com.soptie.server.external.oauth.AppleService;
 import com.soptie.server.external.oauth.KakaoService;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberDollAdapter;
-import com.soptie.server.persistence.adapter.MemberMissionAdapter;
-import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.mission.MemberMissionAdapter;
+import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
