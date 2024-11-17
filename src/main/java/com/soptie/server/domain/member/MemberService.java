@@ -81,6 +81,6 @@ public class MemberService {
 
 	public MemberProfileResponse getMemberProfile(long memberId) {
 		val member = memberAdapter.findById(memberId);
-		return MemberProfileResponse.of(member);
+		return MemberProfileResponse.from(member);
 	}
 }

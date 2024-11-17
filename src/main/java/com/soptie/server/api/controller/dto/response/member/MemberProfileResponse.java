@@ -14,7 +14,7 @@ public record MemberProfileResponse(
 	LocalDateTime createdAt
 ) {
 
-	public static MemberProfileResponse of(Member member) {
+	public static MemberProfileResponse from(Member member) {
 		return MemberProfileResponse.builder()
 			.createdAt(member.getCreatedAt())
 			.build();
