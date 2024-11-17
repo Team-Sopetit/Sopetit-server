@@ -17,6 +17,7 @@ import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
 import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
+import com.soptie.server.api.controller.dto.response.member.MemberProfileResponse;
 import com.soptie.server.api.controller.generic.SuccessMessage;
 import com.soptie.server.domain.member.CottonType;
 import com.soptie.server.domain.member.MemberService;
@@ -60,4 +61,13 @@ public class MemberApi implements MemberApiDocs {
 		val response = memberService.getMemberHomeInfo(memberId);
 		return SuccessResponse.success(SuccessMessage.GET_MEMBER_HOME.getMessage(), response);
 	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("/profile")
+	public SuccessResponse<MemberProfileResponse> getMemberProfile(Principal principal) {
+		val memberId = Long.parseLong(principal.getName());
+		val response = memberService.getMemberProfile(memberId);
+		return SuccessResponse.success(SuccessMessage.GET_MEMBER_PROFILE.getMessage(), response);
+	}
+
 }

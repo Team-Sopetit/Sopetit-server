@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
 import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
 import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
+import com.soptie.server.api.controller.dto.response.member.MemberProfileResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.conversation.Conversation;
@@ -76,5 +77,10 @@ public class MemberService {
 			val doll = dollAdapter.findByType(dollType);
 			memberDollAdapter.save(new MemberDoll(name, dollType, memberId, doll.getId()));
 		}
+	}
+
+	public MemberProfileResponse getMemberProfile(long memberId) {
+		val member = memberAdapter.findById(memberId);
+		return MemberProfileResponse.of(member);
 	}
 }
