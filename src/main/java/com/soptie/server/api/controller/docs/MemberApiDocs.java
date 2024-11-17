@@ -10,6 +10,7 @@ import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
 import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
+import com.soptie.server.api.controller.dto.response.member.MemberProfileResponse;
 import com.soptie.server.domain.member.CottonType;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +21,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "members", description = "회원 API")
+@Tag(name = "[Member] 회원 API", description = "회원 관련 api 입니다.")
 public interface MemberApiDocs {
 
 	@Operation(
@@ -116,6 +117,24 @@ public interface MemberApiDocs {
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
 	SuccessResponse<GetHomeInfoResponse> getMemberHomeInfo(
+		@Parameter(hidden = true) Principal principal
+	);
+
+	@Operation(
+		summary = "회원 정보 조회",
+		description = "회원의 정보를 조회합니다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(
+				responseCode = "4xx",
+				description = "클라이언트(요청) 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
+	)
+	SuccessResponse<MemberProfileResponse> getMemberProfile(
 		@Parameter(hidden = true) Principal principal
 	);
 }

@@ -56,6 +56,7 @@ public class MemberEntity extends BaseEntity {
 			.socialInfo(toSocialInfo())
 			.refreshToken(this.refreshToken)
 			.cottonInfo(toCottonInfo())
+			.createdAt(this.createdAt)
 			.build();
 	}
 
