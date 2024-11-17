@@ -128,7 +128,7 @@ public class MemberRoutineService {
 	}
 
 	@Transactional
-	public void deleteByHistoryId(long historyId) {
+	public void deleteHistory(long historyId) {
 		routineHistoryAdapter.deleteById(historyId);
 	}
 }

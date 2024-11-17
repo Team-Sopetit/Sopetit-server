@@ -52,7 +52,7 @@ public class MemberRoutineApi implements MemberRoutineApiDocs {
 	@ResponseStatus(HttpStatus.OK)
 	@DeleteMapping("/history/{historyId}")
 	public SuccessResponse<?> deleteRoutineHistory(@PathVariable long historyId) {
-		memberRoutineService.deleteByHistoryId(historyId);
+		memberRoutineService.deleteHistory(historyId);
 		return SuccessResponse.success(SuccessMessage.DELETE_ROUTINE.getMessage());
 	}
 }
