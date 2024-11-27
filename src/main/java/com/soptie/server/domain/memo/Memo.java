@@ -23,4 +23,8 @@ public class Memo {
 		this.content = content;
 		this.memberId = member.getId();
 	}
+
+	public void update(final String content) {
+		this.content = content;
+	}
 }
