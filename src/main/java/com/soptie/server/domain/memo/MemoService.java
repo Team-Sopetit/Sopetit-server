@@ -19,6 +19,7 @@ public class MemoService {
 	private final MemberAdapter memberAdapter;
 	private final MemoAdapter memoAdapter;
 
+	@Transactional
 	public CreateMemoResponse create(final long memberId, final CreateMemoRequest request) {
 		val member = memberAdapter.findById(memberId);
 		val memo = memoAdapter.save(request.achievedDate(), request.content(), member);
