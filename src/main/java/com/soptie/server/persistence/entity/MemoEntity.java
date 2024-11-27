@@ -36,4 +36,8 @@ public class MemoEntity extends BaseEntity {
 			.memberId(this.memberId)
 			.build();
 	}
+
+	public void update(final Memo memo) {
+		this.content = memo.getContent();
+	}
 }
