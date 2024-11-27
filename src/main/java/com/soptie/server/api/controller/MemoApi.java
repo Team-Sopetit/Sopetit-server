@@ -53,8 +53,10 @@ public class MemoApi {
 	}
 
 	@DeleteMapping("/{memoId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(HttpStatus.OK)
 	public SuccessResponse<?> deleteMemo(final Principal principal, @PathVariable final long memoId) {
-
+		val memberId = Long.parseLong(principal.getName());
+		memoService.delete(memberId, memoId);
+		return SuccessResponse.success(SuccessMessage.DELETE_MEMO.getMessage());
 	}
 }
