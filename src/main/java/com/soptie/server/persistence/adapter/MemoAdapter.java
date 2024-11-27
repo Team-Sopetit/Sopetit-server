@@ -35,6 +35,10 @@ public class MemoAdapter {
 				"Member ID: " + memberId + " Memo ID: " + id)).toDomain();
 	}
 
+	public void deleteByIdAndMemberId(final long id, final long memberId) {
+		memoRepository.deleteByIdAndMemberId(id, memberId);
+	}
+
 	private MemoEntity find(final long id) {
 		return memoRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Memo ID: " + id));
