@@ -11,6 +11,7 @@ import com.soptie.server.persistence.entity.MemoEntity;
 import com.soptie.server.persistence.repository.MemoRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 @RepositoryAdapter
 @RequiredArgsConstructor
@@ -22,10 +23,20 @@ public class MemoAdapter {
 		return memoRepository.save(new MemoEntity(achievedDate, content, member)).toDomain();
 	}
 
+	public void update(final Memo memo) {
+		val memoEntity = find(memo.getId());
+		memoEntity.update(memo);
+	}
+
 	public Memo findByIdAndMemberId(final long id, final long memberId) {
 		return memoRepository.findByIdAndMemberId(id, memberId)
 			.orElseThrow(() -> new SoftieException(
 				ExceptionCode.NOT_FOUND,
 				"Member ID: " + memberId + " Memo ID: " + id)).toDomain();
+	}
+
+	private MemoEntity find(final long id) {
+		return memoRepository.findById(id)
+			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Memo ID: " + id));
 	}
 }
