@@ -3,6 +3,7 @@ package com.soptie.server.persistence.entity;
 import java.time.LocalDate;
 
 import com.soptie.server.domain.member.Member;
+import com.soptie.server.domain.memo.Memo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,5 +26,14 @@ public class MemoEntity extends BaseEntity {
 		this.achievedDate = achievedDate;
 		this.content = content;
 		this.memberId = member.getId();
+	}
+
+	public Memo toDomain() {
+		return Memo.builder()
+			.id(this.id)
+			.achievedDate(this.achievedDate)
+			.content(this.content)
+			.memberId(this.memberId)
+			.build();
 	}
 }
