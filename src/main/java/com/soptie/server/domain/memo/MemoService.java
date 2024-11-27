@@ -33,4 +33,9 @@ public class MemoService {
 		memo.update(request.content());
 		memoAdapter.update(memo);
 	}
+
+	@Transactional
+	public void delete(final long memberId, final long memoId) {
+		memoAdapter.deleteByIdAndMemberId(memoId, memberId);
+	}
 }
