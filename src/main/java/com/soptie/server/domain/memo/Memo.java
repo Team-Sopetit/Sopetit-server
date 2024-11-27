@@ -18,7 +18,7 @@ public class Memo {
 	private String content;
 	private long memberId;
 
-	public Memo(LocalDate achievedDate, String content, Member member) {
+	public Memo(final LocalDate achievedDate, final String content, final Member member) {
 		this.achievedDate = achievedDate;
 		this.content = content;
 		this.memberId = member.getId();
