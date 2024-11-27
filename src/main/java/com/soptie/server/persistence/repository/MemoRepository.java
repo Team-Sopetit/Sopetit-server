@@ -8,4 +8,6 @@ import com.soptie.server.persistence.entity.MemoEntity;
 
 public interface MemoRepository extends JpaRepository<MemoEntity, Long> {
 	Optional<MemoEntity> findByIdAndMemberId(long id, long memberId);
+
+	void deleteByIdAndMemberId(long id, long memberId);
 }
