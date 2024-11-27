@@ -31,8 +31,10 @@ public class MemoApi {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public SuccessResponse<CreateMemoResponse> createMemo(final Principal principal,
-		@RequestBody final CreateMemoRequest request) {
+	public SuccessResponse<CreateMemoResponse> createMemo(
+		final Principal principal,
+		@RequestBody final CreateMemoRequest request
+	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memoService.create(memberId, request);
 		return SuccessResponse.success(SuccessMessage.CREATE_MEMO.getMessage(), response);
