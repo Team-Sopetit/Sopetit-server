@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.api.controller.dto.request.memo.CreateMemoRequest;
+import com.soptie.server.api.controller.dto.request.memo.ModifyMemoRequest;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.memo.CreateMemoResponse;
 import com.soptie.server.api.controller.generic.SuccessMessage;
@@ -39,8 +40,14 @@ public class MemoApi {
 
 	@PatchMapping("/{memoId}")
 	@ResponseStatus(HttpStatus.OK)
-	public SuccessResponse<?> modifyMemo(final Principal principal, @PathVariable final long memoId) {
-
+	public SuccessResponse<?> modifyMemo(
+		final Principal principal,
+		@PathVariable final long memoId,
+		@RequestBody final ModifyMemoRequest request
+	) {
+		val memberId = Long.parseLong(principal.getName());
+		memoService.modify(memberId, memoId, request);
+		return SuccessResponse.success(SuccessMessage.UPDATE_MEMO.getMessage());
 	}
 
 	@DeleteMapping("/{memoId}")
