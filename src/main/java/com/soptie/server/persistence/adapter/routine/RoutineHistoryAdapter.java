@@ -14,8 +14,8 @@ import lombok.RequiredArgsConstructor;
 public class RoutineHistoryAdapter {
 	private final RoutineHistoryRepository historyRepository;
 
-	public void save(long memberRoutineId) {
-		historyRepository.save(new RoutineHistoryEntity(memberRoutineId));
+	public void save(long memberRoutineId, long memberId) {
+		historyRepository.save(new RoutineHistoryEntity(memberRoutineId, memberId));
 	}
 
 	public void deleteByRoutineIdAndCreatedAt(long memberRoutineId, LocalDate date) {
@@ -24,5 +24,9 @@ public class RoutineHistoryAdapter {
 
 	public void deleteById(long id) {
 		historyRepository.deleteById(id);
+	}
+
+	public boolean isExistByMemberIdAndCreatedAt(final long memberId, final LocalDate date) {
+		return historyRepository.findByMemberIdAndCreatedAt(memberId, date).isPresent();
 	}
 }

@@ -88,16 +88,16 @@ public class MemberRoutineService {
 
 		memberRoutine.achieve();
 		memberRoutineAdapter.update(memberRoutine);
-		updateHistory(memberRoutineId, isAchievedToday);
+		updateHistory(memberRoutineId, isAchievedToday, memberId);
 
 		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
 	}
 
-	private void updateHistory(long memberRoutineId, boolean isAchievedToday) {
+	private void updateHistory(long memberRoutineId, boolean isAchievedToday, long memberId) {
 		if (isAchievedToday) {
 			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutineId, LocalDate.now());
 		} else {
-			routineHistoryAdapter.save(memberRoutineId);
+			routineHistoryAdapter.save(memberRoutineId, memberId);
 		}
 	}
 

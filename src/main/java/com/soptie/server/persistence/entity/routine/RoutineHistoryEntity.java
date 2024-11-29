@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "routine_history", schema = "softie")
 public class RoutineHistoryEntity extends BaseEntity {
 	private long memberRoutineId;
+	private long memberId;
 
-	public RoutineHistoryEntity(long memberRoutineId) {
+	public RoutineHistoryEntity(long memberRoutineId, long memberId) {
 		this.memberRoutineId = memberRoutineId;
+		this.memberId = memberId;
 	}
 }
