@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "mission_history", schema = "softie")
 public class MissionHistoryEntity extends BaseEntity {
 	private long memberMissionId;
+	private long memberId;
 
-	public MissionHistoryEntity(long memberMissionId) {
+	public MissionHistoryEntity(long memberMissionId, long memberId) {
 		this.memberMissionId = memberMissionId;
+		this.memberId = memberId;
 	}
 }

@@ -70,7 +70,7 @@ public class MemberMissionService {
 		memberMissionAdapter.update(memberMission);
 		memberMissionAdapter.flush();
 		memberMissionAdapter.delete(memberMission);
-		missionHistoryAdapter.save(memberMission.getId());
+		missionHistoryAdapter.save(memberMission.getId(), memberMission.getMemberId());
 	}
 
 	public Optional<GetMemberMissionResponse> getMemberMission(long memberId) {
