@@ -43,7 +43,9 @@ public class MemoService {
 
 	@Transactional
 	public void delete(final long memberId, final long memoId) {
-		memoAdapter.deleteByIdAndMemberId(memoId, memberId);
+		val memo = memoAdapter.findById(memoId);
+		memo.validateMember(memberId);
+		memoAdapter.delete(memo);
 	}
 
 	private void checkAchievedDate(final long memberId, final CreateMemoRequest request) {

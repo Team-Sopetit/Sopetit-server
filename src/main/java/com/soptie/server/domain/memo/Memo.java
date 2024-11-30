@@ -2,6 +2,8 @@ package com.soptie.server.domain.memo;
 
 import java.time.LocalDate;
 
+import com.soptie.server.common.exception.ExceptionCode;
+import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.member.Member;
 
 import lombok.AccessLevel;
@@ -26,5 +28,11 @@ public class Memo {
 
 	public void updateContent(final String content) {
 		this.content = content;
+	}
+
+	public void validateMember(final long memberId) {
+		if (this.memberId != memberId) {
+			throw new SoftieException(ExceptionCode.UNAUTHORIZED, "접근할 수 없는 메모입니다.");
+		}
 	}
 }
