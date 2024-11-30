@@ -29,7 +29,7 @@ public class MemoService {
 	@Transactional
 	public CreateMemoResponse create(final long memberId, final CreateMemoRequest request) {
 		val member = memberAdapter.findById(memberId);
-		checkAchievedDate(memberId, request);
+		validateAchievedDate(memberId, request);
 		val memo = memoAdapter.save(request.achievedDate(), request.content(), member);
 		return CreateMemoResponse.from(memo);
 	}
@@ -48,10 +48,17 @@ public class MemoService {
 		memoAdapter.delete(memo);
 	}
 
-	private void checkAchievedDate(final long memberId, final CreateMemoRequest request) {
-		if (!routineHistoryAdapter.isExistByMemberIdAndCreatedAt(memberId, request.achievedDate())
-			&& !missionHistoryAdapter.isExistByMemberIdAndCreatedAt(memberId, request.achievedDate())) {
+	private void validateAchievedDate(final long memberId, final CreateMemoRequest request) {
+		if (hasNoRoutineHistory(memberId, request) && hasNoMissionHistory(memberId, request)) {
 			throw new SoftieException(ExceptionCode.BAD_REQUEST, "해당 날짜에 루틴 및 미션 달성 내역이 존재하지 않습니다.");
 		}
+	}
+
+	private boolean hasNoRoutineHistory(final long memberId, final CreateMemoRequest request) {
+		return !routineHistoryAdapter.isExistByMemberIdAndCreatedAt(memberId, request.achievedDate());
+	}
+
+	private boolean hasNoMissionHistory(final long memberId, final CreateMemoRequest request) {
+		return !missionHistoryAdapter.isExistByMemberIdAndCreatedAt(memberId, request.achievedDate());
 	}
 }
