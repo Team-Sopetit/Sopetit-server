@@ -9,12 +9,12 @@ import lombok.Builder;
 @Builder(access = AccessLevel.PRIVATE)
 public record CreateMemoResponse(
 	@Schema(description = "추가한 메모 id", example = "1")
-	long id
+	long memoId
 ) {
 
 	public static CreateMemoResponse from(Memo memo) {
 		return CreateMemoResponse.builder()
-			.id(memo.getId())
+			.memoId(memo.getId())
 			.build();
 	}
 }

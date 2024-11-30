@@ -28,16 +28,16 @@ public class MemoAdapter {
 		memoEntity.update(memo);
 	}
 
-	public void deleteByIdAndMemberId(final long id, final long memberId) {
-		val memo = findByIdAndMemberId(id, memberId);
+	public void deleteByIdAndMemberId(final long memoId, final long memberId) {
+		val memo = findByIdAndMemberId(memoId, memberId);
 		memoRepository.deleteById(memo.getId());
 	}
 
-	public Memo findByIdAndMemberId(final long id, final long memberId) {
-		return memoRepository.findByIdAndMemberId(id, memberId)
+	public Memo findByIdAndMemberId(final long memoId, final long memberId) {
+		return memoRepository.findByIdAndMemberId(memoId, memberId)
 			.orElseThrow(() -> new SoftieException(
 				ExceptionCode.NOT_FOUND,
-				"Member ID: " + memberId + " Memo ID: " + id)).toDomain();
+				"Member ID: " + memberId + " Memo ID: " + memoId)).toDomain();
 	}
 
 	private MemoEntity find(final long id) {
