@@ -24,7 +24,7 @@ public class Memo {
 		this.memberId = member.getId();
 	}
 
-	public void update(final String content) {
+	public void updateContent(final String content) {
 		this.content = content;
 	}
 }

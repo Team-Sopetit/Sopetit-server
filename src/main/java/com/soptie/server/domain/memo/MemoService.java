@@ -37,7 +37,7 @@ public class MemoService {
 	@Transactional
 	public void modify(final long memberId, final long memoId, final ModifyMemoRequest request) {
 		val memo = memoAdapter.findByIdAndMemberId(memoId, memberId);
-		memo.update(request.content());
+		memo.updateContent(request.content());
 		memoAdapter.update(memo);
 	}
 
