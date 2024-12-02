@@ -26,6 +26,10 @@ public class MissionAdapter {
 		return find(missionId).toDomain();
 	}
 
+	public List<Mission> findByIds(List<Long> ids) {
+		return missionRepository.findByIdIn(ids).stream().map(MissionEntity::toDomain).toList();
+	}
+
 	private MissionEntity find(long id) {
 		return missionRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Mission ID: " + id));
