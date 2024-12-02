@@ -1,6 +1,7 @@
 package com.soptie.server.persistence.adapter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
@@ -44,6 +45,15 @@ public class MemoAdapter {
 			.orElseThrow(() -> new SoftieException(
 				ExceptionCode.NOT_FOUND,
 				" Memo ID: " + memoId)).toDomain();
+	}
+
+	public List<Memo> findAllByMemberIdAndAchievedDateBetween(
+		final long memberId,
+		final LocalDate startDate,
+		final LocalDate endDate
+	) {
+		return memoRepository.findAllByMemberIdAndAchievedDateBetween(memberId, startDate, endDate).stream()
+			.map(MemoEntity::toDomain).toList();
 	}
 
 	private MemoEntity find(final long id) {
