@@ -1,10 +1,13 @@
 package com.soptie.server.persistence.adapter.mission;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.soptie.server.domain.membermission.MemberMission;
+import com.soptie.server.domain.membermission.MissionHistory;
 import com.soptie.server.persistence.entity.mission.MissionHistoryEntity;
 import com.soptie.server.persistence.repository.mission.MissionHistoryRepository;
 
@@ -16,7 +19,8 @@ public class MissionHistoryAdapter {
 	private final MissionHistoryRepository historyRepository;
 
 	public void save(final MemberMission memberMission) {
-		historyRepository.save(new MissionHistoryEntity(memberMission.getMissionId(), memberMission.getMemberId()));
+		historyRepository.save(new MissionHistoryEntity(memberMission.getMissionId(), memberMission.getMemberId(),
+			memberMission.getMissionId()));
 	}
 
 	public void deleteById(long historyId) {
@@ -25,5 +29,14 @@ public class MissionHistoryAdapter {
 
 	public boolean isExistByMemberIdAndCreatedAt(final long memberId, final LocalDate date) {
 		return historyRepository.findByMemberIdAndCreatedAt(memberId, date).isPresent();
+	}
+
+	public List<MissionHistory> findAllByMemberIdAndCreatedAtBetween(
+		final long memberId,
+		final LocalDateTime startDateTime,
+		final LocalDateTime endDateTime
+	) {
+		return historyRepository.findAllByMemberIdAndCreatedAtBetween(memberId, startDateTime, endDateTime).stream()
+			.map(MissionHistoryEntity::toDomain).toList();
 	}
 }
