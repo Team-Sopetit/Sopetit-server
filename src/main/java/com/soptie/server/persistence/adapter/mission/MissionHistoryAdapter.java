@@ -19,7 +19,7 @@ public class MissionHistoryAdapter {
 	private final MissionHistoryRepository historyRepository;
 
 	public void save(final MemberMission memberMission, final String content) {
-		historyRepository.save(new MissionHistoryEntity(memberMission.getMissionId(), memberMission.getMemberId(),
+		historyRepository.save(new MissionHistoryEntity(memberMission.getId(), memberMission.getMemberId(),
 			memberMission.getMissionId(), content));
 	}
 
