@@ -64,13 +64,14 @@ public class MemberMissionService {
 				ExceptionCode.NOT_AVAILABLE,
 				"Member ID: " + memberId + ", Mission ID: " + missionId);
 		}
+		val mission = missionAdapter.findById(missionId);
 		member.getCottonInfo().addRainbowCottonCount();
 		memberAdapter.update(member);
 		memberMission.achieve();
 		memberMissionAdapter.update(memberMission);
 		memberMissionAdapter.flush();
 		memberMissionAdapter.delete(memberMission);
-		missionHistoryAdapter.save(memberMission);
+		missionHistoryAdapter.save(memberMission, mission.getContent());
 	}
 
 	public Optional<GetMemberMissionResponse> getMemberMission(long memberId) {

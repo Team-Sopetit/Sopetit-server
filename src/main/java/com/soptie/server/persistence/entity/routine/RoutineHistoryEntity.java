@@ -15,11 +15,13 @@ public class RoutineHistoryEntity extends BaseEntity {
 	private long memberRoutineId;
 	private long memberId;
 	private long routineId;
+	private String content;
 
-	public RoutineHistoryEntity(long memberRoutineId, long memberId, long routineId) {
+	public RoutineHistoryEntity(long memberRoutineId, long memberId, long routineId, String content) {
 		this.memberRoutineId = memberRoutineId;
 		this.memberId = memberId;
 		this.routineId = routineId;
+		this.content = content;
 	}
 
 	public RoutineHistory toDomain() {
@@ -28,6 +30,7 @@ public class RoutineHistoryEntity extends BaseEntity {
 			.memberRoutineId(this.memberRoutineId)
 			.memberId(this.memberId)
 			.routineId(this.routineId)
+			.content(this.content)
 			.createdAt(this.createdAt)
 			.build();
 	}

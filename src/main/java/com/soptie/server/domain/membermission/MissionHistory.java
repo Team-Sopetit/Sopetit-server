@@ -12,5 +12,6 @@ public class MissionHistory {
 	private long memberMissionId;
 	private long memberId;
 	private long missionId;
+	private String content;
 	private LocalDateTime createdAt;
 }

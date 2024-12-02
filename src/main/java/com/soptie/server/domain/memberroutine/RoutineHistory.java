@@ -12,5 +12,6 @@ public class RoutineHistory {
 	private long memberRoutineId;
 	private long memberId;
 	private long routineId;
+	private String content;
 	private LocalDateTime createdAt;
 }

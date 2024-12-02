@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
+import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.entity.routine.RoutineHistoryEntity;
 import com.soptie.server.persistence.repository.routine.RoutineHistoryRepository;
 
@@ -18,9 +19,9 @@ import lombok.RequiredArgsConstructor;
 public class RoutineHistoryAdapter {
 	private final RoutineHistoryRepository historyRepository;
 
-	public void save(final MemberRoutine memberRoutine) {
+	public void save(final MemberRoutine memberRoutine, final Routine routine) {
 		historyRepository.save(new RoutineHistoryEntity(memberRoutine.getId(), memberRoutine.getMemberId(),
-			memberRoutine.getRoutineId()));
+			memberRoutine.getRoutineId(), routine.getContent()));
 	}
 
 	public void deleteByRoutineIdAndCreatedAt(long memberRoutineId, LocalDate date) {

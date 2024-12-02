@@ -18,9 +18,9 @@ import lombok.RequiredArgsConstructor;
 public class MissionHistoryAdapter {
 	private final MissionHistoryRepository historyRepository;
 
-	public void save(final MemberMission memberMission) {
+	public void save(final MemberMission memberMission, final String content) {
 		historyRepository.save(new MissionHistoryEntity(memberMission.getMissionId(), memberMission.getMemberId(),
-			memberMission.getMissionId()));
+			memberMission.getMissionId(), content));
 	}
 
 	public void deleteById(long historyId) {

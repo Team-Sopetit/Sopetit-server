@@ -15,11 +15,13 @@ public class MissionHistoryEntity extends BaseEntity {
 	private long memberMissionId;
 	private long memberId;
 	private long missionId;
+	private String content;
 
-	public MissionHistoryEntity(long memberMissionId, long memberId, long missionId) {
+	public MissionHistoryEntity(long memberMissionId, long memberId, long missionId, String content) {
 		this.memberMissionId = memberMissionId;
 		this.memberId = memberId;
 		this.missionId = missionId;
+		this.content = content;
 	}
 
 	public MissionHistory toDomain() {
@@ -28,6 +30,7 @@ public class MissionHistoryEntity extends BaseEntity {
 			.id(this.memberMissionId)
 			.memberId(this.memberId)
 			.missionId(this.missionId)
+			.content(this.content)
 			.createdAt(this.createdAt)
 			.build();
 	}
