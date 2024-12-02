@@ -8,4 +8,6 @@ import com.soptie.server.persistence.entity.mission.MissionEntity;
 
 public interface MissionRepository extends JpaRepository<MissionEntity, Long> {
 	List<MissionEntity> findByChallengeIdIn(List<Long> challengeIds);
+
+	List<MissionEntity> findByIdIn(List<Long> ids);
 }
