@@ -90,13 +90,13 @@ public class MemberRoutineService {
 
 		memberRoutine.achieve();
 		memberRoutineAdapter.update(memberRoutine);
-		updateHistory(memberRoutine, routine);
+		updateHistory(memberRoutine, routine, isAchievedToday);
 
 		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
 	}
 
-	private void updateHistory(MemberRoutine memberRoutine, Routine routine) {
-		if (memberRoutine.isAchievedToday()) {
+	private void updateHistory(MemberRoutine memberRoutine, Routine routine, boolean isAchievedToday) {
+		if (isAchievedToday) {
 			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutine.getId(), LocalDate.now());
 		} else {
 			routineHistoryAdapter.save(memberRoutine, routine);
