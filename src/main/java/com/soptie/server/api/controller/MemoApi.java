@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.soptie.server.api.controller.docs.MemoApiDocs;
 import com.soptie.server.api.controller.dto.request.memo.CreateMemoRequest;
 import com.soptie.server.api.controller.dto.request.memo.ModifyMemoRequest;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
@@ -25,7 +26,7 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v3/memos")
-public class MemoApi {
+public class MemoApi implements MemoApiDocs {
 
 	private final MemoService memoService;
 
