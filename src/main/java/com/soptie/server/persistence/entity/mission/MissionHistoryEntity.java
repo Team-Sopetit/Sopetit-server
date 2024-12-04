@@ -1,5 +1,7 @@
 package com.soptie.server.persistence.entity.mission;
 
+import com.soptie.server.domain.challenge.Mission;
+import com.soptie.server.domain.membermission.MemberMission;
 import com.soptie.server.domain.membermission.MissionHistory;
 import com.soptie.server.persistence.entity.BaseEntity;
 
@@ -17,11 +19,11 @@ public class MissionHistoryEntity extends BaseEntity {
 	private long missionId;
 	private String content;
 
-	public MissionHistoryEntity(long memberMissionId, long memberId, long missionId, String content) {
-		this.memberMissionId = memberMissionId;
-		this.memberId = memberId;
-		this.missionId = missionId;
-		this.content = content;
+	public MissionHistoryEntity(final MemberMission memberMission, final Mission mission) {
+		this.memberMissionId = memberMission.getId();
+		this.memberId = memberMission.getMemberId();
+		this.missionId = mission.getId();
+		this.content = mission.getContent();
 	}
 
 	public MissionHistory toDomain() {

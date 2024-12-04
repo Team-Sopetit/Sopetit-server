@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.soptie.server.domain.challenge.Mission;
 import com.soptie.server.domain.membermission.MemberMission;
 import com.soptie.server.domain.membermission.MissionHistory;
 import com.soptie.server.persistence.entity.mission.MissionHistoryEntity;
@@ -18,9 +19,8 @@ import lombok.RequiredArgsConstructor;
 public class MissionHistoryAdapter {
 	private final MissionHistoryRepository historyRepository;
 
-	public void save(final MemberMission memberMission, final String content) {
-		historyRepository.save(new MissionHistoryEntity(memberMission.getId(), memberMission.getMemberId(),
-			memberMission.getMissionId(), content));
+	public void save(final MemberMission memberMission, final Mission mission) {
+		historyRepository.save(new MissionHistoryEntity(memberMission, mission));
 	}
 
 	public void deleteById(long historyId) {

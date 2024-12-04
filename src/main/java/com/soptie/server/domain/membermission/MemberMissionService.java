@@ -71,7 +71,7 @@ public class MemberMissionService {
 		memberMissionAdapter.update(memberMission);
 		memberMissionAdapter.flush();
 		memberMissionAdapter.delete(memberMission);
-		missionHistoryAdapter.save(memberMission, mission.getContent());
+		missionHistoryAdapter.save(memberMission, mission);
 	}
 
 	public Optional<GetMemberMissionResponse> getMemberMission(long memberId) {
