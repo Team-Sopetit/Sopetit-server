@@ -23,10 +23,7 @@ public interface CalendarApiDocs {
 		summary = "캘린더 조회",
 		description = "루틴 달성 기록, 메모가 포함되어있는 캘린더를 조회한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",

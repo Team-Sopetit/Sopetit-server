@@ -69,10 +69,7 @@ public interface AuthApiDocs {
 		summary = "로그 아웃",
 		description = "로그 아웃을 한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "404",
 				description = "유효하지 않은 회원",
@@ -92,10 +89,7 @@ public interface AuthApiDocs {
 		summary = "회원 탈퇴",
 		description = "회원 탈퇴를 진행한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "404",
 				description = "유효하지 않은 회원",

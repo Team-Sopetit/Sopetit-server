@@ -28,10 +28,7 @@ public interface MemberApiDocs {
 		summary = "회원 프로필 생성",
 		description = "회원의 프로필을 생성한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "201",
-				description = "CREATED success",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "201", description = "Created success"),
 			@ApiResponse(
 				responseCode = "400",
 				description = "유효하지 않은 인형 타입",

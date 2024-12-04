@@ -44,10 +44,7 @@ public interface MemberMissionApiDocs {
 		summary = "미션 삭제",
 		description = "회원의 미션을 삭제한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "OK success",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",
@@ -71,10 +68,7 @@ public interface MemberMissionApiDocs {
 		summary = "미션 달성",
 		description = "회원의 미션을 달성한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "OK success",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",

@@ -25,10 +25,7 @@ public interface MemberRoutineApiDocs {
 		summary = "데일리 루틴 삭제",
 		description = "회원의 데일리 루틴을 삭제한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",

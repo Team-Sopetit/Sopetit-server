@@ -26,10 +26,7 @@ public interface MemoApiDocs {
 		summary = "메모 생성",
 		description = "메모를 생성한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "201",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "201", description = "CREATED Success"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",
@@ -48,10 +45,7 @@ public interface MemoApiDocs {
 		summary = "메모 수정",
 		description = "메모를 수정한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",
@@ -76,10 +70,7 @@ public interface MemoApiDocs {
 		summary = "메모 삭제",
 		description = "메모를 삭제한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",
