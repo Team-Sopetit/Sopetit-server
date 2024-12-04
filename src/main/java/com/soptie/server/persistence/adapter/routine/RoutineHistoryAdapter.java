@@ -20,8 +20,7 @@ public class RoutineHistoryAdapter {
 	private final RoutineHistoryRepository historyRepository;
 
 	public void save(final MemberRoutine memberRoutine, final Routine routine) {
-		historyRepository.save(new RoutineHistoryEntity(memberRoutine.getId(), memberRoutine.getMemberId(),
-			memberRoutine.getRoutineId(), routine.getContent()));
+		historyRepository.save(new RoutineHistoryEntity(memberRoutine, routine));
 	}
 
 	public void deleteByRoutineIdAndCreatedAt(long memberRoutineId, LocalDate date) {

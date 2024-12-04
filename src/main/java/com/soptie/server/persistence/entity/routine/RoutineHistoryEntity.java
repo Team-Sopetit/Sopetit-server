@@ -1,6 +1,8 @@
 package com.soptie.server.persistence.entity.routine;
 
+import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
+import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.entity.BaseEntity;
 
 import jakarta.persistence.Entity;
@@ -17,11 +19,11 @@ public class RoutineHistoryEntity extends BaseEntity {
 	private long routineId;
 	private String content;
 
-	public RoutineHistoryEntity(long memberRoutineId, long memberId, long routineId, String content) {
-		this.memberRoutineId = memberRoutineId;
-		this.memberId = memberId;
-		this.routineId = routineId;
-		this.content = content;
+	public RoutineHistoryEntity(final MemberRoutine memberRoutine, final Routine routine) {
+		this.memberRoutineId = memberRoutine.getId();
+		this.memberId = memberRoutine.getMemberId();
+		this.routineId = routine.getId();
+		this.content = routine.getContent();
 	}
 
 	public RoutineHistory toDomain() {
