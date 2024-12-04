@@ -38,6 +38,9 @@ public enum SuccessMessage {
 	UPDATE_MEMO("메모 수정 성공"),
 	DELETE_MEMO("메모 삭제 성공"),
 
+	/* calendar */
+	GET_CALENDAR("캘린더 조회 성공"),
+
 	/* version */
 	GET_VERSION("버전 조회 성공");
 

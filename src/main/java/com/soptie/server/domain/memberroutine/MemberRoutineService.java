@@ -81,6 +81,8 @@ public class MemberRoutineService {
 				"Member ID: " + memberId + ", MemberRoutine ID: " + memberRoutineId);
 		}
 
+		val routine = routineAdapter.findById(memberRoutine.getRoutineId());
+
 		if (!isAchievedToday) {
 			member.getCottonInfo().addBasicCottonCount();
 			memberAdapter.update(member);
@@ -88,16 +90,16 @@ public class MemberRoutineService {
 
 		memberRoutine.achieve();
 		memberRoutineAdapter.update(memberRoutine);
-		updateHistory(memberRoutineId, isAchievedToday, memberId);
+		updateHistory(memberRoutine, routine, isAchievedToday);
 
 		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
 	}
 
-	private void updateHistory(long memberRoutineId, boolean isAchievedToday, long memberId) {
+	private void updateHistory(MemberRoutine memberRoutine, Routine routine, boolean isAchievedToday) {
 		if (isAchievedToday) {
-			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutineId, LocalDate.now());
+			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutine.getId(), LocalDate.now());
 		} else {
-			routineHistoryAdapter.save(memberRoutineId, memberId);
+			routineHistoryAdapter.save(memberRoutine, routine);
 		}
 	}
 

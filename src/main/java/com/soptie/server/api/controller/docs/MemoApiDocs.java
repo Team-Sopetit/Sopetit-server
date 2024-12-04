@@ -1,14 +1,15 @@
 package com.soptie.server.api.controller.docs;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.soptie.server.api.controller.dto.request.memo.CreateMemoRequest;
+import com.soptie.server.api.controller.dto.request.memo.ModifyMemoRequest;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.AchieveMemberRoutineResponse;
+import com.soptie.server.api.controller.dto.response.memo.CreateMemoResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,14 +19,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "[MemberRoutine] 회원의 데일리 루틴", description = "회원의 데일리 루틴 API")
-public interface MemberRoutineApiDocs {
+@Tag(name = "[Memo] 메모 API Version3", description = "메모 API Version3")
+public interface MemoApiDocs {
 
 	@Operation(
-		summary = "데일리 루틴 삭제",
-		description = "회원의 데일리 루틴을 삭제한다.",
+		summary = "메모 생성",
+		description = "메모를 생성한다.",
 		responses = {
-			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(responseCode = "201", description = "CREATED Success"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",
@@ -35,19 +36,14 @@ public interface MemberRoutineApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<?> deleteMemberRoutines(
+	SuccessResponse<CreateMemoResponse> createMemo(
 		@Parameter(hidden = true) Principal principal,
-		@Parameter(
-			name = "routines",
-			description = "삭제할 회원의 데일리 루틴 id 목록",
-			in = ParameterIn.QUERY,
-			example = "1,2,3"
-		) @RequestParam List<Long> routines
+		@RequestBody CreateMemoRequest request
 	);
 
 	@Operation(
-		summary = "데일리 루틴 달성",
-		description = "회원의 데일리 루틴을 달성한다.",
+		summary = "메모 수정",
+		description = "메모를 수정한다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
@@ -59,19 +55,20 @@ public interface MemberRoutineApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<AchieveMemberRoutineResponse> achieveMemberRoutine(
+	SuccessResponse<?> modifyMemo(
 		@Parameter(hidden = true) Principal principal,
 		@Parameter(
-			name = "routineId",
-			description = "달성한 회원의 데일리 루틴 id",
+			name = "memoId",
+			description = "수정할 메모 id",
 			in = ParameterIn.PATH,
 			example = "1"
-		) @PathVariable long routineId
+		) @PathVariable final long memoId,
+		@RequestBody ModifyMemoRequest request
 	);
 
 	@Operation(
-		summary = "루틴 기록 삭제",
-		description = "달성한 루틴 기록을 삭제합니다.",
+		summary = "메모 삭제",
+		description = "메모를 삭제한다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
@@ -83,12 +80,13 @@ public interface MemberRoutineApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<?> deleteRoutineHistory(
+	SuccessResponse<?> deleteMemo(
+		@Parameter(hidden = true) Principal principal,
 		@Parameter(
-			name = "historyId",
-			description = "달성 이력 id",
+			name = "memoId",
+			description = "삭제할 메모 id",
 			in = ParameterIn.PATH,
 			example = "1"
-		) @PathVariable long historyId
+		) @PathVariable final long memoId
 	);
 }

@@ -21,17 +21,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "[Member] 회원 API", description = "회원 관련 api 입니다.")
+@Tag(name = "[Member] 회원 API", description = "회원 API")
 public interface MemberApiDocs {
 
 	@Operation(
 		summary = "회원 프로필 생성",
 		description = "회원의 프로필을 생성한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "201",
-				description = "CREATED success",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "201", description = "Created success"),
 			@ApiResponse(
 				responseCode = "400",
 				description = "유효하지 않은 인형 타입",
