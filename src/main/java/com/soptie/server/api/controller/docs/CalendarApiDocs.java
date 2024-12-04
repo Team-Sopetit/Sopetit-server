@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "CalendarApi_v3", description = "캘린더 API version3")
+@Tag(name = "[Calendar] 캘린더 API Version3", description = "캘린더 API Version3")
 public interface CalendarApiDocs {
 
 	@Operation(

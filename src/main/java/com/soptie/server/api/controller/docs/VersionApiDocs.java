@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "VersionAPI", description = "버전 API")
+@Tag(name = "[Version] 버전", description = "버전 API")
 public interface VersionApiDocs {
 
 	@Operation(

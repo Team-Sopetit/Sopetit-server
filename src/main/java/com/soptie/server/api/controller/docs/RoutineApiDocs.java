@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "RoutineApi_v2", description = "데일리 루틴 API version2")
+@Tag(name = "[Routine] 데일리 루틴 Version2", description = "데일리 루틴 API Version2")
 public interface RoutineApiDocs {
 
 	@Operation(

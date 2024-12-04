@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "MemoApi_v3", description = "메모 API version3")
+@Tag(name = "[Memo] 메모 API Version3", description = "메모 API Version3")
 public interface MemoApiDocs {
 
 	@Operation(

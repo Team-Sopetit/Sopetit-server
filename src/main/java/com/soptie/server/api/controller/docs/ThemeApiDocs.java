@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "ThemeApi_v2", description = "테마 API version2")
+@Tag(name = "[Theme] 테마 Version2", description = "테마 API Version2")
 public interface ThemeApiDocs {
 
 	@Operation(

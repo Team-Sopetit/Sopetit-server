@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "MemberMissionApi", description = "회원의 도전 루틴 API")
+@Tag(name = "[MemberMission] 회원의 도전 루틴", description = "회원의 도전 루틴 API")
 public interface MemberMissionApiDocs {
 
 	@Operation(

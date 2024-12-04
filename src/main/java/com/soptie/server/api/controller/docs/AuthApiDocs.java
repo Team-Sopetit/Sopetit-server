@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "auth", description = "인증 API")
+@Tag(name = "[Auth] 인증 API", description = "인증 API")
 public interface AuthApiDocs {
 
 	@Operation(

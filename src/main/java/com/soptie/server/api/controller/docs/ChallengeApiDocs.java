@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "ChallengeRoutine_v2", description = "도전 루틴 API version2")
+@Tag(name = "[Challenge] 도전 루틴 API", description = "도전 루틴 API version2")
 public interface ChallengeApiDocs {
 
 	@Operation(

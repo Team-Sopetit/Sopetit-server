@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "makers", description = "메이커 API")
+@Tag(name = "[Maker] 메이커 루틴 API", description = "메이커 루틴 API")
 public interface MakerApiDocs {
 
 	@Operation(
