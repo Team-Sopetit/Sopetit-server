@@ -20,7 +20,7 @@ import lombok.val;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v3/calendars")
+@RequestMapping("/api/v3/calendar")
 public class CalendarApi implements CalendarApiDocs {
 
 	private final CalendarService calendarService;
