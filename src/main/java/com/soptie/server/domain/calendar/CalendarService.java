@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.dto.response.calendar.DateHistoryResponse;
-import com.soptie.server.api.controller.dto.response.calendar.GetCalendarResponse;
 import com.soptie.server.domain.membermission.MissionHistory;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
 import com.soptie.server.domain.memo.Memo;
@@ -47,7 +46,7 @@ public class CalendarService {
 	private final MissionAdapter missionAdapter;
 	private final ChallengeAdapter challengeAdapter;
 
-	public GetCalendarResponse getCalendar(final long memberId, final int year, final int month) {
+	public Map<LocalDate, DateHistoryResponse> getCalendar(final long memberId, final int year, final int month) {
 		memberAdapter.findById(memberId);
 		val startDateTime = LocalDateTime.of(year, month, 1, 0, 0);
 		val endDateTime = startDateTime.plusMonths(1).withDayOfMonth(1).minusSeconds(1);
@@ -99,14 +98,13 @@ public class CalendarService {
 			));
 	}
 
-	private GetCalendarResponse getHistories(
+	private Map<LocalDate, DateHistoryResponse> getHistories(
 		final Map<LocalDate, Memo> memos,
 		final Map<LocalDate, List<RoutineHistory>> routines,
 		final Map<LocalDate, List<MissionHistory>> missions
 	) {
 		val dates = getDates(memos, routines, missions);
-		val dateAndHistories = getDateAndHistories(dates, memos, routines, missions);
-		return GetCalendarResponse.of(dateAndHistories);
+		return getDateAndHistories(dates, memos, routines, missions);
 	}
 
 	private Set<LocalDate> getDates(

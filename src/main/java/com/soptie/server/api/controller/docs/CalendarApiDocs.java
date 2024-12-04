@@ -1,12 +1,14 @@
 package com.soptie.server.api.controller.docs;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.calendar.GetCalendarResponse;
+import com.soptie.server.api.controller.dto.response.calendar.DateHistoryResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +35,7 @@ public interface CalendarApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<GetCalendarResponse> getCalendar(
+	SuccessResponse<Map<LocalDate, DateHistoryResponse>> getCalendar(
 		@Parameter(hidden = true) Principal principal,
 		@Parameter(
 			name = "year",

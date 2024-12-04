@@ -1,6 +1,8 @@
 package com.soptie.server.api.controller;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.api.controller.docs.CalendarApiDocs;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.calendar.GetCalendarResponse;
+import com.soptie.server.api.controller.dto.response.calendar.DateHistoryResponse;
 import com.soptie.server.api.controller.generic.SuccessMessage;
 import com.soptie.server.domain.calendar.CalendarService;
 
@@ -27,7 +29,7 @@ public class CalendarApi implements CalendarApiDocs {
 
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping
-	public SuccessResponse<GetCalendarResponse> getCalendar(
+	public SuccessResponse<Map<LocalDate, DateHistoryResponse>> getCalendar(
 		final Principal principal,
 		@RequestParam final int year,
 		@RequestParam final int month
