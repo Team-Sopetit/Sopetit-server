@@ -42,12 +42,14 @@ public interface CalendarApiDocs {
 			name = "year",
 			description = "조회할 캘린더의 년도",
 			in = ParameterIn.QUERY,
+			required = true,
 			example = "2024"
 		) @RequestParam int year,
 		@Parameter(
 			name = "month",
 			description = "조회할 캘린더의 월",
 			in = ParameterIn.QUERY,
+			required = true,
 			example = "12"
 		) @RequestParam int month
 	);
