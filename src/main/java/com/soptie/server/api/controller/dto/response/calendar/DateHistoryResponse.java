@@ -19,7 +19,7 @@ import lombok.val;
 
 @Builder(access = PRIVATE)
 public record DateHistoryResponse(
-	@Schema(description = "메모 아이디 (null일 시, -1)", example = "1")
+	@Schema(description = "메모 아이디 (null일 시, 0)", example = "1")
 	long memoId,
 	@Schema(description = "메모 내용", example = "이것은 메모가 아니다.")
 	@NotNull String memoContent,
