@@ -64,7 +64,7 @@ public class MemberMissionService {
 				ExceptionCode.NOT_AVAILABLE,
 				"Member ID: " + memberId + ", Mission ID: " + missionId);
 		}
-		val mission = missionAdapter.findById(missionId);
+		val mission = missionAdapter.findById(memberMission.getMissionId());
 		member.getCottonInfo().addRainbowCottonCount();
 		memberAdapter.update(member);
 		memberMission.achieve();
