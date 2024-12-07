@@ -29,7 +29,7 @@ public class MissionHistoryEntity extends BaseEntity {
 	public MissionHistory toDomain() {
 		return MissionHistory.builder()
 			.id(this.id)
-			.id(this.memberMissionId)
+			.memberMissionId(this.memberMissionId)
 			.memberId(this.memberId)
 			.missionId(this.missionId)
 			.content(this.content)
