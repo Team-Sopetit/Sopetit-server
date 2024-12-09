@@ -20,6 +20,10 @@ public class MemoAdapter {
 
 	private final MemoRepository memoRepository;
 
+	public boolean isExistByMemberIdAndAchievedDate(final long memberId, final LocalDate achievedDate) {
+		return memoRepository.findFirstByMemberIdAndAchievedDate(memberId, achievedDate).isPresent();
+	}
+
 	public Memo save(final LocalDate achievedDate, final String content, final Member member) {
 		return memoRepository.save(new MemoEntity(achievedDate, content, member)).toDomain();
 	}

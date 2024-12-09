@@ -52,6 +52,9 @@ public class MemoService {
 		if (hasNoRoutineHistory(memberId, request) && hasNoMissionHistory(memberId, request)) {
 			throw new SoftieException(ExceptionCode.BAD_REQUEST, "해당 날짜에 루틴 및 미션 달성 내역이 존재하지 않습니다.");
 		}
+		if (memoAdapter.isExistByMemberIdAndAchievedDate(memberId, request.achievedDate())) {
+			throw new SoftieException(ExceptionCode.BAD_REQUEST, "해당 날짜에 이미 메모가 존재합니다.");
+		}
 	}
 
 	private boolean hasNoRoutineHistory(final long memberId, final CreateMemoRequest request) {
