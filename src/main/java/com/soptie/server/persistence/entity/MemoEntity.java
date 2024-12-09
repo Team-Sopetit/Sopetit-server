@@ -1,5 +1,7 @@
 package com.soptie.server.persistence.entity;
 
+import static com.soptie.server.common.support.ValueConfig.MEMO_MAX_LENGTH;
+
 import java.time.LocalDate;
 
 import com.soptie.server.domain.member.Member;
@@ -17,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class MemoEntity extends BaseEntity {
 	@Column(nullable = false)
 	private LocalDate achievedDate;
-	@Column(nullable = false)
+	@Column(nullable = false, length = MEMO_MAX_LENGTH)
 	private String content;
 	@Column(nullable = false)
 	private long memberId;
