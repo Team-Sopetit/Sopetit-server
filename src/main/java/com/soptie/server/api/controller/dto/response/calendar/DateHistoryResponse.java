@@ -3,6 +3,8 @@ package com.soptie.server.api.controller.dto.response.calendar;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,13 +56,16 @@ public record DateHistoryResponse(
 	) {
 		return Stream.concat(routines.keySet().stream(), missions.keySet().stream())
 			.distinct()
+			.sorted(Comparator.comparingInt(Theme::getSequence))
 			.collect(Collectors.toMap(
 				theme -> theme,
 				theme -> HistoriesResponse.of(
 					theme,
 					routines.getOrDefault(theme, Collections.emptyList()),
 					missions.getOrDefault(theme, Collections.emptyList())
-				)
+				),
+				(existing, replacement) -> existing,
+				LinkedHashMap::new
 			));
 	}
 
@@ -91,8 +96,8 @@ public record DateHistoryResponse(
 			final List<MissionHistory> missions
 		) {
 			return Stream.concat(
-				routines.stream().map(HistoryResponse::createRoutines),
-				missions.stream().map(HistoryResponse::createMissions)
+				missions.stream().map(HistoryResponse::createMissions),
+				routines.stream().map(HistoryResponse::createRoutines)
 			).toList();
 		}
 

@@ -11,6 +11,8 @@ import org.springframework.data.repository.query.Param;
 import com.soptie.server.persistence.entity.MemoEntity;
 
 public interface MemoRepository extends JpaRepository<MemoEntity, Long> {
+	Optional<MemoEntity> findFirstByMemberIdAndAchievedDate(long memberId, LocalDate achievedDate);
+
 	Optional<MemoEntity> findByIdAndMemberId(long id, long memberId);
 
 	void deleteByIdAndMemberId(long id, long memberId);
