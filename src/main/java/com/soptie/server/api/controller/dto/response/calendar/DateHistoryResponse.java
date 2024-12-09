@@ -91,8 +91,8 @@ public record DateHistoryResponse(
 			final List<MissionHistory> missions
 		) {
 			return Stream.concat(
-				routines.stream().map(HistoryResponse::createRoutines),
-				missions.stream().map(HistoryResponse::createMissions)
+				missions.stream().map(HistoryResponse::createMissions),
+				routines.stream().map(HistoryResponse::createRoutines)
 			).toList();
 		}
 
