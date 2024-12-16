@@ -5,13 +5,15 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class MemberMission {
+public class MemberChallenge {
 	private Long id;
-	private int achievementCount;
+	private int achievedCount;
+	private boolean achieved;
+	private long challengeId;
 	private long memberId;
-	private long missionId;
 
 	public void achieve() {
-		this.achievementCount++;
+		this.achievedCount++;
+		this.achieved = true;
 	}
 }
