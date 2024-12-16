@@ -7,11 +7,11 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class MissionHistory {
+public class ChallengeHistory {
 	private Long id;
 	private long memberMissionId;
 	private long memberId;
-	private long missionId;
+	private long challengeId;
 	private String content;
 	private LocalDateTime createdAt;
 }
