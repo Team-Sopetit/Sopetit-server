@@ -1,6 +1,5 @@
 package com.soptie.server.persistence.adapter.challenge;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.soptie.server.common.exception.ExceptionCode;
@@ -48,25 +47,6 @@ public class MemberChallengeAdapter {
 	public void update(MemberChallenge memberChallenge) {
 		val memberMissionEntity = find(memberChallenge.getId());
 		memberMissionEntity.update(memberChallenge);
-	}
-
-	public void flush() {
-		memberChallengeRepository.flush();
-	}
-
-	private MemberChallengeEntity restore(
-		List<MemberChallengeEntity> deletedMemberMissions,
-		Member member,
-		Challenge challenge
-	) {
-		val deletedMemberMission = deletedMemberMissions.stream()
-			.filter(mm -> mm.getMissionId() == challenge.getId())
-			.findFirst()
-			.orElseThrow(() -> new SoftieException(
-				ExceptionCode.NOT_FOUND,
-				"Member ID: " + member.getId() + " Mission ID: " + challenge.getId()));
-		deletedMemberMission.restore();
-		return deletedMemberMission;
 	}
 
 	private MemberChallengeEntity find(long id) {
