@@ -20,7 +20,7 @@ import lombok.val;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v2/challenge")
+@RequestMapping("/api/v2/challenges")
 public class ChallengeApi implements ChallengeApiDocs {
 	private final ChallengeService challengeService;
 
