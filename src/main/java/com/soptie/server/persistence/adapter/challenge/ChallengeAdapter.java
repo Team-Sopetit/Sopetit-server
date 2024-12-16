@@ -20,18 +20,8 @@ public class ChallengeAdapter {
 		return challengeRepository.findByThemeId(themeId).stream().map(ChallengeEntity::toDomain).toList();
 	}
 
-	public List<Challenge> findByChallengeIds(List<Long> challengeIds) {
-		return challengeRepository.findByChallengeIdIn(challengeIds)
-			.stream().map(ChallengeEntity::toDomain)
-			.toList();
-	}
-
 	public Challenge findById(long missionId) {
 		return find(missionId).toDomain();
-	}
-
-	public List<Challenge> findByIds(List<Long> ids) {
-		return challengeRepository.findByIdIn(ids).stream().map(ChallengeEntity::toDomain).toList();
 	}
 
 	private ChallengeEntity find(long id) {
