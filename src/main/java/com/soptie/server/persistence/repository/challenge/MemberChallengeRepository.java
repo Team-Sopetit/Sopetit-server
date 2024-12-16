@@ -10,4 +10,6 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
 	Optional<MemberChallengeEntity> findByMemberIdAndAchievedIsFalse(long memberId);
 
 	Optional<MemberChallengeEntity> findByMemberIdAndChallengeIdAndAchievedTrue(long memberId, long challengeId);
+
+	void deleteByMemberId(long memberId);
 }

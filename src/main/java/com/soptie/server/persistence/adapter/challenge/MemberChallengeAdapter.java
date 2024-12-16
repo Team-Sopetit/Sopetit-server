@@ -8,8 +8,8 @@ import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.challenge.Challenge;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.membermission.MemberChallenge;
-import com.soptie.server.persistence.entity.mission.MemberChallengeEntity;
-import com.soptie.server.persistence.repository.mission.MemberChallengeRepository;
+import com.soptie.server.persistence.entity.challenge.MemberChallengeEntity;
+import com.soptie.server.persistence.repository.challenge.MemberChallengeRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -41,7 +41,7 @@ public class MemberChallengeAdapter {
 	}
 
 	public void deleteAllByMemberId(long memberId) {
-		memberChallengeRepository.deleteAllByMemberId(memberId);
+		memberChallengeRepository.deleteByMemberId(memberId);
 	}
 
 	public void update(MemberChallenge memberChallenge) {
