@@ -1,6 +1,7 @@
 package com.soptie.server.api.controller.dto.response.challenge;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.soptie.server.domain.challenge.Challenge;
 
@@ -15,10 +16,10 @@ public record ChallengesResponse(
 	@NotNull List<ChallengeResponse> challenges
 ) {
 
-	public static ChallengesResponse of(List<Challenge> challenges, List<Long> challengeIdsInMember) {
+	public static ChallengesResponse of(List<Challenge> challenges, Long challengeIdInMember) {
 		return ChallengesResponse.builder()
 			.challenges(challenges.stream()
-				.map(it -> ChallengeResponse.of(it, challengeIdsInMember)).toList())
+				.map(it -> ChallengeResponse.of(it, challengeIdInMember)).toList())
 			.build();
 	}
 
@@ -38,14 +39,14 @@ public record ChallengesResponse(
 		boolean hasRoutine
 	) {
 
-		private static ChallengeResponse of(Challenge challenge, List<Long> challengeIdsInMember) {
+		private static ChallengeResponse of(Challenge challenge, Long challengeIdInMember) {
 			return ChallengeResponse.builder()
 				.challengeId(challenge.getId())
 				.content(challenge.getContent())
 				.description(challenge.getDescription())
 				.requiredTime(challenge.getRequiredTime())
 				.place(challenge.getPlace())
-				.hasRoutine(challengeIdsInMember.contains(challenge.getId()))
+				.hasRoutine(Objects.equals(challenge.getId(), challengeIdInMember))
 				.build();
 		}
 	}

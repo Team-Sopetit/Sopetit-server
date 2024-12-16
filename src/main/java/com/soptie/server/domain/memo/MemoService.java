@@ -10,7 +10,7 @@ import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemoAdapter;
-import com.soptie.server.persistence.adapter.mission.MissionHistoryAdapter;
+import com.soptie.server.persistence.adapter.challenge.ChallengeHistoryAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class MemoService {
 
 	private final MemberAdapter memberAdapter;
 	private final MemoAdapter memoAdapter;
-	private final MissionHistoryAdapter missionHistoryAdapter;
+	private final ChallengeHistoryAdapter challengeHistoryAdapter;
 	private final RoutineHistoryAdapter routineHistoryAdapter;
 
 	@Transactional
@@ -62,6 +62,6 @@ public class MemoService {
 	}
 
 	private boolean hasNoMissionHistory(final long memberId, final CreateMemoRequest request) {
-		return !missionHistoryAdapter.isExistByMemberIdAndCreatedAt(memberId, request.achievedDate());
+		return !challengeHistoryAdapter.isExistByMemberIdAndCreatedAt(memberId, request.achievedDate());
 	}
 }

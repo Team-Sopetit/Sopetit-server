@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.api.controller.dto.response.challenge.ChallengesResponse;
 import com.soptie.server.domain.membermission.MemberChallenge;
 import com.soptie.server.persistence.adapter.challenge.ChallengeAdapter;
-import com.soptie.server.persistence.adapter.mission.MemberChallengeAdapter;
+import com.soptie.server.persistence.adapter.challenge.MemberChallengeAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -20,10 +20,10 @@ public class ChallengeService {
 
 	public ChallengesResponse getChallengesByTheme(long memberId, long themeId) {
 		val challenges = challengeAdapter.findAllByTheme(themeId);
-		val challengeIdsInMember = memberChallengeAdapter.findAllByMember(memberId)
-			.stream().map(MemberChallenge::getId)
-			.toList();
-		return ChallengesResponse.of(challenges, challengeIdsInMember);
+		val challengeIdInMember = memberChallengeAdapter.findByMember(memberId)
+			.map(MemberChallenge::getChallengeId)
+			.orElse(null);
+		return ChallengesResponse.of(challenges, challengeIdInMember);
 	}
 
 }

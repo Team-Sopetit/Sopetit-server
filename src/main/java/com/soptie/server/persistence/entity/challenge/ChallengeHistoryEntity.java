@@ -1,8 +1,8 @@
 package com.soptie.server.persistence.entity.challenge;
 
 import com.soptie.server.domain.challenge.Challenge;
+import com.soptie.server.domain.membermission.ChallengeHistory;
 import com.soptie.server.domain.membermission.MemberChallenge;
-import com.soptie.server.domain.membermission.MissionHistory;
 import com.soptie.server.persistence.entity.BaseEntity;
 
 import jakarta.persistence.Entity;
@@ -16,22 +16,22 @@ import lombok.NoArgsConstructor;
 public class ChallengeHistoryEntity extends BaseEntity {
 	private long memberChallengeId;
 	private long memberId;
-	private long missionId;
+	private long challengeId;
 	private String content;
 
 	public ChallengeHistoryEntity(final MemberChallenge memberChallenge, final Challenge challenge) {
 		this.memberChallengeId = memberChallenge.getId();
 		this.memberId = memberChallenge.getMemberId();
-		this.missionId = challenge.getId();
+		this.challengeId = challenge.getId();
 		this.content = challenge.getContent();
 	}
 
-	public MissionHistory toDomain() {
-		return MissionHistory.builder()
+	public ChallengeHistory toDomain() {
+		return ChallengeHistory.builder()
 			.id(this.id)
 			.memberMissionId(this.memberChallengeId)
 			.memberId(this.memberId)
-			.missionId(this.missionId)
+			.challengeId(this.challengeId)
 			.content(this.content)
 			.createdAt(this.createdAt)
 			.build();

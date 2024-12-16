@@ -7,10 +7,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.soptie.server.domain.challenge.Challenge;
+import com.soptie.server.domain.membermission.ChallengeHistory;
 import com.soptie.server.domain.membermission.MemberChallenge;
-import com.soptie.server.domain.membermission.MissionHistory;
-import com.soptie.server.persistence.entity.mission.ChallengeHistoryEntity;
-import com.soptie.server.persistence.repository.mission.ChallengeHistoryRepository;
+import com.soptie.server.persistence.entity.challenge.ChallengeHistoryEntity;
+import com.soptie.server.persistence.repository.challenge.ChallengeHistoryRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,7 +31,7 @@ public class ChallengeHistoryAdapter {
 		return historyRepository.findByMemberIdAndCreatedAt(memberId, date).isPresent();
 	}
 
-	public List<MissionHistory> findAllByMemberIdAndCreatedAtBetween(
+	public List<ChallengeHistory> findAllByMemberIdAndCreatedAtBetween(
 		final long memberId,
 		final LocalDateTime startDateTime,
 		final LocalDateTime endDateTime

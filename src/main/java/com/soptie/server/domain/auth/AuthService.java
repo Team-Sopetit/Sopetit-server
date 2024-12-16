@@ -16,7 +16,7 @@ import com.soptie.server.external.oauth.AppleService;
 import com.soptie.server.external.oauth.KakaoService;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberDollAdapter;
-import com.soptie.server.persistence.adapter.mission.MemberMissionAdapter;
+import com.soptie.server.persistence.adapter.challenge.MemberChallengeAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class AuthService {
 
 	private final MemberDollAdapter memberDollAdapter;
 	private final MemberRoutineAdapter memberRoutineAdapter;
-	private final MemberMissionAdapter memberMissionAdapter;
+	private final MemberChallengeAdapter memberChallengeAdapter;
 	private final MemberAdapter memberAdapter;
 
 	@Transactional
@@ -63,7 +63,7 @@ public class AuthService {
 	public void withdraw(long memberId) {
 		memberAdapter.findById(memberId);
 		memberRoutineAdapter.deleteAllByMemberId(memberId);
-		memberMissionAdapter.deleteAllByMemberId(memberId);
+		memberChallengeAdapter.deleteAllByMemberId(memberId);
 		memberDollAdapter.deleteByMember(memberId);
 		memberAdapter.delete(memberId);
 	}
