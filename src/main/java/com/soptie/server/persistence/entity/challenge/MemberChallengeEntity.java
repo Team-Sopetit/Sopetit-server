@@ -1,8 +1,8 @@
 package com.soptie.server.persistence.entity.challenge;
 
 import com.soptie.server.domain.challenge.Challenge;
+import com.soptie.server.domain.challenge.MemberChallenge;
 import com.soptie.server.domain.member.Member;
-import com.soptie.server.domain.membermission.MemberChallenge;
 import com.soptie.server.persistence.entity.BaseEntity;
 
 import jakarta.persistence.Column;

@@ -1,7 +1,6 @@
 package com.soptie.server.domain.calendar;
 
-import static com.soptie.server.common.support.ValueConfig.BLANK;
-import static com.soptie.server.common.support.ValueConfig.MEMBER_HAS_NOT_MEMO;
+import static com.soptie.server.common.support.ValueConfig.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,16 +15,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.dto.response.calendar.DateHistoryResponse;
-import com.soptie.server.domain.membermission.MissionHistory;
+import com.soptie.server.domain.challenge.ChallengeHistory;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
 import com.soptie.server.domain.memo.Memo;
 import com.soptie.server.domain.theme.Theme;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemoAdapter;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
-import com.soptie.server.persistence.adapter.mission.ChallengeAdapter;
-import com.soptie.server.persistence.adapter.mission.MissionAdapter;
-import com.soptie.server.persistence.adapter.mission.MissionHistoryAdapter;
+import com.soptie.server.persistence.adapter.challenge.ChallengeAdapter;
+import com.soptie.server.persistence.adapter.challenge.ChallengeHistoryAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
@@ -40,10 +38,9 @@ public class CalendarService {
 	private final MemberAdapter memberAdapter;
 	private final MemoAdapter memoAdapter;
 	private final RoutineHistoryAdapter routineHistoryAdapter;
-	private final MissionHistoryAdapter missionHistoryAdapter;
+	private final ChallengeHistoryAdapter challengeHistoryAdapter;
 	private final ThemeAdapter themeAdapter;
 	private final RoutineAdapter routineAdapter;
-	private final MissionAdapter missionAdapter;
 	private final ChallengeAdapter challengeAdapter;
 
 	public Map<LocalDate, DateHistoryResponse> getCalendar(final long memberId, final int year, final int month) {
@@ -52,8 +49,8 @@ public class CalendarService {
 		val endDateTime = startDateTime.plusMonths(1).withDayOfMonth(1).minusSeconds(1);
 		val memos = getMemos(memberId, year, month);
 		val routines = getRoutines(memberId, startDateTime, endDateTime);
-		val missions = getMissions(memberId, startDateTime, endDateTime);
-		return getHistories(memos, routines, missions);
+		val challenges = getChallenges(memberId, startDateTime, endDateTime);
+		return getHistories(memos, routines, challenges);
 	}
 
 	private Map<LocalDate, Memo> getMemos(final long memberId, final int year, final int month) {
@@ -82,17 +79,18 @@ public class CalendarService {
 			));
 	}
 
-	private Map<LocalDate, List<MissionHistory>> getMissions(
+	private Map<LocalDate, List<ChallengeHistory>> getChallenges(
 		final long memberId,
 		final LocalDateTime startDateTime,
 		final LocalDateTime endDateTime
 	) {
-		val missions = missionHistoryAdapter.findAllByMemberIdAndCreatedAtBetween(memberId, startDateTime, endDateTime);
-		return missions.stream()
+		val challenges = challengeHistoryAdapter.findAllByMemberIdAndCreatedAtBetween(memberId, startDateTime,
+			endDateTime);
+		return challenges.stream()
 			.collect(Collectors.groupingBy(
-				mission -> mission.getCreatedAt().toLocalDate(),
+				challenge -> challenge.getCreatedAt().toLocalDate(),
 				Collectors.mapping(
-					mission -> mission,
+					challenge -> challenge,
 					Collectors.toUnmodifiableList()
 				)
 			));
@@ -101,18 +99,18 @@ public class CalendarService {
 	private Map<LocalDate, DateHistoryResponse> getHistories(
 		final Map<LocalDate, Memo> memos,
 		final Map<LocalDate, List<RoutineHistory>> routines,
-		final Map<LocalDate, List<MissionHistory>> missions
+		final Map<LocalDate, List<ChallengeHistory>> challenges
 	) {
-		val dates = getDates(memos, routines, missions);
-		return getDateAndHistories(dates, memos, routines, missions);
+		val dates = getDates(memos, routines, challenges);
+		return getDateAndHistories(dates, memos, routines, challenges);
 	}
 
 	private Set<LocalDate> getDates(
 		final Map<LocalDate, Memo> memos,
 		final Map<LocalDate, List<RoutineHistory>> routines,
-		final Map<LocalDate, List<MissionHistory>> missions
+		final Map<LocalDate, List<ChallengeHistory>> challenges
 	) {
-		return Stream.of(memos.keySet(), routines.keySet(), missions.keySet())
+		return Stream.of(memos.keySet(), routines.keySet(), challenges.keySet())
 			.flatMap(Set::stream)
 			.collect(Collectors.toUnmodifiableSet());
 	}
@@ -121,12 +119,12 @@ public class CalendarService {
 		final Set<LocalDate> dates,
 		final Map<LocalDate, Memo> memos,
 		final Map<LocalDate, List<RoutineHistory>> routines,
-		final Map<LocalDate, List<MissionHistory>> missions
+		final Map<LocalDate, List<ChallengeHistory>> challenges
 	) {
 		return dates.stream()
 			.collect(Collectors.toMap(
 				date -> date,
-				date -> getDateHistory(date, memos, routines, missions)
+				date -> getDateHistory(date, memos, routines, challenges)
 			));
 	}
 
@@ -134,14 +132,14 @@ public class CalendarService {
 		final LocalDate date,
 		final Map<LocalDate, Memo> memos,
 		final Map<LocalDate, List<RoutineHistory>> routines,
-		final Map<LocalDate, List<MissionHistory>> missions
+		final Map<LocalDate, List<ChallengeHistory>> challenges
 	) {
 		val memo = memos.get(date);
 		val routineHistories = getRoutines(date, routines);
-		val missionHistories = getMissions(date, missions);
+		val challengeHistories = getChallenges(date, challenges);
 		val memoId = memo == null ? MEMBER_HAS_NOT_MEMO : memo.getId();
 		val content = memo == null ? BLANK : memo.getContent();
-		return DateHistoryResponse.of(memoId, content, routineHistories, missionHistories);
+		return DateHistoryResponse.of(memoId, content, routineHistories, challengeHistories);
 	}
 
 	private Map<Theme, List<RoutineHistory>> getRoutines(
@@ -160,20 +158,19 @@ public class CalendarService {
 		return themeAdapter.findById(routine.getThemeId());
 	}
 
-	private Map<Theme, List<MissionHistory>> getMissions(
+	private Map<Theme, List<ChallengeHistory>> getChallenges(
 		final LocalDate date,
-		final Map<LocalDate, List<MissionHistory>> missions
+		final Map<LocalDate, List<ChallengeHistory>> challenges
 	) {
-		val histories = missions.getOrDefault(date, Collections.emptyList());
+		val histories = challenges.getOrDefault(date, Collections.emptyList());
 		return histories.stream()
 			.collect(Collectors.groupingBy(
-				this::getMissionTheme
+				this::getChallengeTheme
 			));
 	}
 
-	private Theme getMissionTheme(final MissionHistory history) {
-		val mission = missionAdapter.findById(history.getMissionId());
-		val challenge = challengeAdapter.findById(mission.getChallengeId());
+	private Theme getChallengeTheme(final ChallengeHistory history) {
+		val challenge = challengeAdapter.findById(history.getChallengeId());
 		return themeAdapter.findById(challenge.getThemeId());
 	}
 }

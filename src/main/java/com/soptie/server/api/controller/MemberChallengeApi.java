@@ -19,7 +19,7 @@ import com.soptie.server.api.controller.dto.request.membermission.CreateMemberCh
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.membermission.CreateMemberChallengeResponse;
 import com.soptie.server.api.controller.generic.SuccessMessage;
-import com.soptie.server.domain.membermission.MemberChallengeService;
+import com.soptie.server.domain.challenge.MemberChallengeService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

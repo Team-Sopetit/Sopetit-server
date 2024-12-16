@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.soptie.server.domain.challenge.Challenge;
-import com.soptie.server.domain.membermission.ChallengeHistory;
-import com.soptie.server.domain.membermission.MemberChallenge;
+import com.soptie.server.domain.challenge.ChallengeHistory;
+import com.soptie.server.domain.challenge.MemberChallenge;
 import com.soptie.server.persistence.entity.challenge.ChallengeHistoryEntity;
 import com.soptie.server.persistence.repository.challenge.ChallengeHistoryRepository;
 

@@ -1,7 +1,7 @@
 package com.soptie.server.api.controller.dto.response.membermission;
 
 import com.soptie.server.domain.challenge.Challenge;
-import com.soptie.server.domain.membermission.MemberChallenge;
+import com.soptie.server.domain.challenge.MemberChallenge;
 import com.soptie.server.domain.theme.Theme;
 
 import io.swagger.v3.oas.annotations.media.Schema;

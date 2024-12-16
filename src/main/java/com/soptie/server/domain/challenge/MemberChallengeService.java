@@ -1,4 +1,4 @@
-package com.soptie.server.domain.membermission;
+package com.soptie.server.domain.challenge;
 
 import java.util.Optional;
 

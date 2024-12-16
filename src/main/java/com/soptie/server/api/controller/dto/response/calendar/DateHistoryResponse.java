@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.soptie.server.domain.membermission.ChallengeHistory;
+import com.soptie.server.domain.challenge.ChallengeHistory;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
 import com.soptie.server.domain.theme.Theme;
 

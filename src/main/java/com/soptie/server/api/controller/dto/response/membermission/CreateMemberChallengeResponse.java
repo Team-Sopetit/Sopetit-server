@@ -1,6 +1,6 @@
 package com.soptie.server.api.controller.dto.response.membermission;
 
-import com.soptie.server.domain.membermission.MemberChallenge;
+import com.soptie.server.domain.challenge.MemberChallenge;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;

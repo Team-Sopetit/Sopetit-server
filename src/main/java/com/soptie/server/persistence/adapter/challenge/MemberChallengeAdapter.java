@@ -6,8 +6,8 @@ import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.challenge.Challenge;
+import com.soptie.server.domain.challenge.MemberChallenge;
 import com.soptie.server.domain.member.Member;
-import com.soptie.server.domain.membermission.MemberChallenge;
 import com.soptie.server.persistence.entity.challenge.MemberChallengeEntity;
 import com.soptie.server.persistence.repository.challenge.MemberChallengeRepository;
 
