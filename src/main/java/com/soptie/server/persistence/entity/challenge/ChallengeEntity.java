@@ -1,15 +1,20 @@
-package com.soptie.server.persistence.entity.mission;
+package com.soptie.server.persistence.entity.challenge;
 
-import com.soptie.server.domain.challenge.Mission;
-import com.soptie.server.persistence.entity.BaseEntity;
+import com.soptie.server.domain.challenge.Challenge;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "mission", schema = "softie")
-public class MissionEntity extends BaseEntity {
+@Table(name = "challenge", schema = "softie")
+public class ChallengeEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column(nullable = false)
 	private String content;
 	@Column(nullable = false)
@@ -19,16 +24,16 @@ public class MissionEntity extends BaseEntity {
 	@Column(nullable = false)
 	private String place;
 	@Column(nullable = false)
-	private long challengeId;
+	private long themeId;
 
-	public Mission toDomain() {
-		return Mission.builder()
+	public Challenge toDomain() {
+		return Challenge.builder()
 			.id(this.id)
 			.content(this.content)
 			.description(this.description)
 			.requiredTime(this.requiredTime)
 			.place(this.place)
-			.challengeId(this.challengeId)
+			.themeId(this.themeId)
 			.build();
 	}
 }

@@ -2,12 +2,13 @@ package com.soptie.server.api.controller.docs;
 
 import java.security.Principal;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.soptie.server.api.controller.dto.request.membermission.CreateMemberMissionRequest;
+import com.soptie.server.api.controller.dto.request.membermission.CreateMemberChallengeRequest;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.membermission.CreateMemberMissionResponse;
+import com.soptie.server.api.controller.dto.response.membermission.CreateMemberChallengeResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,12 +19,31 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "[MemberMission] 회원의 도전 루틴", description = "회원의 도전 루틴 API")
-public interface MemberMissionApiDocs {
+@Tag(name = "[MemberChallenge] 회원 챌린지 API", description = "회원 챌린지 API version2")
+public interface MemberChallengeApiDocs {
 
 	@Operation(
-		summary = "미션(도전 루틴) 추가",
-		description = "회원의 미션을 추가한다.",
+		summary = "회원 챌린지 조회",
+		description = "회원의 챌린지를 조회한다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "OK success"),
+			@ApiResponse(responseCode = "204", description = "NoContent success"),
+			@ApiResponse(
+				responseCode = "4xx",
+				description = "클라이언트(요청) 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
+	)
+	ResponseEntity<?> getMemberChallenge(
+		@Parameter(hidden = true) Principal principal
+	);
+
+	@Operation(
+		summary = "회원 챌린지 추가",
+		description = "회원의 챌린지를 추가한다.",
 		responses = {
 			@ApiResponse(responseCode = "201", description = "Created success"),
 			@ApiResponse(
@@ -35,14 +55,14 @@ public interface MemberMissionApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<CreateMemberMissionResponse> createMemberMission(
+	SuccessResponse<CreateMemberChallengeResponse> createMemberChallenge(
 		@Parameter(hidden = true) Principal principal,
-		@RequestBody CreateMemberMissionRequest request
+		@RequestBody CreateMemberChallengeRequest request
 	);
 
 	@Operation(
-		summary = "미션 삭제",
-		description = "회원의 미션을 삭제한다.",
+		summary = "회원 챌린지 삭제",
+		description = "회원의 챌린지를 삭제한다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
@@ -54,19 +74,13 @@ public interface MemberMissionApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<?> deleteMemberMission(
-		@Parameter(hidden = true) Principal principal,
-		@Parameter(
-			name = "routineId",
-			description = "삭제할 회원의 미션 id",
-			in = ParameterIn.PATH,
-			example = "1"
-		) @PathVariable long routineId
+	SuccessResponse<?> deleteMemberChallenge(
+		@Parameter(hidden = true) Principal principal
 	);
 
 	@Operation(
-		summary = "미션 달성",
-		description = "회원의 미션을 달성한다.",
+		summary = "회원 챌린지 달성",
+		description = "회원의 챌린지를 달성한다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
@@ -78,20 +92,13 @@ public interface MemberMissionApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<?> achieveMemberMission(
-		@Parameter(hidden = true) Principal principal,
-		@Parameter(
-			name = "routineId",
-			description = "달성할 회원의 미션 id",
-			in = ParameterIn.PATH,
-			example = "1"
-		)
-		@PathVariable long routineId
+	SuccessResponse<?> achieveMemberChallenge(
+		@Parameter(hidden = true) Principal principal
 	);
 
 	@Operation(
-		summary = "미션 기록 삭제",
-		description = "달성한 미션 기록을 삭제합니다.",
+		summary = "챌린지 기록 삭제",
+		description = "달성한 챌린지 기록을 삭제합니다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
@@ -103,10 +110,10 @@ public interface MemberMissionApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<?> deleteMissionHistory(
+	SuccessResponse<?> deleteHistory(
 		@Parameter(
 			name = "historyId",
-			description = "달성 이력 id",
+			description = "삭제하려는 이력 id",
 			in = ParameterIn.PATH,
 			example = "1"
 		) @PathVariable long historyId

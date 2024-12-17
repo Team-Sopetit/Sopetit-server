@@ -1,6 +1,6 @@
 package com.soptie.server.api.controller.dto.response.calendar;
 
-import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.*;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.soptie.server.domain.membermission.MissionHistory;
+import com.soptie.server.domain.challenge.ChallengeHistory;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
 import com.soptie.server.domain.theme.Theme;
 
@@ -33,7 +33,7 @@ public record DateHistoryResponse(
 		final long memoId,
 		final String memoContent,
 		final Map<Theme, List<RoutineHistory>> routines,
-		final Map<Theme, List<MissionHistory>> missions
+		final Map<Theme, List<ChallengeHistory>> missions
 	) {
 		return DateHistoryResponse.builder()
 			.memoId(memoId)
@@ -44,7 +44,7 @@ public record DateHistoryResponse(
 
 	private static List<HistoriesResponse> toHistories(
 		final Map<Theme, List<RoutineHistory>> routines,
-		final Map<Theme, List<MissionHistory>> missions
+		final Map<Theme, List<ChallengeHistory>> missions
 	) {
 		val histories = getHistories(routines, missions);
 		return histories.values().stream().toList();
@@ -52,7 +52,7 @@ public record DateHistoryResponse(
 
 	private static Map<Theme, HistoriesResponse> getHistories(
 		final Map<Theme, List<RoutineHistory>> routines,
-		final Map<Theme, List<MissionHistory>> missions
+		final Map<Theme, List<ChallengeHistory>> missions
 	) {
 		return Stream.concat(routines.keySet().stream(), missions.keySet().stream())
 			.distinct()
@@ -82,7 +82,7 @@ public record DateHistoryResponse(
 		private static HistoriesResponse of(
 			final Theme theme,
 			final List<RoutineHistory> routines,
-			final List<MissionHistory> missions
+			final List<ChallengeHistory> missions
 		) {
 			return HistoriesResponse.builder()
 				.themeId(theme.getId())
@@ -93,7 +93,7 @@ public record DateHistoryResponse(
 
 		private static List<HistoryResponse> getHistoryResponse(
 			final List<RoutineHistory> routines,
-			final List<MissionHistory> missions
+			final List<ChallengeHistory> missions
 		) {
 			return Stream.concat(
 				missions.stream().map(HistoryResponse::createMissions),
@@ -107,23 +107,23 @@ public record DateHistoryResponse(
 			long historyId,
 			@Schema(description = "루틴 내용", example = "밥 먹기")
 			@NotNull String content,
-			@Schema(description = "도전 루틴 여부", example = "true")
-			boolean isMission
+			@Schema(description = "챌린지 여부", example = "true")
+			boolean isChallenge
 		) {
 
 			private static HistoryResponse createRoutines(final RoutineHistory history) {
 				return HistoryResponse.builder()
 					.historyId(history.getId())
 					.content(history.getContent())
-					.isMission(false)
+					.isChallenge(false)
 					.build();
 			}
 
-			private static HistoryResponse createMissions(final MissionHistory history) {
+			private static HistoryResponse createMissions(final ChallengeHistory history) {
 				return HistoryResponse.builder()
 					.historyId(history.getId())
 					.content(history.getContent())
-					.isMission(true)
+					.isChallenge(true)
 					.build();
 			}
 		}
