@@ -1,15 +1,20 @@
 package com.soptie.server.persistence.entity.challenge;
 
 import com.soptie.server.domain.challenge.Challenge;
-import com.soptie.server.persistence.entity.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "challenge", schema = "softie")
-public class ChallengeEntity extends BaseEntity {
+public class ChallengeEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column(nullable = false)
 	private String content;
 	@Column(nullable = false)
