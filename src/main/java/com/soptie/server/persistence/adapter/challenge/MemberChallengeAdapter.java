@@ -28,11 +28,10 @@ public class MemberChallengeAdapter {
 		val memberChallenge = memberChallengeRepository
 			.findByMemberIdAndChallengeIdAndAchievedTrue(member.getId(), challenge.getId());
 		return memberChallenge
-			// 달성한 이력이 있는 회원
-			.map(MemberChallengeEntity::restore)
-			// 처음 추가하는 회원
-			.orElse(memberChallengeRepository.save(new MemberChallengeEntity(member, challenge)))
-			.toDomain();
+			// 추가한 이력이 있는 경우
+			.map(entity -> entity.restore().toDomain())
+			// 처음 추가하는 경우
+			.orElseGet(() -> memberChallengeRepository.save(new MemberChallengeEntity(member, challenge)).toDomain());
 	}
 
 	public void delete(MemberChallenge memberChallenge) {
