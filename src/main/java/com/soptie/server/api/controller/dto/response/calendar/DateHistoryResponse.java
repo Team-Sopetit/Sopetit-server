@@ -107,15 +107,15 @@ public record DateHistoryResponse(
 			long historyId,
 			@Schema(description = "루틴 내용", example = "밥 먹기")
 			@NotNull String content,
-			@Schema(description = "도전 루틴 여부", example = "true")
-			boolean isMission
+			@Schema(description = "챌린지 여부", example = "true")
+			boolean isChallenge
 		) {
 
 			private static HistoryResponse createRoutines(final RoutineHistory history) {
 				return HistoryResponse.builder()
 					.historyId(history.getId())
 					.content(history.getContent())
-					.isMission(false)
+					.isChallenge(false)
 					.build();
 			}
 
@@ -123,7 +123,7 @@ public record DateHistoryResponse(
 				return HistoryResponse.builder()
 					.historyId(history.getId())
 					.content(history.getContent())
-					.isMission(true)
+					.isChallenge(true)
 					.build();
 			}
 		}
