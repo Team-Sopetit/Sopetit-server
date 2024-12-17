@@ -10,6 +10,7 @@ import com.soptie.server.api.controller.dto.response.membermission.CreateMemberC
 import com.soptie.server.api.controller.dto.response.membermission.MemberChallengeResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
+import com.soptie.server.domain.challenge.util.ChallengeValidator;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
 import com.soptie.server.persistence.adapter.challenge.ChallengeAdapter;
@@ -28,6 +29,7 @@ public class MemberChallengeService {
 	private final ChallengeAdapter challengeAdapter;
 	private final MemberAdapter memberAdapter;
 	private final ChallengeHistoryAdapter challengeHistoryAdapter;
+	private final ChallengeValidator challengeValidator;
 
 	public Optional<MemberChallengeResponse> getMemberChallenge(long memberId) {
 		val memberChallenge = memberChallengeAdapter.findByMember(memberId);
@@ -42,9 +44,7 @@ public class MemberChallengeService {
 
 	@Transactional
 	public CreateMemberChallengeResponse createMemberChallenge(long memberId, CreateMemberChallengeRequest request) {
-		if (memberChallengeAdapter.findByMember(memberId).isPresent()) {
-			throw new SoftieException(ExceptionCode.BAD_REQUEST, "챌린지가 존재하는 회원");
-		}
+		challengeValidator.checkChallengeNotExists(memberId);
 		val member = memberAdapter.findById(memberId);
 		val challenge = challengeAdapter.findById(request.challengeId());
 		val savedMemberChallenge = memberChallengeAdapter.save(member, challenge);
