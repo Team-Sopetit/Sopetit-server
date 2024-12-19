@@ -19,8 +19,4 @@ public class ThemeService {
 		val themes = themeAdapter.findByBasic();
 		return GetThemesResponse.of(themes);
 	}
-
-	public Theme acquireById(long themeId) {
-		return themeAdapter.findById(themeId);
-	}
 }
