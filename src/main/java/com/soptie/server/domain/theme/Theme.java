@@ -17,7 +17,6 @@ public class Theme {
 	@NotNull
 	private String description;
 	private int sequence;
-	private Long makerId;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -30,11 +29,11 @@ public class Theme {
 		Theme theme = (Theme)obj;
 		return sequence == theme.sequence && Objects.equals(id, theme.id) && Objects.equals(name,
 			theme.name) && Objects.equals(comment, theme.comment) && Objects.equals(description,
-			theme.description) && Objects.equals(makerId, theme.makerId);
+			theme.description);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, comment, description, sequence, makerId);
+		return Objects.hash(id, name, comment, description, sequence);
 	}
 }
