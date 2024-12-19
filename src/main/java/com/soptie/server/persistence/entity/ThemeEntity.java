@@ -17,7 +17,6 @@ public class ThemeEntity extends BaseEntity {
 	private String description;
 	@Column(nullable = false)
 	private int sequence;
-	private Long makerId;
 
 	public Theme toDomain() {
 		return Theme.builder()
@@ -26,7 +25,6 @@ public class ThemeEntity extends BaseEntity {
 			.comment(this.comment)
 			.description(this.description)
 			.sequence(this.sequence)
-			.makerId(this.makerId)
 			.build();
 	}
 }

@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.soptie.server.persistence.entity.ThemeEntity;
 
-public interface ThemeRepository extends JpaRepository<ThemeEntity, Long>, ThemeCustomRepository {
-	List<ThemeEntity> findByMakerIdIsNullOrderBySequenceAsc();
+public interface ThemeRepository extends JpaRepository<ThemeEntity, Long> {
+	List<ThemeEntity> findByOrderBySequenceAsc();
 
 	List<ThemeEntity> findByIdIn(List<Long> ids);
 }
