@@ -18,7 +18,7 @@ public class ThemeAdapter {
 	private final ThemeRepository themeRepository;
 
 	public List<Theme> findByBasic() {
-		return themeRepository.findByMakerIdIsNullOrderBySequenceAsc()
+		return themeRepository.findByOrderBySequenceAsc()
 			.stream().map(ThemeEntity::toDomain)
 			.toList();
 	}
