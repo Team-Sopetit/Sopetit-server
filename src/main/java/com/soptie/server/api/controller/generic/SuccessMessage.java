@@ -30,9 +30,6 @@ public enum SuccessMessage {
 	/* challenge */
 	GET_CHALLENGE("도전루틴 조회 성공"),
 
-	/* maker */
-	SUCCESS_GET_MAKER_THEME("메이커 테마 조회 성공"),
-
 	/* memo */
 	CREATE_MEMO("메모 생성 성공"),
 	UPDATE_MEMO("메모 수정 성공"),
