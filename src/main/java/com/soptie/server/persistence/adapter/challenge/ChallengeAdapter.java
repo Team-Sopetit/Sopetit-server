@@ -20,12 +20,12 @@ public class ChallengeAdapter {
 		return challengeRepository.findByThemeId(themeId).stream().map(ChallengeEntity::toDomain).toList();
 	}
 
-	public Challenge findById(long missionId) {
-		return find(missionId).toDomain();
+	public Challenge findById(long challengeId) {
+		return find(challengeId).toDomain();
 	}
 
 	private ChallengeEntity find(long id) {
 		return challengeRepository.findById(id)
-			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Mission ID: " + id));
+			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Challenge ID: " + id));
 	}
 }

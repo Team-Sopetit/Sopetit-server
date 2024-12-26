@@ -5,10 +5,10 @@ import java.security.Principal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.soptie.server.api.controller.dto.request.membermission.CreateMemberChallengeRequest;
+import com.soptie.server.api.controller.dto.request.memberchallenge.CreateMemberChallengeRequest;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.membermission.CreateMemberChallengeResponse;
+import com.soptie.server.api.controller.dto.response.memberchallenge.CreateMemberChallengeResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

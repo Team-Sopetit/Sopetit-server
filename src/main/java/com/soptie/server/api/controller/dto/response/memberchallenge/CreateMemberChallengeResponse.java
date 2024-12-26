@@ -1,4 +1,4 @@
-package com.soptie.server.api.controller.dto.response.membermission;
+package com.soptie.server.api.controller.dto.response.memberchallenge;
 
 import com.soptie.server.domain.challenge.MemberChallenge;
 

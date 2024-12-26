@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class ChallengeHistory {
 	private Long id;
-	private long memberMissionId;
+	private long memberChallengeId;
 	private long memberId;
 	private long challengeId;
 	private String content;

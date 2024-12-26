@@ -1,4 +1,4 @@
-package com.soptie.server.api.controller.dto.request.membermission;
+package com.soptie.server.api.controller.dto.request.memberchallenge;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

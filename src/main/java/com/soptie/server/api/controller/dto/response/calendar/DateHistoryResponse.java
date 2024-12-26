@@ -1,6 +1,6 @@
 package com.soptie.server.api.controller.dto.response.calendar;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,28 +33,28 @@ public record DateHistoryResponse(
 		final long memoId,
 		final String memoContent,
 		final Map<Theme, List<RoutineHistory>> routines,
-		final Map<Theme, List<ChallengeHistory>> missions
+		final Map<Theme, List<ChallengeHistory>> challenges
 	) {
 		return DateHistoryResponse.builder()
 			.memoId(memoId)
 			.memoContent(memoContent)
-			.histories(toHistories(routines, missions))
+			.histories(toHistories(routines, challenges))
 			.build();
 	}
 
 	private static List<HistoriesResponse> toHistories(
 		final Map<Theme, List<RoutineHistory>> routines,
-		final Map<Theme, List<ChallengeHistory>> missions
+		final Map<Theme, List<ChallengeHistory>> challenges
 	) {
-		val histories = getHistories(routines, missions);
+		val histories = getHistories(routines, challenges);
 		return histories.values().stream().toList();
 	}
 
 	private static Map<Theme, HistoriesResponse> getHistories(
 		final Map<Theme, List<RoutineHistory>> routines,
-		final Map<Theme, List<ChallengeHistory>> missions
+		final Map<Theme, List<ChallengeHistory>> challenges
 	) {
-		return Stream.concat(routines.keySet().stream(), missions.keySet().stream())
+		return Stream.concat(routines.keySet().stream(), challenges.keySet().stream())
 			.distinct()
 			.sorted(Comparator.comparingInt(Theme::getSequence))
 			.collect(Collectors.toMap(
@@ -62,7 +62,7 @@ public record DateHistoryResponse(
 				theme -> HistoriesResponse.of(
 					theme,
 					routines.getOrDefault(theme, Collections.emptyList()),
-					missions.getOrDefault(theme, Collections.emptyList())
+					challenges.getOrDefault(theme, Collections.emptyList())
 				),
 				(existing, replacement) -> existing,
 				LinkedHashMap::new
@@ -82,21 +82,21 @@ public record DateHistoryResponse(
 		private static HistoriesResponse of(
 			final Theme theme,
 			final List<RoutineHistory> routines,
-			final List<ChallengeHistory> missions
+			final List<ChallengeHistory> challenges
 		) {
 			return HistoriesResponse.builder()
 				.themeId(theme.getId())
 				.themeName(theme.getName())
-				.histories(getHistoryResponse(routines, missions))
+				.histories(getHistoryResponse(routines, challenges))
 				.build();
 		}
 
 		private static List<HistoryResponse> getHistoryResponse(
 			final List<RoutineHistory> routines,
-			final List<ChallengeHistory> missions
+			final List<ChallengeHistory> challenges
 		) {
 			return Stream.concat(
-				missions.stream().map(HistoryResponse::createMissions),
+				challenges.stream().map(HistoryResponse::createChallenges),
 				routines.stream().map(HistoryResponse::createRoutines)
 			).toList();
 		}
@@ -119,7 +119,7 @@ public record DateHistoryResponse(
 					.build();
 			}
 
-			private static HistoryResponse createMissions(final ChallengeHistory history) {
+			private static HistoryResponse createChallenges(final ChallengeHistory history) {
 				return HistoryResponse.builder()
 					.historyId(history.getId())
 					.content(history.getContent())

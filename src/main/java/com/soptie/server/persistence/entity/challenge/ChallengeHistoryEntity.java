@@ -29,7 +29,7 @@ public class ChallengeHistoryEntity extends BaseEntity {
 	public ChallengeHistory toDomain() {
 		return ChallengeHistory.builder()
 			.id(this.id)
-			.memberMissionId(this.memberChallengeId)
+			.memberChallengeId(this.memberChallengeId)
 			.memberId(this.memberId)
 			.challengeId(this.challengeId)
 			.content(this.content)

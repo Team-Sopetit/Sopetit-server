@@ -44,12 +44,12 @@ public class MemberChallengeAdapter {
 	}
 
 	public void update(MemberChallenge memberChallenge) {
-		val memberMissionEntity = find(memberChallenge.getId());
-		memberMissionEntity.update(memberChallenge);
+		val memberChallengeEntity = find(memberChallenge.getId());
+		memberChallengeEntity.update(memberChallenge);
 	}
 
 	private MemberChallengeEntity find(long id) {
 		return memberChallengeRepository.findById(id)
-			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "MemberMission ID: " + id));
+			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "MemberChallenge ID: " + id));
 	}
 }
