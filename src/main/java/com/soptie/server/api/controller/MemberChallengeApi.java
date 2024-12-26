@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.api.controller.docs.MemberChallengeApiDocs;
-import com.soptie.server.api.controller.dto.request.membermission.CreateMemberChallengeRequest;
+import com.soptie.server.api.controller.dto.request.memberchallenge.CreateMemberChallengeRequest;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.membermission.CreateMemberChallengeResponse;
+import com.soptie.server.api.controller.dto.response.memberchallenge.CreateMemberChallengeResponse;
 import com.soptie.server.api.controller.generic.SuccessMessage;
 import com.soptie.server.domain.challenge.MemberChallengeService;
 

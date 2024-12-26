@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.membermission.CreateMemberChallengeRequest;
-import com.soptie.server.api.controller.dto.response.membermission.CreateMemberChallengeResponse;
-import com.soptie.server.api.controller.dto.response.membermission.MemberChallengeResponse;
+import com.soptie.server.api.controller.dto.request.memberchallenge.CreateMemberChallengeRequest;
+import com.soptie.server.api.controller.dto.response.memberchallenge.CreateMemberChallengeResponse;
+import com.soptie.server.api.controller.dto.response.memberchallenge.MemberChallengeResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.challenge.util.ChallengeValidator;
