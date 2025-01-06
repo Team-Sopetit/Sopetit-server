@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import com.soptie.server.domain.challenge.Challenge;
+import com.soptie.server.domain.challenge.MemberChallenge;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.domain.theme.Theme;
@@ -19,7 +21,9 @@ public record AchievedThemeResponse(
 	@Schema(description = "테마 이름", example = "관계쌓기")
 	String name,
 	@Schema(description = "루틴 목록")
-	List<AchievedRoutine> routines
+	List<AchievedRoutine> routines,
+	@Schema(description = "챌린지 목록")
+	List<AchievedChallenge> challenges
 ) {
 
 	public static AchievedThemeResponse of(
@@ -51,6 +55,25 @@ public record AchievedThemeResponse(
 				.content(routine.getContent())
 				.achievedCount(memberRoutine.getAchievementCount())
 				.startedAt(memberRoutine.getCreatedAt())
+				.build();
+		}
+	}
+
+	@Builder(access = AccessLevel.PRIVATE)
+	private record AchievedChallenge(
+		@Schema(description = "챌린지 내용", example = "미라클 모닝")
+		String content,
+		@Schema(description = "챌린지 달성 횟수", example = "5")
+		int achievedCount,
+		@Schema(description = "챌린지 시작일", example = "2024-01-01")
+		LocalDate startedAt
+	) {
+
+		private static AchievedRoutine of(Challenge challenge, MemberChallenge memberChallenge) {
+			return AchievedRoutine.builder()
+				.content(challenge.getContent())
+				.achievedCount(memberChallenge.getAchievedCount())
+				.startedAt(memberChallenge.getCreatedAt())
 				.build();
 		}
 	}
