@@ -8,6 +8,7 @@ import com.soptie.server.domain.theme.Theme;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.val;
 
 @Builder(access = AccessLevel.PRIVATE)
 public record AchievedThemesResponse(
@@ -22,6 +23,10 @@ public record AchievedThemesResponse(
 		return AchievedThemesResponse.builder()
 			.themes(themes.stream()
 				.map(it -> AchievedTheme.of(it, achievedCountsByTheme.get(it.getId())))
+				.sorted((a, b) -> {
+					val diff = b.achievedCount - a.achievedCount;
+					return diff != 0 ? diff : a.name.compareTo(b.name);
+				})
 				.toList())
 			.build();
 	}

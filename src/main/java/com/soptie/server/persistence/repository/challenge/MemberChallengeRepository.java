@@ -1,5 +1,6 @@
 package com.soptie.server.persistence.repository.challenge;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,6 @@ public interface MemberChallengeRepository extends JpaRepository<MemberChallenge
 	Optional<MemberChallengeEntity> findByMemberIdAndChallengeIdAndAchievedTrue(long memberId, long challengeId);
 
 	void deleteByMemberId(long memberId);
+
+	List<MemberChallengeEntity> findByMemberId(long memberId);
 }

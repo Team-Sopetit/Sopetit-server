@@ -13,20 +13,24 @@ import com.soptie.server.api.controller.docs.AchievementApiDocs;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.achievement.AchievedThemeResponse;
 import com.soptie.server.api.controller.dto.response.achievement.AchievedThemesResponse;
+import com.soptie.server.api.controller.generic.SuccessMessage;
 import com.soptie.server.domain.achievement.AchievedThemeService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v3/achievement")
 public class AchievementApi implements AchievementApiDocs {
-	private AchievedThemeService achievedThemeService;
+	private final AchievedThemeService achievedThemeService;
 
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/themes")
 	public SuccessResponse<AchievedThemesResponse> getAchievementThemes(Principal principal) {
-		return null;
+		val memberId = Long.parseLong(principal.getName());
+		val response = achievedThemeService.getAchievedThemes(memberId);
+		return SuccessResponse.success(SuccessMessage.GET_STATISTICS.getMessage(), response);
 	}
 
 	@ResponseStatus(HttpStatus.OK)

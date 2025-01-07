@@ -1,5 +1,6 @@
 package com.soptie.server.persistence.adapter.challenge;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.soptie.server.common.exception.ExceptionCode;
@@ -46,6 +47,12 @@ public class MemberChallengeAdapter {
 	public void update(MemberChallenge memberChallenge) {
 		val memberChallengeEntity = find(memberChallenge.getId());
 		memberChallengeEntity.update(memberChallenge);
+	}
+
+	public List<MemberChallenge> findAllByMemberId(long memberId) {
+		return memberChallengeRepository.findByMemberId(memberId).stream()
+			.map(MemberChallengeEntity::toDomain)
+			.toList();
 	}
 
 	private MemberChallengeEntity find(long id) {

@@ -28,4 +28,8 @@ public class ChallengeAdapter {
 		return challengeRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Challenge ID: " + id));
 	}
+
+	public List<Challenge> findByIds(List<Long> ids) {
+		return challengeRepository.findByIdIn(ids).stream().map(ChallengeEntity::toDomain).toList();
+	}
 }
