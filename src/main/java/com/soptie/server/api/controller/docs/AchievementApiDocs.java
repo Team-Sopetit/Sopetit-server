@@ -2,8 +2,6 @@ package com.soptie.server.api.controller.docs;
 
 import java.security.Principal;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.achievement.AchievedThemeResponse;
@@ -60,6 +58,6 @@ public interface AchievementApiDocs {
 			in = ParameterIn.PATH,
 			required = true,
 			example = "1"
-		) @RequestParam long themeId
+		) long themeId
 	);
 }

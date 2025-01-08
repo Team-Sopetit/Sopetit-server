@@ -13,6 +13,7 @@ import com.soptie.server.domain.theme.Theme;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.val;
 
 @Builder(access = AccessLevel.PRIVATE)
 public record AchievedThemeResponse(
@@ -28,14 +29,27 @@ public record AchievedThemeResponse(
 
 	public static AchievedThemeResponse of(
 		Theme theme,
-		List<Routine> routines,
-		Map<Long, MemberRoutine> memberRoutinesByRoutine
+		List<MemberRoutine> memberRoutines,
+		Map<Long, Routine> routineMapOfMember,
+		List<MemberChallenge> memberChallenges,
+		Map<Long, Challenge> challengeMapOfMember
 	) {
 		return AchievedThemeResponse.builder()
 			.id(theme.getId())
 			.name(theme.getName())
-			.routines(routines.stream()
-				.map(it -> AchievedRoutine.of(it, memberRoutinesByRoutine.get(it.getId())))
+			.routines(memberRoutines.stream()
+				.map(it -> AchievedRoutine.of(routineMapOfMember.get(it.getId()), it))
+				.sorted((a, b) -> {
+					val diff = b.achievedCount - a.achievedCount;
+					return diff != 0 ? diff : a.content.compareTo(b.content);
+				})
+				.toList())
+			.challenges(memberChallenges.stream()
+				.map(it -> AchievedChallenge.of(challengeMapOfMember.get(it.getId()), it))
+				.sorted((a, b) -> {
+					val diff = b.achievedCount - a.achievedCount;
+					return diff != 0 ? diff : a.content.compareTo(b.content);
+				})
 				.toList())
 			.build();
 	}
@@ -69,8 +83,8 @@ public record AchievedThemeResponse(
 		LocalDate startedAt
 	) {
 
-		private static AchievedRoutine of(Challenge challenge, MemberChallenge memberChallenge) {
-			return AchievedRoutine.builder()
+		private static AchievedChallenge of(Challenge challenge, MemberChallenge memberChallenge) {
+			return AchievedChallenge.builder()
 				.content(challenge.getContent())
 				.achievedCount(memberChallenge.getAchievedCount())
 				.startedAt(memberChallenge.getCreatedAt())

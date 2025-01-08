@@ -20,6 +20,12 @@ public class MemberRoutineAdapter {
 
 	private final MemberRoutineRepository memberRoutineRepository;
 
+	public List<MemberRoutine> findAllByRoutineIds(long memberId, List<Long> routineIds) {
+		return memberRoutineRepository.findByMemberIdAndRoutineIdIn(memberId, routineIds).stream()
+			.map(MemberRoutineEntity::toDomain)
+			.toList();
+	}
+
 	public List<MemberRoutine> saveAll(Member member, List<Routine> routines) {
 		val deletedMemberRoutines = memberRoutineRepository.findDeletedByMemberId(member.getId());
 		val deletedRoutineIds = deletedMemberRoutines

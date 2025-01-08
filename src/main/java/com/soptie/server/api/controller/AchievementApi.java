@@ -39,6 +39,8 @@ public class AchievementApi implements AchievementApiDocs {
 		Principal principal,
 		@PathVariable long themeId
 	) {
-		return null;
+		val memberId = Long.parseLong(principal.getName());
+		val response = achievedThemeService.getAchievementTheme(memberId, themeId);
+		return SuccessResponse.success(SuccessMessage.GET_STATISTICS.getMessage(), response);
 	}
 }

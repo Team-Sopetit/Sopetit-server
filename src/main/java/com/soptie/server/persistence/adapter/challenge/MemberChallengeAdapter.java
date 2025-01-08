@@ -20,6 +20,12 @@ import lombok.val;
 public class MemberChallengeAdapter {
 	private final MemberChallengeRepository memberChallengeRepository;
 
+	public List<MemberChallenge> findAllByChallengeIds(long memberId, List<Long> challengeIds) {
+		return memberChallengeRepository.findByMemberIdAndChallengeIdIn(memberId, challengeIds).stream()
+			.map(MemberChallengeEntity::toDomain)
+			.toList();
+	}
+
 	public Optional<MemberChallenge> findByMember(long memberId) {
 		return memberChallengeRepository.findByMemberIdAndAchievedIsFalse(memberId)
 			.map(MemberChallengeEntity::toDomain);

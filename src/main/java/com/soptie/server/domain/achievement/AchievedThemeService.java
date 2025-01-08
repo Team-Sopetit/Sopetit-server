@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.soptie.server.api.controller.dto.response.achievement.AchievedThemeResponse;
 import com.soptie.server.api.controller.dto.response.achievement.AchievedThemesResponse;
 import com.soptie.server.domain.challenge.Challenge;
 import com.soptie.server.domain.challenge.MemberChallenge;
@@ -66,6 +67,25 @@ public class AchievedThemeService {
 		}
 
 		return AchievedThemesResponse.of(themes, achievedCountsByTheme);
+	}
+
+	public AchievedThemeResponse getAchievementTheme(long memberId, long themeId) {
+		val theme = themeAdapter.findById(themeId);
+
+		val routines = routineAdapter.findByThemeId(themeId);
+		val routineIds = routines.stream().map(Routine::getId).toList();
+		val memberRoutines = memberRoutineAdapter.findAllByRoutineIds(memberId, routineIds);
+
+		val challenges = challengeAdapter.findAllByTheme(themeId);
+		val challengeIds = challenges.stream().map(Challenge::getId).toList();
+		val memberChallenges = memberChallengeAdapter.findAllByChallengeIds(memberId, challengeIds);
+
+		return AchievedThemeResponse.of(
+			theme,
+			memberRoutines,
+			getRoutineMapOfMember(routines, memberRoutines),
+			memberChallenges,
+			getChallengeMapOfMember(challenges, memberChallenges));
 	}
 
 	private Map<Long, Challenge> getChallengeMapOfMember(
