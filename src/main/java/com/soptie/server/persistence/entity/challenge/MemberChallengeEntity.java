@@ -43,6 +43,7 @@ public class MemberChallengeEntity extends BaseEntity {
 			.achievedCount(this.achievedCount)
 			.challengeId(this.challengeId)
 			.memberId(this.memberId)
+			.createdAt(this.createdAt.toLocalDate())
 			.build();
 	}
 

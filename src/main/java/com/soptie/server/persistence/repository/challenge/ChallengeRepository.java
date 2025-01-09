@@ -8,4 +8,6 @@ import com.soptie.server.persistence.entity.challenge.ChallengeEntity;
 
 public interface ChallengeRepository extends JpaRepository<ChallengeEntity, Long> {
 	List<ChallengeEntity> findByThemeId(long themeId);
+
+	List<ChallengeEntity> findByIdIn(List<Long> ids);
 }

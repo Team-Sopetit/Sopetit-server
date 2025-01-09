@@ -28,4 +28,6 @@ public interface MemberRoutineRepository
 	void deleteAllByMemberId(long memberId);
 
 	void deleteAllByIdIn(List<Long> ids);
+
+	List<MemberRoutineEntity> findByMemberIdAndRoutineIdIn(long memberId, List<Long> routineIds);
 }

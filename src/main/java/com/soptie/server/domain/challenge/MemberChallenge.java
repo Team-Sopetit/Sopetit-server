@@ -1,5 +1,7 @@
 package com.soptie.server.domain.challenge;
 
+import java.time.LocalDate;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,6 +13,7 @@ public class MemberChallenge {
 	private boolean achieved;
 	private long challengeId;
 	private long memberId;
+	private LocalDate createdAt;
 
 	public void achieve() {
 		this.achievedCount++;

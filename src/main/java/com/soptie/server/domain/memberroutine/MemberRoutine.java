@@ -1,5 +1,7 @@
 package com.soptie.server.domain.memberroutine;
 
+import java.time.LocalDate;
+
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.routine.Routine;
 
@@ -18,6 +20,7 @@ public class MemberRoutine {
 	private int achievementCount;
 	private long memberId;
 	private long routineId;
+	private LocalDate createdAt;
 
 	public MemberRoutine(Member member, Routine routine) {
 		this.isAchieved = false;
