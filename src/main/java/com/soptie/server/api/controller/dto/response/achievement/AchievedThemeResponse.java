@@ -11,6 +11,7 @@ import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.domain.theme.Theme;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.val;
@@ -19,10 +20,13 @@ import lombok.val;
 public record AchievedThemeResponse(
 	@Schema(description = "테마 id", example = "1")
 	long id,
+	@NotNull
 	@Schema(description = "테마 이름", example = "관계쌓기")
 	String name,
+	@NotNull
 	@Schema(description = "루틴 목록")
 	List<AchievedRoutine> routines,
+	@NotNull
 	@Schema(description = "챌린지 목록")
 	List<AchievedChallenge> challenges
 ) {
@@ -56,10 +60,12 @@ public record AchievedThemeResponse(
 
 	@Builder(access = AccessLevel.PRIVATE)
 	private record AchievedRoutine(
+		@NotNull
 		@Schema(description = "루틴 내용", example = "일찍 일어나기")
 		String content,
 		@Schema(description = "루틴 달성 횟수", example = "10")
 		int achievedCount,
+		@NotNull
 		@Schema(description = "루틴 시작일", example = "2024-01-01")
 		LocalDate startedAt
 	) {
@@ -75,10 +81,12 @@ public record AchievedThemeResponse(
 
 	@Builder(access = AccessLevel.PRIVATE)
 	private record AchievedChallenge(
+		@NotNull
 		@Schema(description = "챌린지 내용", example = "미라클 모닝")
 		String content,
 		@Schema(description = "챌린지 달성 횟수", example = "5")
 		int achievedCount,
+		@NotNull
 		@Schema(description = "챌린지 시작일", example = "2024-01-01")
 		LocalDate startedAt
 	) {
