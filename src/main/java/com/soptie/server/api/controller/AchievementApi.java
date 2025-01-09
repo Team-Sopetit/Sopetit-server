@@ -34,7 +34,7 @@ public class AchievementApi implements AchievementApiDocs {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping("/theme/{themeId}/routines")
+	@GetMapping("/themes/{themeId}/routines")
 	public SuccessResponse<AchievedThemeResponse> getAchievementTheme(
 		Principal principal,
 		@PathVariable long themeId
