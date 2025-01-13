@@ -74,11 +74,15 @@ public class AchievedThemeService {
 
 		val routines = routineAdapter.findByThemeId(themeId);
 		val routineIds = routines.stream().map(Routine::getId).toList();
-		val memberRoutines = memberRoutineAdapter.findAllByRoutineIds(memberId, routineIds);
+		val memberRoutines = memberRoutineAdapter.findAllByRoutineIds(memberId, routineIds)
+			.stream().filter(it -> it.getAchievementCount() > 0)
+			.toList();
 
 		val challenges = challengeAdapter.findAllByTheme(themeId);
 		val challengeIds = challenges.stream().map(Challenge::getId).toList();
-		val memberChallenges = memberChallengeAdapter.findAllByChallengeIds(memberId, challengeIds);
+		val memberChallenges = memberChallengeAdapter.findAllByChallengeIds(memberId, challengeIds)
+			.stream().filter(it -> it.getAchievedCount() > 0)
+			.toList();
 
 		return AchievedThemeResponse.of(
 			theme,
