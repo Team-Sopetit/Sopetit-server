@@ -23,9 +23,13 @@ public record AchievedThemeResponse(
 	@NotNull
 	@Schema(description = "테마 이름", example = "관계쌓기")
 	String name,
+	@Schema(description = "전체 루틴 달성 횟수", example = "10")
+	int routineTotalCount,
 	@NotNull
 	@Schema(description = "루틴 목록")
 	List<AchievedRoutine> routines,
+	@Schema(description = "전체 챌린지 달성 횟수", example = "10")
+	int challengeTotalCount,
 	@NotNull
 	@Schema(description = "챌린지 목록")
 	List<AchievedChallenge> challenges
@@ -38,9 +42,13 @@ public record AchievedThemeResponse(
 		List<MemberChallenge> memberChallenges,
 		Map<Long, Challenge> challengeMapOfMember
 	) {
+		val routineTotalCount = memberRoutines.stream().mapToInt(MemberRoutine::getAchievementCount).sum();
+		val challengeTotalCount = memberChallenges.stream().mapToInt(MemberChallenge::getAchievedCount).sum();
+
 		return AchievedThemeResponse.builder()
 			.id(theme.getId())
 			.name(theme.getName())
+			.routineTotalCount(routineTotalCount)
 			.routines(memberRoutines.stream()
 				.map(it -> AchievedRoutine.of(routineMapOfMember.get(it.getId()), it))
 				.sorted((a, b) -> {
@@ -48,6 +56,7 @@ public record AchievedThemeResponse(
 					return diff != 0 ? diff : a.content.compareTo(b.content);
 				})
 				.toList())
+			.challengeTotalCount(challengeTotalCount)
 			.challenges(memberChallenges.stream()
 				.map(it -> AchievedChallenge.of(challengeMapOfMember.get(it.getId()), it))
 				.sorted((a, b) -> {
