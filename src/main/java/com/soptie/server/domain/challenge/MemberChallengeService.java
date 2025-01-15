@@ -73,6 +73,10 @@ public class MemberChallengeService {
 
 	@Transactional
 	public void deleteHistory(long historyId) {
+		val history = challengeHistoryAdapter.findById(historyId);
+		val memberChallenge = memberChallengeAdapter.findById(history.getMemberChallengeId());
+		memberChallenge.cancel();
+		memberChallengeAdapter.update(memberChallenge);
 		challengeHistoryAdapter.deleteById(historyId);
 	}
 }

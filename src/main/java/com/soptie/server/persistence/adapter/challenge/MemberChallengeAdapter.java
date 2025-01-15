@@ -61,6 +61,10 @@ public class MemberChallengeAdapter {
 			.toList();
 	}
 
+	public MemberChallenge findById(long id) {
+		return find(id).toDomain();
+	}
+
 	private MemberChallengeEntity find(long id) {
 		return memberChallengeRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "MemberChallenge ID: " + id));

@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.soptie.server.common.exception.ExceptionCode;
+import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.challenge.Challenge;
 import com.soptie.server.domain.challenge.ChallengeHistory;
 import com.soptie.server.domain.challenge.MemberChallenge;
@@ -38,5 +40,11 @@ public class ChallengeHistoryAdapter {
 	) {
 		return historyRepository.findAllByMemberIdAndCreatedAtBetween(memberId, startDateTime, endDateTime).stream()
 			.map(ChallengeHistoryEntity::toDomain).toList();
+	}
+
+	public ChallengeHistory findById(final long id) {
+		return historyRepository.findById(id)
+			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "ChallengeHistoryId: " + id))
+			.toDomain();
 	}
 }

@@ -19,4 +19,8 @@ public class MemberChallenge {
 		this.achievedCount++;
 		this.achieved = true;
 	}
+
+	public void cancel() {
+		this.achievedCount--;
+	}
 }
