@@ -37,6 +37,7 @@ public record AchievedThemesResponse(
 	) {
 		return themes.stream()
 			.map(it -> AchievedTheme.of(it, achievedCountsByTheme.get(it.getId())))
+			.filter(it -> it.achievedCount > 0)
 			.sorted((a, b) -> {
 				val diff = b.achievedCount - a.achievedCount;
 				return diff != 0 ? diff : a.name.compareTo(b.name);
