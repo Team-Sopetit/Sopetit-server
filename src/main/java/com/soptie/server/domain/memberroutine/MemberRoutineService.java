@@ -133,7 +133,7 @@ public class MemberRoutineService {
 	public void deleteHistory(long historyId) {
 		val history = routineHistoryAdapter.findById(historyId);
 		val memberRoutine = memberRoutineAdapter.findById(history.getMemberRoutineId());
-		memberRoutine.cancel();
+		memberRoutine.cancel(history.getCreatedAt().toLocalDate());
 		memberRoutineAdapter.update(memberRoutine);
 		routineHistoryAdapter.deleteById(historyId);
 	}

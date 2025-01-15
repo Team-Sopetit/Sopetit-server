@@ -37,8 +37,8 @@ public class MemberRoutine {
 		this.isAchieved = !this.isAchieved;
 	}
 
-	public void cancel() {
-		if (updatedAt.equals(LocalDate.now())) {
+	public void cancel(LocalDate historyDate) {
+		if (historyDate.equals(LocalDate.now())) {
 			this.isAchievedToday = false;
 			this.isAchieved = false;
 		}
