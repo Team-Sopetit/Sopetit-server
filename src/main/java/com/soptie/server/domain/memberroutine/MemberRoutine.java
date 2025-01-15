@@ -21,6 +21,7 @@ public class MemberRoutine {
 	private long memberId;
 	private long routineId;
 	private LocalDate createdAt;
+	private LocalDate updatedAt;
 
 	public MemberRoutine(Member member, Routine routine) {
 		this.isAchieved = false;
@@ -34,5 +35,13 @@ public class MemberRoutine {
 		this.isAchievedToday = true;
 		this.achievementCount += !this.isAchieved ? 1 : -1;
 		this.isAchieved = !this.isAchieved;
+	}
+
+	public void cancel() {
+		if (updatedAt.equals(LocalDate.now())) {
+			this.isAchievedToday = false;
+			this.isAchieved = false;
+		}
+		this.achievementCount--;
 	}
 }

@@ -131,6 +131,10 @@ public class MemberRoutineService {
 
 	@Transactional
 	public void deleteHistory(long historyId) {
+		val history = routineHistoryAdapter.findById(historyId);
+		val memberRoutine = memberRoutineAdapter.findById(history.getMemberRoutineId());
+		memberRoutine.cancel();
+		memberRoutineAdapter.update(memberRoutine);
 		routineHistoryAdapter.deleteById(historyId);
 	}
 }

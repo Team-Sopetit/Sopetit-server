@@ -67,6 +67,7 @@ public class MemberRoutineEntity extends BaseEntity {
 			.memberId(this.memberId)
 			.routineId(this.routineId)
 			.createdAt(this.createdAt.toLocalDate())
+			.updatedAt(this.updatedAt.toLocalDate())
 			.build();
 	}
 
