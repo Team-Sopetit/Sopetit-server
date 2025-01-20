@@ -10,6 +10,7 @@ import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
 import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
+import com.soptie.server.api.controller.dto.response.member.MemberProfileResponse;
 import com.soptie.server.domain.member.CottonType;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,17 +21,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "members", description = "회원 API")
+@Tag(name = "[Member] 회원 API", description = "회원 API")
 public interface MemberApiDocs {
 
 	@Operation(
 		summary = "회원 프로필 생성",
 		description = "회원의 프로필을 생성한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "201",
-				description = "CREATED success",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "201", description = "Created success"),
 			@ApiResponse(
 				responseCode = "400",
 				description = "유효하지 않은 인형 타입",
@@ -116,6 +114,24 @@ public interface MemberApiDocs {
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
 	SuccessResponse<GetHomeInfoResponse> getMemberHomeInfo(
+		@Parameter(hidden = true) Principal principal
+	);
+
+	@Operation(
+		summary = "회원 정보 조회",
+		description = "회원의 정보를 조회합니다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(
+				responseCode = "4xx",
+				description = "클라이언트(요청) 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
+	)
+	SuccessResponse<MemberProfileResponse> getMemberProfile(
 		@Parameter(hidden = true) Principal principal
 	);
 }

@@ -1,5 +1,7 @@
 package com.soptie.server.domain.memberroutine;
 
+import java.time.LocalDate;
+
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.routine.Routine;
 
@@ -18,6 +20,8 @@ public class MemberRoutine {
 	private int achievementCount;
 	private long memberId;
 	private long routineId;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
 
 	public MemberRoutine(Member member, Routine routine) {
 		this.isAchieved = false;
@@ -31,5 +35,13 @@ public class MemberRoutine {
 		this.isAchievedToday = true;
 		this.achievementCount += !this.isAchieved ? 1 : -1;
 		this.isAchieved = !this.isAchieved;
+	}
+
+	public void cancel(LocalDate historyDate) {
+		if (historyDate.equals(LocalDate.now())) {
+			this.isAchievedToday = false;
+			this.isAchieved = false;
+		}
+		this.achievementCount--;
 	}
 }

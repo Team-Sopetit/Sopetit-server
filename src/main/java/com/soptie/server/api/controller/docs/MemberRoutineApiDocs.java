@@ -18,17 +18,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "MemberRoutineApi", description = "회원의 데일리 루틴 API")
+@Tag(name = "[MemberRoutine] 회원의 데일리 루틴", description = "회원의 데일리 루틴 API")
 public interface MemberRoutineApiDocs {
 
 	@Operation(
 		summary = "데일리 루틴 삭제",
 		description = "회원의 데일리 루틴을 삭제한다.",
 		responses = {
-			@ApiResponse(
-				responseCode = "200",
-				description = "성공",
-				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
+			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",
@@ -70,5 +67,28 @@ public interface MemberRoutineApiDocs {
 			in = ParameterIn.PATH,
 			example = "1"
 		) @PathVariable long routineId
+	);
+
+	@Operation(
+		summary = "루틴 기록 삭제",
+		description = "달성한 루틴 기록을 삭제합니다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(
+				responseCode = "4xx",
+				description = "클라이언트(요청) 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
+	)
+	SuccessResponse<?> deleteRoutineHistory(
+		@Parameter(
+			name = "historyId",
+			description = "달성 이력 id",
+			in = ParameterIn.PATH,
+			example = "1"
+		) @PathVariable long historyId
 	);
 }

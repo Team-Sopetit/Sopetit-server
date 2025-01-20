@@ -1,5 +1,7 @@
 package com.soptie.server.domain.member;
 
+import java.time.LocalDateTime;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +15,7 @@ public class Member {
 	private Social socialInfo;
 	private String refreshToken;
 	private MemberCotton cottonInfo;
+	private LocalDateTime createdAt;
 
 	public Member(SocialType socialType, String socialId) {
 		this.socialInfo = new Social(socialType, socialId);

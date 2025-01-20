@@ -1,5 +1,6 @@
 package com.soptie.server.domain.memberroutine;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,9 +17,10 @@ import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.domain.theme.Theme;
 import com.soptie.server.persistence.adapter.MemberAdapter;
-import com.soptie.server.persistence.adapter.MemberRoutineAdapter;
-import com.soptie.server.persistence.adapter.RoutineAdapter;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
+import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -31,6 +33,7 @@ public class MemberRoutineService {
 	private final MemberAdapter memberAdapter;
 	private final RoutineAdapter routineAdapter;
 	private final ThemeAdapter themeAdapter;
+	private final RoutineHistoryAdapter routineHistoryAdapter;
 
 	@Transactional
 	public CreateMemberRoutinesResponse createRoutines(
@@ -78,6 +81,8 @@ public class MemberRoutineService {
 				"Member ID: " + memberId + ", MemberRoutine ID: " + memberRoutineId);
 		}
 
+		val routine = routineAdapter.findById(memberRoutine.getRoutineId());
+
 		if (!isAchievedToday) {
 			member.getCottonInfo().addBasicCottonCount();
 			memberAdapter.update(member);
@@ -85,8 +90,17 @@ public class MemberRoutineService {
 
 		memberRoutine.achieve();
 		memberRoutineAdapter.update(memberRoutine);
+		updateHistory(memberRoutine, routine, isAchievedToday);
 
 		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
+	}
+
+	private void updateHistory(MemberRoutine memberRoutine, Routine routine, boolean isAchievedToday) {
+		if (isAchievedToday) {
+			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutine.getId(), LocalDate.now());
+		} else {
+			routineHistoryAdapter.save(memberRoutine, routine);
+		}
 	}
 
 	@Transactional
@@ -113,5 +127,14 @@ public class MemberRoutineService {
 					memberRoutine -> memberRoutine // memberRoutine-value
 				)
 			));
+	}
+
+	@Transactional
+	public void deleteHistory(long historyId) {
+		val history = routineHistoryAdapter.findById(historyId);
+		val memberRoutine = memberRoutineAdapter.findById(history.getMemberRoutineId());
+		memberRoutine.cancel(history.getCreatedAt().toLocalDate());
+		memberRoutineAdapter.update(memberRoutine);
+		routineHistoryAdapter.deleteById(historyId);
 	}
 }

@@ -9,6 +9,12 @@ import lombok.Getter;
 public class Challenge {
 	private Long id;
 	@NotNull
-	private String name;
+	private String content;
+	@NotNull
+	private String description;
+	@NotNull
+	private String requiredTime;
+	@NotNull
+	private String place;
 	private long themeId;
 }

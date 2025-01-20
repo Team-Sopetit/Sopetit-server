@@ -14,6 +14,7 @@ public enum SuccessMessage {
 
 	/* member */
 	CREATE_MEMBER_PROFILE("회원 프로필 등록 성공"),
+	GET_MEMBER_PROFILE("회원 프로필 조회 성공"),
 	GIVE_COTTON("솜뭉치 주기 성공"),
 	GET_MEMBER_HOME("홈화면 정보 조회 성공"),
 
@@ -29,11 +30,19 @@ public enum SuccessMessage {
 	/* challenge */
 	GET_CHALLENGE("도전루틴 조회 성공"),
 
-	/* maker */
-	SUCCESS_GET_MAKER_THEME("메이커 테마 조회 성공"),
+	/* memo */
+	CREATE_MEMO("메모 생성 성공"),
+	UPDATE_MEMO("메모 수정 성공"),
+	DELETE_MEMO("메모 삭제 성공"),
+
+	/* calendar */
+	GET_CALENDAR("캘린더 조회 성공"),
 
 	/* version */
-	GET_VERSION("버전 조회 성공");
+	GET_VERSION("버전 조회 성공"),
+
+	/* statistics */
+	GET_STATISTICS("통계 조회 성공");
 
 	private final String message;
 }
