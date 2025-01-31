@@ -1,8 +1,9 @@
 name: deploy
 
 on:
-  push:
-    branches: [ "develop" ]
+  release:
+    types:
+      - published
 
 jobs:
   ci:
