@@ -1,4 +1,4 @@
-name: deploy
+name: deploy-prod
 
 on:
   push:
@@ -26,35 +26,42 @@ jobs:
           echo "${{ secrets.APPLICATION_SECRET_YML }}" >> src/main/resources/application-secret.yml
           cat src/main/resources/application-secret.yml
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-access-key-id: ${{ secrets.ACCESS_KEY_ID_PROD }}
-          aws-secret-access-key: ${{ secrets.ACCESS_KEY_SECRET_PROD }}
-          aws-region: ap-northeast-2
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-        shell: bash
-
-      - name: Build with Gradle
-        run: ./gradlew build
-        shell: bash
-
-      - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip .
-        shell: bash
-
-      - name: Upload to AWS S3
+      - name: build
         run: |
-          aws deploy push \
-            --application-name softie-code-deploy \
-            --ignore-hidden-files \
-            --s3-location s3://${{ secrets.AWS_BUCKET_NAME_PROD }}/$GITHUB_SHA.zip \
-            --source .
+          chmod +x gradlew
+          ./gradlew build -x test
+        working-directory: ${{ env.working-directory }}
+        shell: bash
 
-      - name: Code Deploy
-        run: aws deploy create-deployment --application-name softie-code-deploy
-          --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name prod-group
-          --s3-location bucket=${{ secrets.AWS_BUCKET_NAME_PROD }},bundleType=zip,key=$GITHUB_SHA.zip
+
+      - name: docker build 환경 설정
+        uses: docker/setup-buildx-action@v2.9.1
+
+      - name: docker hub 로그인
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ secrets.DOCKER_LOGIN_USERNAME_PROD }}
+          password: ${{ secrets.DOCKER_LOGIN_ACCESSTOKEN_PROD }}
+
+      - name: docker image 빌드 및 푸시
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile-prod
+          push: true
+          tags: ${{ secrets.DOCKER_LOGIN_USERNAME_PROD }}/prod
+
+  cd:
+    needs: build
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: docker 컨테이너 실행
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP_PROD }}
+          username: ${{ secrets.SERVER_USER_PROD }}
+          key: ${{ secrets.SERVER_KEY_PROD }}
+          script: |
+            cd ~
+            ./deploy.sh
