@@ -49,6 +49,7 @@ public class ChallengeHistoryAdapter {
 	}
 
 	public boolean isExistByMemberIdAndChallengeId(long memberId, long challengeId) {
-		return historyRepository.findByMemberIdAndChallengeId(memberId, challengeId).isPresent();
+		LocalDate date = LocalDate.now();
+		return historyRepository.findByMemberIdAndChallengeId(memberId, challengeId, date).isPresent();
 	}
 }
