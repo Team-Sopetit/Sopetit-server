@@ -24,4 +24,6 @@ public interface ChallengeHistoryRepository extends JpaRepository<ChallengeHisto
 		@Param("startDateTime") LocalDateTime startDateTime,
 		@Param("endDateTime") LocalDateTime endDateTime
 	);
+
+	Optional<ChallengeHistoryEntity> findByMemberIdAndChallengeId(long memberId, long challengeId);
 }
