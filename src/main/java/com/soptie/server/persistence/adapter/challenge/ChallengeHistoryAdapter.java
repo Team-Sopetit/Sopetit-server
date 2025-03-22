@@ -47,4 +47,8 @@ public class ChallengeHistoryAdapter {
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "ChallengeHistoryId: " + id))
 			.toDomain();
 	}
+
+	public boolean isExistByMemberIdAndChallengeId(long memberId, long challengeId) {
+		return historyRepository.findByMemberIdAndChallengeId(memberId, challengeId).isPresent();
+	}
 }
