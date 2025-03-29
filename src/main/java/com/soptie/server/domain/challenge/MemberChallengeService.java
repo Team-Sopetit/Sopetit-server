@@ -44,7 +44,7 @@ public class MemberChallengeService {
 
 	@Transactional
 	public CreateMemberChallengeResponse createMemberChallenge(long memberId, CreateMemberChallengeRequest request) {
-		challengeValidator.checkChallengeNotExists(memberId);
+		challengeValidator.validChallenge(memberId, request.challengeId());
 		val member = memberAdapter.findById(memberId);
 		val challenge = challengeAdapter.findById(request.challengeId());
 		val savedMemberChallenge = memberChallengeAdapter.save(member, challenge);
