@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
-public record CustomRoutineResponseDto(
+public record CustomRoutineResponse(
 
 	@Schema(description = "생성된 커스텀 루틴 id", example = "1")
 	long id,

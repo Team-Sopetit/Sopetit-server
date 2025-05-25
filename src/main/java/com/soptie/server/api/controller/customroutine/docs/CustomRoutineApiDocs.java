@@ -4,8 +4,8 @@ import java.security.Principal;
 
 import org.springframework.http.MediaType;
 
-import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequestDto;
-import com.soptie.server.api.controller.customroutine.dto.CustomRoutineResponseDto;
+import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequest;
+import com.soptie.server.api.controller.customroutine.dto.CustomRoutineResponse;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 
@@ -35,15 +35,15 @@ public interface CustomRoutineApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<CustomRoutineResponseDto> create(
+	SuccessResponse<CustomRoutineResponse> create(
 		@Parameter(hidden = true) Principal principal,
 		@RequestBody(
 			description = "루틴 생성 요청 DTO",
 			required = true,
 			content = @Content(
 				mediaType = MediaType.APPLICATION_JSON_VALUE,
-				schema = @Schema(implementation = CustomRoutineRequestDto.class))
-		) CustomRoutineRequestDto requestDto);
+				schema = @Schema(implementation = CustomRoutineRequest.class))
+		) CustomRoutineRequest requestDto);
 
 	@Operation(
 		summary = "Update Custom Routine",
@@ -59,7 +59,7 @@ public interface CustomRoutineApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<CustomRoutineResponseDto> update(
+	SuccessResponse<CustomRoutineResponse> update(
 		@Parameter(hidden = true) Principal principal,
 		@Parameter(
 			name = "customRoutineId",
@@ -72,8 +72,8 @@ public interface CustomRoutineApiDocs {
 			required = true,
 			content = @Content(
 				mediaType = MediaType.APPLICATION_JSON_VALUE,
-				schema = @Schema(implementation = CustomRoutineRequestDto.class))
-		) CustomRoutineRequestDto requestDto);
+				schema = @Schema(implementation = CustomRoutineRequest.class))
+		) CustomRoutineRequest requestDto);
 
 	@Operation(
 		summary = "Delete Custom Routine",

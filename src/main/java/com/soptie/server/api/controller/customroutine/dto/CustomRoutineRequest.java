@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 
-public record CustomRoutineRequestDto(
+public record CustomRoutineRequest(
 	@Schema(description = "루틴 내용", example = "비타민 먹기")
 	@NotNull
 	String content,

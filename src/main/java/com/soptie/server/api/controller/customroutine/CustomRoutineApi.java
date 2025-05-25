@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.api.controller.customroutine.docs.CustomRoutineApiDocs;
-import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequestDto;
-import com.soptie.server.api.controller.customroutine.dto.CustomRoutineResponseDto;
+import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequest;
+import com.soptie.server.api.controller.customroutine.dto.CustomRoutineResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.domain.customroutine.CustomRoutineCommandService;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
@@ -30,24 +30,24 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping
-	public SuccessResponse<CustomRoutineResponseDto> create(
+	public SuccessResponse<CustomRoutineResponse> create(
 		Principal principal,
-		@RequestBody CustomRoutineRequestDto requestDto
+		@RequestBody CustomRoutineRequest request
 	) {
 		long memberId = Long.parseLong(principal.getName());
-		MemberRoutine response = commandService.create(memberId, requestDto);
+		MemberRoutine response = commandService.create(memberId, request);
 		return SuccessResponse.of(convert(response));
 	}
 
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping("/{customRoutineId}")
-	public SuccessResponse<CustomRoutineResponseDto> update(
+	public SuccessResponse<CustomRoutineResponse> update(
 		Principal principal,
 		@PathVariable long customRoutineId,
-		@RequestBody CustomRoutineRequestDto requestDto
+		@RequestBody CustomRoutineRequest request
 	) {
 		long memberId = Long.parseLong(principal.getName());
-		MemberRoutine response = commandService.update(memberId, customRoutineId, requestDto);
+		MemberRoutine response = commandService.update(memberId, customRoutineId, request);
 		return SuccessResponse.of(convert(response));
 	}
 
@@ -59,8 +59,8 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 		return SuccessResponse.of(null);
 	}
 
-	private CustomRoutineResponseDto convert(MemberRoutine memberRoutine) {
-		return CustomRoutineResponseDto.builder()
+	private CustomRoutineResponse convert(MemberRoutine memberRoutine) {
+		return CustomRoutineResponse.builder()
 			.id(memberRoutine.getId())
 			.content(memberRoutine.getContent())
 			.themeId(memberRoutine.getThemeId())
