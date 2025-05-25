@@ -2,6 +2,8 @@ package com.soptie.server.api.controller.customroutine.dto;
 
 import java.time.LocalTime;
 
+import com.soptie.server.domain.memberroutine.MemberRoutine;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -22,4 +24,13 @@ public record CustomRoutineResponse(
 	@Schema(description = "알림 시간(HH:mm:ss)", example = "20:00:00")
 	LocalTime alarmTime
 ) {
+
+	public static CustomRoutineResponse of(MemberRoutine memberRoutine) {
+		return CustomRoutineResponse.builder()
+			.id(memberRoutine.getId())
+			.content(memberRoutine.getContent())
+			.themeId(memberRoutine.getThemeId())
+			.alarmTime(memberRoutine.getAlarmTime())
+			.build();
+	}
 }

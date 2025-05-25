@@ -36,7 +36,7 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 	) {
 		long memberId = Long.parseLong(principal.getName());
 		MemberRoutine response = commandService.create(memberId, request);
-		return SuccessResponse.of(convert(response));
+		return SuccessResponse.of(CustomRoutineResponse.of(response));
 	}
 
 	@ResponseStatus(HttpStatus.OK)
@@ -48,7 +48,7 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 	) {
 		long memberId = Long.parseLong(principal.getName());
 		MemberRoutine response = commandService.update(memberId, customRoutineId, request);
-		return SuccessResponse.of(convert(response));
+		return SuccessResponse.of(CustomRoutineResponse.of(response));
 	}
 
 	@ResponseStatus(HttpStatus.OK)
@@ -57,14 +57,5 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 		long memberId = Long.parseLong(principal.getName());
 		commandService.delete(memberId, customRoutineId);
 		return SuccessResponse.of(null);
-	}
-
-	private CustomRoutineResponse convert(MemberRoutine memberRoutine) {
-		return CustomRoutineResponse.builder()
-			.id(memberRoutine.getId())
-			.content(memberRoutine.getContent())
-			.themeId(memberRoutine.getThemeId())
-			.alarmTime(memberRoutine.getAlarmTime())
-			.build();
 	}
 }
