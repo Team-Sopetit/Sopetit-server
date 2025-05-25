@@ -25,7 +25,7 @@ public record CustomRoutineResponse(
 	LocalTime alarmTime
 ) {
 
-	public static CustomRoutineResponse of(MemberRoutine memberRoutine) {
+	public static CustomRoutineResponse from(MemberRoutine memberRoutine) {
 		return CustomRoutineResponse.builder()
 			.id(memberRoutine.getId())
 			.content(memberRoutine.getContent())

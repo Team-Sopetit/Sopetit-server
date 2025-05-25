@@ -28,7 +28,7 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 
 	private final CustomRoutineCommandService commandService;
 
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public SuccessResponse<CustomRoutineResponse> create(
 		Principal principal,
@@ -36,7 +36,7 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 	) {
 		long memberId = Long.parseLong(principal.getName());
 		MemberRoutine response = commandService.create(memberId, request);
-		return SuccessResponse.of(CustomRoutineResponse.of(response));
+		return SuccessResponse.from(CustomRoutineResponse.from(response));
 	}
 
 	@ResponseStatus(HttpStatus.OK)
@@ -48,7 +48,7 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 	) {
 		long memberId = Long.parseLong(principal.getName());
 		MemberRoutine response = commandService.update(memberId, customRoutineId, request);
-		return SuccessResponse.of(CustomRoutineResponse.of(response));
+		return SuccessResponse.from(CustomRoutineResponse.from(response));
 	}
 
 	@ResponseStatus(HttpStatus.OK)
@@ -56,6 +56,6 @@ public class CustomRoutineApi implements CustomRoutineApiDocs {
 	public SuccessResponse<?> delete(Principal principal, @PathVariable long customRoutineId) {
 		long memberId = Long.parseLong(principal.getName());
 		commandService.delete(memberId, customRoutineId);
-		return SuccessResponse.of(null);
+		return SuccessResponse.from();
 	}
 }

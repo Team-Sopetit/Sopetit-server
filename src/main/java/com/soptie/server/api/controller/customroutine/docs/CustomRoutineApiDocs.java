@@ -25,7 +25,7 @@ public interface CustomRoutineApiDocs {
 		summary = "Create Custom Routine",
 		description = "나만의 루틴 생성",
 		responses = {
-			@ApiResponse(responseCode = "200", description = "성공"),
+			@ApiResponse(responseCode = "201", description = "성공"),
 			@ApiResponse(
 				responseCode = "4xx",
 				description = "클라이언트(요청) 오류",

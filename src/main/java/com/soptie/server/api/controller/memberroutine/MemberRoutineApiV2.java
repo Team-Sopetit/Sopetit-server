@@ -49,6 +49,6 @@ public class MemberRoutineApiV2 implements MemberRoutineApiV2Docs {
 	public SuccessResponse<GetMemberRoutinesResponse> getMemberRoutines(Principal principal) {
 		long memberId = Long.parseLong(principal.getName());
 		Map<Theme, List<MemberRoutine>> response = memberRoutineReadService.getAllWithTheme(memberId);
-		return SuccessResponse.of(GetMemberRoutinesResponse.of(response));
+		return SuccessResponse.from(GetMemberRoutinesResponse.from(response));
 	}
 }

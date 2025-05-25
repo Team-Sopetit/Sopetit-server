@@ -24,7 +24,7 @@ public record MemberRoutineResponse(
 	boolean isAchieve
 ) {
 
-	public static MemberRoutineResponse of(MemberRoutine memberRoutine) {
+	public static MemberRoutineResponse from(MemberRoutine memberRoutine) {
 		return MemberRoutineResponse.builder()
 			.routineId(memberRoutine.getRoutineId())
 			.content(memberRoutine.getContent())

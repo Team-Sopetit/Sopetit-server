@@ -19,7 +19,7 @@ public record GetMemberRoutinesResponse(
 	List<MemberRoutinesResponse> routines
 ) {
 
-	public static GetMemberRoutinesResponse of(Map<Theme, List<MemberRoutine>> memberRoutinesByTheme) {
+	public static GetMemberRoutinesResponse from(Map<Theme, List<MemberRoutine>> memberRoutinesByTheme) {
 		return GetMemberRoutinesResponse.builder()
 			.routines(memberRoutinesByTheme
 				.entrySet()
@@ -50,7 +50,7 @@ public record GetMemberRoutinesResponse(
 				.routines(memberRoutines
 					.stream()
 					.sorted(Comparator.comparing(MemberRoutine::getId).reversed())
-					.map(MemberRoutineResponse::of)
+					.map(MemberRoutineResponse::from)
 					.toList())
 				.build();
 		}

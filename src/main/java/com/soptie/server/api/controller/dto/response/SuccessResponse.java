@@ -15,14 +15,14 @@ public record SuccessResponse<T>(
 	@JsonInclude(JsonInclude.Include.NON_NULL) T data
 ) implements BaseResponse {
 
-	public static <T> SuccessResponse<T> of() {
+	public static <T> SuccessResponse<T> from() {
 		return SuccessResponse.<T>builder()
 			.success(true)
 			.message(MessageUtils.REQUEST_SUCCESS_MESSAGE)
 			.build();
 	}
 
-	public static <T> SuccessResponse<T> of(T data) {
+	public static <T> SuccessResponse<T> from(T data) {
 		return SuccessResponse.<T>builder()
 			.success(true)
 			.message(MessageUtils.REQUEST_SUCCESS_MESSAGE)
