@@ -1,6 +1,7 @@
 package com.soptie.server.persistence.adapter.routine;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
@@ -19,6 +20,11 @@ import lombok.val;
 public class MemberRoutineAdapter {
 
 	private final MemberRoutineRepository memberRoutineRepository;
+
+	public MemberRoutine save(MemberRoutine memberRoutine) {
+		MemberRoutineEntity savedEntity = memberRoutineRepository.save(new MemberRoutineEntity(memberRoutine));
+		return savedEntity.toDomain();
+	}
 
 	public List<MemberRoutine> findAllByRoutineIds(long memberId, List<Long> routineIds) {
 		return memberRoutineRepository.findByMemberIdAndRoutineIdIn(memberId, routineIds).stream()
@@ -52,6 +58,10 @@ public class MemberRoutineAdapter {
 		memberRoutineRepository.deleteAllByIdIn(memberRoutineIds);
 	}
 
+	public void deleteForce(MemberRoutine memberRoutine) {
+		memberRoutineRepository.deleteForceById(memberRoutine.getId());
+	}
+
 	public void deleteAllByMemberId(long memberId) {
 		memberRoutineRepository.deleteAllByMemberId(memberId);
 	}
@@ -65,6 +75,12 @@ public class MemberRoutineAdapter {
 		memberRoutineEntity.update(memberRoutine);
 	}
 
+	public MemberRoutine updateAll(MemberRoutine memberRoutine) {
+		MemberRoutineEntity memberRoutineEntity = find(memberRoutine.getId());
+		memberRoutineEntity.updateAll(memberRoutine);
+		return memberRoutineEntity.toDomain();
+	}
+
 	public void initAllAchievement() {
 		memberRoutineRepository.bulkInitAchievement();
 	}
@@ -75,7 +91,7 @@ public class MemberRoutineAdapter {
 		Routine routine
 	) {
 		val deletedMemberRoutine = deletedMemberRoutines.stream()
-			.filter(mr -> mr.getRoutineId() == routine.getId())
+			.filter(mr -> Objects.equals(mr.getRoutineId(), routine.getId()))
 			.findFirst()
 			.orElseThrow(() -> new SoftieException(
 				ExceptionCode.NOT_FOUND,
