@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.theme.docs.ThemeApiDocs;
+import com.soptie.server.api.controller.theme.docs.ThemeApiV2Docs;
 import com.soptie.server.api.controller.theme.dto.GetThemesResponse;
 import com.soptie.server.domain.theme.Theme;
 import com.soptie.server.domain.theme.ThemeService;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v2/themes")
-public class ThemeApiV2 implements ThemeApiDocs {
+public class ThemeApiV2 implements ThemeApiV2Docs {
 
 	private final ThemeService themeService;
 

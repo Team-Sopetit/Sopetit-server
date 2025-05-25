@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Theme V2", description = "테마 API Version2")
-public interface ThemeApiDocs {
+public interface ThemeApiV2Docs {
 
 	@Operation(
 		summary = "Get Themes",
