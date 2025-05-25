@@ -1,14 +1,14 @@
-package com.soptie.server.api.controller.docs;
+package com.soptie.server.api.controller.memberroutine.docs;
 
 import java.security.Principal;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.soptie.server.api.controller.dto.request.memberroutine.CreateMemberRoutinesRequest;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.CreateMemberRoutinesResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.GetMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRequest;
+import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.GetMemberRoutinesResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

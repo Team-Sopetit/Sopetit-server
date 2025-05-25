@@ -1,4 +1,4 @@
-package com.soptie.server.api.controller.docs;
+package com.soptie.server.api.controller.memberroutine.docs;
 
 import java.security.Principal;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.AchieveMemberRoutineResponse;
+import com.soptie.server.api.controller.memberroutine.dto.AchieveMemberRoutineResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -1,4 +1,4 @@
-package com.soptie.server.api.controller.dto.response.memberroutine;
+package com.soptie.server.api.controller.memberroutine.dto;
 
 import java.util.Comparator;
 import java.util.List;

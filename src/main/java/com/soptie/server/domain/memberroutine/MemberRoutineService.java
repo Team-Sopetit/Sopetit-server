@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.memberroutine.CreateMemberRoutinesRequest;
-import com.soptie.server.api.controller.dto.response.memberroutine.AchieveMemberRoutineResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.CreateMemberRoutinesResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.GetMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.AchieveMemberRoutineResponse;
+import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRequest;
+import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.GetMemberRoutinesResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.routine.Routine;

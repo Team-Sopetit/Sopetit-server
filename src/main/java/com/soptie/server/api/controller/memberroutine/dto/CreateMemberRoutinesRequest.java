@@ -1,4 +1,4 @@
-package com.soptie.server.api.controller.dto.request.memberroutine;
+package com.soptie.server.api.controller.memberroutine.dto;
 
 import java.util.List;
 
