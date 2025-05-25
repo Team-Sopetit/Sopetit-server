@@ -1,6 +1,7 @@
 package com.soptie.server.persistence.global;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,13 @@ public class ThemeStore {
 		}
 
 		return themes.get(id);
+	}
+
+	public List<Theme> getAll() {
+		if (Collections.isEmpty(themes)) {
+			update();
+		}
+		return themes.values().stream().toList();
 	}
 
 	private void update() {

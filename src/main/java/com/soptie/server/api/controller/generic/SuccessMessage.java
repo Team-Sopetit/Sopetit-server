@@ -18,9 +18,6 @@ public enum SuccessMessage {
 	GIVE_COTTON("솜뭉치 주기 성공"),
 	GET_MEMBER_HOME("홈화면 정보 조회 성공"),
 
-	/* theme */
-	GET_THEME("테마 조회 성공"),
-
 	/* routine */
 	CREATE_ROUTINE("루틴 추가 성공"),
 	GET_ROUTINE("루틴 조회 성공"),
