@@ -31,7 +31,7 @@ import lombok.val;
 public class MemberRoutineApiV2 implements MemberRoutineApiV2Docs {
 
 	private final MemberRoutineService memberRoutineService;
-	private final MemberRoutineReadService memberRoutineReadService;
+	private final MemberRoutineReadService readService;
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
@@ -48,7 +48,7 @@ public class MemberRoutineApiV2 implements MemberRoutineApiV2Docs {
 	@GetMapping
 	public SuccessResponse<GetMemberRoutinesResponse> getMemberRoutines(Principal principal) {
 		long memberId = Long.parseLong(principal.getName());
-		Map<Theme, List<MemberRoutine>> response = memberRoutineReadService.getAllWithTheme(memberId);
+		Map<Theme, List<MemberRoutine>> response = readService.getAllWithTheme(memberId);
 		return SuccessResponse.from(GetMemberRoutinesResponse.from(response));
 	}
 }
