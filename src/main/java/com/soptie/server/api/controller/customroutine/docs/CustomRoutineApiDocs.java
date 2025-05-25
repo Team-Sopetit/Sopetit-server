@@ -1,29 +1,53 @@
-package com.soptie.server.api.controller.docs;
+package com.soptie.server.api.controller.customroutine.docs;
 
 import java.security.Principal;
-import java.util.List;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.MediaType;
 
+import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequest;
+import com.soptie.server.api.controller.customroutine.dto.CustomRoutineResponse;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.AchieveMemberRoutineResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "[MemberRoutine] 회원의 데일리 루틴", description = "회원의 데일리 루틴 API")
-public interface MemberRoutineApiDocs {
+@Tag(name = "Custom Routine", description = "나만의 루틴 API")
+public interface CustomRoutineApiDocs {
 
 	@Operation(
-		summary = "데일리 루틴 삭제",
-		description = "회원의 데일리 루틴을 삭제한다.",
+		summary = "Create Custom Routine",
+		description = "나만의 루틴 생성",
+		responses = {
+			@ApiResponse(responseCode = "201", description = "성공"),
+			@ApiResponse(
+				responseCode = "4xx",
+				description = "클라이언트(요청) 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(
+				responseCode = "500",
+				description = "서버 내부 오류",
+				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
+	)
+	SuccessResponse<CustomRoutineResponse> create(
+		@Parameter(hidden = true) Principal principal,
+		@RequestBody(
+			description = "루틴 생성 요청 DTO",
+			required = true,
+			content = @Content(
+				mediaType = MediaType.APPLICATION_JSON_VALUE,
+				schema = @Schema(implementation = CustomRoutineRequest.class))
+		) CustomRoutineRequest requestDto);
+
+	@Operation(
+		summary = "Update Custom Routine",
+		description = "나만의 루틴 수정",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
@@ -35,19 +59,25 @@ public interface MemberRoutineApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<?> deleteMemberRoutines(
+	SuccessResponse<CustomRoutineResponse> update(
 		@Parameter(hidden = true) Principal principal,
 		@Parameter(
-			name = "routines",
-			description = "삭제할 회원의 데일리 루틴 id 목록",
-			in = ParameterIn.QUERY,
-			example = "1,2,3"
-		) @RequestParam List<Long> routines
-	);
+			name = "customRoutineId",
+			description = "수정하려는 커스텀루틴(회원루틴) id",
+			in = ParameterIn.PATH,
+			required = true
+		) long customRoutineId,
+		@RequestBody(
+			description = "루틴 수정 요청 DTO",
+			required = true,
+			content = @Content(
+				mediaType = MediaType.APPLICATION_JSON_VALUE,
+				schema = @Schema(implementation = CustomRoutineRequest.class))
+		) CustomRoutineRequest requestDto);
 
 	@Operation(
-		summary = "데일리 루틴 달성",
-		description = "회원의 데일리 루틴을 달성한다.",
+		summary = "Delete Custom Routine",
+		description = "나만의 루틴 삭제",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
@@ -59,36 +89,12 @@ public interface MemberRoutineApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<AchieveMemberRoutineResponse> achieveMemberRoutine(
+	SuccessResponse<?> delete(
 		@Parameter(hidden = true) Principal principal,
 		@Parameter(
-			name = "routineId",
-			description = "달성한 회원의 데일리 루틴 id",
+			name = "customRoutineId",
+			description = "삭제하려는 커스텀루틴(회원루틴) id",
 			in = ParameterIn.PATH,
-			example = "1"
-		) @PathVariable long routineId
-	);
-
-	@Operation(
-		summary = "루틴 기록 삭제",
-		description = "달성한 루틴 기록을 삭제합니다.",
-		responses = {
-			@ApiResponse(responseCode = "200", description = "성공"),
-			@ApiResponse(
-				responseCode = "4xx",
-				description = "클라이언트(요청) 오류",
-				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-			@ApiResponse(
-				responseCode = "500",
-				description = "서버 내부 오류",
-				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
-	)
-	SuccessResponse<?> deleteRoutineHistory(
-		@Parameter(
-			name = "historyId",
-			description = "달성 이력 id",
-			in = ParameterIn.PATH,
-			example = "1"
-		) @PathVariable long historyId
-	);
+			required = true
+		) long customRoutineId);
 }

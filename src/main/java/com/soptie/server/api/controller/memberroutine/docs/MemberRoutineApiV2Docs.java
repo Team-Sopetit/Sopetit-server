@@ -1,14 +1,14 @@
-package com.soptie.server.api.controller.docs;
+package com.soptie.server.api.controller.memberroutine.docs;
 
 import java.security.Principal;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.soptie.server.api.controller.dto.request.memberroutine.CreateMemberRoutinesRequest;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.CreateMemberRoutinesResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.GetMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRequest;
+import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.GetMemberRoutinesResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "[MemberRoutine] 회원의 데일리 루틴 Version2", description = "회원의 데일리 루틴 API Version2")
+@Tag(name = "Member Routine V2", description = "회원의 데일리 루틴 API Version2")
 public interface MemberRoutineApiV2Docs {
 
 	@Operation(
@@ -40,7 +40,7 @@ public interface MemberRoutineApiV2Docs {
 	);
 
 	@Operation(
-		summary = "회원의 데일리 루틴 목록 조회",
+		summary = "Get Member Routines",
 		description = "회원의 데일리 루틴 목록을 조회한다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "OK Success"),

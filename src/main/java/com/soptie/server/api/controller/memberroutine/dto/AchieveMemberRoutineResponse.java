@@ -1,4 +1,4 @@
-package com.soptie.server.api.controller.dto.response.memberroutine;
+package com.soptie.server.api.controller.memberroutine.dto;
 
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 

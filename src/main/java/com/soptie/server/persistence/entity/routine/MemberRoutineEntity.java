@@ -1,5 +1,7 @@
 package com.soptie.server.persistence.entity.routine;
 
+import java.time.LocalTime;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
@@ -36,8 +38,10 @@ public class MemberRoutineEntity extends BaseEntity {
 	private boolean isDeleted;
 	@Column(nullable = false)
 	private long memberId;
-	@Column(nullable = false)
-	private long routineId;
+	private Long routineId;
+	private String content;
+	private LocalTime alarmTime;
+	private Long themeId;
 
 	//TODO: 아래 생성자 활용 (Entity 보호)
 	public MemberRoutineEntity(Member member, Routine routine) {
@@ -56,6 +60,9 @@ public class MemberRoutineEntity extends BaseEntity {
 		this.isDeleted = false;
 		this.memberId = memberRoutine.getMemberId();
 		this.routineId = memberRoutine.getRoutineId();
+		this.content = memberRoutine.getContent();
+		this.alarmTime = memberRoutine.getAlarmTime();
+		this.themeId = memberRoutine.getThemeId();
 	}
 
 	public MemberRoutine toDomain() {
@@ -68,6 +75,9 @@ public class MemberRoutineEntity extends BaseEntity {
 			.routineId(this.routineId)
 			.createdAt(this.createdAt.toLocalDate())
 			.updatedAt(this.updatedAt.toLocalDate())
+			.content(this.content)
+			.themeId(this.themeId)
+			.alarmTime(this.alarmTime)
 			.build();
 	}
 
@@ -75,6 +85,17 @@ public class MemberRoutineEntity extends BaseEntity {
 		this.isAchieved = memberRoutine.isAchieved();
 		this.isAchievedToday = memberRoutine.isAchievedToday();
 		this.achievementCount = memberRoutine.getAchievementCount();
+	}
+
+	public void updateAll(MemberRoutine memberRoutine) {
+		this.isAchieved = memberRoutine.isAchieved();
+		this.isAchievedToday = memberRoutine.isAchievedToday();
+		this.achievementCount = memberRoutine.getAchievementCount();
+		this.memberId = memberRoutine.getMemberId();
+		this.routineId = memberRoutine.getRoutineId();
+		this.content = memberRoutine.getContent();
+		this.alarmTime = memberRoutine.getAlarmTime();
+		this.themeId = memberRoutine.getThemeId();
 	}
 
 	public void restore() {

@@ -8,9 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.soptie.server.persistence.entity.routine.MemberRoutineEntity;
 import com.soptie.server.persistence.repository.routine.custom.MemberRoutineCustomRepository;
+import com.soptie.server.persistence.repository.utils.QueryUtils;
 
 public interface MemberRoutineRepository
 	extends JpaRepository<MemberRoutineEntity, Long>, MemberRoutineCustomRepository {
+
+	/**
+	 * find
+	 */
 
 	@Query(
 		value = "SELECT * FROM member_routine WHERE member_id = :memberId AND is_deleted = true",
@@ -21,6 +26,12 @@ public interface MemberRoutineRepository
 
 	List<MemberRoutineEntity> findByIdIn(List<Long> ids);
 
+	List<MemberRoutineEntity> findByMemberIdAndRoutineIdIn(long memberId, List<Long> routineIds);
+
+	/**
+	 * delete
+	 */
+
 	@Modifying
 	@Query(
 		value = "DELETE FROM member_routine WHERE member_id = :memberId",
@@ -29,5 +40,7 @@ public interface MemberRoutineRepository
 
 	void deleteAllByIdIn(List<Long> ids);
 
-	List<MemberRoutineEntity> findByMemberIdAndRoutineIdIn(long memberId, List<Long> routineIds);
+	@Modifying
+	@Query(value = QueryUtils.DELETE_FORCE_MEMBER_ROUTINE, nativeQuery = true)
+	void deleteForceById(long id);
 }
