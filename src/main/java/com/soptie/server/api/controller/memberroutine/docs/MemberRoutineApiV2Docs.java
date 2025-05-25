@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "[MemberRoutine] 회원의 데일리 루틴 Version2", description = "회원의 데일리 루틴 API Version2")
+@Tag(name = "Member Routine V2", description = "회원의 데일리 루틴 API Version2")
 public interface MemberRoutineApiV2Docs {
 
 	@Operation(
@@ -40,7 +40,7 @@ public interface MemberRoutineApiV2Docs {
 	);
 
 	@Operation(
-		summary = "회원의 데일리 루틴 목록 조회",
+		summary = "Get Member Routines",
 		description = "회원의 데일리 루틴 목록을 조회한다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "OK Success"),
