@@ -26,6 +26,13 @@ public class MemberChallengeAdapter {
 			.toList();
 	}
 
+	public List<MemberChallenge> findByIds(List<Long> ids) {
+		return memberChallengeRepository.findByIdIn(ids)
+			.stream()
+			.map(MemberChallengeEntity::toDomain)
+			.toList();
+	}
+
 	public Optional<MemberChallenge> findByMember(long memberId) {
 		return memberChallengeRepository.findByMemberIdAndAchievedIsFalse(memberId)
 			.map(MemberChallengeEntity::toDomain);

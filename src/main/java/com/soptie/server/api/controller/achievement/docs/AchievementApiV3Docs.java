@@ -1,11 +1,11 @@
-package com.soptie.server.api.controller.docs;
+package com.soptie.server.api.controller.achievement.docs;
 
 import java.security.Principal;
 
+import com.soptie.server.api.controller.achievement.dto.AchievedThemeResponse;
+import com.soptie.server.api.controller.achievement.dto.AchievedThemesResponse;
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.achievement.AchievedThemeResponse;
-import com.soptie.server.api.controller.dto.response.achievement.AchievedThemesResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -15,12 +15,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "[Achievement] 달성도 API", description = "루틴 달성 통계 관련 api")
-public interface AchievementApiDocs {
+@Tag(name = "Achievement V3", description = "달성도 api")
+public interface AchievementApiV3Docs {
 
 	@Operation(
-		summary = "테마 달성도 조회",
-		description = "테마를 달성한 정보 리스트를 조회한다.",
+		summary = "Get Achievement by Themes",
+		description = "테마 달성도 목록을 조회한다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
 			@ApiResponse(
@@ -32,7 +32,7 @@ public interface AchievementApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<AchievedThemesResponse> getAchievementThemes(
+	SuccessResponse<AchievedThemesResponse> getAchievementByThemes(
 		@Parameter(hidden = true) Principal principal
 	);
 

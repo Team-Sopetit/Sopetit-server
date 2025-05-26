@@ -42,6 +42,7 @@ public class CustomRoutineCommandService {
 		return memberRoutineAdapter.updateAll(memberRoutine);
 	}
 
+	//todo 히스토리 삭제
 	public void delete(long memberId, long customRoutineId) {
 		MemberRoutine memberRoutine = memberRoutineAdapter.findById(customRoutineId);
 

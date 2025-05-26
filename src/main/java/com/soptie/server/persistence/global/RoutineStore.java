@@ -1,6 +1,8 @@
 package com.soptie.server.persistence.global;
 
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -29,8 +31,14 @@ public class RoutineStore {
 	@GlobalData
 	private Map<Long, Routine> routines;
 
-	@Scheduled(cron = "0 0 0 * * *")
+	private LocalDate updateDate;
+
+	@Scheduled(cron = "0 */10 * * * *")
 	public void init() {
+		if (!routines.isEmpty() && updateDate.isEqual(LocalDate.now())) {
+			return;
+		}
+
 		try {
 			update();
 		} catch (Exception e) {
@@ -51,6 +59,10 @@ public class RoutineStore {
 		return routines.get(id);
 	}
 
+	public List<Routine> getAll() {
+		return routines.values().stream().toList();
+	}
+
 	private void update() {
 		routines = routineRepository.findAll()
 			.stream()
@@ -58,5 +70,7 @@ public class RoutineStore {
 			.map(routine -> Pair.of(routine.getId(), routine))
 			.filter(routine -> routine.getFirst() != null && routine.getSecond() != null)
 			.collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+
+		updateDate = LocalDate.now();
 	}
 }

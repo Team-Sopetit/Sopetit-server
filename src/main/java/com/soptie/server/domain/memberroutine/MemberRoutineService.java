@@ -11,7 +11,6 @@ import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRe
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
-import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
@@ -60,8 +59,6 @@ public class MemberRoutineService {
 				"Member ID: " + memberId + ", MemberRoutine ID: " + memberRoutineId);
 		}
 
-		val routine = routineAdapter.findById(memberRoutine.getRoutineId());
-
 		if (!isAchievedToday) {
 			member.getCottonInfo().addBasicCottonCount();
 			memberAdapter.update(member);
@@ -69,16 +66,16 @@ public class MemberRoutineService {
 
 		memberRoutine.achieve();
 		memberRoutineAdapter.update(memberRoutine);
-		updateHistory(memberRoutine, routine, isAchievedToday);
+		updateHistory(memberRoutine, isAchievedToday);
 
 		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
 	}
 
-	private void updateHistory(MemberRoutine memberRoutine, Routine routine, boolean isAchievedToday) {
+	private void updateHistory(MemberRoutine memberRoutine, boolean isAchievedToday) {
 		if (isAchievedToday) {
 			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutine.getId(), LocalDate.now());
 		} else {
-			routineHistoryAdapter.save(memberRoutine, routine);
+			routineHistoryAdapter.save(memberRoutine);
 		}
 	}
 

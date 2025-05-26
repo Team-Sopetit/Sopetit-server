@@ -10,8 +10,8 @@ import lombok.Builder;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record MemberRoutineResponse(
-	@Schema(description = "회원 루틴 id (커스텀 루틴일 경우 null)", example = "1")
-	Long routineId,
+	@Schema(description = "회원 루틴 id", example = "1")
+	long routineId,
 
 	@Schema(description = "루틴 내용", example = "밥 먹기")
 	@NotNull
@@ -26,7 +26,7 @@ public record MemberRoutineResponse(
 
 	public static MemberRoutineResponse from(MemberRoutine memberRoutine) {
 		return MemberRoutineResponse.builder()
-			.routineId(memberRoutine.getRoutineId())
+			.routineId(memberRoutine.getId())
 			.content(memberRoutine.getContent())
 			.achieveCount(memberRoutine.getAchievementCount())
 			.isAchieve(memberRoutine.isAchieved())

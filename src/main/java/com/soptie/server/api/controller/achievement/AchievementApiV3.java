@@ -1,6 +1,7 @@
-package com.soptie.server.api.controller;
+package com.soptie.server.api.controller.achievement;
 
 import java.security.Principal;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soptie.server.api.controller.docs.AchievementApiDocs;
+import com.soptie.server.api.controller.achievement.docs.AchievementApiV3Docs;
+import com.soptie.server.api.controller.achievement.dto.AchievedThemeResponse;
+import com.soptie.server.api.controller.achievement.dto.AchievedThemesResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.achievement.AchievedThemeResponse;
-import com.soptie.server.api.controller.dto.response.achievement.AchievedThemesResponse;
-import com.soptie.server.api.controller.generic.SuccessMessage;
 import com.soptie.server.domain.achievement.AchievedThemeService;
+import com.soptie.server.domain.achievement.Achievement;
+import com.soptie.server.domain.theme.Theme;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -22,15 +24,15 @@ import lombok.val;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v3/achievement")
-public class AchievementApi implements AchievementApiDocs {
+public class AchievementApiV3 implements AchievementApiV3Docs {
 	private final AchievedThemeService achievedThemeService;
 
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/themes")
-	public SuccessResponse<AchievedThemesResponse> getAchievementThemes(Principal principal) {
+	public SuccessResponse<AchievedThemesResponse> getAchievementByThemes(Principal principal) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = achievedThemeService.getAchievedThemes(memberId);
-		return SuccessResponse.success(SuccessMessage.GET_STATISTICS.getMessage(), response);
+		Map<Theme, Integer> response = achievedThemeService.getAchievedThemes(memberId);
+		return SuccessResponse.from(AchievedThemesResponse.from(response));
 	}
 
 	@ResponseStatus(HttpStatus.OK)
@@ -40,7 +42,7 @@ public class AchievementApi implements AchievementApiDocs {
 		@PathVariable long themeId
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = achievedThemeService.getAchievementTheme(memberId, themeId);
-		return SuccessResponse.success(SuccessMessage.GET_STATISTICS.getMessage(), response);
+		Achievement response = achievedThemeService.getAchievementTheme(memberId, themeId);
+		return SuccessResponse.from(AchievedThemeResponse.from(response));
 	}
 }

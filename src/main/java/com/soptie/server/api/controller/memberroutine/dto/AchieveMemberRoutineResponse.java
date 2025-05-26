@@ -20,7 +20,7 @@ public record AchieveMemberRoutineResponse(
 
 	public static AchieveMemberRoutineResponse of(MemberRoutine memberRoutine, boolean isAcquiredCotton) {
 		return AchieveMemberRoutineResponse.builder()
-			.routineId(memberRoutine.getRoutineId())
+			.routineId(memberRoutine.getId())
 			.isAchieve(memberRoutine.isAchieved())
 			.achieveCount(memberRoutine.getAchievementCount())
 			.hasCotton(isAcquiredCotton)

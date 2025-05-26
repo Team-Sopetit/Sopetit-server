@@ -17,12 +17,6 @@ public class ThemeAdapter {
 
 	private final ThemeRepository themeRepository;
 
-	public List<Theme> findByBasic() {
-		return themeRepository.findByOrderBySequenceAsc()
-			.stream().map(ThemeEntity::toDomain)
-			.toList();
-	}
-
 	public Theme findById(long id) {
 		return find(id).toDomain();
 	}
@@ -31,10 +25,6 @@ public class ThemeAdapter {
 		return themeRepository.findByIdIn(ids)
 			.stream().map(ThemeEntity::toDomain)
 			.toList();
-	}
-
-	public boolean isExistById(long id) {
-		return themeRepository.existsById(id);
 	}
 
 	private ThemeEntity find(long id) {

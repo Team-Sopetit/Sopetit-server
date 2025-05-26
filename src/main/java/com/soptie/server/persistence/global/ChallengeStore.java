@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.mysema.commons.lang.Pair;
 import com.soptie.server.config.support.GlobalData;
-import com.soptie.server.domain.theme.Theme;
-import com.soptie.server.persistence.entity.ThemeEntity;
-import com.soptie.server.persistence.repository.ThemeRepository;
+import com.soptie.server.domain.challenge.Challenge;
+import com.soptie.server.persistence.entity.challenge.ChallengeEntity;
+import com.soptie.server.persistence.repository.challenge.ChallengeRepository;
 
 import io.jsonwebtoken.lang.Collections;
 import lombok.Getter;
@@ -23,19 +23,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ThemeStore {
+public class ChallengeStore {
 
-	private final ThemeRepository themeRepository;
+	private final ChallengeRepository challengeRepository;
 
 	@Getter
 	@GlobalData
-	private Map<Long, Theme> themes;
+	private Map<Long, Challenge> challenges;
 
 	private LocalDate updateDate;
 
 	@Scheduled(cron = "0 */10 * * * *")
 	public void init() {
-		if (!themes.isEmpty() && updateDate.isEqual(LocalDate.now())) {
+		if (!challenges.isEmpty() && updateDate.isEqual(LocalDate.now())) {
 			return;
 		}
 
@@ -43,34 +43,31 @@ public class ThemeStore {
 			update();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			themes = new HashMap<>();
+			challenges = new HashMap<>();
 		}
 	}
 
-	public Theme get(long id) {
-		if (Collections.isEmpty(themes)) {
+	public Challenge get(long id) {
+		if (Collections.isEmpty(challenges)) {
 			update();
 		}
 
-		if (!themes.containsKey(id)) {
+		if (!challenges.containsKey(id)) {
 			return null;
 		}
 
-		return themes.get(id);
+		return challenges.get(id);
 	}
 
-	public List<Theme> getAll() {
-		if (Collections.isEmpty(themes)) {
-			update();
-		}
-		return themes.values().stream().toList();
+	public List<Challenge> getAll() {
+		return challenges.values().stream().toList();
 	}
 
 	private void update() {
-		themes = themeRepository.findAll()
+		challenges = challengeRepository.findAll()
 			.stream()
-			.map(ThemeEntity::toDomain)
-			.map(theme -> Pair.of(theme.getId(), theme))
+			.map(ChallengeEntity::toDomain)
+			.map(challenge -> Pair.of(challenge.getId(), challenge))
 			.filter(routine -> routine.getFirst() != null && routine.getSecond() != null)
 			.collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
 

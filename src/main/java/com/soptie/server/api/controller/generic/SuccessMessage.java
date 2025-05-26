@@ -36,10 +36,7 @@ public enum SuccessMessage {
 	GET_CALENDAR("캘린더 조회 성공"),
 
 	/* version */
-	GET_VERSION("버전 조회 성공"),
-
-	/* statistics */
-	GET_STATISTICS("통계 조회 성공");
+	GET_VERSION("버전 조회 성공");
 
 	private final String message;
 }
