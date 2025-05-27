@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.dto.response.calendar.DateHistoryResponse;
 import com.soptie.server.domain.challenge.ChallengeHistory;
+import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
 import com.soptie.server.domain.memo.Memo;
 import com.soptie.server.domain.theme.Theme;
@@ -24,6 +25,7 @@ import com.soptie.server.persistence.adapter.MemoAdapter;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
 import com.soptie.server.persistence.adapter.challenge.ChallengeAdapter;
 import com.soptie.server.persistence.adapter.challenge.ChallengeHistoryAdapter;
+import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
@@ -42,6 +44,7 @@ public class CalendarService {
 	private final ThemeAdapter themeAdapter;
 	private final RoutineAdapter routineAdapter;
 	private final ChallengeAdapter challengeAdapter;
+	private final MemberRoutineAdapter memberRoutineAdapter;
 
 	public Map<LocalDate, DateHistoryResponse> getCalendar(final long memberId, final int year, final int month) {
 		memberAdapter.findById(memberId);
@@ -154,8 +157,8 @@ public class CalendarService {
 	}
 
 	private Theme getRoutineTheme(final RoutineHistory history) {
-		val routine = routineAdapter.findById(history.getRoutineId());
-		return themeAdapter.findById(routine.getThemeId());
+		MemberRoutine memberRoutine = memberRoutineAdapter.findById(history.getMemberRoutineId());
+		return themeAdapter.findById(memberRoutine.getThemeId());
 	}
 
 	private Map<Theme, List<ChallengeHistory>> getChallenges(

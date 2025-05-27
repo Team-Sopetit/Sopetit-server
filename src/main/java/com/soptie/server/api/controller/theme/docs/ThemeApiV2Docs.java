@@ -1,8 +1,8 @@
-package com.soptie.server.api.controller.docs;
+package com.soptie.server.api.controller.theme.docs;
 
 import com.soptie.server.api.controller.dto.response.ErrorResponse;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.dto.response.theme.GetThemesResponse;
+import com.soptie.server.api.controller.theme.dto.GetThemesResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,11 +10,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "[Theme] 테마 Version2", description = "테마 API Version2")
-public interface ThemeApiDocs {
+@Tag(name = "Theme V2", description = "테마 API Version2")
+public interface ThemeApiV2Docs {
 
 	@Operation(
-		summary = "테마 목록 조회",
+		summary = "Get Themes",
 		description = "일반 테마 목록을 조회한다.",
 		responses = {
 			@ApiResponse(responseCode = "200", description = "성공"),
@@ -27,5 +27,5 @@ public interface ThemeApiDocs {
 				description = "서버 내부 오류",
 				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
 	)
-	SuccessResponse<GetThemesResponse> getBasicThemes();
+	SuccessResponse<GetThemesResponse> getAll();
 }

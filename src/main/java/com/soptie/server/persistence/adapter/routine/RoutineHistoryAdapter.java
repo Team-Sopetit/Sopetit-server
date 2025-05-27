@@ -10,7 +10,6 @@ import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
-import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.entity.routine.RoutineHistoryEntity;
 import com.soptie.server.persistence.repository.routine.RoutineHistoryRepository;
 
@@ -22,8 +21,8 @@ public class RoutineHistoryAdapter {
 	private final RoutineHistoryRepository historyRepository;
 	private final RoutineHistoryRepository routineHistoryRepository;
 
-	public void save(final MemberRoutine memberRoutine, final Routine routine) {
-		historyRepository.save(new RoutineHistoryEntity(memberRoutine, routine));
+	public void save(final MemberRoutine memberRoutine) {
+		historyRepository.save(new RoutineHistoryEntity(memberRoutine));
 	}
 
 	public void deleteByRoutineIdAndCreatedAt(long memberRoutineId, LocalDate date) {
