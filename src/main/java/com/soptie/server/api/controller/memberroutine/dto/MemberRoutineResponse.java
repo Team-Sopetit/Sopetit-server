@@ -1,5 +1,7 @@
 package com.soptie.server.api.controller.memberroutine.dto;
 
+import java.time.LocalTime;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 
@@ -21,7 +23,10 @@ public record MemberRoutineResponse(
 	int achieveCount,
 
 	@Schema(description = "달성 여부", example = "true")
-	boolean isAchieve
+	boolean isAchieve,
+
+	@Schema(description = "알림 시간", example = "20:00:00")
+	LocalTime alarmTime
 ) {
 
 	public static MemberRoutineResponse from(MemberRoutine memberRoutine) {
@@ -30,6 +35,7 @@ public record MemberRoutineResponse(
 			.content(memberRoutine.getContent())
 			.achieveCount(memberRoutine.getAchievementCount())
 			.isAchieve(memberRoutine.isAchieved())
+			.alarmTime(memberRoutine.getAlarmTime())
 			.build();
 	}
 }
