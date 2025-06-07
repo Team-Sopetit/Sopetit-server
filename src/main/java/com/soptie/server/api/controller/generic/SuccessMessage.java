@@ -17,6 +17,7 @@ public enum SuccessMessage {
 	GET_MEMBER_PROFILE("회원 프로필 조회 성공"),
 	GIVE_COTTON("솜뭉치 주기 성공"),
 	GET_MEMBER_HOME("홈화면 정보 조회 성공"),
+	UPDATE_FCM_TOKEN("Fcm 토큰 설정 성공"),
 
 	/* routine */
 	CREATE_ROUTINE("루틴 추가 성공"),
