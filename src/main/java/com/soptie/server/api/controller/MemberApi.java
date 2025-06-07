@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.soptie.server.api.controller.docs.MemberApiDocs;
 import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
+import com.soptie.server.api.controller.dto.request.member.UpdateFcmTokenRequest;
 import com.soptie.server.api.controller.dto.response.SuccessResponse;
 import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
 import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
@@ -70,4 +71,11 @@ public class MemberApi implements MemberApiDocs {
 		return SuccessResponse.success(SuccessMessage.GET_MEMBER_PROFILE.getMessage(), response);
 	}
 
+	@ResponseStatus(HttpStatus.OK)
+	@PostMapping("/fcm")
+	public SuccessResponse<?> updateFcmToken(Principal principal, @RequestBody UpdateFcmTokenRequest request) {
+		val memberId = Long.parseLong(principal.getName());
+		memberService.updateFcmToken(memberId, request);
+		return SuccessResponse.success(SuccessMessage.UPDATE_FCM_TOKEN.getMessage());
+	}
 }

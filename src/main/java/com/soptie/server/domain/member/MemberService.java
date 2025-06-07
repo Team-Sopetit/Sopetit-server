@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
+import com.soptie.server.api.controller.dto.request.member.UpdateFcmTokenRequest;
 import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
 import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
 import com.soptie.server.api.controller.dto.response.member.MemberProfileResponse;
@@ -82,5 +83,11 @@ public class MemberService {
 	public MemberProfileResponse getMemberProfile(long memberId) {
 		val member = memberAdapter.findById(memberId);
 		return MemberProfileResponse.from(member);
+	}
+
+	public void updateFcmToken(long memberId, UpdateFcmTokenRequest request) {
+		val member = memberAdapter.findById(memberId);
+		member.updateFcmToken(request.fcmToken());
+		memberAdapter.update(member);
 	}
 }
