@@ -27,6 +27,8 @@ public class MemberEntity extends BaseEntity {
 	private int basicCottonCount;
 	@Column(nullable = false)
 	private int rainbowCottonCount;
+	@Column
+	private String fcmToken;
 
 	//TODO: 2번째 생성자 활용(Entity 보호)
 	public MemberEntity(SocialType socialType, String socialId) {
@@ -42,12 +44,14 @@ public class MemberEntity extends BaseEntity {
 		this.refreshToken = member.getRefreshToken();
 		this.basicCottonCount = member.getCottonInfo().getBasicCottonCount();
 		this.rainbowCottonCount = member.getCottonInfo().getRainbowCottonCount();
+		this.fcmToken = member.getFcmToken();
 	}
 
 	public void update(Member member) {
 		this.refreshToken = member.getRefreshToken();
 		this.basicCottonCount = member.getCottonInfo().getBasicCottonCount();
 		this.rainbowCottonCount = member.getCottonInfo().getRainbowCottonCount();
+		this.fcmToken = member.getFcmToken();
 	}
 
 	public Member toDomain() {

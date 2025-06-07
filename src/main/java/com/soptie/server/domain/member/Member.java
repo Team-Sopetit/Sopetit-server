@@ -16,6 +16,7 @@ public class Member {
 	private String refreshToken;
 	private MemberCotton cottonInfo;
 	private LocalDateTime createdAt;
+	private String fcmToken;
 
 	public Member(SocialType socialType, String socialId) {
 		this.socialInfo = new Social(socialType, socialId);
@@ -28,5 +29,9 @@ public class Member {
 
 	public void updateRefreshToken(String refreshToken) {
 		this.refreshToken = refreshToken;
+	}
+
+	public void updateFcmToken(String fcmToken) {
+		this.fcmToken = fcmToken;
 	}
 }
