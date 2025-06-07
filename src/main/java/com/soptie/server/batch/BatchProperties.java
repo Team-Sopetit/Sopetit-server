@@ -12,7 +12,8 @@ public record BatchProperties(
 	) {
 
 		public record Init(
-			String routine
+			String routine,
+			String alarm
 		) {
 		}
 	}
