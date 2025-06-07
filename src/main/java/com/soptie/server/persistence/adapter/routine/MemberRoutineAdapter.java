@@ -1,5 +1,6 @@
 package com.soptie.server.persistence.adapter.routine;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,6 +78,13 @@ public class MemberRoutineAdapter {
 			.map(this::mergeWithRoutine)
 			.filter(Objects::nonNull)
 			.filter(routine -> routine.getThemeId() != null)
+			.toList();
+	}
+
+	public List<MemberRoutine> findByAlarmTime(LocalTime time) {
+		return memberRoutineRepository.findByAlarmTime(time)
+			.stream()
+			.map(MemberRoutineEntity::toDomain)
 			.toList();
 	}
 
