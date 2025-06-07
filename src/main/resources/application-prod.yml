@@ -35,6 +35,7 @@ batch:
   cron:
     init:
       routine: "0 0 0 * * *"
+      alarm: "0 */30 * * * *"
 
 fcm:
   file_path: softie-server-fcm.json
