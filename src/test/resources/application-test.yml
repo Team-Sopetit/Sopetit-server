@@ -54,3 +54,10 @@ batch:
   cron:
     init:
       routine: "0 0 0 * * *"
+      alarm: "0 */30 * * * *"
+
+fcm:
+  file_path: firebase/softie-server-fcm.json
+  url: https://fcm.googleapis.com/v1/projects/${FCM.PROJECT_ID}/messages:send
+  google_api: https://www.googleapis.com/auth/cloud-platform
+  project_id: ${FCM.PROJECT_ID}
