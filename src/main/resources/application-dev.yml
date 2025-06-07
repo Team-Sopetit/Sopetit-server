@@ -19,9 +19,7 @@ spring:
 
 logging:
   level:
-    org:
-      springframework: DEBUG
-      hibernate.SQL: debug
+    org.hibernate.SQL: debug
   slack:
     webhook_url: ${SLACK.WEBHOOK_URL.dev}
     config: classpath:logback-spring.xml
@@ -37,7 +35,7 @@ batch:
   cron:
     init:
       routine: "0 0 0 * * *"
-      alarm: "0 * * * * *"
+      alarm: "0 */30 * * * *"
 
 fcm:
   file_path: softie-server-fcm.json
