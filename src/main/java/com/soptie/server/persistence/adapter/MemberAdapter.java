@@ -55,6 +55,13 @@ public class MemberAdapter {
 			.toList();
 	}
 
+	public List<Member> findAllByFcmTokenIsNotNull() {
+		return memberRepository.findAllByFcmTokenIsNotNull()
+			.stream()
+			.map(MemberEntity::toDomain)
+			.toList();
+	}
+
 	private MemberEntity find(long id) {
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Member ID: " + id));

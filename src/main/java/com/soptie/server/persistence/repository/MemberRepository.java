@@ -14,4 +14,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 	Optional<MemberEntity> findByRefreshToken(String refreshToken);
 
 	List<MemberEntity> findByIdIn(List<Long> ids);
+
+	List<MemberEntity> findAllByFcmTokenIsNotNull();
 }

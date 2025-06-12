@@ -14,9 +14,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.soptie.server.batch.dto.NotificationRequest;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
-import com.soptie.server.domain.memberroutine.MemberRoutine;
+import com.soptie.server.domain.member.Member;
+import com.soptie.server.domain.memberroutine.RoutineAlarm;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAlarmAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -26,28 +28,55 @@ import lombok.val;
 @RequiredArgsConstructor
 public class RoutineAlarmScheduler {
 
+	private final RoutineAlarmAdapter routineAlarmAdapter;
 	private final MemberRoutineAdapter memberRoutineAdapter;
 	private final MemberAdapter memberAdapter;
 	private final FirebaseMessaging firebaseMessaging;
 
-	// 1분에 한 번씩 돌도록 설정
+	@Scheduled(cron = "0 0 10 * * *")
+	void sendMorningAlarm() {
+		val targets = getAlarmTargets();
+		for (val member : targets) {
+			val token = member.getFcmToken();
+			val request = NotificationRequest.createMorningAlarm(token);
+			sendMessage(request);
+		}
+	}
+
+	@Scheduled(cron = "0 0 20 * * *")
+	void sendNightAlarm() {
+		val targets = getAlarmTargets();
+		for (val member : targets) {
+			val token = member.getFcmToken();
+			val request = NotificationRequest.createNightAlarm(token);
+			sendMessage(request);
+		}
+	}
+
+	// 10분에 한 번씩 돌도록 설정
 	@Scheduled(cron = "${batch.cron.init.alarm}")
 	public void sendRoutineAlarm() {
 		LocalTime alarmTime = LocalTime.now()
 			.withSecond(0)
 			.withNano(0);
 
-		List<MemberRoutine> routines = memberRoutineAdapter.findByAlarmTime(alarmTime);
+		List<RoutineAlarm> alarms = routineAlarmAdapter.findAllByAlarmTime(alarmTime);
 
-		for (MemberRoutine routine : routines) {
-			val member = memberAdapter.findById(routine.getMemberId());
-			if (member.getFcmToken() == null) {
-				continue;
-			}
-			// MemberRoutine Content에 루틴 명 넣어주는 처리 프로세스 필요.
-			val request = NotificationRequest.of(member.getFcmToken(), routine.getContent());
+		for (RoutineAlarm alarm : alarms) {
+			val member = memberAdapter.findById(alarm.getMemberId());
+			val routine = memberRoutineAdapter.findById(alarm.getMemberRoutineId());
+			val request = NotificationRequest.createRoutineAlarm(member.getFcmToken(), routine.getContent());
 			sendMessage(request);
 		}
+	}
+
+	// 루틴 알람이 존재하지 않고 fcm token이 존재하는 유저 리스트 반환
+	private List<Member> getAlarmTargets() {
+		val members = memberAdapter.findAllByFcmTokenIsNotNull();
+		val alarms = routineAlarmAdapter.findAll().stream().map(RoutineAlarm::getMemberId).toList();
+		return members.stream()
+			.filter(member -> !alarms.contains(member.getId()))
+			.toList();
 	}
 
 	private void sendMessage(final NotificationRequest request) {
