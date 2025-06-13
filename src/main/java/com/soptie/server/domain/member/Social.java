@@ -1,14 +1,17 @@
 package com.soptie.server.domain.member;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 @Builder
-@Getter
+@AllArgsConstructor
+@Data
 public class Social {
 	@NotNull
 	protected SocialType socialType;
+
 	@NotNull
 	protected String socialId;
 }

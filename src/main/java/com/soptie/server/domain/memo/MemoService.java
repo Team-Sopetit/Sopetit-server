@@ -3,9 +3,9 @@ package com.soptie.server.domain.memo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.memo.CreateMemoRequest;
-import com.soptie.server.api.controller.dto.request.memo.ModifyMemoRequest;
-import com.soptie.server.api.controller.dto.response.memo.CreateMemoResponse;
+import com.soptie.server.api.controller.memo.dto.CreateMemoRequest;
+import com.soptie.server.api.controller.memo.dto.CreateMemoResponse;
+import com.soptie.server.api.controller.memo.dto.ModifyMemoRequest;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.persistence.adapter.MemberAdapter;

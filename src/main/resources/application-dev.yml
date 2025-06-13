@@ -10,7 +10,7 @@ spring:
     password: ${DATABASE.PASSWORD.dev}
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -35,3 +35,6 @@ batch:
   cron:
     init:
       routine: "0 0 0 * * *"
+
+test:
+  id: ${TEST.ID}

@@ -15,6 +15,9 @@ public record MemberRoutineResponse(
 	@Schema(description = "회원 루틴 id", example = "1")
 	long routineId,
 
+	@Schema(description = "소프티 루틴 id", example = "1")
+	Long originRoutineId,
+
 	@Schema(description = "루틴 내용", example = "밥 먹기")
 	@NotNull
 	String content,
@@ -32,6 +35,7 @@ public record MemberRoutineResponse(
 	public static MemberRoutineResponse from(MemberRoutine memberRoutine) {
 		return MemberRoutineResponse.builder()
 			.routineId(memberRoutine.getId())
+			.originRoutineId(memberRoutine.getRoutineId())
 			.content(memberRoutine.getContent())
 			.achieveCount(memberRoutine.getAchievementCount())
 			.isAchieve(memberRoutine.isAchieved())

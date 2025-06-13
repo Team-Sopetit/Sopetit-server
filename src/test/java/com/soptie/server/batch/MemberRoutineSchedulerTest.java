@@ -20,6 +20,7 @@ import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.MemberRoutineService;
 import com.soptie.server.domain.routine.Routine;
+import com.soptie.server.persistence.converter.MemberConverter;
 import com.soptie.server.persistence.entity.MemberEntity;
 import com.soptie.server.persistence.entity.routine.MemberRoutineEntity;
 import com.soptie.server.persistence.entity.routine.RoutineEntity;
@@ -94,7 +95,7 @@ public class MemberRoutineSchedulerTest implements SchedulingConfigurer {
 	}
 
 	private MemberRoutine createAchievedMemberRoutine(int themeIdx) {
-		Member member = savedMember.toDomain();
+		Member member = MemberConverter.convert(savedMember);
 		Routine routine = savedRoutines.get(themeIdx).toDomain();
 		MemberRoutine memberRoutine = MemberRoutineFixture.createDefault(member, routine);
 		memberRoutine.achieve(); // 루틴 달성

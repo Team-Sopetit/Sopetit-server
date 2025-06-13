@@ -4,9 +4,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.auth.SignInRequest;
-import com.soptie.server.api.controller.dto.response.auth.SignInResponse;
-import com.soptie.server.api.controller.dto.response.auth.TokenGetResponse;
+import com.soptie.server.api.controller.auth.dto.SignInRequest;
+import com.soptie.server.api.controller.auth.dto.SignInResponse;
+import com.soptie.server.api.controller.auth.dto.TokenGetResponse;
 import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
 import com.soptie.server.common.support.ValueConfig;
@@ -55,7 +55,7 @@ public class AuthService {
 	@Transactional
 	public void signOut(long memberId) {
 		val member = memberAdapter.findById(memberId);
-		member.resetRefreshToken();
+		member.setRefreshToken(null);
 		memberAdapter.update(member);
 	}
 
@@ -77,21 +77,18 @@ public class AuthService {
 		return switch (socialType) {
 			case APPLE -> appleService.getAppleData(socialAccessToken);
 			case KAKAO -> kakaoService.getKakaoData(socialAccessToken);
+			default -> null;
 		};
 	}
 
 	private Member signUp(SocialType socialType, String socialId) {
 		return memberAdapter.findBySocialTypeAndSocialId(socialType, socialId)
-			.orElseGet(() -> saveMember(socialType, socialId));
-	}
-
-	private Member saveMember(SocialType socialType, String socialId) {
-		return memberAdapter.save(socialType, socialId);
+			.orElseGet(() -> memberAdapter.save(new Member(socialType, socialId)));
 	}
 
 	private Token getToken(Member member) {
 		val token = generateToken(new UserAuthentication(member.getId(), null, null));
-		member.updateRefreshToken(token.getRefreshToken());
+		member.setRefreshToken(token.getRefreshToken());
 		return token;
 	}
 

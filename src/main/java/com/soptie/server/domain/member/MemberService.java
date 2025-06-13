@@ -1,14 +1,15 @@
 package com.soptie.server.domain.member;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
-import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
-import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
-import com.soptie.server.api.controller.dto.response.member.MemberProfileResponse;
+import com.soptie.server.api.controller.member.dto.CreateProfileRequest;
+import com.soptie.server.api.controller.member.dto.GetHomeInfoResponse;
+import com.soptie.server.api.controller.member.dto.GiveMemberCottonResponse;
+import com.soptie.server.api.controller.member.dto.MemberProfileResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.conversation.Conversation;
@@ -42,6 +43,18 @@ public class MemberService {
 		createMemberRoutines(member, request.routines());
 	}
 
+	private void createMemberDoll(long memberId, DollType dollType, String name) {
+		if (!memberDollAdapter.isExistByMember(memberId)) {
+			val doll = dollAdapter.findByType(dollType);
+			memberDollAdapter.save(new MemberDoll(name, dollType, memberId, doll.getId()));
+		}
+	}
+
+	private void createMemberRoutines(Member member, List<Long> routineIds) {
+		val routines = routineAdapter.findByIds(routineIds);
+		memberRoutineAdapter.saveAll(member, routines);
+	}
+
 	@Transactional
 	public GiveMemberCottonResponse giveCotton(long memberId, CottonType cottonType) {
 		val member = memberAdapter.findById(memberId);
@@ -67,20 +80,15 @@ public class MemberService {
 		return GetHomeInfoResponse.of(member, memberDoll, conversations);
 	}
 
-	private void createMemberRoutines(Member member, List<Long> routineIds) {
-		val routines = routineAdapter.findByIds(routineIds);
-		memberRoutineAdapter.saveAll(member, routines);
-	}
-
-	private void createMemberDoll(long memberId, DollType dollType, String name) {
-		if (!memberDollAdapter.isExistByMember(memberId)) {
-			val doll = dollAdapter.findByType(dollType);
-			memberDollAdapter.save(new MemberDoll(name, dollType, memberId, doll.getId()));
-		}
-	}
-
 	public MemberProfileResponse getMemberProfile(long memberId) {
 		val member = memberAdapter.findById(memberId);
 		return MemberProfileResponse.from(member);
+	}
+
+	@Transactional
+	public void visit(long memberId) {
+		Member member = memberAdapter.findById(memberId);
+		member.setLastVisitDateTime(LocalDateTime.now());
+		memberAdapter.update(member);
 	}
 }
