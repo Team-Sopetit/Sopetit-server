@@ -55,7 +55,7 @@ public class AuthService {
 	@Transactional
 	public void signOut(long memberId) {
 		val member = memberAdapter.findById(memberId);
-		member.resetRefreshToken();
+		member.setRefreshToken(null);
 		memberAdapter.update(member);
 	}
 
@@ -82,16 +82,12 @@ public class AuthService {
 
 	private Member signUp(SocialType socialType, String socialId) {
 		return memberAdapter.findBySocialTypeAndSocialId(socialType, socialId)
-			.orElseGet(() -> saveMember(socialType, socialId));
-	}
-
-	private Member saveMember(SocialType socialType, String socialId) {
-		return memberAdapter.save(socialType, socialId);
+			.orElseGet(() -> memberAdapter.save(new Member(socialType, socialId)));
 	}
 
 	private Token getToken(Member member) {
 		val token = generateToken(new UserAuthentication(member.getId(), null, null));
-		member.updateRefreshToken(token.getRefreshToken());
+		member.setRefreshToken(token.getRefreshToken());
 		return token;
 	}
 

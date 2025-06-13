@@ -59,4 +59,11 @@ public interface MemberApiDocs {
 		@Parameter(hidden = true)
 		Principal principal
 	);
+
+	@Operation(summary = "출석체크", description = "회원의 최근 방문일자를 기록한다.")
+	@ApiSuccessResponse
+	SuccessResponse<?> visit(
+		@Parameter(hidden = true)
+		Principal principal
+	);
 }

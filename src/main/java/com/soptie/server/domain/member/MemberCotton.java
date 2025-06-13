@@ -1,10 +1,12 @@
 package com.soptie.server.domain.member;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 @Builder
-@Getter
+@AllArgsConstructor
+@Data
 public class MemberCotton {
 	protected int basicCottonCount;
 	protected int rainbowCottonCount;
