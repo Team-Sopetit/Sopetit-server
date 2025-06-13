@@ -29,7 +29,7 @@ public interface MemberRoutineApiV2Docs {
 		CreateMemberRoutinesRequest request
 	);
 
-	@Operation(summary = "Get Member Routines", description = "회원의 데일리 루틴 목록을 조회한다.")
+	@Operation(summary = "회원 루틴 조회", description = "회원의 데일리 루틴 목록을 조회한다.")
 	@ApiSuccessResponse
 	SuccessResponse<GetMemberRoutinesResponse> getMemberRoutines(
 		@Parameter(hidden = true)
