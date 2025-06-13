@@ -77,6 +77,7 @@ public class AuthService {
 		return switch (socialType) {
 			case APPLE -> appleService.getAppleData(socialAccessToken);
 			case KAKAO -> kakaoService.getKakaoData(socialAccessToken);
+			default -> null;
 		};
 	}
 
