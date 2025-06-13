@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.member.CreateProfileRequest;
-import com.soptie.server.api.controller.dto.response.member.GetHomeInfoResponse;
-import com.soptie.server.api.controller.dto.response.member.GiveMemberCottonResponse;
-import com.soptie.server.api.controller.dto.response.member.MemberProfileResponse;
+import com.soptie.server.api.controller.member.dto.CreateProfileRequest;
+import com.soptie.server.api.controller.member.dto.GetHomeInfoResponse;
+import com.soptie.server.api.controller.member.dto.GiveMemberCottonResponse;
+import com.soptie.server.api.controller.member.dto.MemberProfileResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.conversation.Conversation;

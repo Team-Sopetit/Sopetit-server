@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.api.controller.achievement.docs.AchievementApiV3Docs;
 import com.soptie.server.api.controller.achievement.dto.AchievedThemeResponse;
 import com.soptie.server.api.controller.achievement.dto.AchievedThemesResponse;
-import com.soptie.server.api.controller.dto.response.SuccessResponse;
+import com.soptie.server.api.controller.generic.dto.SuccessResponse;
 import com.soptie.server.domain.achievement.AchievedThemeService;
 import com.soptie.server.domain.achievement.Achievement;
 import com.soptie.server.domain.theme.Theme;

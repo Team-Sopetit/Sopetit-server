@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soptie.server.api.controller.customroutine.docs.CustomRoutineApiDocs;
 import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequest;
 import com.soptie.server.api.controller.customroutine.dto.CustomRoutineResponse;
-import com.soptie.server.api.controller.dto.response.SuccessResponse;
+import com.soptie.server.api.controller.generic.dto.SuccessResponse;
 import com.soptie.server.domain.customroutine.CustomRoutineCommandService;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 

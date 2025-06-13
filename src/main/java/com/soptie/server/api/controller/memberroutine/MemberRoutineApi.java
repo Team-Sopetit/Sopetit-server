@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.generic.SuccessMessage;
+import com.soptie.server.api.common.constants.MessageConstants;
+import com.soptie.server.api.controller.generic.dto.SuccessResponse;
 import com.soptie.server.api.controller.memberroutine.docs.MemberRoutineApiDocs;
 import com.soptie.server.api.controller.memberroutine.dto.AchieveMemberRoutineResponse;
 import com.soptie.server.domain.memberroutine.MemberRoutineService;
@@ -35,7 +35,7 @@ public class MemberRoutineApi implements MemberRoutineApiDocs {
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		memberRoutineService.deleteMemberRoutines(memberId, routines);
-		return SuccessResponse.success(SuccessMessage.DELETE_ROUTINE.getMessage());
+		return SuccessResponse.success(MessageConstants.DELETE_ROUTINE.getMessage());
 	}
 
 	@ResponseStatus(HttpStatus.OK)
@@ -46,13 +46,13 @@ public class MemberRoutineApi implements MemberRoutineApiDocs {
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memberRoutineService.achieveMemberRoutine(memberId, routineId);
-		return SuccessResponse.success(SuccessMessage.ACHIEVE_ROUTINE.getMessage(), response);
+		return SuccessResponse.success(MessageConstants.ACHIEVE_ROUTINE.getMessage(), response);
 	}
 
 	@ResponseStatus(HttpStatus.OK)
 	@DeleteMapping("/history/{historyId}")
 	public SuccessResponse<?> deleteRoutineHistory(@PathVariable long historyId) {
 		memberRoutineService.deleteHistory(historyId);
-		return SuccessResponse.success(SuccessMessage.DELETE_ROUTINE.getMessage());
+		return SuccessResponse.success(MessageConstants.DELETE_ROUTINE.getMessage());
 	}
 }
