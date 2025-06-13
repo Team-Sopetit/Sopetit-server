@@ -52,14 +52,14 @@ public class MemberAdapter {
 	public List<Member> findByIds(List<Long> ids) {
 		return memberRepository.findByIdIn(ids)
 			.stream()
-			.map(MemberEntity::toDomain)
+			.map(MemberConverter::convert)
 			.toList();
 	}
 
 	public List<Member> findAllByFcmTokenIsNotNull() {
 		return memberRepository.findAllByFcmTokenIsNotNull()
 			.stream()
-			.map(MemberEntity::toDomain)
+			.map(MemberConverter::convert)
 			.toList();
 	}
 
