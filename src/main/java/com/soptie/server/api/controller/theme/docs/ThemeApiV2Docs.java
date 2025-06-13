@@ -1,31 +1,17 @@
 package com.soptie.server.api.controller.theme.docs;
 
-import com.soptie.server.api.controller.dto.response.ErrorResponse;
-import com.soptie.server.api.controller.dto.response.SuccessResponse;
+import com.soptie.server.api.common.annotation.ApiSuccessResponse;
+import com.soptie.server.api.common.constants.ApiTagConstants;
+import com.soptie.server.api.controller.generic.dto.SuccessResponse;
 import com.soptie.server.api.controller.theme.dto.GetThemesResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "Theme V2", description = "테마 API Version2")
+@Tag(name = ApiTagConstants.THEME_NAME, description = ApiTagConstants.THEME_DESCRIPTION)
 public interface ThemeApiV2Docs {
 
-	@Operation(
-		summary = "Get Themes",
-		description = "일반 테마 목록을 조회한다.",
-		responses = {
-			@ApiResponse(responseCode = "200", description = "성공"),
-			@ApiResponse(
-				responseCode = "4xx",
-				description = "클라이언트(요청) 오류",
-				content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
-			@ApiResponse(
-				responseCode = "500",
-				description = "서버 내부 오류",
-				content = @Content(schema = @Schema(implementation = ErrorResponse.class)))}
-	)
+	@Operation(summary = "Get Themes", description = "일반 테마 목록을 조회한다.")
+	@ApiSuccessResponse
 	SuccessResponse<GetThemesResponse> getAll();
 }

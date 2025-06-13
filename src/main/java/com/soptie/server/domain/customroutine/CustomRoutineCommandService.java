@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequest;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class CustomRoutineCommandService {
 
 	private final MemberRoutineAdapter memberRoutineAdapter;
+	private final RoutineHistoryAdapter routineHistoryAdapter;
 
 	public MemberRoutine create(long memberId, @NotNull CustomRoutineRequest request) {
 		MemberRoutine memberRoutine = MemberRoutine.builder()
@@ -42,7 +44,6 @@ public class CustomRoutineCommandService {
 		return memberRoutineAdapter.updateAll(memberRoutine);
 	}
 
-	//todo 히스토리 삭제
 	public void delete(long memberId, long customRoutineId) {
 		MemberRoutine memberRoutine = memberRoutineAdapter.findById(customRoutineId);
 
@@ -51,5 +52,6 @@ public class CustomRoutineCommandService {
 		}
 
 		memberRoutineAdapter.deleteForce(memberRoutine);
+		routineHistoryAdapter.deleteByRoutineId(memberRoutine.getId());
 	}
 }

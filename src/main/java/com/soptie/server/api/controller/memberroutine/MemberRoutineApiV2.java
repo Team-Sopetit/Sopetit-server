@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soptie.server.api.controller.dto.response.SuccessResponse;
-import com.soptie.server.api.controller.generic.SuccessMessage;
+import com.soptie.server.api.common.constants.MessageConstants;
+import com.soptie.server.api.controller.generic.dto.SuccessResponse;
 import com.soptie.server.api.controller.memberroutine.docs.MemberRoutineApiV2Docs;
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRequest;
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
@@ -41,7 +41,7 @@ public class MemberRoutineApiV2 implements MemberRoutineApiV2Docs {
 	) {
 		val memberId = Long.parseLong(principal.getName());
 		val response = memberRoutineService.createRoutines(memberId, request);
-		return SuccessResponse.success(SuccessMessage.CREATE_ROUTINE.getMessage(), response);
+		return SuccessResponse.success(MessageConstants.CREATE_ROUTINE.getMessage(), response);
 	}
 
 	@ResponseStatus(HttpStatus.OK)
