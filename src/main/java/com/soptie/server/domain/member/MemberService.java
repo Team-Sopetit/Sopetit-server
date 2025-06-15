@@ -88,7 +88,8 @@ public class MemberService {
 
 	public void updateFcmToken(long memberId, UpdateFcmTokenRequest request) {
 		val member = memberAdapter.findById(memberId);
-		member.updateFcmToken(request.fcmToken());
+		member.setFcmToken(request.fcmToken());
+		memberAdapter.update(member);
 	}
 
 	@Transactional

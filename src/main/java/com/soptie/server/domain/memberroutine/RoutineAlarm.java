@@ -17,8 +17,4 @@ public class RoutineAlarm {
 	private LocalTime alarmTime;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-
-	public boolean isAlarmTime(LocalTime alarmTime) {
-		return this.alarmTime.equals(alarmTime);
-	}
 }

@@ -33,8 +33,4 @@ public class Member {
 		this.cottonInfo = new MemberCotton(0, 0);
 		this.lastVisitDateTime = LocalDateTime.now();
 	}
-
-	public void updateFcmToken(String fcmToken) {
-		this.fcmToken = fcmToken;
-	}
 }

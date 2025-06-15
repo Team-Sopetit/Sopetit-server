@@ -77,7 +77,7 @@ public class MemberApi implements MemberApiDocs {
 	public SuccessResponse<?> updateFcmToken(Principal principal, @RequestBody UpdateFcmTokenRequest request) {
 		val memberId = Long.parseLong(principal.getName());
 		memberService.updateFcmToken(memberId, request);
-		return SuccessResponse.success(MessageConstants.UPDATE_FCM_TOKEN.getMessage());
+		return SuccessResponse.from();
 	}
 
 	@PutMapping("/visit")
