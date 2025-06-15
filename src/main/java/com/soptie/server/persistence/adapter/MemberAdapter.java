@@ -51,7 +51,7 @@ public class MemberAdapter {
 	public List<Member> findAllByFcmTokenIsNotNull() {
 		return memberRepository.findAllByFcmTokenIsNotNull()
 			.stream()
-			.map(MemberEntity::toDomain)
+			.map(MemberConverter::convert)
 			.toList();
 	}
 
