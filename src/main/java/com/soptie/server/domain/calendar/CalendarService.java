@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.response.calendar.DateHistoryResponse;
+import com.soptie.server.api.controller.calendar.dto.DateHistoryResponse;
 import com.soptie.server.domain.challenge.ChallengeHistory;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.RoutineHistory;

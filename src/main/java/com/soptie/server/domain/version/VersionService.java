@@ -3,7 +3,7 @@ package com.soptie.server.domain.version;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.response.version.GetAppVersionResponse;
+import com.soptie.server.api.controller.version.dto.GetAppVersionResponse;
 import com.soptie.server.common.support.ValueConfig;
 
 import lombok.RequiredArgsConstructor;

@@ -8,11 +8,12 @@ import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.member.SocialType;
+import com.soptie.server.persistence.converter.MemberConverter;
 import com.soptie.server.persistence.entity.MemberEntity;
 import com.soptie.server.persistence.repository.MemberRepository;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 @RepositoryAdapter
 @RequiredArgsConstructor
@@ -22,16 +23,16 @@ public class MemberAdapter {
 
 	public Optional<Member> findBySocialTypeAndSocialId(SocialType socialType, String socialId) {
 		return memberRepository.findBySocialTypeAndSocialId(socialType, socialId)
-			.map(MemberEntity::toDomain);
+			.map(MemberConverter::convert);
 	}
 
-	public Member save(SocialType socialType, String socialId) {
-		return memberRepository.save(new MemberEntity(socialType, socialId)).toDomain();
+	public Member save(Member member) {
+		return MemberConverter.convert(memberRepository.save(new MemberEntity(member)));
 	}
 
 	public Member findByRefreshToken(String refreshToken) {
 		return memberRepository.findByRefreshToken(refreshToken)
-			.map(MemberEntity::toDomain)
+			.map(MemberConverter::convert)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND));
 	}
 
@@ -40,19 +41,11 @@ public class MemberAdapter {
 	}
 
 	public Member findById(long memberId) {
-		return find(memberId).toDomain();
+		return MemberConverter.convert(find(memberId));
 	}
 
 	public void update(Member member) {
-		val memberEntity = find(member.getId());
-		memberEntity.update(member);
-	}
-
-	public List<Member> findByIds(List<Long> ids) {
-		return memberRepository.findByIdIn(ids)
-			.stream()
-			.map(MemberEntity::toDomain)
-			.toList();
+		find(member.getId()).update(member);
 	}
 
 	public List<Member> findAllByFcmTokenIsNotNull() {
@@ -62,6 +55,7 @@ public class MemberAdapter {
 			.toList();
 	}
 
+	@NonNull
 	private MemberEntity find(long id) {
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Member ID: " + id));

@@ -3,7 +3,7 @@ package com.soptie.server.domain.challenge;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.response.challenge.ChallengesResponse;
+import com.soptie.server.api.controller.challenge.dto.ChallengesResponse;
 import com.soptie.server.persistence.adapter.challenge.ChallengeAdapter;
 import com.soptie.server.persistence.adapter.challenge.MemberChallengeAdapter;
 

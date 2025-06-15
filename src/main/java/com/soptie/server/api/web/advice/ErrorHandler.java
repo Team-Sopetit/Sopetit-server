@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.soptie.server.api.controller.dto.response.ErrorResponse;
+import com.soptie.server.api.controller.generic.dto.ErrorResponse;
 import com.soptie.server.common.exception.SoftieException;
 
 import lombok.extern.slf4j.Slf4j;

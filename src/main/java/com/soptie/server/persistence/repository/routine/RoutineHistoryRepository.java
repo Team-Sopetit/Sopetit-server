@@ -29,4 +29,6 @@ public interface RoutineHistoryRepository extends JpaRepository<RoutineHistoryEn
 		@Param("startDateTime") LocalDateTime startDateTime,
 		@Param("endDateTime") LocalDateTime endDateTime
 	);
+
+	void deleteByRoutineId(long routineId);
 }
