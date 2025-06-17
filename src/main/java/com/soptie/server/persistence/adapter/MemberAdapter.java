@@ -55,6 +55,13 @@ public class MemberAdapter {
 			.toList();
 	}
 
+	public List<Member> findByIdIn(List<Long> ids) {
+		return memberRepository.findByIdIn(ids)
+			.stream()
+			.map(MemberConverter::convert)
+			.toList();
+	}
+
 	@NonNull
 	private MemberEntity find(long id) {
 		return memberRepository.findById(id)

@@ -1,6 +1,5 @@
 package com.soptie.server.persistence.repository.routine;
 
-import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,8 +27,6 @@ public interface MemberRoutineRepository
 	List<MemberRoutineEntity> findByIdIn(List<Long> ids);
 
 	List<MemberRoutineEntity> findByMemberIdAndRoutineIdIn(long memberId, List<Long> routineIds);
-
-	List<MemberRoutineEntity> findByAlarmTime(LocalTime alarmTime);
 
 	/**
 	 * delete

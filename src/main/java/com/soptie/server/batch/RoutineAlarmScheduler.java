@@ -2,6 +2,9 @@ package com.soptie.server.batch;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -66,12 +69,46 @@ public class RoutineAlarmScheduler {
 
 		List<RoutineAlarm> alarms = routineAlarmAdapter.findAllByAlarmTime(alarmTime);
 
+		List<Long> memberIds = alarms.stream()
+			.map(RoutineAlarm::getMemberId)
+			.distinct()
+			.toList();
+
+		List<Long> routineIds = alarms.stream()
+			.map(RoutineAlarm::getMemberRoutineId)
+			.distinct()
+			.toList();
+
+		Map<Long, Member> memberIdToMemberMap = memberAdapter.findByIdIn(memberIds).stream()
+			.collect(Collectors.toMap(Member::getId, Function.identity()));
+
+		Map<Long, MemberRoutine> routineIdToRoutineMap = memberRoutineAdapter.findByIdIn(routineIds).stream()
+			.collect(Collectors.toMap(MemberRoutine::getId, Function.identity()));
+
+		Map<Long, Member> routineAlarmToMember = alarms.stream()
+			.collect(Collectors.toMap(
+				RoutineAlarm::getId,
+				alarm -> memberIdToMemberMap.get(alarm.getMemberId())
+			));
+
+		Map<Long, MemberRoutine> routineAlarmToRoutine = alarms.stream()
+			.collect(Collectors.toMap(
+				RoutineAlarm::getId,
+				alarm -> routineIdToRoutineMap.get(alarm.getMemberRoutineId())
+			));
+
+		// 사용 예시
 		for (RoutineAlarm alarm : alarms) {
-			Member member = memberAdapter.findById(alarm.getMemberId());
-			MemberRoutine routine = memberRoutineAdapter.findById(alarm.getMemberRoutineId());
-			NotificationRequest request = NotificationHelper.createRoutineAlarm(member.getFcmToken(),
-				routine.getContent());
-			sendMessage(request);
+			Member member = routineAlarmToMember.get(alarm.getId());
+			MemberRoutine routine = routineAlarmToRoutine.get(alarm.getId());
+
+			if (member != null && routine != null) {
+				NotificationRequest request = NotificationHelper.createRoutineAlarm(
+					member.getFcmToken(),
+					routine.getContent()
+				);
+				sendMessage(request);
+			}
 		}
 	}
 
