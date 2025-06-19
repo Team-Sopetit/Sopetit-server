@@ -1,6 +1,6 @@
 package com.soptie.server.domain.member;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -88,7 +88,7 @@ public class MemberService {
 	@Transactional
 	public void visit(long memberId) {
 		Member member = memberAdapter.findById(memberId);
-		member.setLastVisitDateTime(LocalDateTime.now());
+		member.setLastVisitDate(LocalDate.now());
 		memberAdapter.update(member);
 	}
 }
