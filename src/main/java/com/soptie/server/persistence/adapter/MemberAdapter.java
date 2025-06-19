@@ -1,5 +1,6 @@
 package com.soptie.server.persistence.adapter;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.soptie.server.common.exception.ExceptionCode;
@@ -45,6 +46,20 @@ public class MemberAdapter {
 
 	public void update(Member member) {
 		find(member.getId()).update(member);
+	}
+
+	public List<Member> findAllByFcmTokenIsNotNull() {
+		return memberRepository.findAllByFcmTokenIsNotNull()
+			.stream()
+			.map(MemberConverter::convert)
+			.toList();
+	}
+
+	public List<Member> findByIdIn(List<Long> ids) {
+		return memberRepository.findByIdIn(ids)
+			.stream()
+			.map(MemberConverter::convert)
+			.toList();
 	}
 
 	@NonNull

@@ -20,6 +20,7 @@ import com.soptie.server.api.controller.member.dto.CreateProfileRequest;
 import com.soptie.server.api.controller.member.dto.GetHomeInfoResponse;
 import com.soptie.server.api.controller.member.dto.GiveMemberCottonResponse;
 import com.soptie.server.api.controller.member.dto.MemberProfileResponse;
+import com.soptie.server.api.controller.member.dto.UpdateFcmTokenRequest;
 import com.soptie.server.domain.member.CottonType;
 import com.soptie.server.domain.member.MemberService;
 
@@ -72,6 +73,13 @@ public class MemberApi implements MemberApiDocs {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
+	@PostMapping("/fcm")
+	public SuccessResponse<?> updateFcmToken(Principal principal, @RequestBody UpdateFcmTokenRequest request) {
+		val memberId = Long.parseLong(principal.getName());
+		memberService.updateFcmToken(memberId, request);
+		return SuccessResponse.from();
+	}
+
 	@PutMapping("/visit")
 	public SuccessResponse<?> visit(Principal principal) {
 		long memberId = Long.parseLong(principal.getName());

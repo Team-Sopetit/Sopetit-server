@@ -65,6 +65,9 @@ dependencies {
 
     // slack logback
     implementation 'com.github.maricn:logback-slack-appender:1.4.0'
+
+    // fcm
+    implementation 'com.google.firebase:firebase-admin:9.1.1'
 }
 
 tasks.named('test') {

@@ -36,6 +36,8 @@ public class MemberEntity extends BaseEntity {
 
 	@Column(nullable = false)
 	private int rainbowCottonCount;
+	@Column
+	private String fcmToken;
 
 	@Column
 	private LocalDate lastVisitDate;
@@ -46,6 +48,7 @@ public class MemberEntity extends BaseEntity {
 		this.refreshToken = member.getRefreshToken();
 		this.basicCottonCount = member.getCottonInfo().getBasicCottonCount();
 		this.rainbowCottonCount = member.getCottonInfo().getRainbowCottonCount();
+		this.fcmToken = member.getFcmToken();
 		this.lastVisitDate = member.getLastVisitDate();
 	}
 
@@ -53,6 +56,7 @@ public class MemberEntity extends BaseEntity {
 		this.refreshToken = member.getRefreshToken();
 		this.basicCottonCount = member.getCottonInfo().getBasicCottonCount();
 		this.rainbowCottonCount = member.getCottonInfo().getRainbowCottonCount();
+		this.fcmToken = member.getFcmToken();
 		this.lastVisitDate = member.getLastVisitDate();
 	}
 }

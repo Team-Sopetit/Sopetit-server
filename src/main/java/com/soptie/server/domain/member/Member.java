@@ -25,6 +25,7 @@ public class Member {
 	private MemberCotton cottonInfo;
 
 	private LocalDateTime createdAt;
+	private String fcmToken;
 
 	private LocalDate lastVisitDate;
 

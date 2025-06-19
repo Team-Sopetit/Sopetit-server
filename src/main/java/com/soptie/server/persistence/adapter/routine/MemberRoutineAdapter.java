@@ -80,6 +80,13 @@ public class MemberRoutineAdapter {
 			.toList();
 	}
 
+	public List<MemberRoutine> findByIdIn(List<Long> ids) {
+		return memberRoutineRepository.findByIdIn(ids)
+			.stream()
+			.map(MemberRoutineEntity::toDomain)
+			.toList();
+	}
+
 	/**
 	 * delete
 	 */

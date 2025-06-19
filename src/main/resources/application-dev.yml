@@ -10,7 +10,7 @@ spring:
     password: ${DATABASE.PASSWORD.dev}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
@@ -35,6 +35,12 @@ batch:
   cron:
     init:
       routine: "0 0 0 * * *"
+
+fcm:
+  file_path: softie-server-fcm.json
+  url: https://fcm.googleapis.com/v1/projects/${FCM.PROJECT_ID}/messages:send
+  google_api: https://www.googleapis.com/auth/cloud-platform
+  project_id: ${FCM.PROJECT_ID}
 
 test:
   id: ${TEST.ID}

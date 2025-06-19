@@ -13,6 +13,7 @@ import com.soptie.server.api.controller.member.dto.CreateProfileRequest;
 import com.soptie.server.api.controller.member.dto.GetHomeInfoResponse;
 import com.soptie.server.api.controller.member.dto.GiveMemberCottonResponse;
 import com.soptie.server.api.controller.member.dto.MemberProfileResponse;
+import com.soptie.server.api.controller.member.dto.UpdateFcmTokenRequest;
 import com.soptie.server.domain.member.CottonType;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,6 +59,16 @@ public interface MemberApiDocs {
 	SuccessResponse<MemberProfileResponse> getMemberProfile(
 		@Parameter(hidden = true)
 		Principal principal
+	);
+
+	@Operation(summary = "fcm 토큰 업데이트", description = "회원의 fcm 토큰을 업데이트한다.")
+	@ApiSuccessResponse
+	SuccessResponse<?> updateFcmToken(
+		@Parameter(hidden = true)
+		Principal principal,
+
+		@RequestBody
+		UpdateFcmTokenRequest request
 	);
 
 	@Operation(summary = "출석체크", description = "회원의 최근 방문일자를 기록한다.")

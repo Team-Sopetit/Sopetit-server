@@ -10,6 +10,7 @@ import com.soptie.server.api.controller.member.dto.CreateProfileRequest;
 import com.soptie.server.api.controller.member.dto.GetHomeInfoResponse;
 import com.soptie.server.api.controller.member.dto.GiveMemberCottonResponse;
 import com.soptie.server.api.controller.member.dto.MemberProfileResponse;
+import com.soptie.server.api.controller.member.dto.UpdateFcmTokenRequest;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.conversation.Conversation;
@@ -83,6 +84,12 @@ public class MemberService {
 	public MemberProfileResponse getMemberProfile(long memberId) {
 		val member = memberAdapter.findById(memberId);
 		return MemberProfileResponse.from(member);
+	}
+
+	public void updateFcmToken(long memberId, UpdateFcmTokenRequest request) {
+		val member = memberAdapter.findById(memberId);
+		member.setFcmToken(request.fcmToken());
+		memberAdapter.update(member);
 	}
 
 	@Transactional

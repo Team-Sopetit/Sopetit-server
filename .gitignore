@@ -38,6 +38,7 @@ out/
 
 ### configuration ###
 application-secret.yml
+softie-server-fcm.json
 
 ### JPAQueryFactory ###
 generated
