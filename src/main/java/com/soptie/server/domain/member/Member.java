@@ -1,5 +1,6 @@
 package com.soptie.server.domain.member;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
@@ -26,11 +27,11 @@ public class Member {
 	private LocalDateTime createdAt;
 	private String fcmToken;
 
-	private LocalDateTime lastVisitDateTime;
+	private LocalDate lastVisitDate;
 
 	public Member(SocialType socialType, String socialId) {
 		this.socialInfo = new Social(socialType, socialId);
 		this.cottonInfo = new MemberCotton(0, 0);
-		this.lastVisitDateTime = LocalDateTime.now();
+		this.lastVisitDate = LocalDate.now();
 	}
 }
