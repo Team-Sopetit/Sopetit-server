@@ -97,7 +97,6 @@ public class RoutineAlarmScheduler {
 				alarm -> routineIdToRoutineMap.get(alarm.getMemberRoutineId())
 			));
 
-		// 사용 예시
 		for (RoutineAlarm alarm : alarms) {
 			Member member = routineAlarmToMember.get(alarm.getId());
 			MemberRoutine routine = routineAlarmToRoutine.get(alarm.getId());
