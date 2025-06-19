@@ -1,6 +1,6 @@
 package com.soptie.server.persistence.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.soptie.server.common.constants.DomainConstants;
 import com.soptie.server.domain.member.Member;
@@ -38,7 +38,7 @@ public class MemberEntity extends BaseEntity {
 	private int rainbowCottonCount;
 
 	@Column
-	private LocalDateTime lastVisitDateTime;
+	private LocalDate lastVisitDate;
 
 	public MemberEntity(Member member) {
 		this.socialType = member.getSocialInfo().getSocialType();
@@ -46,13 +46,13 @@ public class MemberEntity extends BaseEntity {
 		this.refreshToken = member.getRefreshToken();
 		this.basicCottonCount = member.getCottonInfo().getBasicCottonCount();
 		this.rainbowCottonCount = member.getCottonInfo().getRainbowCottonCount();
-		this.lastVisitDateTime = member.getLastVisitDateTime();
+		this.lastVisitDate = member.getLastVisitDate();
 	}
 
 	public void update(Member member) {
 		this.refreshToken = member.getRefreshToken();
 		this.basicCottonCount = member.getCottonInfo().getBasicCottonCount();
 		this.rainbowCottonCount = member.getCottonInfo().getRainbowCottonCount();
-		this.lastVisitDateTime = member.getLastVisitDateTime();
+		this.lastVisitDate = member.getLastVisitDate();
 	}
 }
