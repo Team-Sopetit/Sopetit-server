@@ -63,7 +63,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(authorizeHttpRequests ->
 			authorizeHttpRequests
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/auth", "POST")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/api/v1/test")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/api/v1/test/**")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily/themes")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/routines/daily")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/api/v1/dolls/image/{type}")).permitAll()
