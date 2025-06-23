@@ -29,4 +29,8 @@ public class RoutineAlarmAdapter {
 			.map(RoutineAlarmEntity::toDomain)
 			.toList();
 	}
+
+	public void save(RoutineAlarm routineAlarm) {
+		routineAlarmRepository.save(new RoutineAlarmEntity(routineAlarm));
+	}
 }

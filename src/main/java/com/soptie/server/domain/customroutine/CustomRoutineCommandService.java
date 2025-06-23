@@ -5,7 +5,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequest;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
+import com.soptie.server.domain.memberroutine.RoutineAlarm;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAlarmAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import jakarta.validation.constraints.NotNull;
@@ -17,17 +19,23 @@ import lombok.RequiredArgsConstructor;
 public class CustomRoutineCommandService {
 
 	private final MemberRoutineAdapter memberRoutineAdapter;
+	private final RoutineAlarmAdapter routineAlarmAdapter;
 	private final RoutineHistoryAdapter routineHistoryAdapter;
 
 	public MemberRoutine create(long memberId, @NotNull CustomRoutineRequest request) {
-		MemberRoutine memberRoutine = MemberRoutine.builder()
+		MemberRoutine memberRoutine = memberRoutineAdapter.save(MemberRoutine.builder()
 			.memberId(memberId)
 			.content(request.content())
 			.themeId(request.themeId())
 			.alarmTime(request.alarmTime())
+			.build());
+		RoutineAlarm routineAlarm = RoutineAlarm.builder()
+			.memberId(memberRoutine.getMemberId())
+			.memberRoutineId(memberRoutine.getId())
+			.alarmTime(memberRoutine.getAlarmTime())
 			.build();
-
-		return memberRoutineAdapter.save(memberRoutine);
+		routineAlarmAdapter.save(routineAlarm);
+		return memberRoutine;
 	}
 
 	public MemberRoutine update(long memberId, long customRoutineId, @NotNull CustomRoutineRequest request) {

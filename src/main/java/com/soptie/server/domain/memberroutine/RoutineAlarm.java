@@ -17,4 +17,5 @@ public class RoutineAlarm {
 	private LocalTime alarmTime;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+
 }

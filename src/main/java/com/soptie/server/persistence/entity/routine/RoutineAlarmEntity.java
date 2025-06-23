@@ -25,6 +25,12 @@ public class RoutineAlarmEntity extends BaseEntity {
 	@Column(nullable = false)
 	private LocalTime alarmTime;
 
+	public RoutineAlarmEntity(RoutineAlarm routineAlarm) {
+		this.memberId = routineAlarm.getMemberId();
+		this.memberRoutineId = routineAlarm.getMemberRoutineId();
+		this.alarmTime = routineAlarm.getAlarmTime();
+	}
+
 	public RoutineAlarm toDomain() {
 		return RoutineAlarm.builder()
 			.id(id)
