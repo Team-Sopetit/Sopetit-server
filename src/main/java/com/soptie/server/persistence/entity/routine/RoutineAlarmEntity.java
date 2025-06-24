@@ -41,4 +41,8 @@ public class RoutineAlarmEntity extends BaseEntity {
 			.updatedAt(updatedAt)
 			.build();
 	}
+
+	public void update(RoutineAlarm routineAlarm) {
+		this.alarmTime = routineAlarm.getAlarmTime();
+	}
 }

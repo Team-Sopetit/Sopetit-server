@@ -45,6 +45,17 @@ public class CustomRoutineCommandService {
 			return memberRoutine;
 		}
 
+		if (Objects.nonNull(memberRoutine.getAlarmTime()) && Objects.isNull(request.alarmTime())) {
+			// 알람 제거
+			deleteRoutineAlarm(memberRoutine);
+		} else if (Objects.nonNull(memberRoutine.getAlarmTime())) {
+			// 알람 변동
+			updateRoutineAlarm(memberRoutine);
+		} else if (Objects.nonNull(request.alarmTime())) {
+			// 알람 생성
+			saveRoutineAlarm(memberRoutine);
+		}
+
 		memberRoutine.setContent(request.content());
 		memberRoutine.setThemeId(request.themeId());
 		memberRoutine.setAlarmTime(request.alarmTime());
@@ -59,6 +70,10 @@ public class CustomRoutineCommandService {
 			return;
 		}
 
+		if (Objects.nonNull(memberRoutine.getAlarmTime())) {
+			deleteRoutineAlarm(memberRoutine);
+		}
+
 		memberRoutineAdapter.deleteForce(memberRoutine);
 		routineHistoryAdapter.deleteByRoutineId(memberRoutine.getId());
 	}
@@ -70,5 +85,15 @@ public class CustomRoutineCommandService {
 			.alarmTime(memberRoutine.getAlarmTime())
 			.build();
 		routineAlarmAdapter.save(routineAlarm);
+	}
+
+	private void updateRoutineAlarm(MemberRoutine memberRoutine) {
+		RoutineAlarm routineAlarm = routineAlarmAdapter.findByMemberRoutineAlarmId(memberRoutine.getId());
+		routineAlarm.setAlarmTime(memberRoutine.getAlarmTime());
+		routineAlarmAdapter.update(routineAlarm);
+	}
+
+	private void deleteRoutineAlarm(MemberRoutine memberRoutine) {
+		routineAlarmAdapter.deleteByMemberRoutineId(memberRoutine.getId());
 	}
 }

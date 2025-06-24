@@ -10,4 +10,8 @@ import com.soptie.server.persistence.entity.routine.RoutineAlarmEntity;
 public interface RoutineAlarmRepository extends JpaRepository<RoutineAlarmEntity, Long> {
 
 	List<RoutineAlarmEntity> findAllByAlarmTime(LocalTime alarmTime);
+
+	RoutineAlarmEntity findByMemberRoutineId(Long memberRoutineId);
+
+	void deleteByMemberRoutineId(long memberRoutineId);
 }
