@@ -14,6 +14,7 @@ import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAlarmAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class MemberRoutineService {
 	private final MemberAdapter memberAdapter;
 	private final RoutineAdapter routineAdapter;
 	private final RoutineHistoryAdapter routineHistoryAdapter;
+	private final RoutineAlarmAdapter routineAlarmAdapter;
 
 	@Transactional
 	public CreateMemberRoutinesResponse createRoutines(
@@ -44,6 +46,7 @@ public class MemberRoutineService {
 		val memberRoutines = memberRoutineAdapter.findByIds(memberRoutineIds).stream()
 			.filter(memberRoutine -> memberRoutine.getMemberId() == memberId)
 			.toList();
+		memberRoutines.forEach(memberRoutine -> routineAlarmAdapter.deleteByMemberRoutineId(memberRoutine.getId()));
 		memberRoutineAdapter.deleteAll(memberRoutines);
 	}
 
