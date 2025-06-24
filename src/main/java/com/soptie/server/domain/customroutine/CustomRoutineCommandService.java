@@ -1,5 +1,7 @@
 package com.soptie.server.domain.customroutine;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,13 +30,11 @@ public class CustomRoutineCommandService {
 			.content(request.content())
 			.themeId(request.themeId())
 			.alarmTime(request.alarmTime())
-			.build());
-		RoutineAlarm routineAlarm = RoutineAlarm.builder()
-			.memberId(memberRoutine.getMemberId())
-			.memberRoutineId(memberRoutine.getId())
-			.alarmTime(memberRoutine.getAlarmTime())
-			.build();
-		routineAlarmAdapter.save(routineAlarm);
+			.build()
+		);
+		if (Objects.nonNull(request.alarmTime())) {
+			saveRoutineAlarm(memberRoutine);
+		}
 		return memberRoutine;
 	}
 
@@ -61,5 +61,14 @@ public class CustomRoutineCommandService {
 
 		memberRoutineAdapter.deleteForce(memberRoutine);
 		routineHistoryAdapter.deleteByRoutineId(memberRoutine.getId());
+	}
+
+	private void saveRoutineAlarm(MemberRoutine memberRoutine) {
+		RoutineAlarm routineAlarm = RoutineAlarm.builder()
+			.memberId(memberRoutine.getMemberId())
+			.memberRoutineId(memberRoutine.getId())
+			.alarmTime(memberRoutine.getAlarmTime())
+			.build();
+		routineAlarmAdapter.save(routineAlarm);
 	}
 }
