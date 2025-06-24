@@ -6,22 +6,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.mysema.commons.lang.Pair;
+import com.soptie.server.common.utils.MapUtils;
 import com.soptie.server.config.support.GlobalData;
 import com.soptie.server.domain.theme.Theme;
 import com.soptie.server.persistence.entity.ThemeEntity;
 import com.soptie.server.persistence.repository.ThemeRepository;
 
-import io.jsonwebtoken.lang.Collections;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
+@EnableScheduling
 @RequiredArgsConstructor
 public class ThemeStore {
 
@@ -33,47 +37,48 @@ public class ThemeStore {
 
 	private LocalDate updateDate;
 
-	@Scheduled(cron = "0 */10 * * * *")
+	@PostConstruct
+	@Scheduled(cron = "0 0 */1 * * *")
 	public void init() {
-		if (!themes.isEmpty() && updateDate.isEqual(LocalDate.now())) {
+		if (MapUtils.isNotEmpty(this.themes) && LocalDate.now().equals(this.updateDate)) {
 			return;
 		}
 
 		try {
-			update();
+			this.themes = getNewThemes();
+			this.updateDate = LocalDate.now();
+			log.info("[ThemeStore] successfully updated. count={}", themes.size());
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			themes = new HashMap<>();
+			this.themes = new HashMap<>();
+			this.updateDate = null;
+			log.error("[ThemeStore] not updated.", e);
 		}
 	}
 
 	public Theme get(long id) {
-		if (Collections.isEmpty(themes)) {
-			update();
+		if (MapUtils.isEmpty(this.themes)) {
+			return getFallback(id);
 		}
 
-		if (!themes.containsKey(id)) {
-			return null;
-		}
-
-		return themes.get(id);
+		return themes.getOrDefault(id, getFallback(id));
 	}
 
 	public List<Theme> getAll() {
-		if (Collections.isEmpty(themes)) {
-			update();
-		}
 		return themes.values().stream().toList();
 	}
 
-	private void update() {
-		themes = themeRepository.findAll()
+	private Map<Long, Theme> getNewThemes() {
+		return themeRepository.findAll()
 			.stream()
 			.map(ThemeEntity::toDomain)
 			.map(theme -> Pair.of(theme.getId(), theme))
 			.filter(routine -> routine.getFirst() != null && routine.getSecond() != null)
 			.collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+	}
 
-		updateDate = LocalDate.now();
+	private Theme getFallback(long id) {
+		return themeRepository.findById(id)
+			.map(ThemeEntity::toDomain)
+			.orElse(null);
 	}
 }

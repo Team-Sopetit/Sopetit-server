@@ -6,22 +6,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.mysema.commons.lang.Pair;
+import com.soptie.server.common.utils.MapUtils;
 import com.soptie.server.config.support.GlobalData;
 import com.soptie.server.domain.challenge.Challenge;
 import com.soptie.server.persistence.entity.challenge.ChallengeEntity;
 import com.soptie.server.persistence.repository.challenge.ChallengeRepository;
 
-import io.jsonwebtoken.lang.Collections;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
+@EnableScheduling
 @RequiredArgsConstructor
 public class ChallengeStore {
 
@@ -33,44 +37,48 @@ public class ChallengeStore {
 
 	private LocalDate updateDate;
 
-	@Scheduled(cron = "0 */10 * * * *")
+	@PostConstruct
+	@Scheduled(cron = "0 40 */1 * * *")
 	public void init() {
-		if (!challenges.isEmpty() && updateDate.isEqual(LocalDate.now())) {
+		if (MapUtils.isNotEmpty(this.challenges) && LocalDate.now().equals(this.updateDate)) {
 			return;
 		}
 
 		try {
-			update();
+			this.challenges = getNewChallenges();
+			this.updateDate = LocalDate.now();
+			log.info("[ChallengeStore] successfully updated. count={}", challenges.size());
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			challenges = new HashMap<>();
+			this.challenges = new HashMap<>();
+			this.updateDate = null;
+			log.error("[ChallengeStore] not updated.", e);
 		}
 	}
 
 	public Challenge get(long id) {
-		if (Collections.isEmpty(challenges)) {
-			update();
+		if (MapUtils.isEmpty(this.challenges)) {
+			return getFallback(id);
 		}
 
-		if (!challenges.containsKey(id)) {
-			return null;
-		}
-
-		return challenges.get(id);
+		return challenges.getOrDefault(id, getFallback(id));
 	}
 
 	public List<Challenge> getAll() {
 		return challenges.values().stream().toList();
 	}
 
-	private void update() {
-		challenges = challengeRepository.findAll()
+	private Map<Long, Challenge> getNewChallenges() {
+		return challengeRepository.findAll()
 			.stream()
 			.map(ChallengeEntity::toDomain)
 			.map(challenge -> Pair.of(challenge.getId(), challenge))
 			.filter(routine -> routine.getFirst() != null && routine.getSecond() != null)
 			.collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+	}
 
-		updateDate = LocalDate.now();
+	private Challenge getFallback(long id) {
+		return challengeRepository.findById(id)
+			.map(ChallengeEntity::toDomain)
+			.orElse(null);
 	}
 }

@@ -12,6 +12,7 @@ import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.entity.routine.MemberRoutineEntity;
 import com.soptie.server.persistence.global.RoutineStore;
 import com.soptie.server.persistence.repository.routine.MemberRoutineRepository;
+import com.soptie.server.persistence.repository.routine.RoutineRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -23,6 +24,7 @@ public class MemberRoutineAdapter {
 	private final MemberRoutineRepository memberRoutineRepository;
 
 	private final RoutineStore routineStore;
+	private final RoutineRepository routineRepository;
 
 	/**
 	 * save
