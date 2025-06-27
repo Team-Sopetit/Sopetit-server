@@ -9,6 +9,8 @@ import com.soptie.server.api.controller.auth.dto.SignInResponse;
 import com.soptie.server.api.controller.auth.dto.TokenGetResponse;
 import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
+import com.soptie.server.common.helper.webhook.WebhookLogger;
+import com.soptie.server.common.helper.webhook.model.WebhookLoggerRequest;
 import com.soptie.server.common.support.ValueConfig;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.member.SocialType;
@@ -31,6 +33,7 @@ public class AuthService {
 	private final KakaoService kakaoService;
 	private final AppleService appleService;
 	private final ValueConfig valueConfig;
+	private final WebhookLogger webhookLogger;
 
 	private final MemberDollAdapter memberDollAdapter;
 	private final MemberRoutineAdapter memberRoutineAdapter;
@@ -43,6 +46,11 @@ public class AuthService {
 		val token = getToken(member);
 		val isMemberDollExist = memberDollAdapter.isExistByMember(member.getId());
 		memberAdapter.update(member);
+
+		if (member.isNewMember()) {
+			webhookLogger.send(WebhookLoggerRequest.signUp(memberAdapter.countAll(), member.getId()));
+		}
+
 		return SignInResponse.of(token, isMemberDollExist);
 	}
 
@@ -66,6 +74,8 @@ public class AuthService {
 		memberChallengeAdapter.deleteAllByMemberId(memberId);
 		memberDollAdapter.deleteByMember(memberId);
 		memberAdapter.delete(memberId);
+
+		webhookLogger.send(WebhookLoggerRequest.withdraw(memberAdapter.countAll()));
 	}
 
 	private Member getMember(String socialAccessToken, SocialType socialType) {

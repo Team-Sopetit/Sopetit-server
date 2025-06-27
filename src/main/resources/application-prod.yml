@@ -23,6 +23,10 @@ logging:
   slack:
     webhook_url: ${SLACK.WEBHOOK_URL.prod}
     config: classpath:logback-spring.xml
+  webhook_url:
+    sign_up: ${WEBHOOK_LOGGER_URL.SIGN_UP}
+    withdraw: ${WEBHOOK_LOGGER_URL.WITHDRAW}
+    error: ${WEBHOOK_LOGGER_URL.ERROR}
 
 jwt:
   secret: ${JWT.SECRET}
@@ -41,3 +45,7 @@ fcm:
   url: https://fcm.googleapis.com/v1/projects/${FCM.PROJECT_ID}/messages:send
   google_api: https://www.googleapis.com/auth/cloud-platform
   project_id: ${FCM.PROJECT_ID}
+
+admin:
+  username: ${ADMIN.USERNAME}
+  password: ${ADMIN.PASSWORD}

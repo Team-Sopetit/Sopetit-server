@@ -27,7 +27,9 @@ public class MemberAdapter {
 	}
 
 	public Member save(Member member) {
-		return MemberConverter.convert(memberRepository.save(new MemberEntity(member)));
+		Member savedMember = MemberConverter.convert(memberRepository.save(new MemberEntity(member)));
+		savedMember.setNewMember(true);
+		return savedMember;
 	}
 
 	public Member findByRefreshToken(String refreshToken) {
@@ -60,6 +62,10 @@ public class MemberAdapter {
 			.stream()
 			.map(MemberConverter::convert)
 			.toList();
+	}
+
+	public long countAll() {
+		return memberRepository.count();
 	}
 
 	@NonNull

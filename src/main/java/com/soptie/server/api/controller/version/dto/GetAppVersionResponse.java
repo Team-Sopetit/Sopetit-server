@@ -1,10 +1,11 @@
 package com.soptie.server.api.controller.version.dto;
 
+import java.util.Map;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AccessLevel;
 import lombok.Builder;
 
-@Builder(access = AccessLevel.PRIVATE)
+@Builder
 public record GetAppVersionResponse(
 	@Schema(description = "iOS 버전 정보")
 	VersionResponse iosVersion,
@@ -13,7 +14,9 @@ public record GetAppVersionResponse(
 	@Schema(description = "업데이트 안내 제목", example = "업데이트 알림")
 	String notificationTitle,
 	@Schema(description = "업데이트 안내 내용", example = "업데이트하세요.")
-	String notificationContent
+	String notificationContent,
+	@Schema(description = "기타 설정 내용")
+	Map<String, String> properties
 ) {
 
 	public static GetAppVersionResponse of(
@@ -32,8 +35,8 @@ public record GetAppVersionResponse(
 			.build();
 	}
 
-	@Builder(access = AccessLevel.PRIVATE)
-	private record VersionResponse(
+	@Builder
+	public record VersionResponse(
 		String appVersion,
 		String forceUpdateVersion
 	) {

@@ -59,12 +59,14 @@ public class JwtTokenProvider {
 	}
 
 	private Claims generateClaims(Authentication authentication) {
+		//todo. admin 분기 처리 가능? (+AdminEntity 추가) (ex. put("adminId", ...))
 		val claims = Jwts.claims();
 		claims.put("memberId", authentication.getPrincipal());
 		return claims;
 	}
 
 	public Long getUserFromJwt(String token) {
+		//todo. admin 분기 처리 가능 (+AdminEntity 추가)
 		val claims = getBody(token);
 		return Long.parseLong(claims.get("memberId").toString());
 	}
