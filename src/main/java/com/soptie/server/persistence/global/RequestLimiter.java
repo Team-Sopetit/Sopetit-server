@@ -13,11 +13,10 @@ import org.springframework.stereotype.Component;
 public class RequestLimiter {
 
 	private final Map<String, AtomicInteger> requestCounts = new ConcurrentHashMap<>();
-	private final int MAX_REQUESTS_PER_DAY = 3;  // 하루 최대 요청 수 제한
 
 	public boolean tryAcquire(String key) {
 		requestCounts.putIfAbsent(key, new AtomicInteger(0));
-		return requestCounts.get(key).incrementAndGet() <= MAX_REQUESTS_PER_DAY;
+		return requestCounts.get(key).incrementAndGet() <= 3; // 하루 최대 요청 수 제한
 	}
 
 	@Scheduled(cron = "0 0 0 * * *")  // 매일 자정 초기화
