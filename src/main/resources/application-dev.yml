@@ -48,3 +48,7 @@ fcm:
 
 test:
   id: ${TEST.ID}
+
+admin:
+  username: ${ADMIN.USERNAME}
+  password: ${ADMIN.PASSWORD}
