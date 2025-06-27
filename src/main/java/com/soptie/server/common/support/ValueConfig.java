@@ -28,12 +28,6 @@ public class ValueConfig {
 	@Value("${jwt.REFRESH_TOKEN_EXPIRED}")
 	private Long refreshTokenExpired;
 
-	public static final String IOS_FORCE_UPDATE_VERSION = "2.1.2";
-	public static final String IOS_APP_VERSION = "2.1.2";
-	public static final String ANDROID_FORCE_UPDATE_VERSION = "1.0.1";
-	public static final String ANDROID_APP_VERSION = "1.0.1";
-	public static final String NOTIFICATION_TITLE = "새로운 버전이 업데이트 되었어요!";
-	public static final String NOTIFICATION_CONTENT = "안정적인 서비스 사용을 위해\n최신버전으로 업데이트 해주세요.";
 	public static final String TOKEN_VALUE_DELIMITER = "\\.";
 	public static final String BEARER_HEADER = "Bearer ";
 	public static final String BLANK = "";
