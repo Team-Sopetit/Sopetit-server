@@ -23,6 +23,10 @@ logging:
   slack:
     webhook_url: ${SLACK.WEBHOOK_URL.dev}
     config: classpath:logback-spring.xml
+  webhook_url:
+    sign_up: ${WEBHOOK_LOGGER_URL.DEV}
+    withdraw: ${WEBHOOK_LOGGER_URL.DEV}
+    error: ${WEBHOOK_LOGGER_URL.DEV}
 
 jwt:
   secret: ${JWT.SECRET}
