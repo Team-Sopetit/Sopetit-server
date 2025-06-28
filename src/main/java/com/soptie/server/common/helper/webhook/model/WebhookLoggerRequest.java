@@ -21,7 +21,7 @@ public record WebhookLoggerRequest(
 		return WebhookLoggerRequest.builder()
 			.title(String.format("💬 전체 회원 수: %s명", count))
 			.content("기존 회원이 탈퇴했습니다.")
-			.webhookType(WebhookType.SIGN_UP)
+			.webhookType(WebhookType.WITHDRAW)
 			.build();
 	}
 
@@ -29,7 +29,7 @@ public record WebhookLoggerRequest(
 		return WebhookLoggerRequest.builder()
 			.title("🚨 서버 에러가 발생했습니다. 로그를 확인해주세요.")
 			.content(exception.getMessage())
-			.webhookType(WebhookType.SIGN_UP)
+			.webhookType(WebhookType.ERROR)
 			.build();
 	}
 }
