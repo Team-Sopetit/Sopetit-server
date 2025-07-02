@@ -51,6 +51,7 @@ public class MemberRoutineEntity extends BaseEntity {
 		this.isDeleted = false;
 		this.memberId = member.getId();
 		this.routineId = routine.getId();
+		this.content = routine.getContent();
 	}
 
 	public MemberRoutineEntity(MemberRoutine memberRoutine) {
@@ -85,6 +86,7 @@ public class MemberRoutineEntity extends BaseEntity {
 		this.isAchieved = memberRoutine.isAchieved();
 		this.isAchievedToday = memberRoutine.isAchievedToday();
 		this.achievementCount = memberRoutine.getAchievementCount();
+		this.content = memberRoutine.getContent();
 	}
 
 	public void updateAll(MemberRoutine memberRoutine) {

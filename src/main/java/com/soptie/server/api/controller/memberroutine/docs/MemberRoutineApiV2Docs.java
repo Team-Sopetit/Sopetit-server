@@ -2,6 +2,7 @@ package com.soptie.server.api.controller.memberroutine.docs;
 
 import java.security.Principal;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.soptie.server.api.common.annotation.ApiCreatedResponse;
@@ -11,6 +12,7 @@ import com.soptie.server.api.controller.generic.dto.SuccessResponse;
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRequest;
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
 import com.soptie.server.api.controller.memberroutine.dto.GetMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.UpdateMemberRoutineRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,5 +36,16 @@ public interface MemberRoutineApiV2Docs {
 	SuccessResponse<GetMemberRoutinesResponse> getMemberRoutines(
 		@Parameter(hidden = true)
 		Principal principal
+	);
+
+	@Operation(summary = "회원 루틴 업데이트 (V4 / 알람)", description = "회원의 데일리 루틴을 업데이트 한다.")
+	@ApiSuccessResponse
+	SuccessResponse<?> updateMemberRoutine(
+		@Parameter(hidden = true)
+		Principal principal,
+		@PathVariable
+		long memberRoutineId,
+		@RequestBody
+		UpdateMemberRoutineRequest request
 	);
 }

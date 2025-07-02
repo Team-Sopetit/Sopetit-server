@@ -14,6 +14,7 @@ public class MemberConverter {
 			.refreshToken(memberEntity.getRefreshToken())
 			.cottonInfo(convertToMemberCotton(memberEntity))
 			.createdAt(memberEntity.getCreatedAt())
+			.fcmToken(memberEntity.getFcmToken())
 			.lastVisitDate(memberEntity.getLastVisitDate())
 			.build();
 	}
