@@ -85,6 +85,7 @@ public class MemberRoutineEntity extends BaseEntity {
 		this.isAchieved = memberRoutine.isAchieved();
 		this.isAchievedToday = memberRoutine.isAchievedToday();
 		this.achievementCount = memberRoutine.getAchievementCount();
+		this.content = memberRoutine.getContent();
 	}
 
 	public void updateAll(MemberRoutine memberRoutine) {

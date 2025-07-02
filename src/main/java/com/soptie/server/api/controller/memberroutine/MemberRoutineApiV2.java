@@ -6,7 +6,10 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +20,7 @@ import com.soptie.server.api.controller.memberroutine.docs.MemberRoutineApiV2Doc
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRequest;
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
 import com.soptie.server.api.controller.memberroutine.dto.GetMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.UpdateMemberRoutineRequest;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.MemberRoutineReadService;
 import com.soptie.server.domain.memberroutine.MemberRoutineService;
@@ -50,5 +54,17 @@ public class MemberRoutineApiV2 implements MemberRoutineApiV2Docs {
 		long memberId = Long.parseLong(principal.getName());
 		Map<Theme, List<MemberRoutine>> response = readService.getAllWithTheme(memberId);
 		return SuccessResponse.from(GetMemberRoutinesResponse.from(response));
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@PatchMapping("/member-routines/{memberRoutineId}")
+	public SuccessResponse<?> updateMemberRoutine(
+		Principal principal,
+		@PathVariable long memberRoutineId,
+		@RequestBody UpdateMemberRoutineRequest request
+	) {
+		long memberId = Long.parseLong(principal.getName());
+		memberRoutineService.updateMemberRoutine(memberId, memberRoutineId, request);
+		return SuccessResponse.from();
 	}
 }

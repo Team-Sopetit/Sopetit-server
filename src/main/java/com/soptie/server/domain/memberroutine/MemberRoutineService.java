@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.api.controller.memberroutine.dto.AchieveMemberRoutineResponse;
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRequest;
 import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.UpdateMemberRoutineRequest;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.persistence.adapter.MemberAdapter;
@@ -56,11 +57,7 @@ public class MemberRoutineService {
 		val memberRoutine = memberRoutineAdapter.findById(memberRoutineId);
 		val isAchievedToday = memberRoutine.isAchievedToday();
 
-		if (memberRoutine.getMemberId() != memberId) {
-			throw new SoftieException(
-				ExceptionCode.NOT_AVAILABLE,
-				"Member ID: " + memberId + ", MemberRoutine ID: " + memberRoutineId);
-		}
+		validateMemberRoutine(memberRoutine, memberId);
 
 		if (!isAchievedToday) {
 			member.getCottonInfo().addBasicCottonCount();
@@ -94,5 +91,22 @@ public class MemberRoutineService {
 		memberRoutine.cancel(history.getCreatedAt().toLocalDate());
 		memberRoutineAdapter.update(memberRoutine);
 		routineHistoryAdapter.deleteById(historyId);
+	}
+
+	@Transactional
+	public void updateMemberRoutine(long memberId, long memberRoutineId, UpdateMemberRoutineRequest request) {
+		memberAdapter.findById(memberId);
+		MemberRoutine memberRoutine = memberRoutineAdapter.findById(memberRoutineId);
+		validateMemberRoutine(memberRoutine, memberId);
+		memberRoutine.setAlarmTime(request.alarmTime());
+		memberRoutineAdapter.update(memberRoutine);
+	}
+
+	private void validateMemberRoutine(MemberRoutine memberRoutine, long memberId) {
+		if (memberRoutine.getMemberId() != memberId) {
+			throw new SoftieException(
+				ExceptionCode.NOT_AVAILABLE,
+				"Member ID: " + memberId + ", MemberRoutine ID: " + memberRoutine.getId());
+		}
 	}
 }
