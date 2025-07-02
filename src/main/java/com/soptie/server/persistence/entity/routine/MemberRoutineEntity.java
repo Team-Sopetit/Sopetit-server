@@ -51,6 +51,7 @@ public class MemberRoutineEntity extends BaseEntity {
 		this.isDeleted = false;
 		this.memberId = member.getId();
 		this.routineId = routine.getId();
+		this.content = routine.getContent();
 	}
 
 	public MemberRoutineEntity(MemberRoutine memberRoutine) {
