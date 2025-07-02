@@ -29,6 +29,8 @@ public class Member {
 
 	private LocalDate lastVisitDate;
 
+	boolean newMember;
+
 	public Member(SocialType socialType, String socialId) {
 		this.socialInfo = new Social(socialType, socialId);
 		this.cottonInfo = new MemberCotton(0, 0);
