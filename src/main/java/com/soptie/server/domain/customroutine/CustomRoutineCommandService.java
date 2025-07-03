@@ -1,5 +1,6 @@
 package com.soptie.server.domain.customroutine;
 
+import java.time.LocalTime;
 import java.util.Objects;
 
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class CustomRoutineCommandService {
 			.build()
 		);
 		if (Objects.nonNull(request.alarmTime())) {
-			saveRoutineAlarm(memberRoutine);
+			saveRoutineAlarm(memberRoutine, request.alarmTime());
 		}
 		return memberRoutine;
 	}
@@ -50,10 +51,10 @@ public class CustomRoutineCommandService {
 			deleteRoutineAlarm(memberRoutine);
 		} else if (Objects.nonNull(memberRoutine.getAlarmTime())) {
 			// 알람 변동
-			updateRoutineAlarm(memberRoutine);
+			updateRoutineAlarm(memberRoutine, request.alarmTime());
 		} else if (Objects.nonNull(request.alarmTime())) {
 			// 알람 생성
-			saveRoutineAlarm(memberRoutine);
+			saveRoutineAlarm(memberRoutine, request.alarmTime());
 		}
 
 		memberRoutine.setContent(request.content());
@@ -78,18 +79,18 @@ public class CustomRoutineCommandService {
 		routineHistoryAdapter.deleteByRoutineId(memberRoutine.getId());
 	}
 
-	private void saveRoutineAlarm(MemberRoutine memberRoutine) {
+	private void saveRoutineAlarm(MemberRoutine memberRoutine, LocalTime alarmTime) {
 		RoutineAlarm routineAlarm = RoutineAlarm.builder()
 			.memberId(memberRoutine.getMemberId())
 			.memberRoutineId(memberRoutine.getId())
-			.alarmTime(memberRoutine.getAlarmTime())
+			.alarmTime(alarmTime)
 			.build();
 		routineAlarmAdapter.save(routineAlarm);
 	}
 
-	private void updateRoutineAlarm(MemberRoutine memberRoutine) {
+	private void updateRoutineAlarm(MemberRoutine memberRoutine, LocalTime alarmTime) {
 		RoutineAlarm routineAlarm = routineAlarmAdapter.findByMemberRoutineAlarmId(memberRoutine.getId());
-		routineAlarm.setAlarmTime(memberRoutine.getAlarmTime());
+		routineAlarm.setAlarmTime(alarmTime);
 		routineAlarmAdapter.update(routineAlarm);
 	}
 
