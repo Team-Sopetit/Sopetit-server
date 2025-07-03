@@ -46,9 +46,6 @@ public class CustomRoutineCommandService {
 			return memberRoutine;
 		}
 
-		System.out.println(memberRoutine.getAlarmTime());
-		System.out.println(request.alarmTime());
-
 		if (Objects.nonNull(memberRoutine.getAlarmTime()) && Objects.isNull(request.alarmTime())) {
 			// 알람 제거
 			deleteRoutineAlarm(memberRoutine);
@@ -92,7 +89,6 @@ public class CustomRoutineCommandService {
 	}
 
 	private void updateRoutineAlarm(MemberRoutine memberRoutine, LocalTime alarmTime) {
-		System.out.println("알람 변동");
 		RoutineAlarm routineAlarm = routineAlarmAdapter.findByMemberRoutineAlarmId(memberRoutine.getId());
 		routineAlarm.setAlarmTime(alarmTime);
 		routineAlarmAdapter.update(routineAlarm);
