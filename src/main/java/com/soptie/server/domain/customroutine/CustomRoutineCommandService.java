@@ -1,5 +1,6 @@
 package com.soptie.server.domain.customroutine;
 
+import java.time.LocalTime;
 import java.util.Objects;
 
 import org.springframework.stereotype.Service;
@@ -45,12 +46,15 @@ public class CustomRoutineCommandService {
 			return memberRoutine;
 		}
 
+		System.out.println(memberRoutine.getAlarmTime());
+		System.out.println(request.alarmTime());
+
 		if (Objects.nonNull(memberRoutine.getAlarmTime()) && Objects.isNull(request.alarmTime())) {
 			// 알람 제거
 			deleteRoutineAlarm(memberRoutine);
 		} else if (Objects.nonNull(memberRoutine.getAlarmTime())) {
 			// 알람 변동
-			updateRoutineAlarm(memberRoutine);
+			updateRoutineAlarm(memberRoutine, request.alarmTime());
 		} else if (Objects.nonNull(request.alarmTime())) {
 			// 알람 생성
 			saveRoutineAlarm(memberRoutine);
@@ -87,9 +91,10 @@ public class CustomRoutineCommandService {
 		routineAlarmAdapter.save(routineAlarm);
 	}
 
-	private void updateRoutineAlarm(MemberRoutine memberRoutine) {
+	private void updateRoutineAlarm(MemberRoutine memberRoutine, LocalTime alarmTime) {
+		System.out.println("알람 변동");
 		RoutineAlarm routineAlarm = routineAlarmAdapter.findByMemberRoutineAlarmId(memberRoutine.getId());
-		routineAlarm.setAlarmTime(memberRoutine.getAlarmTime());
+		routineAlarm.setAlarmTime(alarmTime);
 		routineAlarmAdapter.update(routineAlarm);
 	}
 
