@@ -31,7 +31,7 @@ public class PropertyStore {
 	private volatile Map<String, String> properties = Maps.newHashMap();
 
 	@PostConstruct
-	@Scheduled(cron = "0 0 0 * * *")
+	@Scheduled(cron = "0 0 1 * * *")
 	public void init() {
 		this.properties = propertyRepository.findAll()
 			.stream()

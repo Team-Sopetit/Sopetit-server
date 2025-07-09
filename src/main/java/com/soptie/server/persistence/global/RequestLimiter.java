@@ -19,7 +19,7 @@ public class RequestLimiter {
 		return requestCounts.get(key).incrementAndGet() <= 3; // 하루 최대 요청 수 제한
 	}
 
-	@Scheduled(cron = "0 0 0 * * *")  // 매일 자정 초기화
+	@Scheduled(cron = "0 0 1 * * *")  // 매일 자정 초기화
 	public void resetCounts() {
 		requestCounts.clear();
 	}
