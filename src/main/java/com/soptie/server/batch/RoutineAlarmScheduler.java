@@ -64,8 +64,9 @@ public class RoutineAlarmScheduler {
 	}
 
 	@Scheduled(cron = "0 0 20 * * *")
-	void sendInactiveMemberAlarm() {
+	public void sendInactiveMemberAlarm() {
 		List<Member> targets = getInactiveMembers();
+		System.out.println(targets.size());
 		for (val member : targets) {
 			String token = member.getFcmToken();
 			NotificationRequest request = NotificationHelper.createInactiveMemberAlarm(token);
@@ -134,7 +135,7 @@ public class RoutineAlarmScheduler {
 
 	// fcm token이 존재하고 lastvisitdate가 5일 전인 유저 리스트 반환
 	private List<Member> getInactiveMembers() {
-		LocalDate thresholdDate = LocalDate.now().minusDays(5);
+		LocalDate thresholdDate = LocalDate.now().minusDays(4);
 		return memberAdapter.findAllByFcmTokenIsNotNullAndLastVisitDateBefore(thresholdDate);
 	}
 
