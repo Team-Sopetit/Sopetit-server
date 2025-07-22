@@ -1,5 +1,6 @@
 package com.soptie.server.persistence.adapter;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +60,13 @@ public class MemberAdapter {
 
 	public List<Member> findByIdIn(List<Long> ids) {
 		return memberRepository.findByIdIn(ids)
+			.stream()
+			.map(MemberConverter::convert)
+			.toList();
+	}
+
+	public List<Member> findAllByFcmTokenIsNotNullAndLastVisitDateBefore(LocalDate thresholdDate) {
+		return memberRepository.findAllByFcmTokenIsNotNullAndLastVisitDateBefore(thresholdDate)
 			.stream()
 			.map(MemberConverter::convert)
 			.toList();

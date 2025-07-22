@@ -1,5 +1,6 @@
 package com.soptie.server.batch;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,8 @@ public class RoutineAlarmScheduler {
 		}
 	}
 
-	@Scheduled(cron = "0 0 20 * * *")
+	@Deprecated
+		//  @Scheduled(cron = "0 0 20 * * *")
 	void sendNightAlarm() {
 		List<Member> targets = getAlarmTargets();
 		for (val member : targets) {
@@ -61,8 +63,18 @@ public class RoutineAlarmScheduler {
 		}
 	}
 
+	@Scheduled(cron = "0 0 20 * * *")
+	public void sendInactiveMemberAlarm() {
+		List<Member> targets = getInactiveMembers();
+		for (val member : targets) {
+			String token = member.getFcmToken();
+			NotificationRequest request = NotificationHelper.createInactiveMemberAlarm(token);
+			sendMessage(request);
+		}
+	}
+
 	@Scheduled(cron = "0 */10 * * * *")
-	public void sendRoutineAlarm() {
+	void sendRoutineAlarm() {
 		LocalTime alarmTime = LocalTime.now()
 			.withSecond(0)
 			.withNano(0);
@@ -118,6 +130,12 @@ public class RoutineAlarmScheduler {
 		return members.stream()
 			.filter(member -> !untargetMemberIds.contains(member.getId()))
 			.toList();
+	}
+
+	// fcm token이 존재하고 lastvisitdate가 5일 전인 유저 리스트 반환
+	private List<Member> getInactiveMembers() {
+		LocalDate thresholdDate = LocalDate.now().minusDays(4);
+		return memberAdapter.findAllByFcmTokenIsNotNullAndLastVisitDateBefore(thresholdDate);
 	}
 
 	private void sendMessage(final NotificationRequest request) {

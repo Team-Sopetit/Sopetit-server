@@ -1,5 +1,6 @@
 package com.soptie.server.persistence.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,4 +17,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 	List<MemberEntity> findByIdIn(List<Long> ids);
 
 	List<MemberEntity> findAllByFcmTokenIsNotNull();
+
+	List<MemberEntity> findAllByFcmTokenIsNotNullAndLastVisitDateBefore(LocalDate thresholdDate);
 }
