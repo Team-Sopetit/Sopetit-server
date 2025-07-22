@@ -66,7 +66,6 @@ public class RoutineAlarmScheduler {
 	@Scheduled(cron = "0 0 20 * * *")
 	public void sendInactiveMemberAlarm() {
 		List<Member> targets = getInactiveMembers();
-		System.out.println(targets.size());
 		for (val member : targets) {
 			String token = member.getFcmToken();
 			NotificationRequest request = NotificationHelper.createInactiveMemberAlarm(token);
