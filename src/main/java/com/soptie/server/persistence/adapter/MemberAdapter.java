@@ -66,7 +66,7 @@ public class MemberAdapter {
 	}
 
 	public List<Member> findAllByFcmTokenIsNotNullAndLastVisitDateBefore(LocalDate thresholdDate) {
-		return memberRepository.findAllByFcmTokenIsNotNullAndLastVisitDateIsNotNullAndLastVisitDateBefore(thresholdDate)
+		return memberRepository.findAllByFcmTokenIsNotNullAndLastVisitDateBefore(thresholdDate)
 			.stream()
 			.map(MemberConverter::convert)
 			.toList();

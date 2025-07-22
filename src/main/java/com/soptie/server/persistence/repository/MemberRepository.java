@@ -18,6 +18,5 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
 	List<MemberEntity> findAllByFcmTokenIsNotNull();
 
-	List<MemberEntity> findAllByFcmTokenIsNotNullAndLastVisitDateIsNotNullAndLastVisitDateBefore(
-		LocalDate thresholdDate);
+	List<MemberEntity> findAllByFcmTokenIsNotNullAndLastVisitDateBefore(LocalDate thresholdDate);
 }

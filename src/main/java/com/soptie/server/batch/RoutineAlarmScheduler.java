@@ -64,7 +64,7 @@ public class RoutineAlarmScheduler {
 	}
 
 	@Scheduled(cron = "0 0 20 * * *")
-	public void sendInactiveMemberAlarm() {
+	void sendInactiveMemberAlarm() {
 		List<Member> targets = getInactiveMembers();
 		for (val member : targets) {
 			String token = member.getFcmToken();
