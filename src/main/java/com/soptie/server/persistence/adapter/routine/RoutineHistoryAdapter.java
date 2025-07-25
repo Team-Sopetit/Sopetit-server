@@ -10,7 +10,6 @@ import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.RoutineHistory;
-import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.entity.routine.RoutineHistoryEntity;
 import com.soptie.server.persistence.repository.routine.RoutineHistoryRepository;
 
@@ -19,13 +18,19 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class RoutineHistoryAdapter {
-	private final RoutineHistoryRepository historyRepository;
-	private final RoutineHistoryRepository routineHistoryRepository;
 
-	public void save(final MemberRoutine memberRoutine, final Routine routine) {
-		historyRepository.save(new RoutineHistoryEntity(memberRoutine, routine));
+	private final RoutineHistoryRepository historyRepository;
+
+	/**
+	 * save
+	 */
+	public void save(final MemberRoutine memberRoutine) {
+		historyRepository.save(new RoutineHistoryEntity(memberRoutine));
 	}
 
+	/**
+	 * delete
+	 */
 	public void deleteByRoutineIdAndCreatedAt(long memberRoutineId, LocalDate date) {
 		historyRepository.deleteByMemberRoutineIdAndCreatedAt(memberRoutineId, date);
 	}
@@ -34,6 +39,13 @@ public class RoutineHistoryAdapter {
 		historyRepository.deleteById(id);
 	}
 
+	public void deleteByRoutineId(long routineId) {
+		historyRepository.deleteByRoutineId(routineId);
+	}
+
+	/**
+	 * find
+	 */
 	public boolean isExistByMemberIdAndCreatedAt(final long memberId, final LocalDate date) {
 		return historyRepository.findByMemberIdAndCreatedAt(memberId, date).isPresent();
 	}
@@ -48,7 +60,7 @@ public class RoutineHistoryAdapter {
 	}
 
 	public RoutineHistory findById(final long id) {
-		return routineHistoryRepository.findById(id)
+		return historyRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "RoutineHistoryId: " + id))
 			.toDomain();
 	}

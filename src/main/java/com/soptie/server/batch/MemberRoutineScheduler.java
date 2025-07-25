@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberRoutineScheduler {
 	private final MemberRoutineService memberRoutineService;
 
-	@Scheduled(cron = "${batch.cron.init.routine}")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void initMemberDailyRoutines() {
 		memberRoutineService.initAchievement();
 	}

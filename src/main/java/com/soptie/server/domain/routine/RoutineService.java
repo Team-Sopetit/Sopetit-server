@@ -10,8 +10,8 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.response.routine.GetRoutinesByMemberResponse;
-import com.soptie.server.api.controller.dto.response.routine.GetRoutinesByThemeResponse;
+import com.soptie.server.api.controller.routine.dto.GetRoutinesByMemberResponse;
+import com.soptie.server.api.controller.routine.dto.GetRoutinesByThemeResponse;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAdapter;

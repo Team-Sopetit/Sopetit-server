@@ -2,24 +2,20 @@ package com.soptie.server.domain.memberroutine;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.memberroutine.CreateMemberRoutinesRequest;
-import com.soptie.server.api.controller.dto.response.memberroutine.AchieveMemberRoutineResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.CreateMemberRoutinesResponse;
-import com.soptie.server.api.controller.dto.response.memberroutine.GetMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.AchieveMemberRoutineResponse;
+import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRequest;
+import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesResponse;
+import com.soptie.server.api.controller.memberroutine.dto.UpdateMemberRoutineRequest;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
-import com.soptie.server.domain.routine.Routine;
-import com.soptie.server.domain.theme.Theme;
 import com.soptie.server.persistence.adapter.MemberAdapter;
-import com.soptie.server.persistence.adapter.ThemeAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAlarmAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;
@@ -32,8 +28,8 @@ public class MemberRoutineService {
 	private final MemberRoutineAdapter memberRoutineAdapter;
 	private final MemberAdapter memberAdapter;
 	private final RoutineAdapter routineAdapter;
-	private final ThemeAdapter themeAdapter;
 	private final RoutineHistoryAdapter routineHistoryAdapter;
+	private final RoutineAlarmAdapter routineAlarmAdapter;
 
 	@Transactional
 	public CreateMemberRoutinesResponse createRoutines(
@@ -46,26 +42,12 @@ public class MemberRoutineService {
 		return CreateMemberRoutinesResponse.of(savedMemberRoutines);
 	}
 
-	public GetMemberRoutinesResponse getMemberRoutines(long memberId) {
-		val memberRoutines = memberRoutineAdapter.findByMemberId(memberId);
-
-		val routinesIds = memberRoutines.stream().map(MemberRoutine::getRoutineId).toList();
-		val routines = routineAdapter.findByIds(routinesIds);
-		val routinesById = routines.stream().collect(Collectors.toMap(Routine::getId, routine -> routine));
-
-		val themeIds = routines.stream().map(Routine::getThemeId).distinct().toList();
-		val themes = themeAdapter.findByIds(themeIds);
-		val themesById = themes.stream().collect(Collectors.toMap(Theme::getId, theme -> theme));
-
-		val routinesByTheme = toRoutinesByTheme(memberRoutines, routinesById, themesById);
-		return GetMemberRoutinesResponse.of(routinesByTheme);
-	}
-
 	@Transactional
 	public void deleteMemberRoutines(long memberId, List<Long> memberRoutineIds) {
 		val memberRoutines = memberRoutineAdapter.findByIds(memberRoutineIds).stream()
 			.filter(memberRoutine -> memberRoutine.getMemberId() == memberId)
 			.toList();
+		memberRoutines.forEach(memberRoutine -> routineAlarmAdapter.deleteByMemberRoutineId(memberRoutine.getId()));
 		memberRoutineAdapter.deleteAll(memberRoutines);
 	}
 
@@ -75,13 +57,7 @@ public class MemberRoutineService {
 		val memberRoutine = memberRoutineAdapter.findById(memberRoutineId);
 		val isAchievedToday = memberRoutine.isAchievedToday();
 
-		if (memberRoutine.getMemberId() != memberId) {
-			throw new SoftieException(
-				ExceptionCode.NOT_AVAILABLE,
-				"Member ID: " + memberId + ", MemberRoutine ID: " + memberRoutineId);
-		}
-
-		val routine = routineAdapter.findById(memberRoutine.getRoutineId());
+		validateMemberRoutine(memberRoutine, memberId);
 
 		if (!isAchievedToday) {
 			member.getCottonInfo().addBasicCottonCount();
@@ -90,43 +66,22 @@ public class MemberRoutineService {
 
 		memberRoutine.achieve();
 		memberRoutineAdapter.update(memberRoutine);
-		updateHistory(memberRoutine, routine, isAchievedToday);
+		updateHistory(memberRoutine, isAchievedToday);
 
 		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
 	}
 
-	private void updateHistory(MemberRoutine memberRoutine, Routine routine, boolean isAchievedToday) {
+	private void updateHistory(MemberRoutine memberRoutine, boolean isAchievedToday) {
 		if (isAchievedToday) {
 			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutine.getId(), LocalDate.now());
 		} else {
-			routineHistoryAdapter.save(memberRoutine, routine);
+			routineHistoryAdapter.save(memberRoutine);
 		}
 	}
 
 	@Transactional
 	public void initAchievement() {
 		memberRoutineAdapter.initAllAchievement();
-	}
-
-	private Map<Theme, Map<Routine, MemberRoutine>> toRoutinesByTheme(
-		List<MemberRoutine> memberRoutines,
-		Map<Long, Routine> routinesById,
-		Map<Long, Theme> themesById
-	) {
-		return memberRoutines.stream()
-			.collect(Collectors.groupingBy(
-				// Theme-key
-				memberRoutine -> {
-					val themeId = routinesById.get(memberRoutine.getRoutineId()).getThemeId();
-					return themesById.get(themeId);
-				},
-
-				// Map-value
-				Collectors.toMap(
-					memberRoutine -> routinesById.get(memberRoutine.getRoutineId()), // routine-key
-					memberRoutine -> memberRoutine // memberRoutine-value
-				)
-			));
 	}
 
 	@Transactional
@@ -136,5 +91,22 @@ public class MemberRoutineService {
 		memberRoutine.cancel(history.getCreatedAt().toLocalDate());
 		memberRoutineAdapter.update(memberRoutine);
 		routineHistoryAdapter.deleteById(historyId);
+	}
+
+	@Transactional
+	public void updateMemberRoutine(long memberId, long memberRoutineId, UpdateMemberRoutineRequest request) {
+		memberAdapter.findById(memberId);
+		MemberRoutine memberRoutine = memberRoutineAdapter.findById(memberRoutineId);
+		validateMemberRoutine(memberRoutine, memberId);
+		memberRoutine.setAlarmTime(request.alarmTime());
+		memberRoutineAdapter.update(memberRoutine);
+	}
+
+	private void validateMemberRoutine(MemberRoutine memberRoutine, long memberId) {
+		if (memberRoutine.getMemberId() != memberId) {
+			throw new SoftieException(
+				ExceptionCode.NOT_AVAILABLE,
+				"Member ID: " + memberId + ", MemberRoutine ID: " + memberRoutine.getId());
+		}
 	}
 }

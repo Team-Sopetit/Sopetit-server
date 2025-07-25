@@ -1,126 +1,127 @@
 package com.soptie.server.domain.achievement;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import static com.soptie.server.common.utils.ChallengeUtils.*;
+
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.soptie.server.api.controller.dto.response.achievement.AchievedThemeResponse;
-import com.soptie.server.api.controller.dto.response.achievement.AchievedThemesResponse;
+import com.mysema.commons.lang.Pair;
 import com.soptie.server.domain.challenge.Challenge;
 import com.soptie.server.domain.challenge.MemberChallenge;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
-import com.soptie.server.domain.routine.Routine;
+import com.soptie.server.domain.theme.Theme;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
 import com.soptie.server.persistence.adapter.challenge.ChallengeAdapter;
 import com.soptie.server.persistence.adapter.challenge.MemberChallengeAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
-import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 @Service
 @RequiredArgsConstructor
 public class AchievedThemeService {
 	private final MemberRoutineAdapter memberRoutineAdapter;
 	private final MemberChallengeAdapter memberChallengeAdapter;
-	private final RoutineAdapter routineAdapter;
 	private final ChallengeAdapter challengeAdapter;
 	private final ThemeAdapter themeAdapter;
 
-	//TODO: 코드 개판인 거 알고요.. 커스텀 때 디비 구조 변경하면 리팩 좀 깔끔하게 할 수 있을 것 같아, 때 맞춰 진행하겟슴다
-	public AchievedThemesResponse getAchievedThemes(long memberId) {
-		val achievedRoutines = memberRoutineAdapter.findByMemberId(memberId);
-		val routineIds = achievedRoutines.stream().map(MemberRoutine::getRoutineId).toList();
-		val routines = routineAdapter.findByIds(routineIds);
+	public Map<Theme, Integer> getAchievedThemes(long memberId) {
+		Map<Long /* theme id */, Integer /* achieved count */> achievementMap = new LinkedHashMap<>();
 
-		val achievedChallenges = memberChallengeAdapter.findAllByMemberId(memberId);
-		val challengeIds = achievedChallenges.stream().map(MemberChallenge::getChallengeId).toList();
-		val challenges = challengeAdapter.findByIds(challengeIds);
+		// achieved routines
+		memberRoutineAdapter.findByMemberId(memberId)
+			.forEach(routine -> achievementMap.put(
+				routine.getThemeId(),
+				achievementMap.getOrDefault(routine.getThemeId(), 0) + routine.getAchievementCount()));
 
-		val themeIds = new HashSet<Long>();
-		themeIds.addAll(routines.stream().map(Routine::getThemeId).toList());
-		themeIds.addAll(challenges.stream().map(Challenge::getThemeId).toList());
-		val themes = themeAdapter.findByIds(themeIds.stream().toList());
+		// achieved challenges
+		List<MemberChallenge> memberChallenges = memberChallengeAdapter.findAllByMemberId(memberId);
+		Map<Long, Challenge> challengesMap = getChallengesMap(challengeAdapter, memberChallenges);
 
-		val achievedCountsByTheme = new HashMap<Long, Integer>();
+		memberChallenges
+			.forEach(memberChallenge -> {
+				Challenge challenge = challengesMap.get(memberChallenge.getChallengeId());
 
-		val routineMap = getRoutineMapOfMember(routines, achievedRoutines);
-		for (val memberRoutine : achievedRoutines) {
-			val themeId = routineMap.get(memberRoutine.getId()).getThemeId();
-			achievedCountsByTheme.put(
-				themeId,
-				achievedCountsByTheme.getOrDefault(themeId, 0) + memberRoutine.getAchievementCount());
-		}
+				if (challenge == null) {
+					return;
+				}
 
-		val challengeMap = getChallengeMapOfMember(challenges, achievedChallenges);
-		for (val memberChallenge : achievedChallenges) {
-			val themeId = challengeMap.get(memberChallenge.getId()).getThemeId();
-			achievedCountsByTheme.put(
-				themeId,
-				achievedCountsByTheme.getOrDefault(themeId, 0) + memberChallenge.getAchievedCount());
-		}
+				long themeId = challenge.getThemeId();
+				achievementMap.merge(themeId, memberChallenge.getAchievedCount(), Integer::sum);
+			});
 
-		return AchievedThemesResponse.of(themes, achievedCountsByTheme);
+		Map<Long, Theme> themeMap = themeAdapter.findAll()
+			.stream().map(it -> Pair.of(it.getId(), it))
+			.filter(it -> it.getFirst() != null && it.getSecond() != null)
+			.collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+
+		return achievementMap.entrySet()
+			.stream()
+			.filter(entry -> entry.getValue() > 0)
+			.map(entry -> Pair.of(themeMap.get(entry.getKey()), entry.getValue()))
+			.filter(pair -> pair.getFirst() != null && pair.getSecond() != null)
+			.sorted((a, b) -> { // 달성횟수 높은 순으로, 같으면 테마 이름 순으로
+				int diff = b.getSecond() - a.getSecond();
+				return diff != 0 ? diff : a.getFirst().getName().compareTo(b.getFirst().getName());
+			})
+			.collect(Collectors.toMap(
+				Pair::getFirst,
+				Pair::getSecond,
+				(v1, v2) -> v1, // key 충돌 시 첫 값 유지
+				LinkedHashMap::new // 순서 유지
+			));
 	}
 
-	public AchievedThemeResponse getAchievementTheme(long memberId, long themeId) {
-		val theme = themeAdapter.findById(themeId);
+	public Achievement getAchievementTheme(long memberId, long themeId) {
+		Theme theme = themeAdapter.findById(themeId);
 
-		val routines = routineAdapter.findByThemeId(themeId);
-		val routineIds = routines.stream().map(Routine::getId).toList();
-		val memberRoutines = memberRoutineAdapter.findAllByRoutineIds(memberId, routineIds)
-			.stream().filter(it -> it.getAchievementCount() > 0)
+		// achieved routines
+		List<Long> routineIds = memberRoutineAdapter.findByMemberId(memberId)
+			.stream()
+			.filter(it -> it.getThemeId() == themeId)
+			.map(MemberRoutine::getId)
 			.toList();
 
-		val challenges = challengeAdapter.findAllByTheme(themeId);
-		val challengeIds = challenges.stream().map(Challenge::getId).toList();
-		val memberChallenges = memberChallengeAdapter.findAllByChallengeIds(memberId, challengeIds)
-			.stream().filter(it -> it.getAchievedCount() > 0)
+		List<AchievedRoutine> achievedRoutines = memberRoutineAdapter.findByIds(routineIds)
+			.stream()
+			.sorted((a, b) -> {
+				int diff = b.getAchievementCount() - a.getAchievementCount();
+				return diff != 0 ? diff : a.getContent().compareTo(b.getContent());
+			})
+			.map(AchievedRoutine::from)
 			.toList();
 
-		return AchievedThemeResponse.of(
-			theme,
-			memberRoutines,
-			getRoutineMapOfMember(routines, memberRoutines),
-			memberChallenges,
-			getChallengeMapOfMember(challenges, memberChallenges));
-	}
+		// achieved challenges
+		List<MemberChallenge> memberChallenges = memberChallengeAdapter.findAllByMemberId(memberId);
+		Map<Long, Challenge> challengesMap = getChallengesMap(challengeAdapter, memberChallenges);
 
-	private Map<Long, Challenge> getChallengeMapOfMember(
-		List<Challenge> challenges,
-		List<MemberChallenge> achievedChallenges
-	) {
-		val challengeByIdMap = challenges.stream()
-			.collect(Collectors.toMap(Challenge::getId, Function.identity()));
-		val challengeMap = new HashMap<Long, Challenge>();
-		for (val memberChallenge : achievedChallenges) {
-			val challenge = challengeByIdMap.get(memberChallenge.getChallengeId());
-			if (challenge != null) {
-				challengeMap.put(memberChallenge.getId(), challenge);
-			}
-		}
-		return challengeMap;
-	}
+		List<Long> challengeIds = memberChallengeAdapter.findAllByMemberId(memberId)
+			.stream()
+			.filter(it -> challengesMap.get(it.getChallengeId()).getThemeId() == themeId)
+			.map(MemberChallenge::getId)
+			.toList();
 
-	private Map<Long, Routine> getRoutineMapOfMember(
-		List<Routine> routines,
-		List<MemberRoutine> achievedRoutines
-	) {
-		val routineByIdMap = routines.stream()
-			.collect(Collectors.toMap(Routine::getId, Function.identity()));
-		val routineMap = new HashMap<Long, Routine>();
-		for (val memberRoutine : achievedRoutines) {
-			val routine = routineByIdMap.get(memberRoutine.getRoutineId());
-			if (routine != null) {
-				routineMap.put(memberRoutine.getId(), routine);
-			}
-		}
-		return routineMap;
+		List<AchievedChallenge> achievedChallenges = memberChallengeAdapter.findByIds(challengeIds)
+			.stream()
+			.filter(Objects::nonNull)
+			.filter(it -> challengesMap.containsKey(it.getChallengeId()))
+			.sorted((a, b) -> {
+				int diff = b.getAchievedCount() - a.getAchievedCount();
+				if (diff != 0) {
+					return diff;
+				}
+				Challenge aChallenge = challengesMap.get(a.getChallengeId());
+				Challenge bChallenge = challengesMap.get(b.getChallengeId());
+				return aChallenge.getContent().compareTo(bChallenge.getContent());
+			})
+			.map(it -> AchievedChallenge.of(it, challengesMap.get(it.getChallengeId())))
+			.toList();
+
+		return Achievement.of(theme, achievedRoutines, achievedChallenges);
 	}
 }

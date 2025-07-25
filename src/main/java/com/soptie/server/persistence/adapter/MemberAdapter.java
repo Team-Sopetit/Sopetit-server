@@ -1,5 +1,7 @@
 package com.soptie.server.persistence.adapter;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import com.soptie.server.common.exception.ExceptionCode;
@@ -7,11 +9,12 @@ import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.support.RepositoryAdapter;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.member.SocialType;
+import com.soptie.server.persistence.converter.MemberConverter;
 import com.soptie.server.persistence.entity.MemberEntity;
 import com.soptie.server.persistence.repository.MemberRepository;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 @RepositoryAdapter
 @RequiredArgsConstructor
@@ -21,16 +24,18 @@ public class MemberAdapter {
 
 	public Optional<Member> findBySocialTypeAndSocialId(SocialType socialType, String socialId) {
 		return memberRepository.findBySocialTypeAndSocialId(socialType, socialId)
-			.map(MemberEntity::toDomain);
+			.map(MemberConverter::convert);
 	}
 
-	public Member save(SocialType socialType, String socialId) {
-		return memberRepository.save(new MemberEntity(socialType, socialId)).toDomain();
+	public Member save(Member member) {
+		Member savedMember = MemberConverter.convert(memberRepository.save(new MemberEntity(member)));
+		savedMember.setNewMember(true);
+		return savedMember;
 	}
 
 	public Member findByRefreshToken(String refreshToken) {
 		return memberRepository.findByRefreshToken(refreshToken)
-			.map(MemberEntity::toDomain)
+			.map(MemberConverter::convert)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND));
 	}
 
@@ -39,14 +44,39 @@ public class MemberAdapter {
 	}
 
 	public Member findById(long memberId) {
-		return find(memberId).toDomain();
+		return MemberConverter.convert(find(memberId));
 	}
 
 	public void update(Member member) {
-		val memberEntity = find(member.getId());
-		memberEntity.update(member);
+		find(member.getId()).update(member);
 	}
 
+	public List<Member> findAllByFcmTokenIsNotNull() {
+		return memberRepository.findAllByFcmTokenIsNotNull()
+			.stream()
+			.map(MemberConverter::convert)
+			.toList();
+	}
+
+	public List<Member> findByIdIn(List<Long> ids) {
+		return memberRepository.findByIdIn(ids)
+			.stream()
+			.map(MemberConverter::convert)
+			.toList();
+	}
+
+	public List<Member> findAllByFcmTokenIsNotNullAndLastVisitDateBefore(LocalDate thresholdDate) {
+		return memberRepository.findAllByFcmTokenIsNotNullAndLastVisitDateBefore(thresholdDate)
+			.stream()
+			.map(MemberConverter::convert)
+			.toList();
+	}
+
+	public long countAll() {
+		return memberRepository.count();
+	}
+
+	@NonNull
 	private MemberEntity find(long id) {
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Member ID: " + id));

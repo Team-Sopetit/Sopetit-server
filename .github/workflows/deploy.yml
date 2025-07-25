@@ -27,6 +27,13 @@ jobs:
           echo "${{ secrets.APPLICATION_SECRET_YML }}" >> src/main/resources/application-secret.yml
           cat src/main/resources/application-secret.yml
 
+      - name: create fcm.json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "softie-server-fcm.json"
+          json: ${{ secrets.FCM }}
+          dir: 'src/main/resources'
+
       - name: build
         run: |
           chmod +x gradlew

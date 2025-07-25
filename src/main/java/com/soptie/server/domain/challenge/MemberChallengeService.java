@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.memberchallenge.CreateMemberChallengeRequest;
-import com.soptie.server.api.controller.dto.response.memberchallenge.CreateMemberChallengeResponse;
-import com.soptie.server.api.controller.dto.response.memberchallenge.MemberChallengeResponse;
+import com.soptie.server.api.controller.memberchallenge.dto.CreateMemberChallengeRequest;
+import com.soptie.server.api.controller.memberchallenge.dto.CreateMemberChallengeResponse;
+import com.soptie.server.api.controller.memberchallenge.dto.MemberChallengeResponse;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.domain.challenge.util.ChallengeValidator;
@@ -44,7 +44,7 @@ public class MemberChallengeService {
 
 	@Transactional
 	public CreateMemberChallengeResponse createMemberChallenge(long memberId, CreateMemberChallengeRequest request) {
-		challengeValidator.checkChallengeNotExists(memberId);
+		challengeValidator.validChallenge(memberId, request.challengeId());
 		val member = memberAdapter.findById(memberId);
 		val challenge = challengeAdapter.findById(request.challengeId());
 		val savedMemberChallenge = memberChallengeAdapter.save(member, challenge);

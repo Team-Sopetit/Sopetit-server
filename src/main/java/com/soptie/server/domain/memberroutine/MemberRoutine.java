@@ -1,27 +1,30 @@
 package com.soptie.server.domain.memberroutine;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.routine.Routine;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 @Builder
-@Getter
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
+@AllArgsConstructor
 public class MemberRoutine {
 	private Long id;
-	private boolean isAchieved;
-	private boolean isAchievedToday;
-	private int achievementCount;
+	private boolean isAchieved = false;
+	private boolean isAchievedToday = false;
+	private int achievementCount = 0;
 	private long memberId;
-	private long routineId;
+	private Long routineId;
 	private LocalDate createdAt;
 	private LocalDate updatedAt;
+	private String content;
+	private Long themeId;
+	private LocalTime alarmTime;
 
 	public MemberRoutine(Member member, Routine routine) {
 		this.isAchieved = false;

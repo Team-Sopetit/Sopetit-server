@@ -11,7 +11,7 @@ public class RoutineHistory {
 	private Long id;
 	private long memberRoutineId;
 	private long memberId;
-	private long routineId;
+	private Long routineId;
 	private String content;
 	private LocalDateTime createdAt;
 }

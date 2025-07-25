@@ -4,11 +4,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.request.auth.SignInRequest;
-import com.soptie.server.api.controller.dto.response.auth.SignInResponse;
-import com.soptie.server.api.controller.dto.response.auth.TokenGetResponse;
+import com.soptie.server.api.controller.auth.dto.SignInRequest;
+import com.soptie.server.api.controller.auth.dto.SignInResponse;
+import com.soptie.server.api.controller.auth.dto.TokenGetResponse;
 import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
+import com.soptie.server.common.helper.webhook.WebhookLogger;
+import com.soptie.server.common.helper.webhook.model.WebhookLoggerRequest;
 import com.soptie.server.common.support.ValueConfig;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.member.SocialType;
@@ -31,6 +33,7 @@ public class AuthService {
 	private final KakaoService kakaoService;
 	private final AppleService appleService;
 	private final ValueConfig valueConfig;
+	private final WebhookLogger webhookLogger;
 
 	private final MemberDollAdapter memberDollAdapter;
 	private final MemberRoutineAdapter memberRoutineAdapter;
@@ -43,6 +46,11 @@ public class AuthService {
 		val token = getToken(member);
 		val isMemberDollExist = memberDollAdapter.isExistByMember(member.getId());
 		memberAdapter.update(member);
+
+		if (member.isNewMember()) {
+			webhookLogger.send(WebhookLoggerRequest.signUp(memberAdapter.countAll(), member.getId()));
+		}
+
 		return SignInResponse.of(token, isMemberDollExist);
 	}
 
@@ -55,7 +63,7 @@ public class AuthService {
 	@Transactional
 	public void signOut(long memberId) {
 		val member = memberAdapter.findById(memberId);
-		member.resetRefreshToken();
+		member.setRefreshToken(null);
 		memberAdapter.update(member);
 	}
 
@@ -66,6 +74,8 @@ public class AuthService {
 		memberChallengeAdapter.deleteAllByMemberId(memberId);
 		memberDollAdapter.deleteByMember(memberId);
 		memberAdapter.delete(memberId);
+
+		webhookLogger.send(WebhookLoggerRequest.withdraw(memberAdapter.countAll()));
 	}
 
 	private Member getMember(String socialAccessToken, SocialType socialType) {
@@ -77,21 +87,18 @@ public class AuthService {
 		return switch (socialType) {
 			case APPLE -> appleService.getAppleData(socialAccessToken);
 			case KAKAO -> kakaoService.getKakaoData(socialAccessToken);
+			default -> null;
 		};
 	}
 
 	private Member signUp(SocialType socialType, String socialId) {
 		return memberAdapter.findBySocialTypeAndSocialId(socialType, socialId)
-			.orElseGet(() -> saveMember(socialType, socialId));
-	}
-
-	private Member saveMember(SocialType socialType, String socialId) {
-		return memberAdapter.save(socialType, socialId);
+			.orElseGet(() -> memberAdapter.save(new Member(socialType, socialId)));
 	}
 
 	private Token getToken(Member member) {
 		val token = generateToken(new UserAuthentication(member.getId(), null, null));
-		member.updateRefreshToken(token.getRefreshToken());
+		member.setRefreshToken(token.getRefreshToken());
 		return token;
 	}
 

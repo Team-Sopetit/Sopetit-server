@@ -1,22 +1,26 @@
 package com.soptie.server.domain.theme;
 
+import java.util.Comparator;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soptie.server.api.controller.dto.response.theme.GetThemesResponse;
 import com.soptie.server.persistence.adapter.ThemeAdapter;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ThemeService {
+
 	private final ThemeAdapter themeAdapter;
 
-	public GetThemesResponse getBasicThemes() {
-		val themes = themeAdapter.findByBasic();
-		return GetThemesResponse.of(themes);
+	public List<Theme> getAll() {
+		return themeAdapter.findAll()
+			.stream()
+			.sorted(Comparator.comparing(Theme::getSequence))
+			.toList();
 	}
 }
