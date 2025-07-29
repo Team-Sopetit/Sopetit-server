@@ -12,7 +12,6 @@ import com.soptie.server.domain.routine.Routine;
 import com.soptie.server.persistence.entity.routine.MemberRoutineEntity;
 import com.soptie.server.persistence.global.RoutineStore;
 import com.soptie.server.persistence.repository.routine.MemberRoutineRepository;
-import com.soptie.server.persistence.repository.routine.RoutineRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -24,7 +23,6 @@ public class MemberRoutineAdapter {
 	private final MemberRoutineRepository memberRoutineRepository;
 
 	private final RoutineStore routineStore;
-	private final RoutineRepository routineRepository;
 
 	/**
 	 * save
@@ -36,7 +34,8 @@ public class MemberRoutineAdapter {
 	}
 
 	public List<MemberRoutine> saveAll(Member member, List<Routine> routines) {
-		val deletedMemberRoutines = memberRoutineRepository.findDeletedByMemberId(member.getId());
+		List<Long> routineIds = routines.stream().map(Routine::getId).toList();
+		val deletedMemberRoutines = memberRoutineRepository.findDeletedByMemberId(member.getId(), routineIds);
 		val deletedRoutineIds = deletedMemberRoutines
 			.stream().map(MemberRoutineEntity::getRoutineId)
 			.toList();
@@ -51,16 +50,6 @@ public class MemberRoutineAdapter {
 	/**
 	 * find
 	 */
-
-	public List<MemberRoutine> findAllByRoutineIds(long memberId, List<Long> routineIds) {
-		return memberRoutineRepository.findByMemberIdAndRoutineIdIn(memberId, routineIds)
-			.stream()
-			.map(MemberRoutineEntity::toDomain)
-			.map(this::mergeWithRoutine)
-			.filter(Objects::nonNull)
-			.filter(routine -> routine.getThemeId() != null)
-			.toList();
-	}
 
 	public List<MemberRoutine> findByMemberId(long memberId) {
 		return memberRoutineRepository.findByMemberId(memberId)

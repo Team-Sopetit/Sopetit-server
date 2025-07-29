@@ -1,6 +1,9 @@
 package com.soptie.server.persistence.entity.routine;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -101,6 +104,15 @@ public class MemberRoutineEntity extends BaseEntity {
 	}
 
 	public void restore() {
+		if (!isAchievedToday() && (isAchievedToday || isAchieved)) {
+			this.isAchievedToday = false;
+			this.isAchieved = false;
+		}
 		this.isDeleted = false;
+	}
+
+	private boolean isAchievedToday() {
+		LocalDate updatedDate = Optional.ofNullable(this.updatedAt).map(LocalDateTime::toLocalDate).orElse(null);
+		return LocalDate.now().equals(updatedDate);
 	}
 }
