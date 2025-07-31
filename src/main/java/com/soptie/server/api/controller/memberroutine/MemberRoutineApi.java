@@ -45,7 +45,7 @@ public class MemberRoutineApi implements MemberRoutineApiDocs {
 		@PathVariable long routineId
 	) {
 		val memberId = Long.parseLong(principal.getName());
-		val response = memberRoutineService.achieveMemberRoutine(memberId, routineId);
+		val response = memberRoutineService.achieveOrCancel(memberId, routineId);
 		return SuccessResponse.success(MessageConstants.ACHIEVE_ROUTINE.getMessage(), response);
 	}
 

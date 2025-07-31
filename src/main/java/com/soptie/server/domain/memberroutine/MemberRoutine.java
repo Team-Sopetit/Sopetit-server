@@ -1,6 +1,7 @@
 package com.soptie.server.domain.memberroutine;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.soptie.server.domain.member.Member;
@@ -14,10 +15,12 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class MemberRoutine {
+
 	private Long id;
-	private boolean isAchieved = false;
-	private boolean isAchievedToday = false;
-	private int achievementCount = 0;
+	private boolean isAchieved;
+	private int achievementCount;
+	private LocalDateTime lastAchievedAt;
+
 	private long memberId;
 	private Long routineId;
 	private LocalDate createdAt;
@@ -28,23 +31,8 @@ public class MemberRoutine {
 
 	public MemberRoutine(Member member, Routine routine) {
 		this.isAchieved = false;
-		this.isAchievedToday = false;
 		this.achievementCount = 0;
 		this.memberId = member.getId();
 		this.routineId = routine.getId();
-	}
-
-	public void achieve() {
-		this.isAchievedToday = true;
-		this.achievementCount += !this.isAchieved ? 1 : -1;
-		this.isAchieved = !this.isAchieved;
-	}
-
-	public void cancel(LocalDate historyDate) {
-		if (historyDate.equals(LocalDate.now())) {
-			this.isAchievedToday = false;
-			this.isAchieved = false;
-		}
-		this.achievementCount--;
 	}
 }

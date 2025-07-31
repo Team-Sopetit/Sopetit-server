@@ -31,10 +31,6 @@ public class RoutineHistoryAdapter {
 	/**
 	 * delete
 	 */
-	public void deleteByRoutineIdAndCreatedAt(long memberRoutineId, LocalDate date) {
-		historyRepository.deleteByMemberRoutineIdAndCreatedAt(memberRoutineId, date);
-	}
-
 	public void deleteById(long id) {
 		historyRepository.deleteById(id);
 	}

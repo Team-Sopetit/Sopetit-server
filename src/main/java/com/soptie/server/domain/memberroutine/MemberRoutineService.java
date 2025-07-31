@@ -1,6 +1,7 @@
 package com.soptie.server.domain.memberroutine;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import com.soptie.server.api.controller.memberroutine.dto.CreateMemberRoutinesRe
 import com.soptie.server.api.controller.memberroutine.dto.UpdateMemberRoutineRequest;
 import com.soptie.server.common.exception.ExceptionCode;
 import com.soptie.server.common.exception.SoftieException;
+import com.soptie.server.common.utils.TimeUtils;
+import com.soptie.server.domain.member.Member;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAdapter;
@@ -23,7 +26,7 @@ import lombok.val;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class MemberRoutineService {
 	private final MemberRoutineAdapter memberRoutineAdapter;
 	private final MemberAdapter memberAdapter;
@@ -31,7 +34,6 @@ public class MemberRoutineService {
 	private final RoutineHistoryAdapter routineHistoryAdapter;
 	private final RoutineAlarmAdapter routineAlarmAdapter;
 
-	@Transactional
 	public CreateMemberRoutinesResponse createRoutines(
 		long memberId,
 		CreateMemberRoutinesRequest request
@@ -42,7 +44,6 @@ public class MemberRoutineService {
 		return CreateMemberRoutinesResponse.of(savedMemberRoutines);
 	}
 
-	@Transactional
 	public void deleteMemberRoutines(long memberId, List<Long> memberRoutineIds) {
 		val memberRoutines = memberRoutineAdapter.findByIds(memberRoutineIds).stream()
 			.filter(memberRoutine -> memberRoutine.getMemberId() == memberId)
@@ -51,49 +52,53 @@ public class MemberRoutineService {
 		memberRoutineAdapter.deleteAll(memberRoutines);
 	}
 
-	@Transactional
-	public AchieveMemberRoutineResponse achieveMemberRoutine(long memberId, long memberRoutineId) {
-		val member = memberAdapter.findById(memberId);
-		val memberRoutine = memberRoutineAdapter.findById(memberRoutineId);
-		val isAchievedToday = memberRoutine.isAchievedToday();
-
+	public AchieveMemberRoutineResponse achieveOrCancel(long memberId, long memberRoutineId) {
+		Member member = memberAdapter.findById(memberId);
+		MemberRoutine memberRoutine = memberRoutineAdapter.findById(memberRoutineId);
 		validateMemberRoutine(memberRoutine, memberId);
 
-		if (!isAchievedToday) {
+		boolean achievedToday = LocalDate.now().equals(TimeUtils.toDateTime(memberRoutine.getLastAchievedAt()));
+		if (memberRoutine.isAchieved() && achievedToday) {
+			cancelAchievement(memberRoutine);
+		} else {
+			achieve(memberRoutine, member, achievedToday);
+		}
+
+		return AchieveMemberRoutineResponse.of(memberRoutine, !achievedToday);
+	}
+
+	private void achieve(MemberRoutine memberRoutine, Member member, boolean achievedToday) {
+		if (!achievedToday) {
 			member.getCottonInfo().addBasicCottonCount();
 			memberAdapter.update(member);
 		}
 
-		memberRoutine.achieve();
+		memberRoutine.setAchieved(true);
+		memberRoutine.setLastAchievedAt(LocalDateTime.now());
+		memberRoutine.setAchievementCount(memberRoutine.getAchievementCount() + 1);
 		memberRoutineAdapter.update(memberRoutine);
-		updateHistory(memberRoutine, isAchievedToday);
-
-		return AchieveMemberRoutineResponse.of(memberRoutine, !isAchievedToday);
+		routineHistoryAdapter.save(memberRoutine);
 	}
 
-	private void updateHistory(MemberRoutine memberRoutine, boolean isAchievedToday) {
-		if (isAchievedToday) {
-			routineHistoryAdapter.deleteByRoutineIdAndCreatedAt(memberRoutine.getId(), LocalDate.now());
-		} else {
-			routineHistoryAdapter.save(memberRoutine);
-		}
+	private void cancelAchievement(MemberRoutine memberRoutine) {
+		memberRoutine.setAchieved(false);
+		memberRoutine.setAchievementCount(memberRoutine.getAchievementCount() - 1);
+		memberRoutineAdapter.update(memberRoutine);
 	}
 
-	@Transactional
-	public void initAchievement() {
-		memberRoutineAdapter.initAllAchievement();
-	}
-
-	@Transactional
 	public void deleteHistory(long historyId) {
 		val history = routineHistoryAdapter.findById(historyId);
 		val memberRoutine = memberRoutineAdapter.findById(history.getMemberRoutineId());
-		memberRoutine.cancel(history.getCreatedAt().toLocalDate());
+
+		if (LocalDate.now().equals(TimeUtils.toDateTime(history.getCreatedAt()))) {
+			memberRoutine.setAchieved(false);
+		}
+
+		memberRoutine.setAchievementCount(memberRoutine.getAchievementCount() - 1);
 		memberRoutineAdapter.update(memberRoutine);
 		routineHistoryAdapter.deleteById(historyId);
 	}
 
-	@Transactional
 	public void updateMemberRoutine(long memberId, long memberRoutineId, UpdateMemberRoutineRequest request) {
 		memberAdapter.findById(memberId);
 		MemberRoutine memberRoutine = memberRoutineAdapter.findById(memberRoutineId);
