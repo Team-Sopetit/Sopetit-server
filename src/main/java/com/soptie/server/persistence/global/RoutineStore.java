@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +34,6 @@ public class RoutineStore {
 
 	private LocalDate updateDate;
 
-	@PostConstruct
 	public void init() {
 		if (MapUtils.isNotEmpty(this.routines) && LocalDate.now().equals(this.updateDate)) {
 			return;
@@ -57,7 +54,7 @@ public class RoutineStore {
 		if (Collections.isEmpty(routines)) {
 			return getFallback(id);
 		}
-		return routines.getOrDefault(id, getFallback(id));
+		return routines.containsKey(id) ? routines.get(id) : getFallback(id);
 	}
 
 	private Map<Long, Routine> getNewRoutines() {

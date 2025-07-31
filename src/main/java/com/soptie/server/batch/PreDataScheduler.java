@@ -1,5 +1,7 @@
 package com.soptie.server.batch;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -16,10 +18,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PreDataScheduler {
-	private ThemeStore themeStore;
-	private RoutineStore routineStore;
-	private ChallengeStore challengeStore;
+	private final ThemeStore themeStore;
+	private final RoutineStore routineStore;
+	private final ChallengeStore challengeStore;
 
+	@PostConstruct
 	@Scheduled(cron = "0 0 3 * * *")
 	public void initStore() {
 		themeStore.init();

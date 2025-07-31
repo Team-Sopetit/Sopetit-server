@@ -68,16 +68,16 @@ public class MemberRoutineService {
 	}
 
 	private void achieve(MemberRoutine memberRoutine, Member member, boolean achievedToday) {
-		if (!achievedToday) {
-			member.getCottonInfo().addBasicCottonCount();
-			memberAdapter.update(member);
-		}
-
 		memberRoutine.setAchieved(true);
 		memberRoutine.setLastAchievedAt(LocalDateTime.now());
 		memberRoutine.setAchievementCount(memberRoutine.getAchievementCount() + 1);
 		memberRoutineAdapter.update(memberRoutine);
-		routineHistoryAdapter.save(memberRoutine);
+
+		if (!achievedToday) {
+			member.getCottonInfo().addBasicCottonCount();
+			memberAdapter.update(member);
+			routineHistoryAdapter.save(memberRoutine);
+		}
 	}
 
 	private void cancelAchievement(MemberRoutine memberRoutine) {

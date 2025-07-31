@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.stereotype.Component;
 
 import com.mysema.commons.lang.Pair;
@@ -34,7 +32,6 @@ public class ThemeStore {
 
 	private LocalDate updateDate;
 
-	@PostConstruct
 	public void init() {
 		if (MapUtils.isNotEmpty(this.themes) && LocalDate.now().equals(this.updateDate)) {
 			return;
@@ -56,7 +53,7 @@ public class ThemeStore {
 			return getFallback(id);
 		}
 
-		return themes.getOrDefault(id, getFallback(id));
+		return themes.containsKey(id) ? themes.get(id) : getFallback(id);
 	}
 
 	public List<Theme> getAll() {
