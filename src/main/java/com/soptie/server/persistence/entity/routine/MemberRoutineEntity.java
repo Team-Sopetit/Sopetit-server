@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
+import com.soptie.server.common.utils.TimeUtils;
 import com.soptie.server.domain.member.Member;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.routine.Routine;
@@ -31,12 +32,16 @@ import lombok.NoArgsConstructor;
 	schema = "softie",
 	uniqueConstraints = @UniqueConstraint(columnNames = {"member_id", "routine_id"}))
 public class MemberRoutineEntity extends BaseEntity {
+
 	@Column(nullable = false)
 	private boolean isAchieved;
-	@Column(nullable = false)
-	private boolean isAchievedToday;
+
 	@Column(nullable = false)
 	private int achievementCount;
+
+	@Column
+	private LocalDateTime lastAchievedAt;
+
 	@Column(nullable = false)
 	private boolean isDeleted;
 	@Column(nullable = false)
@@ -46,10 +51,8 @@ public class MemberRoutineEntity extends BaseEntity {
 	private LocalTime alarmTime;
 	private Long themeId;
 
-	//TODO: 아래 생성자 활용 (Entity 보호)
 	public MemberRoutineEntity(Member member, Routine routine) {
 		this.isAchieved = false;
-		this.isAchievedToday = false;
 		this.achievementCount = 0;
 		this.isDeleted = false;
 		this.memberId = member.getId();
@@ -59,8 +62,8 @@ public class MemberRoutineEntity extends BaseEntity {
 
 	public MemberRoutineEntity(MemberRoutine memberRoutine) {
 		this.isAchieved = memberRoutine.isAchieved();
-		this.isAchievedToday = memberRoutine.isAchievedToday();
 		this.achievementCount = memberRoutine.getAchievementCount();
+		this.lastAchievedAt = memberRoutine.getLastAchievedAt();
 		this.isDeleted = false;
 		this.memberId = memberRoutine.getMemberId();
 		this.routineId = memberRoutine.getRoutineId();
@@ -69,11 +72,12 @@ public class MemberRoutineEntity extends BaseEntity {
 		this.themeId = memberRoutine.getThemeId();
 	}
 
+	//todo. add converter
 	public MemberRoutine toDomain() {
 		return MemberRoutine.builder()
 			.id(this.id)
-			.isAchieved(this.isAchieved)
-			.isAchievedToday(this.isAchievedToday)
+			.isAchieved(isAchieved && LocalDate.now().equals(TimeUtils.toDateTime(lastAchievedAt)))
+			.lastAchievedAt(this.lastAchievedAt)
 			.achievementCount(this.achievementCount)
 			.memberId(this.memberId)
 			.routineId(this.routineId)
@@ -87,14 +91,14 @@ public class MemberRoutineEntity extends BaseEntity {
 
 	public void update(MemberRoutine memberRoutine) {
 		this.isAchieved = memberRoutine.isAchieved();
-		this.isAchievedToday = memberRoutine.isAchievedToday();
+		this.lastAchievedAt = memberRoutine.getLastAchievedAt();
 		this.achievementCount = memberRoutine.getAchievementCount();
 		this.content = memberRoutine.getContent();
 	}
 
 	public void updateAll(MemberRoutine memberRoutine) {
 		this.isAchieved = memberRoutine.isAchieved();
-		this.isAchievedToday = memberRoutine.isAchievedToday();
+		this.lastAchievedAt = memberRoutine.getLastAchievedAt();
 		this.achievementCount = memberRoutine.getAchievementCount();
 		this.memberId = memberRoutine.getMemberId();
 		this.routineId = memberRoutine.getRoutineId();
@@ -104,15 +108,14 @@ public class MemberRoutineEntity extends BaseEntity {
 	}
 
 	public void restore() {
-		if (!isAchievedToday() && (isAchievedToday || isAchieved)) {
-			this.isAchievedToday = false;
+		if (isAchieved && !isAchievedToday()) {
 			this.isAchieved = false;
 		}
 		this.isDeleted = false;
 	}
 
 	private boolean isAchievedToday() {
-		LocalDate updatedDate = Optional.ofNullable(this.updatedAt).map(LocalDateTime::toLocalDate).orElse(null);
-		return LocalDate.now().equals(updatedDate);
+		LocalDate achievedDate = Optional.ofNullable(lastAchievedAt).map(LocalDateTime::toLocalDate).orElse(null);
+		return LocalDate.now().equals(achievedDate);
 	}
 }

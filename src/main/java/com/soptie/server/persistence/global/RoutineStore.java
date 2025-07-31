@@ -2,14 +2,10 @@ package com.soptie.server.persistence.global;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.mysema.commons.lang.Pair;
@@ -38,8 +34,6 @@ public class RoutineStore {
 
 	private LocalDate updateDate;
 
-	@PostConstruct
-	@Scheduled(cron = "0 20 */1 * * *")
 	public void init() {
 		if (MapUtils.isNotEmpty(this.routines) && LocalDate.now().equals(this.updateDate)) {
 			return;
@@ -60,11 +54,7 @@ public class RoutineStore {
 		if (Collections.isEmpty(routines)) {
 			return getFallback(id);
 		}
-		return routines.getOrDefault(id, getFallback(id));
-	}
-
-	public List<Routine> getAll() {
-		return routines.values().stream().toList();
+		return routines.containsKey(id) ? routines.get(id) : getFallback(id);
 	}
 
 	private Map<Long, Routine> getNewRoutines() {

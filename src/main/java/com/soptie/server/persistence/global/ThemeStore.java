@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.mysema.commons.lang.Pair;
@@ -25,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-@EnableScheduling
 @RequiredArgsConstructor
 public class ThemeStore {
 
@@ -37,8 +32,6 @@ public class ThemeStore {
 
 	private LocalDate updateDate;
 
-	@PostConstruct
-	@Scheduled(cron = "0 0 */1 * * *")
 	public void init() {
 		if (MapUtils.isNotEmpty(this.themes) && LocalDate.now().equals(this.updateDate)) {
 			return;
@@ -60,7 +53,7 @@ public class ThemeStore {
 			return getFallback(id);
 		}
 
-		return themes.getOrDefault(id, getFallback(id));
+		return themes.containsKey(id) ? themes.get(id) : getFallback(id);
 	}
 
 	public List<Theme> getAll() {
