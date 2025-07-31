@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.soptie.server.persistence.entity.routine.MemberRoutineEntity;
 import com.soptie.server.persistence.repository.routine.custom.MemberRoutineCustomRepository;
-import com.soptie.server.persistence.repository.utils.QueryUtils;
+import com.soptie.server.persistence.support.QueryConstants;
 
 public interface MemberRoutineRepository
 	extends JpaRepository<MemberRoutineEntity, Long>, MemberRoutineCustomRepository {
@@ -17,30 +17,24 @@ public interface MemberRoutineRepository
 	 * find
 	 */
 
-	@Query(
-		value = "SELECT * FROM member_routine WHERE member_id = :memberId AND is_deleted = true",
-		nativeQuery = true)
-	List<MemberRoutineEntity> findDeletedByMemberId(long memberId);
+	@Query(value = QueryConstants.FIND_DELETED_MEMBER_ROUTINES_IN_TARGETS, nativeQuery = true)
+	List<MemberRoutineEntity> findDeletedByMemberId(long memberId, List<Long> targetIds);
 
 	List<MemberRoutineEntity> findByMemberId(long memberId);
 
 	List<MemberRoutineEntity> findByIdIn(List<Long> ids);
-
-	List<MemberRoutineEntity> findByMemberIdAndRoutineIdIn(long memberId, List<Long> routineIds);
 
 	/**
 	 * delete
 	 */
 
 	@Modifying
-	@Query(
-		value = "DELETE FROM member_routine WHERE member_id = :memberId",
-		nativeQuery = true)
+	@Query(value = QueryConstants.FORCE_DELETE_MEMBER_ROUTINES, nativeQuery = true)
 	void deleteAllByMemberId(long memberId);
 
 	void deleteAllByIdIn(List<Long> ids);
 
 	@Modifying
-	@Query(value = QueryUtils.DELETE_FORCE_MEMBER_ROUTINE, nativeQuery = true)
+	@Query(value = QueryConstants.DELETE_FORCE_MEMBER_ROUTINE, nativeQuery = true)
 	void deleteForceById(long id);
 }
