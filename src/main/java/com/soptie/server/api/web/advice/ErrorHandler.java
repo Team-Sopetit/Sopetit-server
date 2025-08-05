@@ -10,6 +10,7 @@ import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.helper.webhook.WebhookLogger;
 import com.soptie.server.common.helper.webhook.model.WebhookLoggerRequest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,9 +30,9 @@ public class ErrorHandler {
 	}
 
 	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<ErrorResponse> exception(RuntimeException exception) {
+	public ResponseEntity<ErrorResponse> exception(RuntimeException exception, HttpServletRequest request) {
 		log.error(exception.getMessage());
-		webhookLogger.send(WebhookLoggerRequest.error(exception));
+		webhookLogger.send(WebhookLoggerRequest.error(exception, request));
 		return ResponseEntity
 			.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
 			.body(ErrorResponse.of(exception.getMessage()));

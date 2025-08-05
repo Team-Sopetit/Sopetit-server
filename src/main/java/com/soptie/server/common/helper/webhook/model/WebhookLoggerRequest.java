@@ -1,5 +1,6 @@
 package com.soptie.server.common.helper.webhook.model;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Builder;
 
 @Builder
@@ -25,9 +26,18 @@ public record WebhookLoggerRequest(
 			.build();
 	}
 
-	public static WebhookLoggerRequest error(Exception exception) {
+	public static WebhookLoggerRequest error(Exception exception, HttpServletRequest request) {
+		String method = request.getMethod();
+		String uri = request.getRequestURI();
+		String queryString = request.getQueryString();
+
+		String title = String.format("🚨 %s %s", method, uri);
+		if (queryString != null) {
+			title += "?" + queryString;
+		}
+
 		return WebhookLoggerRequest.builder()
-			.title("🚨 서버 에러가 발생했습니다. 로그를 확인해주세요.")
+			.title(title)
 			.content(exception.getMessage())
 			.webhookType(WebhookType.ERROR)
 			.build();

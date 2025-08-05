@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soptie.server.api.controller.customroutine.dto.CustomRoutineRequest;
 import com.soptie.server.domain.memberroutine.MemberRoutine;
 import com.soptie.server.domain.memberroutine.RoutineAlarm;
-import com.soptie.server.domain.theme.Theme;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAlarmAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
@@ -30,12 +29,10 @@ public class CustomRoutineCommandService {
 	private final ThemeStore themeStore;
 
 	public MemberRoutine create(long memberId, @NotNull CustomRoutineRequest request) {
-		Long validatedThemeId = Optional.ofNullable(themeStore.get(request.themeId())).map(Theme::getId).orElse(null);
-
 		MemberRoutine memberRoutine = memberRoutineAdapter.save(MemberRoutine.builder()
 			.memberId(memberId)
 			.content(request.content())
-			.themeId(validatedThemeId)
+			.themeId(themeStore.getValidatedId(request.themeId()))
 			.alarmTime(request.alarmTime())
 			.build()
 		);
@@ -65,8 +62,11 @@ public class CustomRoutineCommandService {
 			saveRoutineAlarm(memberRoutine, request.alarmTime());
 		}
 
+		Long validatedThemeId
+			= Optional.ofNullable(themeStore.getValidatedId(request.themeId())).orElse(memberRoutine.getThemeId());
+
+		memberRoutine.setThemeId(validatedThemeId);
 		memberRoutine.setContent(request.content());
-		memberRoutine.setThemeId(request.themeId());
 		memberRoutine.setAlarmTime(request.alarmTime());
 
 		return memberRoutineAdapter.updateAll(memberRoutine);

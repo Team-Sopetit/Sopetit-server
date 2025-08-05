@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -53,11 +54,15 @@ public class ThemeStore {
 			return getFallback(id);
 		}
 
-		return themes.containsKey(id) ? themes.get(id) : getFallback(id);
+		return themes.getOrDefault(id, null);
 	}
 
 	public List<Theme> getAll() {
 		return themes.values().stream().toList();
+	}
+
+	public Long getValidatedId(long id) {
+		return Optional.ofNullable(get(id)).map(Theme::getId).orElse(null);
 	}
 
 	private Map<Long, Theme> getNewThemes() {
