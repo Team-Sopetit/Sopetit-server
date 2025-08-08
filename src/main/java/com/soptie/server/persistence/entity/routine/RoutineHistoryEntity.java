@@ -17,6 +17,7 @@ public class RoutineHistoryEntity extends BaseEntity {
 	private long memberId;
 	private Long routineId;
 	private String content;
+	//todo. themeId 추가 고려해보기. custom memberRoutine 이 삭제되었을 때 알아낼 방법이 없음.
 
 	public RoutineHistoryEntity(final MemberRoutine memberRoutine) {
 		this.memberRoutineId = memberRoutine.getId();

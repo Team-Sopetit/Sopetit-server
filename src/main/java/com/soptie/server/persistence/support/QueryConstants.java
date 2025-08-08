@@ -12,4 +12,6 @@ public class QueryConstants {
 		+ "WHERE member_id = :memberId AND is_deleted = true AND routine_id IN (:targetIds)";
 
 	public static final String FORCE_DELETE_MEMBER_ROUTINES = "DELETE FROM member_routine WHERE member_id = :memberId";
+
+	public static final String FIND_BY_ID = "SELECT * FROM member_routine WHERE id = :id";
 }

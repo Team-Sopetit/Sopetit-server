@@ -99,6 +99,13 @@ public class MemberRoutineAdapter {
 		return mergeWithRoutine(find(memberRoutineId).toDomain());
 	}
 
+	public MemberRoutine findByIdRegardlessOfDeleted(long id) {
+		return memberRoutineRepository.findByIdRegardlessOfDeleted(id)
+			.map(MemberRoutineEntity::toDomain)
+			.map(this::mergeWithRoutine)
+			.orElse(null);
+	}
+
 	/**
 	 * update
 	 */

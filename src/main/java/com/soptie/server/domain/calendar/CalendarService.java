@@ -152,12 +152,13 @@ public class CalendarService {
 		val histories = routines.getOrDefault(date, Collections.emptyList());
 		return histories.stream()
 			.collect(Collectors.groupingBy(
+				//todo. history 중 하나라도 여기서 error 만나면 전체 응답에 영향가므로 리팩토링이 필요함.
 				this::getRoutineTheme
 			));
 	}
 
 	private Theme getRoutineTheme(final RoutineHistory history) {
-		MemberRoutine memberRoutine = memberRoutineAdapter.findById(history.getMemberRoutineId());
+		MemberRoutine memberRoutine = memberRoutineAdapter.findByIdRegardlessOfDeleted(history.getMemberRoutineId());
 		return themeAdapter.findById(memberRoutine.getThemeId());
 	}
 
