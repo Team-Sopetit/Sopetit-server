@@ -1,6 +1,7 @@
 package com.soptie.server.persistence.repository.routine;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,6 +24,9 @@ public interface MemberRoutineRepository
 	List<MemberRoutineEntity> findByMemberId(long memberId);
 
 	List<MemberRoutineEntity> findByIdIn(List<Long> ids);
+
+	@Query(value = QueryConstants.FIND_BY_ID, nativeQuery = true)
+	Optional<MemberRoutineEntity> findByIdRegardlessOfDeleted(long id);
 
 	/**
 	 * delete

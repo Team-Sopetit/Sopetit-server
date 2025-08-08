@@ -2,6 +2,7 @@ package com.soptie.server.domain.customroutine;
 
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import com.soptie.server.domain.memberroutine.RoutineAlarm;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineAlarmAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
+import com.soptie.server.persistence.global.ThemeStore;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -24,18 +26,21 @@ public class CustomRoutineCommandService {
 	private final MemberRoutineAdapter memberRoutineAdapter;
 	private final RoutineAlarmAdapter routineAlarmAdapter;
 	private final RoutineHistoryAdapter routineHistoryAdapter;
+	private final ThemeStore themeStore;
 
 	public MemberRoutine create(long memberId, @NotNull CustomRoutineRequest request) {
 		MemberRoutine memberRoutine = memberRoutineAdapter.save(MemberRoutine.builder()
 			.memberId(memberId)
 			.content(request.content())
-			.themeId(request.themeId())
+			.themeId(themeStore.getValidatedId(request.themeId()))
 			.alarmTime(request.alarmTime())
 			.build()
 		);
+
 		if (Objects.nonNull(request.alarmTime())) {
 			saveRoutineAlarm(memberRoutine, request.alarmTime());
 		}
+
 		return memberRoutine;
 	}
 
@@ -57,8 +62,11 @@ public class CustomRoutineCommandService {
 			saveRoutineAlarm(memberRoutine, request.alarmTime());
 		}
 
+		Long validatedThemeId
+			= Optional.ofNullable(themeStore.getValidatedId(request.themeId())).orElse(memberRoutine.getThemeId());
+
+		memberRoutine.setThemeId(validatedThemeId);
 		memberRoutine.setContent(request.content());
-		memberRoutine.setThemeId(request.themeId());
 		memberRoutine.setAlarmTime(request.alarmTime());
 
 		return memberRoutineAdapter.updateAll(memberRoutine);

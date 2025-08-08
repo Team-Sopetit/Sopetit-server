@@ -22,8 +22,19 @@ public class MemberRoutineReadService {
 	private final ThemeStore themeStore;
 
 	public Map<Theme, List<MemberRoutine>> getAllWithTheme(long memberId) {
-		return memberRoutineAdapter.findByMemberId(memberId)
-			.stream()
-			.collect(Collectors.groupingBy(routine -> themeStore.get(routine.getThemeId())));
+		List<MemberRoutine> memberRoutines = memberRoutineAdapter.findByMemberId(memberId);
+		Map<Long, Theme> themeMap = getThemeMap(memberRoutines);
+		return memberRoutines.stream()
+			.filter(routine -> themeMap.containsKey(routine.getThemeId()))
+			.collect(Collectors.groupingBy(routine -> themeMap.get(routine.getThemeId())));
+	}
+
+	private Map<Long, Theme> getThemeMap(List<MemberRoutine> memberRoutines) {
+		return memberRoutines.stream()
+			.map(MemberRoutine::getThemeId)
+			.distinct()
+			.map(id -> Map.entry(id, themeStore.get(id)))
+			.filter(entry -> entry.getKey() != null && entry.getValue() != null)
+			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 }
