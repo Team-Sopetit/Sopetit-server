@@ -22,6 +22,7 @@ import com.soptie.server.persistence.adapter.MemoAdapter;
 import com.soptie.server.persistence.adapter.challenge.ChallengeHistoryAdapter;
 import com.soptie.server.persistence.adapter.challenge.MemberChallengeAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAlarmAdapter;
 import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,7 @@ public class AuthService {
 	private final ChallengeHistoryAdapter challengeHistoryAdapter;
 	private final RoutineHistoryAdapter routineHistoryAdapter;
 	private final MemoAdapter memoAdapter;
+	private final RoutineAlarmAdapter routineAlarmAdapter;
 	private final MemberAdapter memberAdapter;
 
 	@Transactional
@@ -82,6 +84,7 @@ public class AuthService {
 		memoAdapter.deleteAllByMemberId(memberId);
 		routineHistoryAdapter.deleteAllByMemberId(memberId);
 		challengeHistoryAdapter.deleteAllByMemberId(memberId);
+		routineAlarmAdapter.deleteByMemberRoutineId(memberId);
 		memberAdapter.delete(memberId);
 
 		webhookLogger.send(WebhookLoggerRequest.withdraw(memberAdapter.countAll()));
