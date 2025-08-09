@@ -28,4 +28,6 @@ public interface ChallengeHistoryRepository extends JpaRepository<ChallengeHisto
 	@Query("SELECT c FROM ChallengeHistoryEntity c WHERE c.memberId = :memberId "
 		+ "AND c.challengeId = :challengeId AND FUNCTION('DATE', c.createdAt) = :date")
 	Optional<ChallengeHistoryEntity> findByMemberIdAndChallengeId(long memberId, long challengeId, LocalDate date);
+
+	void deleteAllByMemberId(long memberId);
 }
