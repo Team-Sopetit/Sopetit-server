@@ -31,4 +31,6 @@ public interface RoutineHistoryRepository extends JpaRepository<RoutineHistoryEn
 	);
 
 	void deleteByRoutineId(long routineId);
+
+	void deleteAllByMemberId(long memberId);
 }

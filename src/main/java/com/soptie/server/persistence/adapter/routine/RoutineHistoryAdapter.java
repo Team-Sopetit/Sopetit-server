@@ -60,4 +60,8 @@ public class RoutineHistoryAdapter {
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "RoutineHistoryId: " + id))
 			.toDomain();
 	}
+
+	public void deleteAllByMemberId(final long memberId) {
+		historyRepository.deleteAllByMemberId(memberId);
+	}
 }

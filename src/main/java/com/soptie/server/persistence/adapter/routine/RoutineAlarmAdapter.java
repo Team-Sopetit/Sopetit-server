@@ -49,6 +49,10 @@ public class RoutineAlarmAdapter {
 		routineAlarmRepository.deleteByMemberRoutineId(memberRoutineId);
 	}
 
+	public void deleteAllByMemberId(long memberId) {
+		routineAlarmRepository.deleteAllByMemberId(memberId);
+	}
+
 	private RoutineAlarmEntity find(long id) {
 		return routineAlarmRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "RoutineAlarm ID: " + id));

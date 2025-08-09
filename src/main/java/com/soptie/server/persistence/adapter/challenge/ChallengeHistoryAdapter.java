@@ -52,4 +52,8 @@ public class ChallengeHistoryAdapter {
 		LocalDate date = LocalDate.now();
 		return historyRepository.findByMemberIdAndChallengeId(memberId, challengeId, date).isPresent();
 	}
+
+	public void deleteAllByMemberId(long memberId) {
+		historyRepository.deleteAllByMemberId(memberId);
+	}
 }
