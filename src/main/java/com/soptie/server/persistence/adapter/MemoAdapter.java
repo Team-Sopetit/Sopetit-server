@@ -60,6 +60,12 @@ public class MemoAdapter {
 			.map(MemoEntity::toDomain).toList();
 	}
 
+	public void deleteAllByMemberId(
+		final long memberId
+	) {
+		memoRepository.deleteAllByMemberId(memberId);
+	}
+
 	private MemoEntity find(final long id) {
 		return memoRepository.findById(id)
 			.orElseThrow(() -> new SoftieException(ExceptionCode.NOT_FOUND, "Memo ID: " + id));
