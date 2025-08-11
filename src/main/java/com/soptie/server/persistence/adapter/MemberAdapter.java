@@ -47,6 +47,10 @@ public class MemberAdapter {
 		return MemberConverter.convert(find(memberId));
 	}
 
+	public boolean existsById(long memberId) {
+		return memberRepository.existsById(memberId);
+	}
+
 	public void update(Member member) {
 		find(member.getId()).update(member);
 	}

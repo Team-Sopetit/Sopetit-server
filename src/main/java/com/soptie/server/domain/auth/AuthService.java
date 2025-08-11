@@ -9,6 +9,8 @@ import com.soptie.server.api.controller.auth.dto.SignInResponse;
 import com.soptie.server.api.controller.auth.dto.TokenGetResponse;
 import com.soptie.server.api.web.jwt.JwtTokenProvider;
 import com.soptie.server.api.web.jwt.UserAuthentication;
+import com.soptie.server.common.exception.ExceptionCode;
+import com.soptie.server.common.exception.SoftieException;
 import com.soptie.server.common.helper.webhook.WebhookLogger;
 import com.soptie.server.common.helper.webhook.model.WebhookLoggerRequest;
 import com.soptie.server.common.support.ValueConfig;
@@ -77,7 +79,9 @@ public class AuthService {
 
 	@Transactional
 	public void withdraw(long memberId) {
-		memberAdapter.findById(memberId);
+		if (!memberAdapter.existsById(memberId)) {
+			throw new SoftieException(ExceptionCode.NOT_FOUND, "존재하지 않는 회원, Member ID: " + memberId);
+		}
 		memberRoutineAdapter.deleteAllByMemberId(memberId);
 		memberChallengeAdapter.deleteAllByMemberId(memberId);
 		memberDollAdapter.deleteByMember(memberId);
