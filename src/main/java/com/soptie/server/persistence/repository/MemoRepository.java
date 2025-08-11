@@ -15,7 +15,7 @@ public interface MemoRepository extends JpaRepository<MemoEntity, Long> {
 
 	Optional<MemoEntity> findByIdAndMemberId(long id, long memberId);
 
-	void deleteByIdAndMemberId(long id, long memberId);
+	void deleteAllByMemberId(long memberId);
 
 	@Query("SELECT m FROM MemoEntity m WHERE m.memberId = :memberId AND m.achievedDate BETWEEN :startDate AND :endDate")
 	List<MemoEntity> findAllByMemberIdAndAchievedDateBetween(

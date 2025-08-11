@@ -18,8 +18,12 @@ import com.soptie.server.external.oauth.AppleService;
 import com.soptie.server.external.oauth.KakaoService;
 import com.soptie.server.persistence.adapter.MemberAdapter;
 import com.soptie.server.persistence.adapter.MemberDollAdapter;
+import com.soptie.server.persistence.adapter.MemoAdapter;
+import com.soptie.server.persistence.adapter.challenge.ChallengeHistoryAdapter;
 import com.soptie.server.persistence.adapter.challenge.MemberChallengeAdapter;
 import com.soptie.server.persistence.adapter.routine.MemberRoutineAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineAlarmAdapter;
+import com.soptie.server.persistence.adapter.routine.RoutineHistoryAdapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -38,6 +42,10 @@ public class AuthService {
 	private final MemberDollAdapter memberDollAdapter;
 	private final MemberRoutineAdapter memberRoutineAdapter;
 	private final MemberChallengeAdapter memberChallengeAdapter;
+	private final ChallengeHistoryAdapter challengeHistoryAdapter;
+	private final RoutineHistoryAdapter routineHistoryAdapter;
+	private final MemoAdapter memoAdapter;
+	private final RoutineAlarmAdapter routineAlarmAdapter;
 	private final MemberAdapter memberAdapter;
 
 	@Transactional
@@ -73,6 +81,10 @@ public class AuthService {
 		memberRoutineAdapter.deleteAllByMemberId(memberId);
 		memberChallengeAdapter.deleteAllByMemberId(memberId);
 		memberDollAdapter.deleteByMember(memberId);
+		memoAdapter.deleteAllByMemberId(memberId);
+		routineHistoryAdapter.deleteAllByMemberId(memberId);
+		challengeHistoryAdapter.deleteAllByMemberId(memberId);
+		routineAlarmAdapter.deleteByMemberRoutineId(memberId);
 		memberAdapter.delete(memberId);
 
 		webhookLogger.send(WebhookLoggerRequest.withdraw(memberAdapter.countAll()));

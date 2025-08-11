@@ -14,4 +14,6 @@ public interface RoutineAlarmRepository extends JpaRepository<RoutineAlarmEntity
 	RoutineAlarmEntity findByMemberRoutineId(Long memberRoutineId);
 
 	void deleteByMemberRoutineId(long memberRoutineId);
+
+	void deleteAllByMemberId(long memberId);
 }
